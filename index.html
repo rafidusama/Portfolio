@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Usama Rafid | Journalist</title>
+    <meta name="description" content="Official portfolio of Usama Rafid, Lecturer at ULAB, investigative journalist, and researcher focusing on digital transitions, media framing, and graphicacy in South Asia."/>
+
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="index.css?v=mobile-hero-headroom-balanced-20260528"/>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00003c",
+                        "secondary": "#50606f",
+                        "background": "#fcf9f8",
+                        "surface": "#fcf9f8",
+                        "surface-container": "#f0eded",
+                        "surface-container-low": "#f6f3f2",
+                        "surface-container-highest": "#e5e2e1",
+                        "outline-variant": "#c6c5d5"
+                    },
+                    spacing: {
+                        "margin-mobile": "24px",
+                        "margin-desktop": "80px",
+                        "stack-sm": "16px",
+                        "stack-md": "32px",
+                        "stack-lg": "64px",
+                        "stack-xl": "120px",
+                        "gutter": "24px"
+                    },
+                    fontFamily: {
+                        "label-caps": ["Plus Jakarta Sans", "sans-serif"],
+                        "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans", "sans-serif"],
+                        "subhead-serif": ["Noto Serif", "serif"],
+                        "display-hero": ["Plus Jakarta Sans", "sans-serif"],
+                        "display-hero-mobile": ["Plus Jakarta Sans", "sans-serif"],
+                        "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+                        "body-sm": ["Plus Jakarta Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-primary selection:bg-primary selection:text-white">
+
+    <!-- Header Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-background/85 backdrop-blur-md border-b border-outline-variant/40 py-5" id="top-nav">
+        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+            <!-- Brand Logo (Responsive Text: Usama on mobile, Usama Rafid on desktop) -->
+            <a class="font-label-caps text-lg md:text-xl font-extrabold tracking-tighter text-primary hover:opacity-75 transition-opacity" href="index.html">
+                <span class="sm:hidden">Usama</span>
+                <span class="hidden sm:inline">Usama Rafid</span>
+            </a>
+
+            <!-- Navigation Links (Inline on both desktop and mobile!) -->
+            <div class="flex gap-4 sm:gap-6 lg:gap-7 items-center justify-end font-label-caps text-[10px] sm:text-[11px] lg:text-[12px] font-bold tracking-widest">
+                <a class="hidden sm:inline nav-link-active pb-1" href="index.html">Home</a>
+                <a class="text-secondary hover:text-primary transition-colors pb-1" href="reportage.html">Reportage</a>
+                <a class="text-secondary hover:text-primary transition-colors pb-1" href="academic.html">Academic</a>
+                <a class="text-secondary hover:text-primary transition-colors pb-1" href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="pt-[73px]">
+
+        <!-- Hero Section -->
+        <section class="flex flex-col items-center justify-center relative overflow-hidden px-margin-mobile md:px-margin-desktop pt-10 md:pt-14 pb-8">
+            <div class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+            <div class="relative z-10 w-full max-w-[1280px] flex flex-col items-center text-center">
+
+                <h1 class="font-display-hero-mobile md:font-display-hero text-[48px] md:text-[100px] lg:text-[120px] uppercase leading-[0.95] tracking-tighter mb-3 md:mb-4 font-extrabold">
+                    Usama <br class="md:hidden"/> <span class="text-outline">Rafid</span>
+                </h1>
+
+                <p class="font-subhead-serif text-lg md:text-2xl italic text-secondary max-w-3xl leading-relaxed">
+                    Academician and Journalist
+                </p>
+
+                <!-- Styled Portrait Container -->
+                <div class="mt-8 relative w-full max-w-3xl aspect-[16/9] overflow-hidden bg-surface-container rounded-[2rem] shadow-xl group border border-outline-variant/30">
+                    <img alt="Usama Rafid - Professional Portrait"
+                         class="w-full h-full hero-portrait grayscale group-hover:grayscale-0 group-hover:scale-[1.02]"
+                         src="assets/portrait.jpg"/>
+                </div>
+
+                <!-- Hero Action CTAs -->
+                <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 relative z-20">
+                    <a href="academic.html" class="inline-flex items-center gap-2 bg-primary text-white px-8 py-3.5 font-label-caps text-xs font-bold tracking-widest hover:bg-secondary transition-all rounded-full shadow-md">
+                        Academic <span class="material-symbols-outlined text-sm">school</span>
+                    </a>
+                    <a href="reportage.html" class="inline-flex items-center gap-2 bg-transparent text-primary border-2 border-primary px-8 py-3.5 font-label-caps text-xs font-bold tracking-widest hover:bg-primary hover:text-white transition-all rounded-full">
+                        Reportage <span class="material-symbols-outlined text-sm">article</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brief Narrative / Showcase introduction -->
+        <section class="py-24 bg-surface-container-low border-y border-outline-variant/30 px-margin-mobile md:px-margin-desktop">
+            <div class="max-w-[1280px] mx-auto reveal-on-scroll">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start border-t border-primary/30 pt-8">
+                    <div class="md:col-span-4">
+                        <span class="font-label-caps text-xs font-extrabold uppercase text-primary tracking-widest">Selected Contributions</span>
+                    </div>
+                    <div class="md:col-span-8">
+                        <p class="font-subhead-serif text-xl md:text-3xl text-secondary leading-relaxed">
+                            Documenting geopolitical shifts, information networks, and the human narratives of the changing Bengal Delta.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Featured Card Grid -->
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+
+                    <!-- Card 1 -->
+                    <a href="https://www.tbsnews.net/thoughts/how-local-journalism-survives-debt-pressure-and-press-cards-1329911" target="_blank" rel="noopener" class="group block cursor-pointer">
+                        <div class="aspect-[16/9] bg-surface-container overflow-hidden mb-6 relative rounded-2xl shadow-md border border-outline-variant/35">
+                            <img class="w-full h-full article-image grayscale group-hover:grayscale-0 group-hover:scale-105" 
+                                 src="https://www.tbsnews.net/sites/default/files/styles/social_share/public/images/2025/10/15/pursuit_14.10.2025_copy.png"
+                                 alt="How Local Journalism Survives on Debt, Pressure and Press Cards"/>
+                            <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="bg-white text-primary px-5 py-2.5 font-label-caps text-[11px] font-bold tracking-wider rounded-full shadow-lg">Read Feature</span>
+                            </div>
+                        </div>
+                        <span class="font-label-caps text-[10px] font-bold text-secondary block mb-2 tracking-widest uppercase">THE BUSINESS STANDARD / FEATURE</span>
+                        <h3 class="font-headline-sm text-lg font-bold text-primary group-hover:underline leading-snug">How Local Journalism Survives on Debt, Pressure and Press Cards</h3>
+                    </a>
+
+                    <!-- Card 2 -->
+                    <a href="https://www.thedailystar.net/opinion/views/news/why-we-need-more-techies-our-newsrooms-4096116" target="_blank" rel="noopener" class="group block cursor-pointer">
+                        <div class="aspect-[16/9] bg-surface-container overflow-hidden mb-6 relative rounded-2xl shadow-md border border-outline-variant/35">
+                            <img class="w-full h-full article-image grayscale group-hover:grayscale-0 group-hover:scale-105" 
+                                 src="https://www.thedailystar.net/sites/default/files/styles/big_1/public/2026-02/ED_2.jpg?h=ed27e282" 
+                                 alt="Why We Need More Techies in Our Newsrooms"/>
+                            <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="bg-white text-primary px-5 py-2.5 font-label-caps text-[11px] font-bold tracking-wider rounded-full shadow-lg">Read Op-Ed</span>
+                            </div>
+                        </div>
+                        <span class="font-label-caps text-[10px] font-bold text-secondary block mb-2 tracking-widest uppercase">THE DAILY STAR / OP-ED</span>
+                        <h3 class="font-headline-sm text-lg font-bold text-primary group-hover:underline leading-snug">Why We Need More Techies in Our Newsrooms</h3>
+                    </a>
+
+                    <!-- Card 3 -->
+                    <a href="https://www.coastalvoicesbd.org/story/living-with-the-river-manta-communities-battle-against-a-changing-climate" target="_blank" rel="noopener" class="group block cursor-pointer">
+                        <div class="aspect-[16/9] bg-surface-container overflow-hidden mb-6 relative rounded-2xl shadow-md border border-outline-variant/35">
+                            <img class="w-full h-full article-image grayscale group-hover:grayscale-0 group-hover:scale-105" 
+                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEHds6Bml5ZZwD_sfAjenRp6-6J2jCtUscdbTo2X_3xiv4mxASj_JYsl53LDN8oiVe_CZtysZ2XNo4p8VkL2L3TGMEKoaruAj8B15BLGlrek8nlXXe2IqgFBL9nrgpWUFZj9CEQsUICWG4LsRsi0rZLWUOXR78gSIIZYIk8PErJ1xfI46TnfhNWlk0YttdB8SpliGHP67rzLmPjSjtadqtUuQm9kP2jUY0ryjb1RuMeuhXPxS725dCKZP80l8yjjy67rb2TL9KpU5e" 
+                                 alt="Living with the River: Manta Communities' Battle Against a Changing Climate"/>
+                            <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="bg-white text-primary px-5 py-2.5 font-label-caps text-[11px] font-bold tracking-wider rounded-full shadow-lg">Read Feature</span>
+                            </div>
+                        </div>
+                        <span class="font-label-caps text-[10px] font-bold text-secondary block mb-2 tracking-widest uppercase">COASTAL VOICES / FEATURE</span>
+                        <h3 class="font-headline-sm text-lg font-bold text-primary group-hover:underline leading-snug">Living with the River: Manta Communities' Battle Against a Changing Climate</h3>
+                    </a>
+
+                </div>
+
+                <!-- Lead into the full archive -->
+                <div class="mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-outline-variant/40 pt-10">
+                    <p class="font-body-lg text-base md:text-lg text-secondary max-w-xl text-center sm:text-left">
+                        These are a handful of selected pieces. The complete body of work — filterable by publication and category — lives in the reportage index.
+                    </p>
+                    <a href="reportage.html" class="group shrink-0 inline-flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-full font-label-caps text-[11px] font-bold uppercase tracking-wider hover:bg-secondary transition-colors">
+                        Browse the Reportage Feed
+                        <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">north_east</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Accolades / Credentials Highlights -->
+        <section class="py-24 px-margin-mobile md:px-margin-desktop max-w-[1280px] mx-auto reveal-on-scroll">
+            <h2 class="font-label-caps text-xs font-extrabold uppercase text-secondary tracking-[0.2em] mb-12 text-center">Accolades & Professional Credentials</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                <div class="p-8 border border-outline-variant bg-surface rounded-2xl flex flex-col justify-between hover:border-primary transition-all duration-300">
+                    <span class="material-symbols-outlined text-4xl text-secondary mb-6">school</span>
+                    <div>
+                        <h3 class="font-label-caps text-xs font-extrabold uppercase mb-2">ULAB Faculty</h3>
+                        <p class="font-body-sm text-[14px] text-secondary">Lecturer in MSJ Department. Teaching Media Technology and Journalism Ethics.</p>
+                    </div>
+                </div>
+
+                <div class="p-8 border border-outline-variant bg-surface rounded-2xl flex flex-col justify-between hover:border-primary transition-all duration-300">
+                    <span class="material-symbols-outlined text-4xl text-secondary mb-6">workspace_premium</span>
+                    <div>
+                        <h3 class="font-label-caps text-xs font-extrabold uppercase mb-2">BIGD Fellow</h3>
+                        <p class="font-body-sm text-[14px] text-secondary">Young Researchers' Fellow at BRAC Institute of Governance and Development.</p>
+                    </div>
+                </div>
+
+                <div class="p-8 border border-outline-variant bg-surface rounded-2xl flex flex-col justify-between hover:border-primary transition-all duration-300">
+                    <span class="material-symbols-outlined text-4xl text-secondary mb-6">history_edu</span>
+                    <div>
+                        <h3 class="font-label-caps text-xs font-extrabold uppercase mb-2">The Business Standard Staff Writer</h3>
+                        <p class="font-body-sm text-[14px] text-secondary">Former Staff Feature Writer and Sub-Editor at The Business Standard.</p>
+                    </div>
+                </div>
+
+                <div class="p-8 border border-outline-variant bg-surface rounded-2xl flex flex-col justify-between hover:border-primary transition-all duration-300">
+                    <span class="material-symbols-outlined text-4xl text-secondary mb-6">diversity_3</span>
+                    <div>
+                        <h3 class="font-label-caps text-xs font-extrabold uppercase mb-2">US Exchange Alumnus</h3>
+                        <p class="font-body-sm text-[14px] text-secondary">Alumnus of prestigious US Department of State professional exchange programs.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="about.html" class="group inline-flex items-center gap-2 font-label-caps text-[11px] font-bold uppercase tracking-widest text-primary border-b-2 border-primary pb-1 hover:text-secondary hover:border-secondary transition-colors">
+                    View Professional Timeline &amp; Honors
+                    <span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">north_east</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Bold Quote Section -->
+        <section class="py-24 bg-primary text-white text-center reveal-on-scroll relative overflow-hidden">
+            <div class="absolute inset-0 opacity-[0.02] pointer-events-none" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 30px 30px;"></div>
+            <div class="px-margin-mobile md:px-margin-desktop max-w-[1280px] mx-auto">
+                <blockquote class="max-w-4xl mx-auto">
+                    <p class="font-subhead-serif text-2xl md:text-5xl leading-tight italic mb-8">
+                        "The people must know before they can act, and there is no educator to compare with the press."
+                    </p>
+                    <cite class="font-label-caps text-[11px] font-extrabold tracking-[0.25em] text-white block">— IDA B. WELLS</cite>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- Connect Section -->
+        <section class="py-24 px-margin-mobile md:px-margin-desktop max-w-[1280px] mx-auto reveal-on-scroll">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+                <div class="md:col-span-6 mb-8 md:mb-0">
+                    <h2 class="font-label-caps text-3xl md:text-5xl uppercase leading-[1.1] font-extrabold text-primary">
+                        Collaborate <br/>&amp; Connect
+                    </h2>
+                </div>
+                <div class="md:col-span-6 border-l border-outline-variant/60 pl-gutter">
+                    <p class="font-body-lg text-lg text-secondary mb-6 leading-relaxed">
+                        Currently accepting academic inquiries, public panels, and deep-dive feature commissions on the political economy of media and local institutions.
+                    </p>
+                    <div class="space-y-4">
+                        <a class="group flex items-center gap-4 text-primary w-fit" href="mailto:rafidusama@gmail.com">
+                            <span class="font-label-caps text-md md:text-xl font-extrabold border-b-2 border-primary group-hover:border-secondary transition-colors">rafidusama@gmail.com</span>
+                            <span class="font-label-caps text-[9px] font-bold text-secondary uppercase tracking-widest bg-surface-container px-2 py-0.5 rounded">Press / Personal</span>
+                            <span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">north_east</span>
+                        </a>
+                        <a class="group flex items-center gap-4 text-primary w-fit" href="mailto:usama.rafid@ulab.edu.bd">
+                            <span class="font-label-caps text-md md:text-xl font-extrabold border-b-2 border-primary group-hover:border-secondary transition-colors">usama.rafid@ulab.edu.bd</span>
+                            <span class="font-label-caps text-[9px] font-bold text-secondary uppercase tracking-widest bg-surface-container px-2 py-0.5 rounded">Academic / ULAB</span>
+                            <span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">north_east</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container-low border-t border-outline-variant/35 py-16 px-margin-mobile md:px-margin-desktop w-full clear-both">
+        <div class="max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex flex-col items-center md:items-start gap-2">
+                <span class="font-label-caps text-sm font-extrabold uppercase">Usama Rafid</span>
+                <p class="font-body-sm text-[13px] text-secondary">© 2026 Usama Rafid. All rights reserved. Dhaka, Bangladesh.</p>
+            </div>
+
+            <div class="flex flex-wrap gap-x-8 gap-y-2 items-center justify-center">
+                <a class="font-label-caps text-[11px] font-bold text-secondary hover:text-primary transition-colors tracking-widest uppercase" href="https://linkedin.com/in/usama-rafid" target="_blank" rel="noopener">LinkedIn</a>
+                <a class="font-label-caps text-[11px] font-bold text-secondary hover:text-primary transition-colors tracking-widest uppercase" href="https://web.facebook.com/usama.rafid.7/" target="_blank" rel="noopener">Facebook</a>
+                <a class="font-label-caps text-[11px] font-bold text-secondary hover:text-primary transition-colors tracking-widest uppercase" href="mailto:rafidusama@gmail.com?cc=usama.rafid@ulab.edu.bd">Email</a>
+                <a class="font-label-caps text-[11px] font-bold text-secondary hover:text-primary transition-colors tracking-widest uppercase" href="about.html">About</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <span class="font-label-caps text-[10px] text-secondary font-bold tracking-widest uppercase">BACK TO TOP</span>
+                <button class="w-10 h-10 border border-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all rounded-full" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <span class="material-symbols-outlined text-sm">arrow_upward</span>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Global Javascript -->
+    <script>
+        // Intersection Observer scroll reveal animation logic
+        const observerOptions = {
+            threshold: 0.08
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Sticky Navbar background highlight
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('top-nav');
+            if (window.scrollY > 40) {
+                nav.classList.add('bg-background/95', 'shadow-md');
+                nav.classList.remove('bg-background/85');
+            } else {
+                nav.classList.remove('bg-background/95', 'shadow-md');
+                nav.classList.add('bg-background/85');
+            }
+        });
+    </script>
+</body>
+</html>

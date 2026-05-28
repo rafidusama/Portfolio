@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&amp;family=Source+Sans+3:wght@400;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#394857",
+                    "on-secondary-container": "#556474",
+                    "on-primary-container": "#777eea",
+                    "inverse-surface": "#313030",
+                    "inverse-primary": "#bfc2ff",
+                    "on-surface": "#1c1b1b",
+                    "tertiary": "#60603e",
+                    "surface-variant": "#e5e2e1",
+                    "secondary-fixed": "#d4e4f6",
+                    "secondary": "#50606f",
+                    "surface-container-low": "#f6f3f2",
+                    "on-background": "#1c1b1b",
+                    "tertiary-fixed": "#e6e5b9",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "outline": "#767684",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#f0eded",
+                    "outline-variant": "#c6c5d5",
+                    "primary": "#00003c",
+                    "on-tertiary": "#ffffff",
+                    "background": "#fcf9f8",
+                    "on-surface-variant": "#464653",
+                    "secondary-container": "#d1e1f4",
+                    "on-tertiary-container": "#414122",
+                    "primary-fixed-dim": "#bfc2ff",
+                    "on-primary-fixed": "#00006e",
+                    "tertiary-container": "#aead85",
+                    "on-primary-fixed-variant": "#3239a3",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#cac99f",
+                    "inverse-on-surface": "#f3f0ef",
+                    "primary-container": "#000080",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#484828",
+                    "surface-bright": "#fcf9f8",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fcf9f8",
+                    "secondary-fixed-dim": "#b8c8da",
+                    "surface-container-high": "#eae7e7",
+                    "on-secondary-fixed": "#0d1d2a",
+                    "surface-container-highest": "#e5e2e1",
+                    "surface-tint": "#4b53bc",
+                    "surface-dim": "#dcd9d9",
+                    "primary-fixed": "#e0e0ff",
+                    "on-tertiary-fixed": "#1d1d03"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "32px",
+                    "stack-sm": "8px",
+                    "stack-md": "24px",
+                    "margin-desktop": "80px",
+                    "margin-mobile": "24px",
+                    "max-width": "1280px",
+                    "stack-lg": "48px",
+                    "stack-xl": "80px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Merriweather"],
+                    "body-md": ["Source Sans 3"],
+                    "label-md": ["Source Sans 3"],
+                    "display-lg": ["Merriweather"],
+                    "label-lg": ["Source Sans 3"],
+                    "headline-sm": ["Merriweather"],
+                    "headline-md": ["Merriweather"],
+                    "body-lg": ["Source Sans 3"],
+                    "headline-lg": ["Merriweather"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                    "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "400"}],
+                    "body-lg": ["20px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .timeline-line {
+            width: 1px;
+            background: #767684;
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            transform: translateX(-50%);
+        }
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md">
+<!-- TopNavBar -->
+<header class="bg-background dark:bg-inverse-surface border-b border-outline-variant dark:border-on-surface-variant w-full top-0 sticky z-50 transition-all duration-300 ease-in-out">
+<div class="max-w-max-width mx-auto px-margin-desktop flex justify-between items-center h-20">
+<a class="font-headline-md text-headline-md text-primary dark:text-inverse-primary tracking-tight" href="#">Usama Rafid</a>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="font-label-lg text-label-lg text-on-secondary-fixed-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Home</a>
+<a class="font-label-lg text-label-lg text-on-secondary-fixed-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Reportage</a>
+<a class="font-label-lg text-label-lg text-on-secondary-fixed-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Academic</a>
+<a class="font-label-lg text-label-lg text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary pb-1" href="#">About</a>
+</nav>
+<div class="md:hidden">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
+</div>
+</div>
+</header>
+<main class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop">
+<!-- Hero / Narrative Start -->
+<section class="mt-stack-xl grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-7">
+<span class="font-label-lg text-label-lg text-primary uppercase tracking-widest mb-stack-sm block">A Narrative Profile</span>
+<h1 class="font-headline-lg text-headline-lg md:text-display-lg text-on-surface mb-stack-md leading-tight">
+                    Bridging the gap between <span class="italic text-primary">Academic Rigor</span> and <span class="italic text-primary">Public Narrative</span>.
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                    Usama Rafid is a storyteller at heart, a journalist by trade, and an academic by vocation. Based in Dhaka, his work explores the intersection of socio-economic shifts and human narratives.
+                </p>
+</div>
+<div class="md:col-span-5 relative">
+<div class="aspect-[4/5] bg-surface-container relative overflow-hidden">
+<img alt="Portrait of Usama Rafid" class="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-700" data-alt="A professional, high-contrast black and white portrait of a South Asian intellectual man in his 30s, wearing a crisp dark navy blazer over a light cream shirt. He is posed in a bright, minimalist studio with soft, directional lighting that highlights facial features and textures. The background is a clean, off-white wall, evoking the aesthetic of a premium editorial publication like The New Yorker. The mood is serious, thoughtful, and authoritative." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFl94S7MrobRgaS7RT9izC4Z1ktDatE7O_TFi2SvGX1ntzSoumbFrfU2d6t_kA01P-qcPOjAUdVIGPyV2nms6aI0mguP-gqxkR5jCBS2CpQ_xjSS9iKZVmcHHq9GrzCPVXhX9LgZzi1SYcVODDs0k0XRFuMaQ_j6ViMDeuTPNHq7UQEJoTBlW_O9OuwbZ66pNkedkN6Zuft1Uo6G1GpXi0ssdqSS7Asft078hyGL16SXytoO5Omq3Rfluzv5eDk8gQYykw26Rt3N3i"/>
+</div>
+<div class="absolute -bottom-4 -left-4 w-24 h-24 border-l-2 border-b-2 border-primary hidden md:block"></div>
+</div>
+</section>
+<!-- Biography Storytelling -->
+<section class="mt-stack-xl grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-start-3 md:col-span-8 space-y-stack-md">
+<div class="border-t border-outline-variant pt-stack-md"></div>
+<h2 class="font-headline-md text-headline-md italic mb-stack-md text-primary">The Journey of the Word</h2>
+<div class="font-body-lg text-body-lg text-on-surface space-y-6 leading-relaxed">
+<p>
+                        Born and raised in the vibrant chaos of Dhaka, Usama Rafid’s fascination with storytelling began within the hallowed halls of the <span class="font-bold">University of Dhaka</span>. It was here, amidst the historic architecture and the intellectual fervor of the campus, that he honed his ability to deconstruct complex societal structures into relatable human experiences.
+                    </p>
+<p>
+                        His professional odyssey took flight at <span class="font-bold">Roar Bangladesh</span>, where he spent over half a decade pioneering long-form explanatory journalism. As a lead contributor, he mastered the art of "narrative non-fiction," turning data-heavy research into compelling sagas that reached millions. This commitment to clarity and depth continued at <span class="font-bold">The Business Standard (TBS)</span>, where he bridged the gap between dry economic analysis and the lived realities of the Bangladeshi people.
+                    </p>
+<blockquote class="border-l-4 border-primary pl-gutter my-stack-lg py-4 bg-surface-container-low italic font-headline-sm">
+                        "Journalism is the first draft of history; academia is the second. I find myself most at home in the space between the two."
+                    </blockquote>
+<p>
+                        Today, Usama balances his editorial projects with his role as a <span class="font-bold text-primary underline decoration-dotted">Lecturer at ULAB</span>. In the classroom, he challenges the next generation of communicators to look beyond the headline and seek the underlying pulse of the story. His teaching philosophy is rooted in the same principles that guide his writing: intellectual honesty, relentless curiosity, and a deep respect for the reader's intelligence.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Career Timeline -->
+<section class="mt-stack-xl py-stack-xl bg-surface-container-lowest border-y border-outline-variant relative overflow-hidden">
+<div class="max-w-3xl mx-auto px-margin-mobile">
+<div class="text-center mb-stack-lg">
+<span class="font-label-lg text-label-lg text-primary uppercase tracking-widest">A Chronology of Milestones</span>
+<h3 class="font-headline-lg text-headline-lg mt-2">Professional Evolution</h3>
+</div>
+<div class="relative">
+<!-- Vertical Line -->
+<div class="timeline-line"></div>
+<!-- Milestone 1 -->
+<div class="relative flex flex-col md:flex-row items-center justify-between mb-stack-lg w-full group">
+<div class="hidden md:block w-[45%] text-right pr-8">
+<span class="font-label-lg text-label-lg text-on-secondary-fixed-variant">2023 — Present</span>
+</div>
+<div class="z-10 w-4 h-4 rounded-none bg-primary border-2 border-background group-hover:scale-125 transition-transform"></div>
+<div class="w-full md:w-[45%] md:pl-8 pl-12 mt-4 md:mt-0">
+<span class="md:hidden font-label-lg text-label-lg text-on-secondary-fixed-variant block mb-1">2023 — Present</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Lecturer, ULAB</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Shaping future minds in the Department of Media Studies and Journalism.</p>
+</div>
+</div>
+<!-- Milestone 2 -->
+<div class="relative flex flex-col md:flex-row items-center justify-between mb-stack-lg w-full group">
+<div class="w-full md:w-[45%] md:pr-8 pl-12 md:pl-0 md:text-right mt-4 md:mt-0 order-2 md:order-1">
+<span class="md:hidden font-label-lg text-label-lg text-on-secondary-fixed-variant block mb-1">2018 — 2023</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface text-balance">Lead Storyteller, Roar &amp; TBS</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Five years of investigative reportage and narrative feature writing.</p>
+</div>
+<div class="z-10 w-4 h-4 rounded-none bg-primary border-2 border-background group-hover:scale-125 transition-transform order-1 md:order-2"></div>
+<div class="hidden md:block w-[45%] text-left pl-8 order-3">
+<span class="font-label-lg text-label-lg text-on-secondary-fixed-variant">2018 — 2023</span>
+</div>
+</div>
+<!-- Milestone 3 -->
+<div class="relative flex flex-col md:flex-row items-center justify-between w-full group">
+<div class="hidden md:block w-[45%] text-right pr-8">
+<span class="font-label-lg text-label-lg text-on-secondary-fixed-variant">2014 — 2018</span>
+</div>
+<div class="z-10 w-4 h-4 rounded-none bg-primary border-2 border-background group-hover:scale-125 transition-transform"></div>
+<div class="w-full md:w-[45%] md:pl-8 pl-12 mt-4 md:mt-0">
+<span class="md:hidden font-label-lg text-label-lg text-on-secondary-fixed-variant block mb-1">2014 — 2018</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">University of Dhaka</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Foundation of academic excellence and intellectual exploration.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Focus Areas / Bento -->
+<section class="mt-stack-xl mb-stack-xl">
+<h3 class="font-headline-md text-headline-md text-center mb-stack-lg">Intellectual Domains</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Academic Research -->
+<div class="bg-white p-stack-md border border-outline-variant hover:border-primary transition-all duration-300">
+<span class="material-symbols-outlined text-primary text-3xl mb-4" data-icon="auto_stories">auto_stories</span>
+<h4 class="font-headline-sm text-headline-sm mb-2">Pedagogy</h4>
+<p class="font-body-md text-body-md text-on-secondary-container">Developing curricula that integrate digital literacy with ethical journalism practices in the classroom at ULAB.</p>
+</div>
+<!-- Narrative Feature -->
+<div class="bg-primary p-stack-md border border-primary transition-all duration-300">
+<span class="material-symbols-outlined text-white text-3xl mb-4" data-icon="history_edu">history_edu</span>
+<h4 class="font-headline-sm text-headline-sm mb-2 text-white">Public Narratives</h4>
+<p class="font-body-md text-body-md text-white/80">Translating complex socio-economic data into human-centric stories that resonate with a wider audience.</p>
+</div>
+<!-- Editorial Strategy -->
+<div class="bg-white p-stack-md border border-outline-variant hover:border-primary transition-all duration-300">
+<span class="material-symbols-outlined text-primary text-3xl mb-4" data-icon="newspaper">newspaper</span>
+<h4 class="font-headline-sm text-headline-sm mb-2">Media Criticism</h4>
+<p class="font-body-md text-body-md text-on-secondary-container">Analyzing the evolution of digital journalism in South Asia through the lens of institutional credibility.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant dark:border-on-surface-variant w-full mt-stack-xl">
+<div class="max-w-max-width mx-auto px-margin-desktop py-stack-md flex flex-col md:flex-row justify-between items-center">
+<div class="flex flex-col md:flex-row items-center gap-6">
+<span class="font-headline-sm text-headline-sm text-primary dark:text-inverse-primary">Usama Rafid</span>
+<p class="font-body-md text-body-md text-on-secondary-container dark:text-surface-variant opacity-80">© 2024 Usama Rafid. All rights reserved.</p>
+</div>
+<div class="flex gap-8 mt-6 md:mt-0">
+<a class="font-label-md text-label-md text-on-secondary-container dark:text-surface-variant hover:opacity-100 opacity-80 transition-opacity underline decoration-on-secondary-fixed-variant underline-offset-4" href="#">Contact</a>
+<a class="font-label-md text-label-md text-on-secondary-container dark:text-surface-variant hover:opacity-100 opacity-80 transition-opacity underline decoration-on-secondary-fixed-variant underline-offset-4" href="#">Newsletter</a>
+<a class="font-label-md text-label-md text-on-secondary-container dark:text-surface-variant hover:opacity-100 opacity-80 transition-opacity underline decoration-on-secondary-fixed-variant underline-offset-4" href="#">Archive</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple scroll reveal for timeline nodes
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.group').forEach(el => {
+            el.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-700');
+            observer.observe(el);
+        });
+    </script>
+</body></html>

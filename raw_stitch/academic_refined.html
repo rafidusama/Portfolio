@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academic | Usama Rafid</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&amp;family=Source+Sans+3:ital,wght@0,400;0,600;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-fixed-variant": "#394857",
+            "on-secondary-container": "#556474",
+            "on-primary-container": "#777eea",
+            "inverse-surface": "#313030",
+            "inverse-primary": "#bfc2ff",
+            "on-surface": "#1c1b1b",
+            "tertiary": "#60603e",
+            "surface-variant": "#e5e2e1",
+            "secondary-fixed": "#d4e4f6",
+            "secondary": "#50606f",
+            "surface-container-low": "#f6f3f2",
+            "on-background": "#1c1b1b",
+            "tertiary-fixed": "#e6e5b9",
+            "on-secondary": "#ffffff",
+            "error-container": "#ffdad6",
+            "error": "#ba1a1a",
+            "outline": "#767684",
+            "on-primary": "#ffffff",
+            "surface-container": "#f0eded",
+            "outline-variant": "#c6c5d5",
+            "primary": "#00003c",
+            "on-tertiary": "#ffffff",
+            "background": "#fcf9f8",
+            "on-surface-variant": "#464653",
+            "secondary-container": "#d1e1f4",
+            "on-tertiary-container": "#414122",
+            "primary-fixed-dim": "#bfc2ff",
+            "on-primary-fixed": "#00006e",
+            "tertiary-container": "#aead85",
+            "on-primary-fixed-variant": "#3239a3",
+            "on-error": "#ffffff",
+            "tertiary-fixed-dim": "#cac99f",
+            "inverse-on-surface": "#f3f0ef",
+            "primary-container": "#000080",
+            "on-error-container": "#93000a",
+            "on-tertiary-fixed-variant": "#484828",
+            "surface-bright": "#fcf9f8",
+            "surface-container-lowest": "#ffffff",
+            "surface": "#fcf9f8",
+            "secondary-fixed-dim": "#b8c8da",
+            "surface-container-high": "#eae7e7",
+            "on-secondary-fixed": "#0d1d2a",
+            "surface-container-highest": "#e5e2e1",
+            "surface-tint": "#4b53bc",
+            "surface-dim": "#dcd9d9",
+            "primary-fixed": "#e0e0ff",
+            "on-tertiary-fixed": "#1d1d03"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "32px",
+            "stack-sm": "8px",
+            "stack-md": "24px",
+            "margin-desktop": "80px",
+            "margin-mobile": "24px",
+            "max-width": "1280px",
+            "stack-lg": "48px",
+            "stack-xl": "80px"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Merriweather"],
+            "body-md": ["Source Sans 3"],
+            "label-md": ["Source Sans 3"],
+            "display-lg": ["Merriweather"],
+            "label-lg": ["Source Sans 3"],
+            "headline-sm": ["Merriweather"],
+            "headline-md": ["Merriweather"],
+            "body-lg": ["Source Sans 3"],
+            "headline-lg": ["Merriweather"],
+            "impact-sans": ["Source Sans 3", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+            "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "label-md": ["12px", {"lineHeight": "1.2", "fontWeight": "400"}],
+            "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "label-lg": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "700"}],
+            "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "400"}],
+            "body-lg": ["20px", {"lineHeight": "1.6", "fontWeight": "400"}],
+            "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    body {
+      background-color: #fcf9f8;
+      color: #1c1b1b;
+    }
+    .text-outline {
+      color: transparent;
+      -webkit-text-stroke: 1px #1c1b1b;
+    }
+    .dark .text-outline {
+      -webkit-text-stroke: 1px #f3f0ef;
+    }
+    .asymmetric-divider {
+      width: 1px;
+      background-color: #c6c5d5;
+      height: 100%;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f0eded;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #767684;
+    }
+  </style>
+</head>
+<body class="font-body-md text-body-md selection:bg-primary-fixed-dim selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="w-full top-0 bg-background dark:bg-inverse-surface border-b border-outline-variant dark:border-on-surface-variant z-50 sticky">
+<div class="max-w-max-width mx-auto px-margin-desktop flex justify-between items-center h-20">
+<a class="font-headline-md text-headline-md text-primary dark:text-inverse-primary tracking-tight" href="#">Usama Rafid</a>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="font-label-lg text-label-lg text-on-secondary-fixed-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Home</a>
+<a class="font-label-lg text-label-lg text-on-secondary-fixed-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Reportage</a>
+<a class="font-label-lg text-label-lg text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary pb-1" href="#">Academic</a>
+<a class="font-label-lg text-label-lg text-on-secondary-fixed-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">About</a>
+</nav>
+<!-- Mobile Menu Trigger -->
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<main class="min-h-screen flex flex-col md:flex-row max-w-max-width mx-auto border-x border-outline-variant">
+<!-- Left Side: Teaching -->
+<section class="w-full md:w-1/2 md:border-r border-outline-variant p-margin-mobile md:p-margin-desktop bg-surface-container-lowest">
+<div class="sticky top-24">
+<div class="flex items-center gap-2 mb-stack-sm text-primary">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-lg text-label-lg uppercase tracking-widest font-semibold">Pedagogy</span>
+</div>
+<h1 class="font-impact-sans text-display-lg text-primary mb-stack-lg font-extrabold uppercase leading-[0.9] tracking-tighter">Teaching</h1>
+<div class="space-y-stack-xl mt-stack-lg">
+<!-- Institutional Affiliation -->
+<div class="pb-stack-md border-b-4 border-primary">
+<p class="font-label-lg text-label-lg uppercase tracking-widest text-outline mb-2">Current Affiliation</p>
+<p class="font-headline-sm text-headline-sm text-on-surface font-bold">University of Liberal Arts Bangladesh (ULAB)</p>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-4">Lecturer, Department of Media Studies and Journalism. Engaging with future media professionals on the intersection of technology and ethics.</p>
+</div>
+<!-- Courses -->
+<div class="pt-stack-md">
+<h2 class="font-label-lg text-label-lg uppercase tracking-widest text-on-secondary-fixed-variant mb-stack-md font-semibold">Core Courses</h2>
+<div class="space-y-stack-md">
+<div class="group cursor-pointer">
+<div class="flex justify-between items-end border-b border-outline-variant pb-stack-sm group-hover:border-primary transition-colors">
+<h3 class="font-headline-sm text-headline-sm font-bold group-hover:italic transition-all">Media Technology</h3>
+<span class="font-label-md text-label-md text-on-secondary-fixed-variant font-bold">MSJ 2102</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Examining the evolution of communication tools, from the printing press to algorithmic newsfeeds and generative AI.</p>
+</div>
+<div class="group cursor-pointer">
+<div class="flex justify-between items-end border-b border-outline-variant pb-stack-sm group-hover:border-primary transition-colors">
+<h3 class="font-headline-sm text-headline-sm font-bold group-hover:italic transition-all">Journalism Ethics</h3>
+<span class="font-label-md text-label-md text-on-secondary-fixed-variant font-bold">MSJ 3105</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Navigating the moral landscape of reporting in the digital age, with emphasis on objectivity, privacy, and public interest.</p>
+</div>
+</div>
+</div>
+<!-- Featured Teaching Material Image -->
+<div class="aspect-[4/3] bg-surface-container relative overflow-hidden mt-stack-lg">
+<img alt="Library setting" class="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 transition-all duration-700" data-alt="A moody, high-contrast photograph of a classic academic library desk featuring a stack of vintage leather-bound journals and a modern tablet displaying data visualizations. The lighting is soft and directional, casting long shadows across the dark oak wood. The scene embodies a bridge between traditional journalism and modern media technology. The color palette is composed of deep navies, slate grays, and warm cream tones, reflecting an intellectual and timeless editorial aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDa9EpqJnKLb42wwAAv1hWHGDT1cXL6wSvi_mc-YhwV_Njhm-EXwV_KFxbvxHy5eXfR-I2cedIC75eckqNOFBHyQWNDV1D9YVhZHgeIXs00oiZMJFr-TZkCsxiIgCtsqck4zcVUEYl64szDDSt1HBAA6VfxG9ZdDAfpvIQ1fbVSqMqDMOxgGpyg21RnGnGJRzpQkbRK9HZ3Ax_IqGwMe_3fLSazNihinyEErU44fG-NSYf_698KtZtentebbJt52wVkBxcxCf6aOgI-"/>
+<div class="absolute bottom-0 left-0 p-stack-md bg-white/95 backdrop-blur-sm m-stack-sm border-l-4 border-primary">
+<span class="font-label-md text-label-md italic font-bold">Syllabus Archive 2024</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Side: Research -->
+<section class="w-full md:w-1/2 p-margin-mobile md:p-margin-desktop bg-surface">
+<div class="flex items-center gap-2 mb-stack-sm text-primary">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-lg text-label-lg uppercase tracking-widest font-semibold">Scholarship</span>
+</div>
+<h1 class="font-impact-sans text-display-lg text-primary mb-stack-lg font-extrabold uppercase leading-[0.9] tracking-tighter">Research</h1>
+<div class="space-y-stack-xl mt-stack-lg">
+<!-- Research Focus -->
+<div>
+<h2 class="font-label-lg text-label-lg uppercase tracking-widest text-outline mb-stack-md">Primary Areas of Inquiry</h2>
+<div class="grid grid-cols-1 gap-stack-md">
+<div class="p-stack-md border-l-8 border-primary bg-surface-container-low transition-all hover:bg-surface-container">
+<h3 class="font-headline-sm text-headline-sm mb-1 font-bold">Information Disorder</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Investigating the mechanics of misinformation, disinformation, and malinformation in South Asian digital ecosystems.</p>
+</div>
+<div class="p-stack-md border-l-8 border-primary bg-surface-container-low transition-all hover:bg-surface-container">
+<h3 class="font-headline-sm text-headline-sm mb-1 font-bold">Media Framing</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Analyzing how mainstream and independent outlets construct social reality through linguistic and structural choices.</p>
+</div>
+<div class="p-stack-md border-l-8 border-primary bg-surface-container-low transition-all hover:bg-surface-container">
+<h3 class="font-headline-sm text-headline-sm mb-1 font-bold">Graphicacy</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Exploring the role of visual literacy and data visualization in contemporary journalism and democratic participation.</p>
+</div>
+</div>
+</div>
+<!-- Publications -->
+<div>
+<h2 class="font-label-lg text-label-lg uppercase tracking-widest text-on-secondary-fixed-variant mb-stack-md font-semibold">Selected Publications</h2>
+<div class="space-y-stack-lg">
+<article class="relative pl-10">
+<div class="absolute left-0 top-0 h-full w-1 bg-outline-variant transition-all duration-300"></div>
+<span class="font-label-md text-label-md text-on-surface-variant font-bold uppercase tracking-wider">2023 | Peer-Reviewed Journal</span>
+<h3 class="font-headline-sm text-headline-sm mt-1 mb-2 hover:text-primary transition-colors font-bold leading-tight">Visual Rhetoric and the Framing of Environmental Crisis</h3>
+<p class="font-body-md text-body-md italic text-on-secondary-fixed-variant mb-2">Journal of Digital Media &amp; Policy</p>
+<p class="font-body-md text-body-md text-on-surface-variant">An empirical study on how data-driven graphics influence audience perception of climate urgency in the global south.</p>
+<a class="inline-flex items-center gap-1 mt-stack-sm font-label-lg text-label-lg border-b-2 border-primary text-primary hover:pb-1 transition-all font-bold" href="#">
+                Download PDF <span class="material-symbols-outlined text-[18px]">north_east</span>
+</a>
+</article>
+<article class="relative pl-10">
+<div class="absolute left-0 top-0 h-full w-1 bg-outline-variant transition-all duration-300"></div>
+<span class="font-label-md text-label-md text-on-surface-variant font-bold uppercase tracking-wider">2022 | Conference Proceeding</span>
+<h3 class="font-headline-sm text-headline-sm mt-1 mb-2 hover:text-primary transition-colors font-bold leading-tight">Algorithm as Editor: The New Gatekeepers</h3>
+<p class="font-body-md text-body-md italic text-on-secondary-fixed-variant mb-2">ICA South Asia Regional Conference</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Qualitative analysis of newsroom shifts as algorithmic recommendation systems replace traditional editorial oversight.</p>
+<a class="inline-flex items-center gap-1 mt-stack-sm font-label-lg text-label-lg border-b-2 border-primary text-primary hover:pb-1 transition-all font-bold" href="#">
+                View Archive <span class="material-symbols-outlined text-[18px]">north_east</span>
+</a>
+</article>
+<article class="relative pl-10">
+<div class="absolute left-0 top-0 h-full w-1 bg-outline-variant transition-all duration-300"></div>
+<span class="font-label-md text-label-md text-on-surface-variant font-bold uppercase tracking-wider">2021 | Book Chapter</span>
+<h3 class="font-headline-sm text-headline-sm mt-1 mb-2 hover:text-primary transition-colors font-bold leading-tight">Information Literacy in Post-Truth Landscapes</h3>
+<p class="font-body-md text-body-md italic text-on-secondary-fixed-variant mb-2">Media Education in Developing Nations</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Contributing chapter on pedagogical strategies for teaching news verification in Bangladesh high schools.</p>
+<a class="inline-flex items-center gap-1 mt-stack-sm font-label-lg text-label-lg border-b-2 border-primary text-primary hover:pb-1 transition-all font-bold" href="#">
+                Access Chapter <span class="material-symbols-outlined text-[18px]">north_east</span>
+</a>
+</article>
+</div>
+</div>
+<!-- Research Visual -->
+<div class="p-stack-lg bg-primary text-on-primary mt-stack-xl relative overflow-hidden">
+<div class="absolute -top-10 -right-10 opacity-10 font-impact-sans text-[120px] font-extrabold leading-none pointer-events-none uppercase">2024</div>
+<blockquote class="font-headline-md text-headline-md italic mb-stack-md leading-relaxed relative z-10">
+            "The challenge of the 21st century is not the scarcity of information, but the fragility of the frameworks we use to interpret it."
+          </blockquote>
+<p class="font-label-lg text-label-lg uppercase tracking-widest text-primary-fixed-dim font-bold relative z-10">— Research Statement, 2024</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-stack-xl bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant dark:border-on-surface-variant">
+<div class="max-w-max-width mx-auto px-margin-desktop py-stack-lg flex flex-col md:flex-row justify-between items-center">
+<div class="font-impact-sans text-headline-lg text-primary dark:text-inverse-primary mb-4 md:mb-0 uppercase font-extrabold tracking-tighter">Usama Rafid</div>
+<div class="flex flex-col md:flex-row gap-stack-md items-center">
+<nav class="flex gap-stack-md">
+<a class="font-label-lg text-label-lg text-on-secondary-container dark:text-surface-variant hover:underline decoration-primary underline-offset-8 font-bold" href="#">Contact</a>
+<a class="font-label-lg text-label-lg text-on-secondary-container dark:text-surface-variant hover:underline decoration-primary underline-offset-8 font-bold" href="#">Newsletter</a>
+<a class="font-label-lg text-label-lg text-on-secondary-container dark:text-surface-variant hover:underline decoration-primary underline-offset-8 font-bold" href="#">Archive</a>
+</nav>
+<p class="font-body-md text-body-md text-on-surface dark:text-inverse-on-surface md:ml-stack-lg opacity-60">© 2024 Usama Rafid. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script>
+    // Micro-interactions
+    document.addEventListener('DOMContentLoaded', () => {
+      const articles = document.querySelectorAll('article');
+      articles.forEach(article => {
+        article.addEventListener('mouseenter', () => {
+          const bar = article.querySelector('.absolute');
+          bar.classList.remove('bg-outline-variant', 'w-1');
+          bar.classList.add('bg-primary', 'w-2');
+        });
+        article.addEventListener('mouseleave', () => {
+          const bar = article.querySelector('.absolute');
+          bar.classList.add('bg-outline-variant', 'w-1');
+          bar.classList.remove('bg-primary', 'w-2');
+        });
+      });
+    });
+  </script>
+</body></html>

@@ -1,0 +1,169 @@
+/* Custom CSS variables and overrides for Usama Rafid's Editorial Portfolio */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,700;0,800;1,400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: #fcf9f8;
+  color: #1c1b1b;
+}
+
+/* Custom Interactive Cursor (Disabled) */
+.custom-cursor, .custom-cursor-dot {
+  display: none !important;
+}
+
+/* Typographic Text Outline */
+.text-outline {
+  -webkit-text-stroke: 1.5px #000000;
+  color: transparent;
+}
+
+.text-outline-sm {
+  -webkit-text-stroke: 1px #000000;
+  color: transparent;
+}
+
+.dark .text-outline {
+  -webkit-text-stroke: 1.5px #ffffff;
+}
+
+/* Shared subtle page-header background for inner pages */
+.page-hero-bg {
+  background-image: radial-gradient(circle, rgba(0, 0, 60, 0.04) 1.2px, transparent 1.2px);
+  background-size: 32px 32px;
+}
+
+/* Smooth Reveal on Scroll */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Custom Scroller for Timeline and Articles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f0eded;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #767684;
+}
+
+/* Vertical Timeline Line */
+.timeline-line {
+  width: 1px;
+  background: #c6c5d5;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 768px) {
+  .timeline-line {
+    left: 20px;
+  }
+}
+
+/* Hero Portrait specific alignments and styling */
+.hero-portrait {
+  object-fit: cover;
+  object-position: 50% 38%; /* Balanced mobile headroom while cropping more from the lower body. */
+  border-radius: 2rem;       /* Rounded edges for a softer, premium layout */
+  transition: filter 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 768px) {
+  .hero-portrait {
+    object-position: 50% 28%; /* Restore more desktop headroom so the top of the portrait stays visible */
+  }
+}
+
+/* Article card image properties */
+.article-image {
+  object-fit: cover;
+  border-radius: 1rem;       /* Roundish edges for cards too */
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Navigation Line Indicators */
+.nav-link-active {
+  color: #00003c !important;
+  font-weight: 700;
+  border-bottom: 2px solid #00003c;
+}
+
+
+/* Interactive parallel timeline on the About page */
+.about-timeline-shell {
+  background: rgba(246, 243, 242, 0.72);
+}
+
+.timeline-scroll-container::-webkit-scrollbar {
+  height: 10px;
+}
+
+.timeline-scroll-container::-webkit-scrollbar-track {
+  background: rgba(198, 197, 213, 0.15);
+  border-radius: 99px;
+}
+
+.timeline-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(80, 96, 111, 0.3);
+  border-radius: 99px;
+}
+
+.timeline-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 60, 0.5);
+}
+
+.timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--timeline-columns, 132), minmax(18px, 1fr));
+  position: relative;
+}
+
+.timeline-item,
+.timeline-label {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), filter 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.timeline-item:hover,
+.timeline-label:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+  box-shadow: 0 12px 24px -10px rgba(0, 0, 60, 0.15);
+}
+
+.grid-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  border-left: 1px dashed rgba(198, 197, 213, 0.3);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.glass-card {
+  background: rgba(252, 249, 248, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}

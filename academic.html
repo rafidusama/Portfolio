@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Academic & Pedagogy | Usama Rafid</title>
+    <meta name="description" content="Academic pedagogy, course syllabi, and research publications of Usama Rafid, Lecturer in Media Studies and Journalism at ULAB."/>
+    
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="index.css?v=inner-page-polish-20260528"/>
+    
+    <!-- Material Symbols & Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,700;0,800;1,400&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00003c",
+                        "secondary": "#50606f",
+                        "background": "#fcf9f8",
+                        "surface": "#fcf9f8",
+                        "surface-container": "#f0eded",
+                        "surface-container-low": "#f6f3f2",
+                        "surface-container-highest": "#e5e2e1",
+                        "outline-variant": "#c6c5d5"
+                    },
+                    spacing: {
+                        "margin-mobile": "24px",
+                        "margin-desktop": "80px",
+                        "stack-sm": "16px",
+                        "stack-md": "32px",
+                        "stack-lg": "64px",
+                        "stack-xl": "120px",
+                        "gutter": "24px"
+                    },
+                                        fontFamily: {
+                        "label-caps": ["Plus Jakarta Sans", "sans-serif"],
+                        "headline-lg": ["Plus Jakarta Sans", "sans-serif"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans", "sans-serif"],
+                        "subhead-serif": ["Noto Serif", "serif"],
+                        "display-hero": ["Plus Jakarta Sans", "sans-serif"],
+                        "display-hero-mobile": ["Plus Jakarta Sans", "sans-serif"],
+                        "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+                        "body-sm": ["Plus Jakarta Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Interactive grid background representing structural inquiry */
+        .academic-grid-bg {
+            background-image: radial-gradient(circle, rgba(0, 0, 60, 0.04) 1.2px, transparent 1.2px);
+            background-size: 32px 32px;
+        }
+
+        /* Abstract dropdown panels */
+        .abstract-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-out;
+            opacity: 0;
+        }
+        
+        .abstract-panel.open {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        /* Details animations */
+        details[open] summary .expand-icon {
+            transform: rotate(45deg);
+        }
+
+        .expand-icon {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details summary {
+            list-style: none;
+            outline: none;
+        }
+
+        /* Glassmorphic elements */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Custom glow borders */
+        .hover-glow:hover {
+            border-color: rgba(0, 0, 60, 0.7);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 60, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-primary selection:bg-primary selection:text-white">
+
+    <!-- Header Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-background/85 backdrop-blur-md border-b border-outline-variant/40 py-5" id="top-nav">
+        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+            <!-- Brand Logo -->
+            <a class="font-label-caps text-lg md:text-xl font-extrabold tracking-tighter text-primary hover:opacity-75 transition-opacity" href="index.html">
+                <span class="sm:hidden">Usama</span>
+                <span class="hidden sm:inline">Usama Rafid</span>
+            </a>
+            
+            <!-- Navigation Links -->
+            <div class="flex gap-4 sm:gap-6 lg:gap-7 items-center justify-end font-label-caps text-[10px] sm:text-[11px] lg:text-[12px] font-bold tracking-widest">
+                <a class="text-secondary hover:text-primary transition-colors pb-1 border-b-2 border-transparent" href="index.html">Home</a>
+                <a class="text-secondary hover:text-primary transition-colors pb-1 border-b-2 border-transparent" href="reportage.html">Reportage</a>
+                <a class="nav-link-active pb-1" href="academic.html">Academic</a>
+                <a class="text-secondary hover:text-primary transition-colors pb-1 border-b-2 border-transparent" href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Academic Title Hero Section (Full-Width, Cinematic) -->
+    <header class="relative pt-32 pb-16 border-b border-outline-variant/35 page-hero-bg academic-grid-bg overflow-hidden">
+        <div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop reveal-on-scroll">
+            <span class="font-label-caps text-[10px] font-extrabold uppercase tracking-[0.3em] text-secondary block mb-4">Pedagogy &amp; Scholarship</span>
+            <h1 class="font-display-hero text-4xl md:text-7xl font-extrabold uppercase leading-[0.9] tracking-tighter text-primary">
+                Academic<br/><span class="text-outline">Portfolio</span>
+            </h1>
+            <p class="font-subhead-serif text-lg md:text-2xl text-secondary max-w-3xl mt-6 leading-relaxed">
+                Bridging empirical media studies, platform ecosystems, and critical narratives of the changing Bengal Delta.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <main class="min-h-screen flex flex-col lg:flex-row max-w-[1440px] mx-auto border-x border-outline-variant/40">
+        
+        <!-- Left Side: Teaching & Pedagogy -->
+        <section class="w-full lg:w-1/2 lg:border-r border-outline-variant/40 p-margin-mobile md:p-margin-desktop bg-[#f4f1ef]/50">
+            <div class="lg:sticky lg:top-24 space-y-12">
+                <div class="flex items-center gap-2 text-primary">
+                    <span class="material-symbols-outlined text-2xl">school</span>
+                    <span class="font-label-caps text-[11px] font-extrabold uppercase tracking-widest">Pedagogy</span>
+                </div>
+                
+                <h2 class="font-headline-lg text-3xl md:text-4xl font-extrabold uppercase leading-[0.95] tracking-tighter">Teaching &amp; Instruction</h2>
+                
+                <!-- Program Affiliation Bento Card -->
+                <div class="glass-card border border-outline-variant/65 p-8 rounded-3xl shadow-md space-y-6 hover-glow transition-all duration-300">
+                    <div class="space-y-2">
+                        <span class="font-label-caps text-[9px] font-bold text-secondary tracking-widest block uppercase">Institutional Affiliation</span>
+                        <h3 class="font-label-caps text-lg font-extrabold text-primary">University of Liberal Arts Bangladesh</h3>
+                        <h4 class="font-label-caps text-[10px] font-bold text-secondary uppercase tracking-widest flex items-center flex-wrap gap-x-2 gap-y-1">
+                            <span>Department of Media Studies &amp; Journalism</span>
+                            <span class="hidden sm:inline text-outline-variant text-[13px]">•</span>
+                            <span class="text-primary font-extrabold tracking-widest bg-primary/5 px-2 py-0.5 rounded border border-primary/10">Lecturer</span>
+                        </h4>
+                    </div>
+                    
+                    <p class="font-body-lg text-[15px] text-secondary leading-relaxed">
+                        Directing core curriculum instruction and academic mentorship as a <strong class="text-primary font-extrabold border-b border-primary/20 pb-0.5">Lecturer</strong> inside the MSJ department across both undergraduate and postgraduate courses.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <span class="font-label-caps text-[9px] font-bold text-primary border border-primary/30 rounded-full px-3 py-1 bg-background">BSS in Media Studies &amp; Journalism</span>
+                        <span class="font-label-caps text-[9px] font-bold text-primary border border-primary/30 rounded-full px-3 py-1 bg-background">Masters in Communication</span>
+                    </div>
+                </div>
+
+                <!-- Courses List Accordion -->
+                <div class="space-y-6">
+                    <span class="font-label-caps text-[10px] font-bold text-secondary tracking-wider block uppercase">Interactive Syllabus Modules</span>
+                    
+                    <!-- Course 1 -->
+                    <details class="group border border-outline-variant/65 bg-surface/40 rounded-2xl overflow-hidden hover-glow transition-all duration-300">
+                        <summary class="flex justify-between items-center p-6 cursor-pointer">
+                            <div>
+                                <span class="font-label-caps text-[9px] font-extrabold text-secondary tracking-widest uppercase block mb-1">MSJ 2251 / Digital Journalism Major</span>
+                                <h3 class="font-label-caps text-sm font-extrabold text-primary group-hover:text-secondary transition-colors">Journalism and Society</h3>
+                            </div>
+                            <span class="material-symbols-outlined expand-icon text-xl text-secondary select-none">add</span>
+                        </summary>
+                        <div class="px-6 pb-6 pt-2 border-t border-outline-variant/30 bg-[#fbf9f8]/60 space-y-4">
+                            <p class="font-body-sm text-[14px] text-secondary leading-relaxed">
+                                Serving as a conceptual immersion into the role of journalism in Bangladesh, this course analyzes its function as a catalyst for social, political, economic, and cultural change. Key areas of study include the role of a free press in a democratic society, principles of journalistic reporting, and the impact of digital media ecosystems.
+                            </p>
+                            <div class="border-t border-outline-variant/30 pt-3">
+                                <span class="font-label-caps text-[9px] font-bold text-primary uppercase tracking-widest block mb-2">Core Syllabus Themes:</span>
+                                <ul class="grid grid-cols-2 gap-2 font-label-caps text-[9px] text-secondary font-bold">
+                                    <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Ethics &amp; Fourth Estate</li>
+                                    <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Public Sphere Theory</li>
+                                    <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Platform Hegemony</li>
+                                    <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Delta Media Landscapes</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Course 2 -->
+                    <details class="group border border-outline-variant/65 bg-surface/40 rounded-2xl overflow-hidden hover-glow transition-all duration-300">
+                        <summary class="flex justify-between items-center p-6 cursor-pointer">
+                            <div>
+                                <span class="font-label-caps text-[9px] font-extrabold text-secondary tracking-widest uppercase block mb-1">MSJ 3151 / Digital Journalism Major</span>
+                                <h3 class="font-label-caps text-sm font-extrabold text-primary group-hover:text-secondary transition-colors">News Sourcing and Gathering</h3>
+                            </div>
+                            <span class="material-symbols-outlined expand-icon text-xl text-secondary select-none">add</span>
+                        </summary>
+                        <div class="px-6 pb-6 pt-2 border-t border-outline-variant/30 bg-[#fbf9f8]/60 space-y-4">
+                            <p class="font-body-sm text-[14px] text-secondary leading-relaxed">
+                                This course equips students with core practices for producing high-quality news content: identifying authoritative sources, gathering empirical evidence, interviewing, and employing advanced verification methodologies. It combines a comprehensive overview of the media industry in Bangladesh with intensive hands-on fact-checking training.
+                            </p>
+                            <div class="border-t border-outline-variant/30 pt-3">
+                                <span class="font-label-caps text-[9px] font-bold text-primary uppercase tracking-widest block mb-2">Core Syllabus Themes:</span>
+                                <ul class="grid grid-cols-2 gap-2 font-label-caps text-[9px] text-secondary font-bold">
+                                    <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Field Sourcing Tactics</li>
+                                    <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span>OSINT Fact-Checking</li>
+                                    <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Interview Methodologies</li>
+                                    <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Verification Workflows</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Course 3 -->
+                    <details class="group border border-outline-variant/65 bg-surface/40 rounded-2xl overflow-hidden hover-glow transition-all duration-300">
+                        <summary class="flex justify-between items-center p-6 cursor-pointer">
+                            <div>
+                                <span class="font-label-caps text-[9px] font-extrabold text-secondary tracking-widest uppercase block mb-1">MSJ 4162 / Communication for Development Major</span>
+                                <h3 class="font-label-caps text-sm font-extrabold text-primary group-hover:text-secondary transition-colors">Environmental Communication</h3>
+                            </div>
+                            <span class="material-symbols-outlined expand-icon text-xl text-secondary select-none">add</span>
+                        </summary>
+                        <div class="px-6 pb-6 pt-2 border-t border-outline-variant/30 bg-[#fbf9f8]/60 space-y-4">
+                            <p class="font-body-sm text-[14px] text-secondary leading-relaxed">
+                                A major area of study within the Communication for Development (C4D) concentration, this course covers theoretical approaches, research literature, and practical applications for communicating environmental issues, delta ecology, and climate science within mass media, political, and organizational contexts.
+                            </p>
+                            <div class="border-t border-outline-variant/30 pt-3">
+                                <span class="font-label-caps text-[9px] font-bold text-primary uppercase tracking-widest block mb-2">Core Syllabus Themes:</span>
+                                <ul class="grid grid-cols-2 gap-2 font-label-caps text-[9px] text-secondary font-bold">
+                                    <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Climate Communication</li>
+                                    <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Ecology &amp; Social Nature</li>
+                                    <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Disaster Communication</li>
+                                    <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Delta Advocacy Models</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Course 4 -->
+                    <details class="group border border-outline-variant/65 bg-surface/40 rounded-2xl overflow-hidden hover-glow transition-all duration-300">
+                        <summary class="flex justify-between items-center p-6 cursor-pointer">
+                            <div>
+                                <span class="font-label-caps text-[9px] font-extrabold text-secondary tracking-widest uppercase block mb-1">SSC 3254 / General Education</span>
+                                <h3 class="font-label-caps text-sm font-extrabold text-primary group-hover:text-secondary transition-colors">History of Bangladeshi Media</h3>
+                            </div>
+                            <span class="material-symbols-outlined expand-icon text-xl text-secondary select-none">add</span>
+                        </summary>
+                        <div class="px-6 pb-6 pt-2 border-t border-outline-variant/30 bg-[#fbf9f8]/60 space-y-4">
+                            <p class="font-body-sm text-[14px] text-secondary leading-relaxed">
+                                This course traces the historical evolution of media in Bangladesh from its colonial inception to the digital era. It covers the development of the press since 1947, the rise of state and private television, changing radio formats, the national film industry, and the contemporary impacts of citizen journalism.
+                            </p>
+                            <div class="border-t border-outline-variant/30 pt-3">
+                                <span class="font-label-caps text-[9px] font-bold text-primary uppercase tracking-widest block mb-2">Core Syllabus Themes:</span>
+                                <ul class="grid grid-cols-2 gap-2 font-label-caps text-[9px] text-secondary font-bold">
+                                    <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Colonial Print Roots</li>
+                                    <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span>1971 Liberation Press</li>
+                                    <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Satellite TV Boom</li>
+                                    <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Citizen Media Era</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Right Side: Scholarship & Research -->
+        <section class="w-full lg:w-1/2 p-margin-mobile md:p-margin-desktop bg-surface">
+            <div class="space-y-16">
+                <div class="flex items-center gap-2 text-primary">
+                    <span class="material-symbols-outlined text-2xl">menu_book</span>
+                    <span class="font-label-caps text-[11px] font-extrabold uppercase tracking-widest">Scholarship</span>
+                </div>
+                
+                <h2 class="font-headline-lg text-3xl md:text-4xl font-extrabold uppercase leading-[0.95] tracking-tighter">Inquiry &amp; Publications</h2>
+                
+                <!-- Research Areas (Bento Box Grid Layout) -->
+                <div>
+                    <span class="font-label-caps text-[10px] font-bold text-secondary tracking-wider block mb-6 uppercase">Primary Inquiry Areas</span>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        
+                        <div class="p-6 border border-outline-variant/60 rounded-2xl bg-background hover-glow transition-all duration-300 flex flex-col justify-between">
+                            <div>
+                                <span class="material-symbols-outlined text-3xl text-secondary mb-4">auto_stories</span>
+                                <h3 class="font-label-caps text-xs font-extrabold text-primary mb-2">Journalism Studies</h3>
+                            </div>
+                            <p class="font-body-sm text-[13px] text-secondary leading-relaxed">
+                                newsroom dynamics, district-level reporting precarity, ethics, and press autonomy in South Asia.
+                            </p>
+                        </div>
+
+                        <div class="p-6 border border-outline-variant/60 rounded-2xl bg-background hover-glow transition-all duration-300 flex flex-col justify-between">
+                            <div>
+                                <span class="material-symbols-outlined text-3xl text-secondary mb-4">webhook</span>
+                                <h3 class="font-label-caps text-xs font-extrabold text-primary mb-2">Digital Media</h3>
+                            </div>
+                            <p class="font-body-sm text-[13px] text-secondary leading-relaxed">
+                                Algorithmic gatekeeping, visual dis/misinformation, and verification for synthetic media.
+                            </p>
+                        </div>
+
+                        <div class="p-6 border border-outline-variant/60 rounded-2xl bg-background hover-glow transition-all duration-300 flex flex-col justify-between">
+                            <div>
+                                <span class="material-symbols-outlined text-3xl text-secondary mb-4">query_stats</span>
+                                <h3 class="font-label-caps text-xs font-extrabold text-primary mb-2">Media Business</h3>
+                            </div>
+                            <p class="font-body-sm text-[13px] text-secondary leading-relaxed">
+                                Platform labor economics, micro-work gigs, tech monopoly dependency, and revenue models.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <!-- Publications (Rich Academic Cards with Accordion Abstracts) -->
+                <div>
+                    <span class="font-label-caps text-[10px] font-bold text-secondary tracking-wider block mb-6 uppercase">Selected Publications</span>
+                    <div class="space-y-8">
+                        
+                        <!-- Paper 1 -->
+                        <article class="relative pl-6 group transition-all duration-300">
+                            <div class="absolute left-0 top-0 h-full w-1 bg-outline-variant group-hover:bg-primary group-hover:w-1.5 transition-all"></div>
+                            
+                            <div class="flex flex-wrap gap-2 mb-2">
+                                <span class="font-label-caps text-[8px] font-bold text-secondary tracking-widest uppercase border border-outline-variant px-2 py-0.5 rounded-full">2025</span>
+                                <span class="font-label-caps text-[8px] font-bold text-primary tracking-widest uppercase bg-surface-container px-2 py-0.5 rounded-full">Semi-Academic Periodical</span>
+                            </div>
+
+                            <h3 class="font-label-caps text-[15px] font-extrabold text-primary leading-snug">
+                                Newsfluencer: The Shifting Ecosystem of Social Media Influencers in Public Communication
+                            </h3>
+                            <p class="font-body-sm text-[13px] italic text-secondary mt-1">Press Information Bureau (PIB)</p>
+                            
+                            <p class="font-body-sm text-[13.5px] text-secondary mt-2 leading-relaxed">
+                                Mapping how public messaging channels adapt to social-first influencers, reshaping gatekeeping norms and official public communication methods.
+                            </p>
+                            
+                            <!-- Toggle abstract button -->
+                            <button onclick="toggleAbstract('abs-1')" class="mt-4 flex items-center gap-1.5 font-label-caps text-[9px] font-bold text-primary tracking-widest uppercase hover:opacity-75 transition-opacity">
+                                <span class="material-symbols-outlined text-sm">subject</span> Read Abstract
+                            </button>
+
+                            <!-- Sliding abstract glass panel -->
+                            <div id="abs-1" class="abstract-panel mt-3 bg-surface-container-low/75 border border-outline-variant/35 rounded-xl p-5 glass-card">
+                                <span class="font-label-caps text-[9px] font-extrabold text-secondary tracking-widest block mb-2 uppercase">Research Abstract</span>
+                                <p class="font-body-sm text-[13px] text-secondary leading-relaxed italic">
+                                    "This article maps the shifting paradigms of official public communication channels as state information organs adapt to social-first influencers, negotiating the democratization of voice against traditional gatekeeping structures."
+                                </p>
+                            </div>
+                        </article>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container-low border-t border-outline-variant/35 py-16 px-margin-mobile md:px-margin-desktop">
+        <div class="max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex flex-col items-center md:items-start gap-2">
+                <span class="font-label-caps text-sm font-extrabold uppercase">Usama Rafid</span>
+                <p class="font-body-sm text-[13px] text-secondary">© 2026 Usama Rafid. All rights reserved. Dhaka, Bangladesh.</p>
+            </div>
+            
+            <div class="flex flex-wrap gap-x-8 gap-y-2 items-center justify-center">
+                 <a class="font-label-caps text-[11px] font-bold text-secondary hover:text-primary transition-colors tracking-widest uppercase" href="https://linkedin.com/in/usama-rafid" target="_blank" rel="noopener">LinkedIn</a>
+                 <a class="font-label-caps text-[11px] font-bold text-secondary hover:text-primary transition-colors tracking-widest uppercase" href="https://web.facebook.com/usama.rafid.7/" target="_blank" rel="noopener">Facebook</a>
+                 <a class="font-label-caps text-[11px] font-bold text-secondary hover:text-primary transition-colors tracking-widest uppercase" href="mailto:rafidusama@gmail.com?cc=usama.rafid@ulab.edu.bd">Email</a>
+                 <a class="font-label-caps text-[11px] font-bold text-secondary hover:text-primary transition-colors tracking-widest uppercase" href="about.html">About</a>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <span class="font-label-caps text-[10px] text-secondary font-bold tracking-widest uppercase">BACK TO TOP</span>
+                <button class="w-10 h-10 border border-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all rounded-full" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <span class="material-symbols-outlined text-sm">arrow_upward</span>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripting -->
+    <script>
+        // Intersection Observer scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.08 });
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Toggle publication abstract panel smoothly
+        function toggleAbstract(id) {
+            const panel = document.getElementById(id);
+            if (panel.classList.contains('open')) {
+                panel.classList.remove('open');
+            } else {
+                // Close all abstract panels first for accordion effect
+                document.querySelectorAll('.abstract-panel').forEach(p => p.classList.remove('open'));
+                panel.classList.add('open');
+            }
+        }
+    </script>
+</body>
+</html>
