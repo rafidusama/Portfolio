@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Reportage | Usama Rafid</title>
+    <meta name="description" content="Published journalism by Usama Rafid, analytical reporting and commentary on local journalism, digital news, media economies, and climate-affected communities in Bangladesh and South Asia."/>
+
+    <!-- Custom Style Sheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="index.css?v=liquid-dispatch-2030"/>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1A1A18",
+                        "secondary": "#6B6560",
+                        "background": "#F9F6F1",
+                        "surface": "#FFFFFF",
+                        "surface-container": "#EEEAE3",
+                        "surface-container-low": "#F2EFE9",
+                        "surface-container-highest": "#D6D1C8",
+                        "outline-variant": "#D6D1C8",
+                        "accent": "#B5451B",
+                        "accent-deep": "#8B2D10",
+                        "accent-blue": "#C8A45A"
+                    },
+                    spacing: {
+                        "margin-mobile": "24px",
+                        "margin-desktop": "80px",
+                        "stack-sm": "16px",
+                        "stack-md": "32px",
+                        "stack-lg": "64px",
+                        "stack-xl": "120px",
+                        "gutter": "24px"
+                    },
+                    fontFamily: {
+                        "label-caps": ["Raleway", "sans-serif"],
+                        "headline-lg": ["Raleway", "sans-serif"],
+                        "headline-lg-mobile": ["Raleway", "sans-serif"],
+                        "headline-sm": ["Raleway", "sans-serif"],
+                        "subhead-serif": ["Raleway", "sans-serif"],
+                        "serif-header": ["Raleway", "sans-serif"],
+                        "display-hero": ["Raleway", "sans-serif"],
+                        "display-hero-mobile": ["Raleway", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-primary selection:bg-primary selection:text-white">
+<div class="aurora" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span></div>
+<div class="dot-veil" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div id="progress" aria-hidden="true"></div>
+
+    <!-- Header Navigation -->
+    <nav class="nav" id="top-nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">Usama<span class="dot">.</span>Rafid</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a class="active" href="reportage.html">Reportage</a>
+      <a href="academic.html">Academic</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+    </div>
+    <button id="menu-toggle" class="hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div id="mobile-menu" aria-hidden="true">
+  <a href="index.html"><span class="idx">01</span> Home</a>
+  <a href="reportage.html"><span class="idx">02</span> Reportage</a>
+  <a href="academic.html"><span class="idx">03</span> Academic</a>
+  <a href="projects.html"><span class="idx">04</span> Projects</a>
+  <a href="about.html"><span class="idx">05</span> About</a>
+</div>
+
+    <!-- Main Section -->
+    <main class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop py-12 pt-[120px]">
+
+        <!-- Page Title Header -->
+        <header class="pt-8 pb-12 reveal-on-scroll">
+            <div class="flex items-center gap-3 mb-6"><span class="rule"></span><span class="eyebrow">Dispatch &amp; Features</span></div>
+            <h1 class="display text-6xl md:text-8xl text-ink">Reportage<br/><span class="text-outline">&amp; Stories</span></h1>
+            <p class="serif italic text-2xl md:text-3xl text-inksoft max-w-3xl mt-6 leading-relaxed">Reporting and commentary on the state of journalism, the pressures shaping media, and the communities that news too often overlooks, across Bangladesh and South Asia.</p>
+        </header>
+
+        <!-- Latest dispatches: horizontal scroll strip -->
+        <section class="mb-14 reveal-on-scroll">
+            <div class="flex items-center gap-3 mb-6"><span class="rule"></span><span class="eyebrow">Latest Dispatches</span><span class="ml-auto chip"><span class="material-symbols-outlined text-sm">swipe</span> Scroll</span></div>
+            <div id="featured-strip" class="h-strip"></div>
+        </section>
+
+
+        <!-- Appeared In Section -->
+        <section id="appeared-in-section" class="mt-24 border-t border-outline-variant/35 pt-16">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                <div class="lg:col-span-4">
+                    <span class="font-label-caps text-[11px] font-extrabold uppercase tracking-[0.25em] text-secondary block mb-4">Media Mentions</span>
+                    <h2 class="font-label-caps text-3xl md:text-5xl font-extrabold text-primary uppercase leading-[0.95] tracking-tighter">
+                        Appeared <span class="text-outline">In</span>
+                    </h2>
+                    <p class="font-subhead-serif text-base md:text-lg text-secondary mt-4 leading-relaxed">
+                        Interviews, quoted commentary, and coverage where Usama Rafid appears as a source, expert, or subject, rather than as the author.
+                    </p>
+                </div>
+
+                <div id="appeared-on-list" class="lg:col-span-8 divide-y divide-outline-variant/40 border-t border-outline-variant/40"></div>
+            </div>
+        </section>
+
+        <!-- Complete Searchable Archive Section -->
+        <section id="archive-section" class="mt-24 border-t border-outline-variant/35 pt-16">
+            <div class="mb-12">
+                <span class="font-label-caps text-[11px] font-extrabold uppercase tracking-[0.25em] text-secondary block mb-4">The Catalog</span>
+                <h2 class="font-label-caps text-3xl md:text-5xl font-extrabold text-primary uppercase leading-[0.95] tracking-tighter">
+                    The Complete <span class="text-outline">Archive</span>
+                </h2>
+                <p class="font-subhead-serif text-base md:text-lg text-secondary max-w-3xl mt-4 leading-relaxed">
+                    Search, filter, and sort through Usama Rafid's published reports, features, translations, and commentary, organised by outlet, theme, and year.
+                </p>
+            </div>
+
+            <!-- Filter / Sort Controls -->
+            <div class="sticky top-[73px] z-30 bg-background/95 backdrop-blur-md border-y border-outline-variant/40 py-5 mb-12">
+                <div class="flex flex-col gap-5">
+
+                    <!-- Search row -->
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-secondary text-xl pointer-events-none">search</span>
+                        <input id="archive-search" type="search" autocomplete="off"
+                               placeholder="Search titles, outlets and themes…"
+                               class="w-full bg-surface-container-low border border-outline-variant rounded-xl pl-12 pr-4 py-3 font-body-lg text-[15px] text-primary placeholder:text-secondary/70 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow"/>
+                    </div>
+
+                    <!-- Selects row -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                        <label class="flex flex-col gap-1.5">
+                            <span class="font-label-caps text-[9px] font-extrabold uppercase tracking-widest text-secondary">Outlet</span>
+                            <select id="filter-outlet" class="bg-surface border border-outline-variant rounded-lg px-3 py-2.5 font-label-caps text-[12px] font-bold text-primary focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"></select>
+                        </label>
+                        <label class="flex flex-col gap-1.5">
+                            <span class="font-label-caps text-[9px] font-extrabold uppercase tracking-widest text-secondary">Theme</span>
+                            <select id="filter-theme" class="bg-surface border border-outline-variant rounded-lg px-3 py-2.5 font-label-caps text-[12px] font-bold text-primary focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"></select>
+                        </label>
+                        <label class="flex flex-col gap-1.5">
+                            <span class="font-label-caps text-[9px] font-extrabold uppercase tracking-widest text-secondary">Year</span>
+                            <select id="filter-year" class="bg-surface border border-outline-variant rounded-lg px-3 py-2.5 font-label-caps text-[12px] font-bold text-primary focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"></select>
+                        </label>
+                        <label class="flex flex-col gap-1.5">
+                            <span class="font-label-caps text-[9px] font-extrabold uppercase tracking-widest text-secondary">Sort by date</span>
+                            <select id="filter-sort" class="bg-surface border border-outline-variant rounded-lg px-3 py-2.5 font-label-caps text-[12px] font-bold text-primary focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer">
+                                <option value="new">Newest first</option>
+                                <option value="old">Oldest first</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <!-- Count + reset -->
+                    <div class="flex items-center justify-between">
+                        <span id="result-count" class="font-label-caps text-[10px] font-bold uppercase tracking-widest text-secondary"></span>
+                        <button id="reset-filters" class="flex items-center gap-1.5 font-label-caps text-[10px] font-bold uppercase tracking-widest text-primary hover:text-secondary transition-colors">
+                            <span class="material-symbols-outlined text-sm">restart_alt</span> Reset Filters
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Archive List Container -->
+            <div id="archive-list" class="divide-y divide-outline-variant/40 border-t border-outline-variant/40"></div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="hidden text-center py-24">
+                <span class="material-symbols-outlined text-5xl text-outline-variant">search_off</span>
+                <p class="font-subhead-serif text-xl italic text-secondary mt-4">No work matches these filters.</p>
+                <button id="clear-all-btn" class="mt-6 inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-label-caps text-[11px] font-bold uppercase tracking-wider hover:bg-secondary transition-colors">
+                    Clear all filters
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container-low border-t border-outline-variant/35 py-16 px-margin-mobile md:px-margin-desktop">
+        <div class="max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex flex-col items-center md:items-start gap-2">
+                <span class="font-label-caps text-sm font-extrabold uppercase">Usama Rafid</span>
+                <p class="font-body-sm text-[13px] text-secondary">© 2026 Usama Rafid. All rights reserved. Dhaka, Bangladesh.</p>
+            </div>
+
+            <div class="flex flex-wrap gap-x-8 gap-y-2 items-center justify-center">
+                <a class="font-label-caps text-[11px] font-bold text-secondary hover:text-primary transition-colors tracking-widest uppercase" href="https://linkedin.com/in/usama-rafid" target="_blank" rel="noopener">LinkedIn</a>
+                <a class="font-label-caps text-[11px] font-bold text-secondary hover:text-primary transition-colors tracking-widest uppercase" href="https://web.facebook.com/usama.rafid.7/" target="_blank" rel="noopener">Facebook</a>
+                <a class="font-label-caps text-[11px] font-bold text-secondary hover:text-primary transition-colors tracking-widest uppercase" href="mailto:rafidusama@gmail.com?cc=usama.rafid@ulab.edu.bd">Email</a>
+                <a class="font-label-caps text-[11px] font-bold text-secondary hover:text-primary transition-colors tracking-widest uppercase" href="about.html">About</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <span class="font-label-caps text-[10px] text-secondary font-bold tracking-widest uppercase">BACK TO TOP</span>
+                <button class="w-10 h-10 border border-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all rounded-full" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <span class="material-symbols-outlined text-sm">arrow_upward</span>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripting -->
+    <script>
+        /* ---------- Image bank (reused site-wide editorial photography) ---------- */
+        const IMG = {
+            labor: "https://lh3.googleusercontent.com/aida-public/AB6AXuATA16Qp4iFKZpU8Acy-w58hN19pyLR6OBMlDHyqpkC2U9vt3uTYGv2U-ITkg5dLvAJgYwZ_9RqRJaD8FRjyZryO1OmmVYBHyoDHR-iHyZmZsveKJk3bfIt6T3HsRzqcgpNSWbJENtF6XprMQqvYE2oj33DtZrUmi9onCPU_94W7lT0-oiAGR50uaG6Hb_DtGVtye46_MVi7hPds5DQ2SA1yYjfwcfjPU9OBjOUpFHIonD_BqazlY_Zey3K8ZLFmUFDqOBs0CzRcnKK",
+            dhaka: "https://lh3.googleusercontent.com/aida-public/AB6AXuDO8dF7UpvXvrG0bj6Ap9hCdFJ76qoKeI04pejSJWpfQQv4xugeGQdjxHfvNpCuGsIXasf56sXLQxcwo-3vWfWbk8-jRtcM-PuZlwSiRMmR9o2A2MTeti1s7SEsxW7mo4slf103mkKnBpxI7cX1Z5H7olOZfpTag6ycM3Ygb8BLbO_WWxkJEqVFodChStXOP1CO5ui4PAhFwsvdaklrv3rSXYbnSA069noyTZeXtJ4S4IhH1CUAcSBr--K5MUyqhUhK1JvVo6hxGLi1",
+            ai: "https://lh3.googleusercontent.com/aida-public/AB6AXuBvHtaaHkX7cbUk4UejJPXcrzyZmEhiu3QYqpOOIihCwuxzd3ejryS9ZjElxgk5attjbtN_qZVz6AMsqqB3eSKGh23lf7os5K8edZ2YHQQx80R04ixpcjBKQAy1GAO5E62VGiTYoivqIj3seSwTBbkAEh3HYR0So1IER2Q2N0z6H0oznix6SgH1xSto9yMNh191dykMKy5feo2Ahc4LWY-wGpqEirtHJySovf3cxqSfAi1z02iO_7C1k5kz-PFc7rlUUY99XLQGkTyU",
+            river: "https://lh3.googleusercontent.com/aida-public/AB6AXuDEHds6Bml5ZZwD_sfAjenRp6-6J2jCtUscdbTo2X_3xiv4mxASj_JYsl53LDN8oiVe_CZtysZ2XNo4p8VkL2L3TGMEKoaruAj8B15BLGlrek8nlXXe2IqgFBL9nrgpWUFZj9CEQsUICWG4LsRsi0rZLWUOXR78gSIIZYIk8PErJ1xfI46TnfhNWlk0YttdB8SpliGHP67rzLmPjSjtadqtUuQm9kP2jUY0ryjb1RuMeuhXPxS725dCKZP80l8yjjy67rb2TL9KpU5e",
+            home1: "https://lh3.googleusercontent.com/aida-public/AB6AXuDPRAEKBTJaomwztCz6Df-PRs9INzllOOWKl66-n0AJJzrIepv2ze2rdJqXUKqoUqiW04IylbWaX4aUy32rQkj9wzuvWFTCnJnvdyvQQNOf-5fjoMiVkLRU8Zj9Rm5oS8Taeu2ELL1LBf7vITbJqYMC57xZw6I2IvIOfBhJ57dUcxKN2QqlUK0QWQ3UQZaaa1Wq3he4S2mb2YaG6vwgm3ZAxs7GMmueyUdJjsYj-polGrV9qev8JtDPvuOut60euSvKmoqwXc31qWL0",
+            home2: "https://lh3.googleusercontent.com/aida-public/AB6AXuATO8ITN6I61Rd3-t6SmU6XfZvNf5VJzjOwl1-v3lUPDlf017YHzvxglaASEKx9Aa42C4x6F9eGdns6a4mZ5C0LI8CuaIhc_FO5TkDZgHEnRVpccJhHZjJWtE5IKxLy6pRLo1KafnvyFpFwLp6pUyWetjwcv7rLacz0vZYEUgABsDwGIxr75DvpbxvNxYYEu2sEktoA8wpaC5bAIYCvDO-liGngdcu9G71a43ooQTBOIMWHX6lirxM3ZdrcNqxgcBDLyhHuY7lEgSDi",
+            home3: "https://lh3.googleusercontent.com/aida-public/AB6AXuA5QqYkgL_CMepnMbeJjaHhDqYhm1KsX-nzzbDZCVY9C1-uy73Q4XoEFUrBsniwVub4tCPSDeJEVPIDJI9TAHWitGp3kgfdXyLcT8I0D71nDox5WM4oP-1xMgIqFT4HcpOp0v9kty-443zHnewckYI5O4J7ECalp92zWmrHVDEi4QggefhTc3PPWkaYjnGYouqTm8y9ydEa7LImnTmuMWdaZw4K-X8iv5mYJpWPZtuSar8BSJxguLZUIU_Es-KamkpHC-nlypr37kn0",
+            acad: "https://lh3.googleusercontent.com/aida-public/AB6AXuDa9EpqJnKLb42wwAAv1hWHGDT1cXL6wSvi_mc-YhwV_Njhm-EXwV_KFxbvxHy5eXfR-I2cedIC75eckqNOFBHyQWNDV1D9YVhZHgeIXs00oiZMJFr-TZkCsxiIgCtsqck4zcVUEYl64szDDSt1HBAA6VfxG9ZdDAfpvIQ1fbVSqMqDMOxgGpyg21RnGnGJRzpQkbRK9HZ3Ax_IqGwMe_3fLSazNihinyEErU44fG-NSYf_698KtZtentebbJt52wVkBxcxCf6aOgI-"
+        };
+
+        /* ---------- The full body of published work ---------- */
+        const WORKS = [
+            // --- 2026 ---
+            { title: "How Local Journalism Survives on Debt, Pressure and Press Cards", outlet: "The Business Standard", venue: "The Business Standard", type: "Report", theme: "Media and Journalism", date: "2026-01-09", img: "https://www.tbsnews.net/sites/default/files/styles/social_share/public/images/2025/10/15/pursuit_14.10.2025_copy.png",
+              url: "https://www.tbsnews.net/thoughts/how-local-journalism-survives-debt-pressure-and-press-cards-1329911",
+              blurb: "On the commercial crises, financial vulnerabilities, and intense political economies governing district journalists outside the capital." },
+            { title: "Why We Need Techies in Our Newsrooms", outlet: "The Daily Star", venue: "The Daily Star", type: "Op-Ed", theme: "Media and Journalism", date: "2026-02-02", img: "https://www.thedailystar.net/sites/default/files/styles/big_1/public/2026-02/ED_2.jpg?h=ed27e282",
+              url: "https://www.thedailystar.net/opinion/views/news/why-we-need-more-techies-our-newsrooms-4096116",
+              blurb: "On the vital integration of software developers, data scientists, and engineers to build modern public-interest editorial products." },
+            // --- 2025 ---
+            { title: "How Social Outlets are Shaping News Consumption Culture", outlet: "Others", venue: "Times of Bangladesh", type: "Report", theme: "Media and Journalism", date: "2025-12-06", img: "https://tob.news/wp-content/uploads/2025/12/social-media-news.jpg",
+              url: "https://tob.news/social-medias-impact-on-how-we-consum-news/",
+              blurb: "Recently, social media has become one of the most prominent mediums for news consumption worldwide, especially among younger audiences, according to global surveys." },
+            { title: "The Invisible Heist: How AI is Stealing from Newsrooms", outlet: "The Business Standard", venue: "The Business Standard", type: "Op-Ed", theme: "Media and Journalism", date: "2025-07-04", img: "https://www.tbsnews.net/sites/default/files/styles/social_share/public/images/2025/07/05/15_thoughts.png",
+              url: "https://www.tbsnews.net/thoughts/invisible-heist-how-ai-stealing-newsrooms-1181141",
+              blurb: "Documenting the intellectual-property erosion and commercial threats large language models pose to the revenue base of public-interest media." },
+            { title: "Rise of the Newsfluencers", outlet: "The Business Standard", venue: "The Business Standard", type: "Op-Ed", theme: "Media and Journalism", date: "2025-07-17", img: "https://www.tbsnews.net/sites/default/files/styles/social_share/public/images/2025/07/17/15_thoughts_copy.png",
+              url: "https://www.tbsnews.net/thoughts/rise-newsfluencers-1190691",
+              blurb: "On how creator-led political commentary and platform-native news personalities are reshaping public trust and audience attention." },
+            // --- 2024 ---
+            { title: "Living with the River: Manta Communities' Battle Against a Changing Climate", outlet: "Coastal Voices", venue: "Coastal Voices", type: "Feature", theme: "Environment and Climate", date: "2024-05-15", img: IMG.river,
+              url: "https://www.coastalvoicesbd.org/story/living-with-the-river-manta-communities-battle-against-a-changing-climate",
+              blurb: "An investigative feature on the floating Manta community of the south-central coast, who live permanently on boats without land ownership, negotiating survival against extreme climate shifts and systemic exclusion." },
+            { title: "From the Streets to the Field: A Sports Academy That Lets Street Children Dream Big", outlet: "The Business Standard", venue: "The Business Standard", type: "Feature", theme: "Politics and Society", date: "2024-02-09", img: "https://www.tbsnews.net/sites/default/files/styles/social_watermark_bkash/public/images/2024/02/09/image_5.jpg",
+              url: "https://www.tbsnews.net/features/panorama/streets-field-sports-academy-lets-street-children-dream-big-789806",
+              blurb: "A feature on a sports academy working to turn street children toward football, structure, care, and long-term rehabilitation." },
+            // --- 2023 ---
+            { title: "From Arcade Machines to PlayStation: Into the Gaming World of the Capital", outlet: "The Business Standard", venue: "The Business Standard", type: "Feature", theme: "Media and Journalism", date: "2023-11-03", img: "https://www.tbsnews.net/sites/default/files/styles/social_share/public/images/2023/11/03/arcade_machine_at_robi_store.jpg",
+              url: "https://www.tbsnews.net/features/arcade-machines-playstation-gaming-world-capital-732250",
+              blurb: "A reported look at Dhaka's gaming spaces, from arcade nostalgia to consoles, PCs, and the future of local gaming culture." },
+            { title: "Will AI Replace Our News Anchors?", outlet: "The Business Standard", venue: "The Business Standard", type: "Feature", theme: "Media and Journalism", date: "2023-08-18", img: "https://www.tbsnews.net/sites/default/files/styles/social_share/public/images/2023/08/18/08_panorama.png",
+              url: "https://www.tbsnews.net/features/panorama/will-ai-replace-our-news-anchors-684382",
+              blurb: "A feature on AI presenters, newsroom automation, language data, and what synthetic anchors may mean for Bangladeshi media." },
+            { title: "The Road to Glory: Formula Student Clocks Top Speed in Bangladesh", outlet: "The Business Standard", venue: "The Business Standard", type: "Feature", theme: "Politics and Society", date: "2023-06-23", img: "https://www.tbsnews.net/sites/default/files/styles/social_share/public/images/2023/06/23/p1_crack_platoons_ev_cp-e19.jpg",
+              url: "https://www.tbsnews.net/bangladesh/road-glory-formula-student-clocks-top-speed-bangladesh-654922",
+              blurb: "A feature on university racing teams building electric Formula Student cars with local and eco-friendly materials." },
+            { title: "ডেটা সাংবাদিকতার ধরন", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Essay", theme: "Media and Journalism", date: "2023-02-23", img: "https://archive.roar.media/wp-content/uploads/2023/02/Data-journa-2-1024x576.jpg",
+              url: "https://archive.roar.media/bangla/main/world/types-of-data-journalism",
+              blurb: "A Bengali overview of data journalism formats, from drones and spatial reporting to data-led investigations and visual storytelling." },
+            { title: "ডেটা সাংবাদিকতা কী?", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Explainer", theme: "Media and Journalism", date: "2023-02-19", img: "https://archive.roar.media/wp-content/uploads/2023/02/Data-journa-1-1024x576.jpg",
+              url: "https://archive.roar.media/bangla/main/world/what-is-data-journalism",
+              blurb: "A Bengali explainer on data gathering, cleaning, analysis, visualization, and publication as a full journalistic workflow." },
+             { title: "ডেটা সাংবাদিকতা কেন গুরুত্বপূর্ণ?", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Explainer", theme: "Media and Journalism", date: "2023-06-29", img: "https://archive.roar.media/wp-content/uploads/2023/06/Data-Journa-copy333-2048x1152.jpg",
+              url: "https://archive.roar.media/bangla/main/world/importance-of-data-journalism",
+              blurb: "A Bengali explainer on why data journalism is important." },
+            // --- Colonial Indian Army Series (2021) ---
+            { title: "ঔপনিবেশিক ভারতের সামরিক বাহিনী: কোম্পানি শাসন (পর্ব-১)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-07-23", dateLabel: "Jul 16, 2021", series: "colonial-army", part: 1, img: "https://assets.roar.media/assets/BVKTDtASfCAOB8xu_Episode-1.jpg?w=750",
+              url: "https://archive.roar.media/bangla/main/history/army-of-colonial-india-episode-1",
+              blurb: "ইস্ট ইন্ডিয়া কোম্পানির বণিক সংঘ কর্তৃক ভারতের মানুষকে ভাড়াটিয়া সেনাবাহিনীতে রূপান্তর এবং ভারতভূমি দখলের ইতিহাস।" },
+            { title: "ঔপনিবেশিক ভারতের সামরিক বাহিনী: সিপাহী বিদ্রোহের পর (পর্ব-২)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-07-23", dateLabel: "Jul 22, 2021", series: "colonial-army", part: 2, img: "https://assets.roar.media/assets/7qG59LrgEbA3RfNq_Episode-2.jpg?w=1200",
+              url: "https://archive.roar.media/bangla/main/history/army-of-colonial-india-episode-2",
+              blurb: "১৮৫৭ সালের সিপাহী বিদ্রোহের অবসান এবং British Raj-এর অধীনে ভারতের শাসনভার চলে যাওয়ার পর ফৌজের সামগ্রিক পুনর্গঠন।" },
+            { title: "ঔপনিবেশিক ভারতের সামরিক বাহিনী: দ্য রয়্যাল ইম্পেরিয়াল আর্মি (পর্ব-৩)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-07-23", dateLabel: "Jul 22, 2021", series: "colonial-army", part: 3, img: "https://assets.roar.media/assets/O9JIF5TbVBxsi0TM_Episode-3.jpg?w=1200",
+              url: "https://archive.roar.media/bangla/main/history/army-of-colonial-india-episode-3",
+              blurb: "ব্রিটিশ সাম্রাজ্যের স্বার্থে বিশ্বব্যাপী যুদ্ধে অংশগ্রহণ করতে বাধ্য হওয়া এবং রাজকীয় সেনাবাহিনীর কঠোর আইন ও শাসন কাঠামো।" },
+            { title: "ঔপনিবেশিক ভারতের সামরিক বাহিনী: কিচেনারের পুনর্গঠন (পর্ব-৪)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-07-23", dateLabel: "Jul 22, 2021", series: "colonial-army", part: 4, img: "https://assets.roar.media/assets/77PPylzRExKQOedC_Episode-4.jpg?w=1200",
+              url: "https://archive.roar.media/bangla/main/history/army-of-colonial-india-episode-4",
+              blurb: "লর্ড কিচেনার কর্তৃক ভারতীয় ফৌজ পুনর্গঠন, অভ্যন্তরীণ নিরাপত্তা এবং সেনাবাহিনীর আধুনিকায়নের মাধ্যমে শক্তি বৃদ্ধি।" },
+            { title: "ঔপনিবেশিক ভারতের সামরিক বাহিনী: প্রথম বিশ্বযুদ্ধ (পর্ব-৫)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-07-23", dateLabel: "Jul 22, 2021", series: "colonial-army", part: 5, img: "https://assets.roar.media/assets/UXV0LPq7tlPstQb4_Episode-5.jpg?w=1200",
+              url: "https://archive.roar.media/bangla/main/history/army-of-colonial-india-episode-5",
+              blurb: "প্রথম বিশ্বযুদ্ধের রণাঙ্গনে লাখ লাখ ভারতীয় সেনার বীরত্ব ও আত্মত্যাগ এবং খুদাদাদ খানের মতো সাহসী সৈনিকদের সাহসিকতার গল্প।" },
+            { title: "ঔপনিবেশিক ভারতের সামরিক বাহিনী: ভারতীয়করণ (পর্ব-৬)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-07-23", dateLabel: "Jul 22, 2021", series: "colonial-army", part: 6, img: "https://assets.roar.media/assets/SZkz5NkgSnLwfsxt_Episode-6.jpg?w=1200",
+              url: "https://archive.roar.media/bangla/main/history/army-of-colonial-india-episode-6",
+              blurb: "১৯২৩ সাল থেকে সেনাবাহিনীতে ভারতীয় অফিসার নিয়োগের সূচনা ও এর মধ্য দিয়ে গড়ে ওঠা বৈষম্যমূলক রীতিনীতি।" },
+            { title: "ঔপনিবেশিক ভারতের সামরিক বাহিনী: দ্বিতীয় বিশ্বযুদ্ধ (পর্ব-৭)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-07-23", series: "colonial-army", part: 7, img: "https://assets.roar.media/assets/og4tyRCzuvEnWBsR_Episode-7.jpg?w=1200",
+              url: "https://archive.roar.media/bangla/main/history/army-of-colonial-india-episode-7",
+              blurb: "দ্বিতীয় বিশ্বযুদ্ধের রণাঙ্গনে ভারতীয় ফৌজের সর্বাত্মক প্রসারণ, বিভিন্ন মহাদেশে লড়াই ও সামরিক শক্তিতে আমূল পরিবর্তন।" },
+            { title: "ঔপনিবেশিক ভারতের সামরিক বাহিনী: স্বাধীনতা ও ইংরেজদের বিদায় (পর্ব-৮)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-07-23", series: "colonial-army", part: 8, img: "https://assets.roar.media/assets/sC3AZoNaQixTiIBS_Episode-8.jpg?w=1200",
+              url: "https://archive.roar.media/bangla/main/history/army-of-colonial-india-episode-8",
+              blurb: "১৯৪৭ সালের দেশভাগ, ব্রিটিশ বিদায় এবং ভারতের সামরিক বাহিনীর বিভাজনের মধ্য দিয়ে ঔপনিবেশিক অধ্যায়ের অবসান।" },
+
+            // --- Alexander the Great Series (2018-2019) ---
+            { title: "দিগ্বিজয়ী আলেকজান্ডার: রাজপুত্রের উত্থান (পর্ব-১)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2019-12-30", dateLabel: "Aug 6, 2018", series: "alexander", part: 1, img: "https://assets.roar.media/assets/uzNNTlcN7ruCmy4p_alexander.jpg?w=750",
+              url: "https://archive.roar.media/bangla/main/biography/alexander-the-great-episode-1-the-triumph-of-the-prince",
+              blurb: "ম্যাসিডোনের রাজপুত্র থেকে দিগ্বিজয়ী সম্রাট হয়ে ওঠার প্রথম অধ্যায়: আলেকজান্ডারের উত্থান ও রাজপুত্রের সিংহাসন লাভ।" },
+            { title: "দিগ্বিজয়ী আলেকজান্ডার: এশিয়ায় পদার্পণ (পর্ব-২)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2019-12-30", series: "alexander", part: 2, img: "https://assets.roar.media/assets/thunb2O5ExTMX4d7_images.jpg?w=750",
+              url: "https://archive.roar.media/bangla/main/biography/alexandar-the-great-episode-2-lord-of-asia",
+              blurb: "গ্রানিকাসের যুদ্ধ থেকে এশিয়া মাইনর বিজয়ের সূচনা এবং পারস্য রাজ Dariউসের বিরুদ্ধে প্রথম আকস্মিক প্রতিরোধ।" },
+            { title: "দিগ্বিজয়ী আলেকজান্ডার: মিশরের নতুন দেবতা (পর্ব-৩)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2019-12-30", series: "alexander", part: 3, img: "https://assets.roar.media/assets/ZaAdCGzWhndPFt6t_d8uxhzm-9a3d6fef-9752-4188-8db2-8f97e04628f5.jpg?w=750",
+              url: "https://archive.roar.media/bangla/main/biography/alexander-the-great-episode-3-egypts-new-god",
+              blurb: "মিশরের পিরামিড ও স্ফিংক্সের বিস্ময় দেখে মেসিডন বাহিনীর মিশর জয় এবং সেখানে ফারাও হিসেবে আলেকজান্ডারের মুকুট ধারণ।" },
+            { title: "দিগ্বিজয়ী আলেকজান্ডার: প্রাচ্যের প্রাচুর্য (পর্ব-৪)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2019-12-30", series: "alexander", part: 4, img: "https://assets.roar.media/assets/NHDaQR23zGurUrG3_saas.jpg?w=750",
+              url: "https://archive.roar.media/bangla/main/history/alexander-the-great-episode-4-all-the-treasures-of-east",
+              blurb: "ব্যাবিলন জয় এবং পারস্য সাম্রাজ্যের পতন ঘটিয়ে প্রাচ্যের ঐশ্বর্য ও সম্পদের ওপর মেসিডোনিয়ান বাহিনীর নিয়ন্ত্রণ প্রতিষ্ঠা।" },
+            { title: "দিগ্বিজয়ী আলেকজান্ডার: পৃথিবীর শেষ প্রান্তে (পর্ব-৫)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2019-12-30", series: "alexander", part: 5, img: "https://assets.roar.media/assets/30KXJikMVK0uFVKb_imagkjlhikhkhjkhes.jpg?w=750",
+              url: "https://archive.roar.media/bangla/main/biography/alexander-the-great-episode-5-to-the-ends-of-the-world",
+              blurb: "রোকসানাকে বিয়ে এবং খাইবার পাস হয়ে দুর্গম ও অচেনা ভারতীয় উপমহাদেশ জয়ের অভিমুখে আলেকজান্ডারের নতুন যাত্রা।" },
+            { title: "দিগ্বিজয়ী আলেকজান্ডার: দুর্গম ভারত (পর্ব-৬)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2019-12-30", series: "alexander", part: 6, img: "https://assets.roar.media/assets/xXLPAhCPTITJchr7_imag%E0%A7%8D%E0%A7%87%E0%A7%8D%E0%A7%87%E0%A7%8Des.jpg?w=1200",
+              url: "https://archive.roar.media/bangla/main/history/alexander-the-great-episode-6-after-the-river-of-indus",
+              blurb: "ইন্দু নদী পার হয়ে রাজা পুরুর বিরুদ্ধে ঝিলামের তীরে ঐতিহাসিক হাইডাসপিসের রক্তক্ষয়ী যুদ্ধ এবং প্রকৃতির বৈরিতা মোকাবেলা।" },
+            { title: "দিগ্বিজয়ী আলেকজান্ডার: বিপদশঙ্কুল যাত্রা (পর্ব-৭)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2019-12-30", series: "alexander", part: 7, img: "https://assets.roar.media/assets/KGbgQZBV9LgJGCCx_pasted-image-0.png?w=750",
+              url: "https://archive.roar.media/bangla/main/history/alexander-the-great-episode-7-perilous-journeys",
+              blurb: "বিপাশা নদীর তীরে সৈন্যদের ক্লান্তি ও অসন্তোষ এবং ভারত জয় অসমাপ্ত রেখে ব্যাবিলনে প্রত্যাবর্তনের বিপদশঙ্কুল কাহিনী।" },
+            { title: "দিগ্বিজয়ী আলেকজান্ডার: মহত্ত্বের মূল্য (শেষ পর্ব)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2019-12-30", series: "alexander", part: 8, img: "https://assets.roar.media/assets/sAJ4RoAxJvIi36uO_Screenshot_67.png?w=750",
+              url: "https://archive.roar.media/bangla/main/history/alexander-the-great-episode-8-the-price-of-greatness",
+              blurb: "ব্যাবিলনে মাত্র ৩২ বছর বয়সে সম্রাট আলেকজান্ডারের রহস্যময় মৃত্যু এবং ইতিহাসের পাতায় তাঁর চিরস্থায়ী উত্তরাধিকার।" }
+        ];
+
+        /* ---------- Places where Usama appears as a quoted/interviewed source ---------- */
+        const APPEARED_ON = [
+            { title: "How Podcasts Are Transforming Political Communication in Bangladesh", outlet: "The Business Standard", venue: "The Business Standard", type: "Quoted Commentary", theme: "Media and Journalism", date: "2026-02-23", img: "https://www.tbsnews.net/sites/default/files/styles/social_share/public/images/2026/02/07/08_panorama3.png",
+              url: "https://www.tbsnews.net/features/panorama/how-podcasts-are-transforming-political-communication-bangladesh-1354546",
+              blurb: "A story on podcasting and political communication where Usama Rafid appears as a quoted media researcher/source." },
+            { title: "তারেক রহমানের ফেরা নিয়ে ১৪ মাসে ১৩ ধরনের ‘তারিখ’ জানিয়েছিল মিডিয়া", outlet: "The Dissent", venue: "The Dissent", type: "Quoted Commentary", theme: "Media and Journalism", date: "2025-12-24", img: "https://static.thedissent.news/uploads/store/mediawatch/151a1f05-b1c7-49a6-86a6-37c46f5171b5/image/1200-840495456ba513fe95d1cfbf6c1f88d2.jpg",
+              url: "https://thedissent.news/bn/media-watches/media-reported-13-different-dates-for-tarique-rahmans-return",
+              blurb: "A media-watch investigation on anonymous sourcing and speculative reporting where Usama Rafid appears as a quoted journalism ethics source." },
+            { title: "How 21 DU Students Battled Desperately for Survival in Sunamganj Floods", outlet: "The Business Standard", venue: "The Business Standard", type: "Appeared In", theme: "Environment and Climate", date: "2022-06-21", img: "https://www.tbsnews.net/sites/default/files/styles/social_share/public/images/2022/06/21/du-students.jpg",
+              url: "https://www.tbsnews.net/bangladesh/how-21-du-students-battled-desperately-survival-sunamganj-floods-444234",
+              blurb: "A survival account from the Sunamganj floods where Usama Rafid appears among the stranded Dhaka University students." }
+        ];
+
+        /* ---------- Theme accent dots ---------- */
+        const THEME_COLOR = {
+            "Media and Journalism": "#6b2f5b",
+            "Environment and Climate": "#2f6b3c",
+            "Politics and Society": "#1f5673",
+            "History": "#b45309"
+        };
+
+        /* ---------- State ---------- */
+        const state = { search: "", outlet: "all", theme: "all", year: "all", sort: "new" };
+
+        const els = {
+            list: document.getElementById('archive-list'),
+            appearedOnList: document.getElementById('appeared-on-list'),
+            empty: document.getElementById('empty-state'),
+            count: document.getElementById('result-count'),
+            search: document.getElementById('archive-search'),
+            outlet: document.getElementById('filter-outlet'),
+            theme: document.getElementById('filter-theme'),
+            year: document.getElementById('filter-year'),
+            sort: document.getElementById('filter-sort'),
+            reset: document.getElementById('reset-filters'),
+            clearBtn: document.getElementById('clear-all-btn')
+        };
+
+        /* ---------- Populate selects from data ---------- */
+        function unique(arr) { return [...new Set(arr)]; }
+
+        function fillSelect(select, values, allLabel) {
+            select.innerHTML = '<option value="all">' + allLabel + '</option>' +
+                values.map(v => '<option value="' + v + '">' + v + '</option>').join('');
+        }
+
+        const OUTLET_ORDER = ["The Daily Star", "The Business Standard", "Roar Bangla", "Coastal Voices", "Others"];
+        fillSelect(els.outlet, OUTLET_ORDER.filter(o => WORKS.some(w => w.outlet === o)), "All outlets");
+        fillSelect(els.theme, unique(WORKS.map(w => w.theme)).sort(), "All themes");
+        fillSelect(els.year, unique(WORKS.map(w => w.date.slice(0, 4))).sort((a, b) => b - a), "All years");
+
+        /* ---------- Helpers ---------- */
+        function fmtDate(w) {
+            if (w.dateLabel) return w.dateLabel;
+            const d = new Date(w.date);
+            return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        /* ---------- Core render ---------- */
+        function render() {
+            const q = state.search.trim().toLowerCase();
+            let items = WORKS.filter(w => {
+                if (state.outlet !== "all" && w.outlet !== state.outlet) return false;
+                if (state.theme !== "all" && w.theme !== state.theme) return false;
+                if (state.year !== "all" && w.date.slice(0, 4) !== state.year) return false;
+                if (q) {
+                    const hay = (w.title + " " + w.venue + " " + w.outlet + " " + w.theme + " " + w.type + " " + w.blurb).toLowerCase();
+                    if (!hay.includes(q)) return false;
+                }
+                return true;
+            });
+
+            items.sort((a, b) => {
+                if (a.date !== b.date) {
+                    return state.sort === "new"
+                        ? b.date.localeCompare(a.date)
+                        : a.date.localeCompare(b.date);
+                }
+                // Same sorting date: sort same-series items dynamically based on sort state
+                if (a.series && b.series && a.series === b.series) {
+                    return state.sort === "new"
+                        ? b.part - a.part
+                        : a.part - b.part;
+                }
+                return a.title.localeCompare(b.title);
+            });
+
+            els.count.textContent = "Showing " + items.length + " of " + WORKS.length + " works";
+            els.empty.classList.toggle('hidden', items.length !== 0);
+
+            els.list.innerHTML = items.map(w => {
+                const dot = THEME_COLOR[w.theme] || "#1A1A18";
+                const venueLine = w.venue !== w.outlet
+                    ? '<span class="italic font-body-sm text-secondary normal-case tracking-normal">' + w.venue + '</span>'
+                    : '';
+                const href = w.url || "#";
+                const linkAttrs = w.url ? ' target="_blank" rel="noopener"' : ' aria-disabled="true"';
+                const cursorClass = w.url ? "cursor-pointer" : "cursor-default";
+                return '' +
+                '<a href="' + href + '"' + linkAttrs + ' class="archive-row group grid grid-cols-[1fr] md:grid-cols-[150px_1fr_auto] gap-4 md:gap-8 items-start py-7 ' + cursorClass + '">' +
+                    '<div class="flex md:flex-col items-center md:items-start gap-2 md:gap-1 order-1">' +
+                        '<time class="font-label-caps text-[11px] font-extrabold text-primary uppercase tracking-wider">' + fmtDate(w) + '</time>' +
+                        '<span class="hidden md:block w-8 h-[1px] bg-outline-variant my-1"></span>' +
+                        '<span class="font-label-caps text-[9px] font-bold text-secondary uppercase tracking-widest">' + w.outlet + '</span>' +
+                    '</div>' +
+                    '<div class="order-3 md:order-2 space-y-2">' +
+                        '<div class="flex flex-wrap items-center gap-x-3 gap-y-1">' +
+                            '<span class="inline-flex items-center gap-1.5 font-label-caps text-[9px] font-bold uppercase tracking-widest text-secondary">' +
+                                '<span class="w-2 h-2 rounded-full" style="background:' + dot + '"></span>' + w.theme +
+                            '</span>' +
+                            '<span class="font-label-caps text-[9px] font-bold uppercase tracking-widest text-primary border border-outline-variant rounded-full px-2 py-0.5">' + w.type + '</span>' +
+                        '</div>' +
+                        '<h2 class="font-label-caps text-lg md:text-xl font-extrabold text-primary leading-snug group-hover:text-secondary transition-colors">' + w.title + '</h2>' +
+                        '<p class="font-body-sm text-[14px] text-secondary leading-relaxed max-w-2xl">' + w.blurb + '</p>' +
+                        venueLine +
+                    '</div>' +
+                    '<div class="hidden md:block order-2 md:order-3 w-[120px] h-[84px] rounded-xl overflow-hidden bg-surface-container border border-outline-variant/30 shrink-0">' +
+                        '<img src="' + w.img + '" alt="" loading="lazy" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"/>' +
+                    '</div>' +
+                '</a>';
+            }).join('');
+        }
+
+        function renderAppearedOn() {
+            els.appearedOnList.innerHTML = APPEARED_ON.map(w => {
+                const dot = THEME_COLOR[w.theme] || "#1A1A18";
+                return '' +
+                '<a href="' + w.url + '" target="_blank" rel="noopener" class="archive-row group grid grid-cols-[1fr] md:grid-cols-[150px_1fr_auto] gap-4 md:gap-8 items-start py-7 cursor-pointer">' +
+                    '<div class="flex md:flex-col items-center md:items-start gap-2 md:gap-1 order-1">' +
+                        '<time class="font-label-caps text-[11px] font-extrabold text-primary uppercase tracking-wider">' + fmtDate(w) + '</time>' +
+                        '<span class="hidden md:block w-8 h-[1px] bg-outline-variant my-1"></span>' +
+                        '<span class="font-label-caps text-[9px] font-bold text-secondary uppercase tracking-widest">' + w.outlet + '</span>' +
+                    '</div>' +
+                    '<div class="order-3 md:order-2 space-y-2">' +
+                        '<div class="flex flex-wrap items-center gap-x-3 gap-y-1">' +
+                            '<span class="inline-flex items-center gap-1.5 font-label-caps text-[9px] font-bold uppercase tracking-widest text-secondary">' +
+                                '<span class="w-2 h-2 rounded-full" style="background:' + dot + '"></span>' + w.theme +
+                            '</span>' +
+                            '<span class="font-label-caps text-[9px] font-bold uppercase tracking-widest text-primary border border-outline-variant rounded-full px-2 py-0.5">' + w.type + '</span>' +
+                        '</div>' +
+                        '<h2 class="font-label-caps text-lg md:text-xl font-extrabold text-primary leading-snug group-hover:text-secondary transition-colors">' + w.title + '</h2>' +
+                        '<p class="font-body-sm text-[14px] text-secondary leading-relaxed max-w-2xl">' + w.blurb + '</p>' +
+                        (w.venue !== w.outlet ? '<span class="italic font-body-sm text-secondary normal-case tracking-normal">' + w.venue + '</span>' : '') +
+                    '</div>' +
+                    '<div class="hidden md:block order-2 md:order-3 w-[120px] h-[84px] rounded-xl overflow-hidden bg-surface-container border border-outline-variant/30 shrink-0">' +
+                        '<img src="' + w.img + '" alt="" loading="lazy" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"/>' +
+                    '</div>' +
+                '</a>';
+            }).join('');
+        }
+
+        /* ---------- Wire controls ---------- */
+        els.search.addEventListener('input', e => { state.search = e.target.value; render(); });
+        els.outlet.addEventListener('change', e => { state.outlet = e.target.value; render(); });
+        els.theme.addEventListener('change', e => { state.theme = e.target.value; render(); });
+        els.year.addEventListener('change', e => { state.year = e.target.value; render(); });
+        els.sort.addEventListener('change', e => { state.sort = e.target.value; render(); });
+
+        function resetFilters() {
+            state.search = ""; state.outlet = "all"; state.theme = "all"; state.year = "all"; state.sort = "new";
+            els.search.value = ""; els.outlet.value = "all"; els.theme.value = "all"; els.year.value = "all"; els.sort.value = "new";
+            render();
+        }
+        els.reset.addEventListener('click', resetFilters);
+        els.clearBtn.addEventListener('click', resetFilters);
+
+        /* Deep-link support */
+        (function applyQuery() {
+            const p = new URLSearchParams(location.search);
+            if (p.get('outlet') && [...els.outlet.options].some(o => o.value === p.get('outlet'))) { state.outlet = p.get('outlet'); els.outlet.value = state.outlet; }
+            if (p.get('theme') && [...els.theme.options].some(o => o.value === p.get('theme'))) { state.theme = p.get('theme'); els.theme.value = state.theme; }
+            if (p.get('year')) { state.year = p.get('year'); els.year.value = state.year; }
+        })();
+
+        render();
+        renderAppearedOn();
+        (function(){
+            var strip=document.getElementById('featured-strip'); if(!strip) return;
+            var items=WORKS.slice().sort(function(a,b){return b.date.localeCompare(a.date);}).slice(0,8);
+            strip.innerHTML=items.map(function(w){
+                return '<a href="'+(w.url||'#')+'" target="_blank" rel="noopener" class="group glass rounded-2xl overflow-hidden w-[280px] md:w-[320px] spot lift">'+
+                    '<div class="media aspect-[16/10]"><img src="'+w.img+'" alt="" loading="lazy"/></div>'+
+                    '<div class="p-5">'+
+                        '<div class="flex items-center gap-2 mb-2"><span class="mono text-[.6rem] uppercase tracking-[.14em] text-red">'+w.outlet+'</span><span class="w-5 h-px bg-ink/20"></span><time class="mono text-[.6rem] uppercase tracking-[.12em] text-inksoft">'+fmtDate(w)+'</time></div>'+
+                        '<h3 class="sg text-base font-bold text-ink leading-snug group-hover:text-red transition-colors">'+w.title+'</h3>'+
+                    '</div></a>';
+            }).join('');
+        })();
+
+        /* ---------- Shared Navigation & Scroll JS ---------- */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.08 });
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('top-nav');
+            if (window.scrollY > 40) {
+                nav.classList.add('bg-background/95', 'shadow-md');
+                nav.classList.remove('bg-background/85');
+            } else {
+                nav.classList.remove('bg-background/95', 'shadow-md');
+                nav.classList.add('bg-background/85');
+            }
+        });
+
+    </script>
+<script src="app.js?v=liquid-dispatch-2030"></script>
+</body>
+</html>
