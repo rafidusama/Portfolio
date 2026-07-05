@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4.1.3 — International & Donor Actors | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:960px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(1.8rem, 6.5vw, 3.7rem); line-height:1.02; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .mini-bento{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:640px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{ background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:1.2rem 1.3rem; transition:transform 0.2s ease, border-color 0.2s ease; }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{ font-family:'Fraunces', serif; font-size:1.05rem; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .mini-card p{font-size:0.9rem; margin:0;}
+  .caution-card{ background:var(--canopy-panel); border-left:3px solid var(--clay); border-radius:4px; padding:1.1rem 1.3rem; margin:1.4rem 0 1.8rem; }
+  .caution-card h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--clay); margin-bottom:0.5rem; }
+  .caution-card p{margin:0; color:var(--paper);}
+  .pull-quote{ font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:1.4rem; line-height:1.4; color:var(--paper); border-left:3px solid var(--brass); padding-left:1.2rem; margin:1.6rem 0; }
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:0.8rem; }
+  .tool-caveat{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--fern);
+    background:var(--canopy-deep); border:1px dashed var(--moss); border-radius:4px; padding:0.7rem 0.9rem; margin-bottom:1.4rem; line-height:1.6;
+  }
+  .filter-row{ display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.2rem; }
+  .filter-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.02em;
+    background:var(--canopy-panel); border:1px solid var(--moss); border-radius:20px; color:var(--paper-dim);
+    padding:0.5rem 0.9rem; cursor:pointer; transition:transform 0.15s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .filter-btn:hover{transform:translateY(-2px); border-color:var(--brass);}
+  .filter-btn.is-active{background:var(--brass); border-color:var(--brass); color:var(--void);}
+  .result-count{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--fern-dim); margin-bottom:1rem; }
+  .donor-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  @media (max-width:640px){ .donor-grid{grid-template-columns:1fr;} }
+  .donor-card{
+    background:var(--canopy-deep); border:1px solid var(--moss); border-left:3px solid var(--brass);
+    border-radius:4px; padding:1.1rem 1.2rem;
+  }
+  .donor-card.is-hidden{ display:none; }
+  .donor-type{ font-family:'IBM Plex Mono', monospace; font-size:0.62rem; text-transform:uppercase; letter-spacing:0.03em; color:var(--fern); margin-bottom:0.5rem; }
+  .donor-name{ font-family:'Fraunces', serif; font-weight:700; font-size:1.0rem; color:var(--paper); margin-bottom:0.4rem; }
+  .donor-focus{ font-size:0.86rem; color:var(--paper-dim); margin-bottom:0.5rem; }
+  .donor-note{ font-size:0.8rem; color:var(--brass-bright); }
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 4 · Ch.1 · 4.1.3</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Field Craft</span>
+
+  <p class="lede reveal-line">International organizations and donors move a lot of the money behind Bangladesh's climate adaptation work, and they also move a lot of the framing — a press release from a development bank describes its own project in the best available light, which is a different thing from an independent assessment of whether it worked.</p>
+
+  <h3 class="section-label">The Major Players</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line">
+      <h4>Multilateral Development Banks</h4>
+      <p>The World Bank and the Asian Development Bank (ADB) are among the largest sources of climate-related lending to Bangladesh, financing everything from embankments to policy-based loans tied to climate reform commitments.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>UN Agencies</h4>
+      <p>UNDP provides technical assistance on climate finance planning and governance; other UN bodies including UNCDF and ILO run more specific programs, from local adaptation financing to labor-focused coordination forums.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Bilateral Donors</h4>
+      <p>Countries including the UK (via FCDO), Japan (via JICA), France (via AFD), and Sweden (via Sida) fund adaptation and resilience programs directly, often alongside multilateral institutions on the same initiatives.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Dedicated Climate Funds</h4>
+      <p>The Green Climate Fund (GCF) is a major multilateral fund specifically for climate projects in developing countries, channeling finance that's distinct from general development lending.</p>
+    </div>
+  </div>
+
+  <h3 class="section-label">Being Alert to Donor Framing</h3>
+  <div class="caution-card reveal-line">
+    <h4>Whose Success Story Is It?</h4>
+    <p>A donor-funded program's own communications will describe it in terms of impact and success — that's the nature of institutional communications, not necessarily dishonesty. Treat a donor's project description the way you'd treat a company's sustainability claim: a starting point for independent verification, not a finding to report as-is.</p>
+  </div>
+  <p class="pull-quote reveal-line">"The size of the loan or grant is a fact. Whether the money achieved what it was supposed to is a separate question, and usually the more important one."</p>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">International & Donor Actor Directory</h3>
+    <p class="tool-instructions">Filter by type. This is a standalone directory distinct from the government and civil society directories in Modules 4.1.1 and 4.1.2.</p>
+    <p class="tool-caveat">Based on research conducted mid-2026 into active Bangladesh climate and development programs. Funding figures and program specifics change frequently — verify current details with the organization directly.</p>
+
+    <div class="filter-row" id="filterRow">
+      <button class="filter-btn is-active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="un">UN Agencies</button>
+      <button class="filter-btn" data-filter="bank">Development Banks</button>
+      <button class="filter-btn" data-filter="bilateral">Bilateral Donors</button>
+      <button class="filter-btn" data-filter="fund">Dedicated Funds</button>
+    </div>
+
+    <p class="result-count" id="resultCount"></p>
+    <div class="donor-grid" id="donorGrid"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="4.1.2.html">&larr; 1.2 Research, Advocacy & Civil Society</a>
+    <a href="index.html">Canopy &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "International & Donor Actors".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.08) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  const donors = [
+    { type:'un', name:'UNDP (United Nations Development Programme)', focus:'Technical assistance on climate finance planning, governance, and public investment management — active partner on Bangladesh\'s National Climate Finance Strategy.', note:'Strong source for climate governance and finance-planning context.' },
+    { type:'un', name:'UNCDF (UN Capital Development Fund)', focus:'Runs the Local Climate Adaptive Living Facility (LoCAL), channeling climate finance to local government levels.', note:'Relevant for local-government-level adaptation financing stories.' },
+    { type:'un', name:'ILO (International Labour Organization)', focus:'Coordinates labor-focused development forums, including Cox\'s Bazar-area coordination among UN agencies and NGOs.', note:'Relevant where environmental and labor conditions intersect.' },
+    { type:'bank', name:'World Bank', focus:'Major lender for climate resilience investment, disaster risk reduction, and infrastructure across Bangladesh.', note:'One of the largest sources of climate-related lending; always ask for loan terms and disbursement status, not just headline amounts.' },
+    { type:'bank', name:'Asian Development Bank (ADB)', focus:'Large-scale climate financing including policy-based lending tied to reform commitments.', note:'ADB has committed to allocating a large share of its Bangladesh portfolio to climate financing — verify current allocation figures directly.' },
+    { type:'bank', name:'International Finance Corporation (IFC)', focus:'World Bank Group\'s private-sector investment arm, relevant to private climate-related investment in Bangladesh.', note:'Useful for stories on private-sector climate investment and green finance.' },
+    { type:'bilateral', name:'JICA (Japan International Cooperation Agency)', focus:'Japan\'s bilateral development agency, active in Bangladesh climate and infrastructure financing.', note:'Contact for Japan-funded adaptation and infrastructure project details.' },
+    { type:'bilateral', name:'FCDO (UK Foreign, Commonwealth & Development Office)', focus:'UK bilateral development arm, active in climate finance and adaptation programs including the Locally Led Adaptation framework.', note:'Frequently co-funds initiatives alongside ADB, World Bank, and UNDP.' },
+    { type:'bilateral', name:'AFD (Agence Française de Développement)', focus:'France\'s bilateral development agency, part of the Bangladesh Climate and Development Platform coalition.', note:'Relevant for France-linked climate infrastructure financing.' },
+    { type:'bilateral', name:'Sida (Swedish International Development Cooperation Agency)', focus:'Sweden\'s bilateral development agency, funder of the Climate Finance Network supporting Bangladesh climate finance planning.', note:'Relevant for Sweden-linked technical assistance programs.' },
+    { type:'fund', name:'Green Climate Fund (GCF)', focus:'Major multilateral fund dedicated specifically to climate projects in developing countries, distinct from general development lending.', note:'Check GCF\'s own project database for Bangladesh-specific disbursement records.' },
+    { type:'fund', name:'Bangladesh Climate and Development Platform (BCDP)', focus:'A multi-donor coalition (ADB, World Bank, IFC, MIGA, AIIB, AFD, EU/EIB, GCF, South Korea, JICA, UK) launched to coordinate adaptation and mitigation investment.', note:'Useful single point of reference for tracking coordinated multi-donor climate financing in Bangladesh.' }
+  ];
+
+  const donorGrid = document.getElementById('donorGrid');
+  const resultCount = document.getElementById('resultCount');
+
+  function renderDonors(filter){
+    donorGrid.innerHTML = '';
+    const typeLabel = { un:'UN Agency', bank:'Development Bank', bilateral:'Bilateral Donor', fund:'Dedicated Fund' };
+    let shown = 0;
+    donors.forEach(d => {
+      const match = filter === 'all' || d.type === filter;
+      if(match) shown++;
+      const card = document.createElement('div');
+      card.className = 'donor-card' + (match ? '' : ' is-hidden');
+      card.innerHTML = `
+        <div class="donor-type">${typeLabel[d.type]}</div>
+        <div class="donor-name">${d.name}</div>
+        <div class="donor-focus">${d.focus}</div>
+        <div class="donor-note">${d.note}</div>
+      `;
+      donorGrid.appendChild(card);
+    });
+    resultCount.textContent = `${shown} of ${donors.length} organizations`;
+  }
+  renderDonors('all');
+
+  document.getElementById('filterRow').addEventListener('click', (e) => {
+    const btn = e.target.closest('.filter-btn');
+    if(!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    renderDonors(btn.dataset.filter);
+  });
+</script>
+
+</body>
+</html>

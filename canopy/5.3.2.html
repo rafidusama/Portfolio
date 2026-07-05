@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5.3.2 — Representing Vulnerable Communities Ethically | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:920px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(1.6rem, 5.8vw, 3.3rem); line-height:1.08; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .mini-bento{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:640px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{ background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:1.2rem 1.3rem; transition:transform 0.2s ease, border-color 0.2s ease; }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{ font-family:'Fraunces', serif; font-size:1.05rem; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .mini-card p{font-size:0.9rem; margin:0;}
+  .compare-pair{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:640px){ .compare-pair{grid-template-columns:1fr;} }
+  .compare-card{ border-radius:4px; padding:1.1rem 1.2rem; }
+  .compare-card.bad{background:rgba(181,97,63,0.12); border:1px solid var(--clay);}
+  .compare-card.good{background:rgba(143,184,155,0.12); border:1px solid var(--fern-dim);}
+  .compare-card h5{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.5rem; }
+  .compare-card.bad h5{color:var(--clay);}
+  .compare-card.good h5{color:var(--fern);}
+  .compare-card p{font-size:0.9rem; margin:0; color:var(--paper);}
+  .cross-link{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--fern);
+    background:var(--canopy-mid); border:1px dashed var(--moss); border-radius:4px; padding:0.9rem 1.1rem; margin:1.4rem 0 1.8rem;
+  }
+  .cross-link a{ text-decoration:underline; }
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:1.6rem; }
+  .check-group{ margin-bottom:1.4rem; }
+  .check-group h5{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--brass-bright); margin-bottom:0.7rem; }
+  .check-item{ display:flex; align-items:flex-start; gap:0.7rem; margin-bottom:0.7rem; cursor:pointer; }
+  .check-item input{ margin-top:0.25rem; accent-color:var(--brass); width:16px; height:16px; flex-shrink:0; }
+  .check-item span{ font-size:0.92rem; color:var(--paper-dim); }
+  .check-item.is-checked span{ color:var(--paper); }
+  .checklist-status{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--fern);
+    margin-top:0.6rem; padding:0.7rem 1rem; border-top:1px solid var(--moss);
+  }
+  .checklist-status.is-ready{ color:var(--brass-bright); }
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible, .check-item input:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 5 · Ch.3 · 5.3.2</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Advanced</span>
+
+  <p class="lede reveal-line">Environmental harm falls disproportionately on people with the least power to shape how their own story gets told. This module extends the interview-specific guidance in Pillar 1 to the wider ethical questions around representing a vulnerable community across an entire story, not just a single conversation.</p>
+
+  <h3 class="section-label">Avoiding Extractive Reporting Relationships</h3>
+  <p class="reveal-line">An extractive relationship takes a community's story, quotes, and images to build a reporter's or outlet's work, then leaves with nothing given back — no copy of the published piece, no follow-up, no acknowledgment beyond the transaction itself. Treating a community as a source relationship rather than a one-time extraction changes decisions throughout a story, not just at the interview stage.</p>
+
+  <h3 class="section-label">Consent and Follow-Up Obligations</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line">
+      <h4>Consent Isn't Just at the Start</h4>
+      <p>Circling back after a story runs — sharing the published piece, checking whether anyone experienced consequences from participating — is part of the ethical obligation, not an optional courtesy.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Follow-Up Has Real Cost</h4>
+      <p>In a resource-constrained newsroom, follow-up is easy to skip. Building it into your process from the start, even briefly, is what separates ethical practice from good intentions.</p>
+    </div>
+  </div>
+
+  <h3 class="section-label">Representation vs. Reduction to Victimhood</h3>
+  <div class="compare-pair">
+    <div class="compare-card bad reveal-line">
+      <h5>Reduction</h5>
+      <p>A community appears only as passive victims of circumstance — described entirely through loss and hardship, with no trace of agency, opinion, or ordinary life beyond the crisis.</p>
+    </div>
+    <div class="compare-card good reveal-line">
+      <h5>Representation</h5>
+      <p>The same community appears as people with views, decisions, and complexity, who are also experiencing genuine hardship — the hardship is real and present, but it isn't the entirety of who they are on the page.</p>
+    </div>
+  </div>
+
+  <div class="cross-link reveal-line">
+    This checklist works alongside the interview question builder in <a href="1.5.3.html">Pillar 1, Module 5.3 (Interviewing Affected Communities)</a> — that tool covers the individual conversation; this one covers the ethical shape of the story built from it.
+  </div>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Community-Facing Story Ethics Checklist</h3>
+    <p class="tool-instructions">Run through this while drafting or reviewing a story built substantially on a vulnerable community's participation.</p>
+
+    <div class="check-group">
+      <h5>Consent & Relationship</h5>
+      <label class="check-item"><input type="checkbox"><span>Every named or identifiable person understood how their words and image would be used</span></label>
+      <label class="check-item"><input type="checkbox"><span>A plan exists to share the published piece back with participants</span></label>
+      <label class="check-item"><input type="checkbox"><span>Considered whether any participant could face retaliation or stigma from being identified</span></label>
+    </div>
+    <div class="check-group">
+      <h5>Representation</h5>
+      <label class="check-item"><input type="checkbox"><span>At least one detail shows a community member's agency, decision, or ordinary life, not only their hardship</span></label>
+      <label class="check-item"><input type="checkbox"><span>The community's own framing of their situation is represented, not only the reporter's framing of it</span></label>
+      <label class="check-item"><input type="checkbox"><span>No single person or family is asked to represent an entire community's experience</span></label>
+    </div>
+    <div class="check-group">
+      <h5>After Publication</h5>
+      <label class="check-item"><input type="checkbox"><span>A specific plan exists to follow up with participants after the story runs</span></label>
+      <label class="check-item"><input type="checkbox"><span>Considered what, if anything, the community receives in return for their participation</span></label>
+    </div>
+
+    <div class="checklist-status" id="checklistStatus">0 of 8 checked</div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="5.3.1.html">&larr; 3.1 Objectivity vs. Advocacy</a>
+    <a href="5.3.3.html">Next: 3.3 Conflicts of Interest & Funding Transparency &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "Representing Vulnerable Communities Ethically".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.05) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  const checkItems = document.querySelectorAll('.check-item input');
+  const statusEl = document.getElementById('checklistStatus');
+  const total = checkItems.length;
+
+  checkItems.forEach(input => {
+    input.addEventListener('change', () => {
+      input.closest('.check-item').classList.toggle('is-checked', input.checked);
+      const checked = document.querySelectorAll('.check-item input:checked').length;
+      statusEl.textContent = `${checked} of ${total} checked`;
+      statusEl.classList.toggle('is-ready', checked === total);
+      if(checked === total){ statusEl.textContent = `${checked} of ${total} checked — ready.`; }
+    });
+  });
+</script>
+
+</body>
+</html>

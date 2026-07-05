@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.1.2 — Episodic vs. Thematic Framing | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F;
+    --canopy-deep:#122A1D;
+    --canopy-mid:#1B3D28;
+    --canopy-panel:#204731;
+    --moss:#3D6B4F;
+    --fern:#8FB89B;
+    --fern-dim:#5C8770;
+    --brass:#C9A24B;
+    --brass-bright:#E4C476;
+    --clay:#B5613F;
+    --paper:#EFE9D8;
+    --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--canopy-deep);
+    color:var(--paper);
+    font-family:'Manrope', sans-serif;
+    line-height:1.65;
+  }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+
+  .wrap{max-width:920px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+
+  .breadcrumb{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--fern-dim);
+    text-decoration:none;
+    display:inline-block;
+    margin-bottom:2rem;
+  }
+  .breadcrumb:hover{color:var(--brass-bright);}
+
+  .module-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--fern);
+    margin-bottom:0.8rem;
+  }
+  .kinetic-title{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:clamp(2rem, 7vw, 4.4rem);
+    line-height:0.98;
+    letter-spacing:-0.01em;
+    display:flex;
+    flex-wrap:wrap;
+    margin-bottom:1.2rem;
+  }
+  .kinetic-title .word{
+    display:inline-block;
+    opacity:0;
+    transform:translateY(0.5em);
+    animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards;
+    margin-right:0.28em;
+  }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+
+  .module-level{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--fern);
+    border:1px solid var(--fern-dim);
+    padding:0.2rem 0.6rem;
+    border-radius:20px;
+    margin-bottom:3rem;
+  }
+
+  .reveal-line{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+
+  h3.section-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--fern);
+    border-bottom:1px dashed var(--moss);
+    padding-bottom:0.4rem;
+    margin:3rem 0 1.2rem;
+  }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  p.lede em{color:var(--brass-bright); font-style:normal; font-weight:600;}
+
+  .compare-table{
+    width:100%;
+    border-collapse:collapse;
+    margin:0 0 1.8rem;
+    font-size:0.92rem;
+    background:var(--canopy-mid);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .compare-table th, .compare-table td{
+    border:1px solid var(--moss);
+    padding:0.75rem 0.9rem;
+    text-align:left;
+    vertical-align:top;
+    color:var(--paper-dim);
+  }
+  .compare-table th{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    background:var(--canopy-panel);
+    color:var(--brass-bright);
+  }
+  .compare-table tr td:first-child{font-weight:700; color:var(--paper);}
+
+  .mini-bento{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:0.9rem;
+    margin:1.4rem 0 1.8rem;
+  }
+  @media (max-width:680px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{
+    background:var(--canopy-mid);
+    border:1px solid var(--moss);
+    border-radius:4px;
+    padding:1.1rem 1.2rem;
+    transition:transform 0.2s ease, border-color 0.2s ease;
+  }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    color:var(--brass-bright);
+    margin-bottom:0.5rem;
+  }
+  .mini-card p{font-size:0.9rem; margin:0;}
+
+  /* ---------- Tool ---------- */
+  .tool{
+    margin-top:3.5rem;
+    background:var(--canopy-mid);
+    border:1px solid var(--moss);
+    border-radius:6px;
+    padding:2rem 1.8rem;
+  }
+  .tool-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--brass-bright);
+    margin-bottom:0.4rem;
+  }
+  .tool-title{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:1.7rem;
+    margin-bottom:0.6rem;
+  }
+  .tool-caveat{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    color:var(--fern);
+    background:var(--canopy-deep);
+    border:1px dashed var(--moss);
+    border-radius:4px;
+    padding:0.7rem 0.9rem;
+    margin-bottom:1.3rem;
+    line-height:1.5;
+  }
+  textarea{
+    width:100%;
+    min-height:150px;
+    font-family:'Manrope', sans-serif;
+    font-size:0.95rem;
+    padding:0.9rem;
+    border:1px solid var(--moss);
+    border-radius:4px;
+    background:var(--canopy-deep);
+    color:var(--paper);
+    resize:vertical;
+    margin-bottom:1rem;
+    transition:border-color 0.2s ease;
+  }
+  textarea:focus-visible{outline:none; border-color:var(--brass-bright);}
+
+  .scan-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    background:var(--brass);
+    color:var(--void);
+    border:none;
+    border-radius:3px;
+    padding:0.7rem 1.2rem;
+    cursor:pointer;
+    transition:background 0.2s ease, transform 0.15s ease;
+  }
+  .scan-btn:hover{background:var(--brass-bright); transform:translateY(-2px);}
+
+  .sample-links{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    color:var(--fern-dim);
+    margin-bottom:1rem;
+  }
+  .sample-links button{
+    background:none;
+    border:1px solid var(--moss);
+    border-radius:20px;
+    color:var(--fern);
+    font-family:inherit;
+    font-size:inherit;
+    padding:0.3rem 0.7rem;
+    cursor:pointer;
+    margin-right:0.5rem;
+    transition:border-color 0.2s ease, color 0.2s ease;
+  }
+  .sample-links button:hover{border-color:var(--brass-bright); color:var(--brass-bright);}
+
+  .result{
+    display:none;
+    margin-top:1.4rem;
+    border-top:1px solid var(--moss);
+    padding-top:1.4rem;
+  }
+  .result.is-visible{display:block; animation:fadeUp 0.5s ease;}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+
+  .verdict{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:1.25rem;
+    border-radius:4px;
+    padding:0.6rem 1rem;
+    margin-bottom:1rem;
+    display:inline-block;
+    animation:verdictPulse 0.5s ease;
+  }
+  @keyframes verdictPulse{ 0%{transform:scale(0.92);} 60%{transform:scale(1.03);} 100%{transform:scale(1);} }
+  .verdict.episodic{background:var(--clay); color:var(--paper);}
+  .verdict.balanced{background:var(--brass); color:var(--void);}
+  .verdict.thematic{background:var(--moss); color:var(--paper);}
+
+  .meter{
+    height:10px;
+    background:var(--canopy-deep);
+    border:1px solid var(--moss);
+    border-radius:20px;
+    margin-bottom:1rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .meter-fill{
+    height:100%;
+    background:linear-gradient(90deg, var(--clay), var(--brass), var(--fern));
+    transition:width 0.6s cubic-bezier(.2,.8,.2,1);
+  }
+  .meter-labels{
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.62rem;
+    text-transform:uppercase;
+    color:var(--fern-dim);
+    margin-bottom:1.3rem;
+  }
+
+  .signal-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem;
+    margin-bottom:1.3rem;
+  }
+  @media (max-width:600px){ .signal-list{grid-template-columns:1fr;} }
+  .signal-col{background:var(--canopy-deep); border:1px solid var(--moss); border-radius:4px; padding:0.9rem 1rem;}
+  .signal-col h5{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    margin:0 0 0.6rem;
+  }
+  .signal-col.episodic h5{color:var(--clay);}
+  .signal-col.thematic h5{color:var(--fern);}
+  .signal-col ul{margin:0; padding-left:1.1rem; font-size:0.88rem; color:var(--paper-dim);}
+  .signal-col li{margin-bottom:0.4rem;}
+  .signal-col p.none{font-size:0.85rem; color:var(--fern-dim); font-style:italic; margin:0;}
+
+  .suggestion{
+    background:var(--canopy-deep);
+    border-left:3px solid var(--brass);
+    border-radius:4px;
+    padding:1rem 1.1rem;
+    font-size:0.94rem;
+    color:var(--paper-dim);
+  }
+  .suggestion strong{display:block; font-family:'IBM Plex Mono', monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--brass-bright); margin-bottom:0.5rem;}
+
+  .nav-footer{
+    margin-top:4rem;
+    padding-top:1.4rem;
+    border-top:1px solid var(--canopy-panel);
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    text-transform:uppercase;
+  }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--brass-bright); outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 1 · Ch.1 · 1.1.2</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Foundations</span>
+
+  <p class="lede reveal-line">A brick kiln catches fire. An <em>episodic</em> version reports the fire: when it started, who responded, what was lost. A <em>thematic</em> version asks why unlicensed kilns keep operating near residential areas, what enforcement has failed, and how this fire fits a pattern the reader has seen before. Both are legitimate journalism. The difference is what the reader is left knowing.</p>
+
+  <p class="reveal-line">Research on Bangladeshi environmental coverage has found it leans heavily episodic — strong on the event, thin on the system behind it. That's not a moral failing of individual reporters; it's what daily deadline pressure and single-beat assignments tend to produce. But it has a real cost: audiences see disasters without seeing causes, and policymakers face less pressure to fix the system, because the story never asked them to.</p>
+
+  <h3 class="section-label">Two Ways to Tell the Same Story</h3>
+  <table class="compare-table reveal-line">
+    <tr><th></th><th>Episodic</th><th>Thematic</th></tr>
+    <tr><td>Focus</td><td>The event itself</td><td>The pattern or system behind it</td></tr>
+    <tr><td>Timeframe</td><td>Now</td><td>Now, plus history and trajectory</td></tr>
+    <tr><td>Typical source</td><td>Witness, official on the scene</td><td>Witness plus data, researcher, or policy record</td></tr>
+    <tr><td>Reader learns</td><td>What happened</td><td>What happened, and why it keeps happening</td></tr>
+    <tr><td>Risk</td><td>Feels urgent but forgettable</td><td>Can feel slower without a strong hook</td></tr>
+  </table>
+
+  <h3 class="section-label">Thematizing an Episodic Story</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line">
+      <h4>Add a Data Point</h4>
+      <p>A single before/after number ("the third such fire in two years") reframes an event as a pattern.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Add a Comparison</h4>
+      <p>Referencing a similar past event, and what happened afterward, signals this isn't isolated.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Add a Policy Thread</h4>
+      <p>Naming the law, permit, or enforcement mechanism that should have prevented this connects the event to an accountable system.</p>
+    </div>
+  </div>
+  <p class="reveal-line">None of this requires abandoning the event-driven story. It requires one additional reporting step before filing.</p>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Episodic / Thematic Scanner</h3>
+    <p class="tool-caveat">This is a simple rule-based scan for a handful of common language patterns — it counts words and phrases, it does not read for meaning. Treat the result as a prompt to re-read your own draft, not as a verdict on it.</p>
+
+    <p class="sample-links">Try a sample:
+      <button type="button" data-sample="episodic">Episodic example</button>
+      <button type="button" data-sample="thematic">Thematic example</button>
+    </p>
+
+    <textarea id="draftInput" placeholder="Paste a lede or a full draft paragraph here..."></textarea>
+    <button class="scan-btn" id="scanBtn">Scan Draft</button>
+
+    <div class="result" id="result">
+      <span class="verdict" id="verdict">—</span>
+      <div class="meter"><div class="meter-fill" id="meterFill" style="width:50%"></div></div>
+      <div class="meter-labels"><span>Episodic</span><span>Balanced</span><span>Thematic</span></div>
+
+      <div class="signal-list">
+        <div class="signal-col episodic">
+          <h5>Episodic signals found</h5>
+          <ul id="episodicSignals"></ul>
+        </div>
+        <div class="signal-col thematic">
+          <h5>Thematic signals found</h5>
+          <ul id="thematicSignals"></ul>
+        </div>
+      </div>
+
+      <div class="suggestion" id="suggestion"></div>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="1.1.1.html">&larr; 1.1 Environmental News Values</a>
+    <a href="1.1.3.html">Next: 1.3 The Beat Beyond the Desk &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Kinetic title ---------- */
+  const titleEl = document.getElementById('kineticTitle');
+  "Episodic vs. Thematic Framing".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word';
+    span.style.animationDelay = (i * 0.09) + 's';
+    span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  /* ---------- Scroll reveal ---------- */
+  const revealTargets = document.querySelectorAll('.reveal-line');
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('is-visible'); }
+    });
+  }, { threshold:0.3 });
+  revealTargets.forEach(t => revealObserver.observe(t));
+
+  /* ---------- Scanner logic ---------- */
+  const episodicPatterns = [
+    { re: /\byesterday\b|\btoday\b|\bthis morning\b|\bon (mon|tues|wednes|thurs|fri|satur|sun)day\b/i, label: 'single-day time marker (e.g. "yesterday", "on Tuesday")' },
+    { re: /\boccurred\b|\bhappened\b|\bbroke out\b|\bstruck\b/i, label: 'event-only verb ("occurred", "broke out", "struck")' },
+    { re: /\bfire department\b|\brescue workers\b|\bofficials said\b/i, label: 'single-scene response actors with no follow-up framing' },
+    { re: /\bwas killed\b|\bwere injured\b|\bcasualties\b/i, label: 'casualty count with no pattern reference' }
+  ];
+
+  const thematicPatterns = [
+    { re: /\bfor (the|over|the past)? ?\w+ years?\b|\bsince \d{4}\b|\bdecades?\b/i, label: 'time span beyond a single event ("for years", "since 20XX")' },
+    { re: /\btrend\b|\bpattern\b|\brepeated(ly)?\b|\bagain\b/i, label: 'pattern language ("trend", "pattern", "again")' },
+    { re: /\bcompared to\b|\bversus\b|\bup from\b|\bdown from\b/i, label: 'comparison ("compared to", "up from")' },
+    { re: /\bpolicy\b|\blaw\b|\bregulation\b|\benforcement\b|\bpermit\b/i, label: 'policy or enforcement mechanism named' },
+    { re: /\bdata (show|shows|indicate|suggest)\b|\baccording to (a|the) (study|report|survey)\b/i, label: 'data or study cited' },
+    { re: /\bthird (time|such)\b|\bonce more\b|\bnot the first\b/i, label: 'explicit recurrence marker' }
+  ];
+
+  const samples = {
+    episodic: "A brick kiln caught fire yesterday afternoon near Savar, sending thick smoke over nearby villages. Fire department officials said the blaze was brought under control within two hours. No injuries were reported. Workers at the site said the fire started in a stack of unfired bricks.",
+    thematic: "A brick kiln caught fire near Savar on Tuesday, the third such incident in the district since 2023, according to local fire department records. Unlicensed kilns have continued operating despite a seasonal ban, and enforcement data show only two of nineteen violations resulted in fines last year. Residents say smoke has worsened compared to five years ago."
+  };
+
+  document.querySelectorAll('.sample-links button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('draftInput').value = samples[btn.dataset.sample];
+    });
+  });
+
+  document.getElementById('scanBtn').addEventListener('click', () => {
+    const text = document.getElementById('draftInput').value.trim();
+    const resultBox = document.getElementById('result');
+    if(!text){
+      resultBox.classList.remove('is-visible');
+      return;
+    }
+
+    const episodicHits = episodicPatterns.filter(p => p.re.test(text));
+    const thematicHits = thematicPatterns.filter(p => p.re.test(text));
+
+    const eScore = episodicHits.length;
+    const tScore = thematicHits.length;
+    const total = eScore + tScore;
+
+    let position = 50;
+    if(total > 0){ position = Math.round((tScore / total) * 100); }
+
+    const verdictEl = document.getElementById('verdict');
+    verdictEl.className = 'verdict';
+    let verdictText, suggestionText;
+
+    if(total === 0){
+      verdictText = 'No strong signals detected';
+      verdictEl.classList.add('balanced');
+      suggestionText = 'The scanner didn\'t catch clear markers either way — that often means the draft is short, or uses phrasing outside this simple pattern list. Re-read it yourself: does it name a cause, a history, or only an event?';
+    } else if(position <= 35){
+      verdictText = 'Leans Episodic';
+      verdictEl.classList.add('episodic');
+      suggestionText = 'Try adding one thing: a time span longer than this event ("the third since 2023"), a comparison ("up from X last year"), or the name of a policy or permit that should have prevented this.';
+    } else if(position >= 65){
+      verdictText = 'Leans Thematic';
+      verdictEl.classList.add('thematic');
+      suggestionText = 'Good pattern framing. Check that you still have a concrete scene or event grounding the piece — a thematic story with no specific moment can feel abstract to the reader.';
+    } else {
+      verdictText = 'Balanced';
+      verdictEl.classList.add('balanced');
+      suggestionText = 'You have signals of both. Make sure the balance is deliberate: is the event serving the pattern, or competing with it for the reader\'s attention?';
+    }
+
+    verdictEl.textContent = verdictText;
+    document.getElementById('meterFill').style.width = position + '%';
+
+    const eList = document.getElementById('episodicSignals');
+    const tList = document.getElementById('thematicSignals');
+    eList.innerHTML = episodicHits.length ? episodicHits.map(h => `<li>${h.label}</li>`).join('') : '<p class="none">None detected</p>';
+    tList.innerHTML = thematicHits.length ? thematicHits.map(h => `<li>${h.label}</li>`).join('') : '<p class="none">None detected</p>';
+
+    document.getElementById('suggestion').innerHTML = `<strong>Suggestion</strong>${suggestionText}`;
+
+    resultBox.classList.add('is-visible');
+  });
+</script>
+
+</body>
+</html>

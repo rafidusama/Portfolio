@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.1.7 — Waste, Energy & Agriculture | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:920px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(2rem, 7vw, 4.2rem); line-height:0.98; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .pull-quote{ font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:1.4rem; line-height:1.4; color:var(--paper); border-left:3px solid var(--brass); padding-left:1.2rem; margin:1.6rem 0; }
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:1.4rem; }
+  .topic-picker{ display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.6rem; }
+  .topic-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.02em;
+    background:var(--canopy-panel); border:1px solid var(--moss); border-radius:20px; color:var(--paper-dim);
+    padding:0.55rem 1rem; cursor:pointer; transition:transform 0.15s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .topic-btn:hover{transform:translateY(-2px); border-color:var(--brass); color:var(--brass-bright);}
+  .topic-btn.is-active{background:var(--brass); border-color:var(--brass); color:var(--void);}
+  .card-out{ display:none; background:var(--canopy-deep); border:1px solid var(--moss); border-left:4px solid var(--brass); border-radius:6px; padding:1.5rem 1.6rem; }
+  .card-out.is-visible{ display:block; animation:fadeUp 0.4s ease; }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .card-head{ font-family:'Fraunces', serif; font-weight:700; font-size:1.3rem; color:var(--paper); margin-bottom:1.2rem; }
+  .card-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; }
+  @media (max-width:640px){ .card-grid{grid-template-columns:1fr;} }
+  .card-block h5{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .card-block ul{ margin:0; padding-left:1.1rem; }
+  .card-block li{ font-size:0.9rem; color:var(--paper-dim); margin-bottom:0.4rem; }
+  .empty-state{ font-family:'IBM Plex Mono', monospace; font-size:0.85rem; color:var(--fern-dim); font-style:italic; padding:1rem 0; }
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 2 · Ch.1 · 2.1.7</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Field Craft</span>
+
+  <p class="lede reveal-line">These three beats are less established than water, air, or the Sundarbans, which means the sourcing habits and baseline framing are less standardized — exactly why getting the fundamentals right early makes for a stronger, more differentiated beat.</p>
+
+  <h3 class="section-label">Waste Management and the Informal Economy</h3>
+  <p class="reveal-line">A large share of Bangladesh's actual recycling happens through an informal waste-picking economy that official statistics frequently miss entirely. Any story citing a "recycling rate" should specify whether that figure includes informal collection — it usually doesn't, which can make formal-sector numbers misleadingly low or high depending on what's being compared.</p>
+
+  <h3 class="section-label">Energy Transition Pressures</h3>
+  <p class="reveal-line">Bangladesh's energy transition stories typically involve a genuine three-way trade-off between energy security, cost, and emissions commitments — a renewable project that looks straightforwardly positive in isolation may still compete with, rather than replace, planned gas or coal capacity. Understanding what a specific project is actually offsetting is more useful than treating any renewable announcement as unambiguous progress.</p>
+
+  <h3 class="section-label">Climate Impact on Food Security</h3>
+  <p class="reveal-line">Salinity, heat stress, and shifting rainfall patterns connect directly to national food security policy — a crop yield story is rarely just an agriculture story, since it usually implicates the same climate and water pressures covered elsewhere in this toolkit.</p>
+
+  <h3 class="section-label">Urban Heat as an Emerging Beat</h3>
+  <p class="reveal-line">Rising urban heat, concentrated in dense, low-green-cover neighborhoods, is an emerging public health beat distinct from the broader climate story — it has its own data (local temperature readings, heat-related illness records) and its own affected populations, often outdoor workers and low-income residents with limited cooling access.</p>
+  <p class="pull-quote reveal-line">"These are the beats your competitors haven't fully staked out yet. That's an opportunity, not a gap in importance."</p>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Beat Backgrounder Cards</h3>
+    <p class="tool-instructions">Pick a sub-topic for a quick backgrounder: key facts, relevant data sources, and story angles.</p>
+
+    <div class="topic-picker" id="topicPicker"></div>
+    <div id="cardArea">
+      <p class="empty-state">Select a topic above to generate a backgrounder.</p>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="2.1.6.html">&larr; 1.6 Disasters: Floods & Cyclones</a>
+    <a href="index.html">Canopy &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "Waste, Energy & Agriculture".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.08) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  const topics = {
+    waste: {
+      label:'Waste Management',
+      facts:['A large share of actual recycling happens through informal waste-picking, largely uncounted in official statistics.', 'Plastic waste management increasingly intersects with river and coastal pollution stories.'],
+      sources:['City corporation waste management departments', 'Informal waste-picker associations or cooperatives', 'Environmental NGOs tracking plastic pollution'],
+      angles:['Where does collected waste actually end up, and who profits along the chain?', 'What share of a city\'s "recycling rate" is informal vs. formal?']
+    },
+    energy: {
+      label:'Energy Transition',
+      facts:['Renewable capacity additions often supplement rather than replace planned fossil fuel capacity.', 'Rural electrification and mini-grid projects involve distinct trade-offs from grid-scale renewable projects.'],
+      sources:['Power Division or relevant energy agency spokesperson', 'Rural solar mini-grid operators or cooperatives', 'Independent energy policy researchers'],
+      angles:['What is a specific renewable project actually offsetting, in real terms?', 'How does rural electrification via mini-grid compare in cost and reliability to national grid extension?']
+    },
+    agriculture: {
+      label:'Food Security & Agriculture',
+      facts:['Salinity and heat stress are increasingly cited as factors in shifting crop viability across coastal and southern districts.', 'Crop-switching (e.g., toward salt-tolerant varieties) is an active adaptation strategy worth tracking.'],
+      sources:['Department of Agricultural Extension district offices', 'Agricultural research institutes', 'Farmers directly, especially those who have changed crops or practices recently'],
+      angles:['Which specific crops or regions are experiencing the most measurable stress?', 'How are farmers adapting, and what support (or lack of it) are they getting?']
+    },
+    heat: {
+      label:'Urban Heat',
+      facts:['Urban heat concentrates in dense, low-tree-canopy neighborhoods, often overlapping with lower-income areas.', 'Heat-related illness data is an underused but increasingly available public health data source.'],
+      sources:['City corporation or Department of Environment environment cells', 'Public health officials tracking heat-related illness', 'Residents of specific high-heat neighborhoods, especially outdoor workers'],
+      angles:['How does temperature vary between the greenest and least-green parts of the same city on the same day?', 'What (if any) public cooling infrastructure exists for outdoor workers?']
+    }
+  };
+
+  const topicPicker = document.getElementById('topicPicker');
+  const cardArea = document.getElementById('cardArea');
+
+  Object.keys(topics).forEach(key => {
+    const btn = document.createElement('button');
+    btn.className = 'topic-btn';
+    btn.textContent = topics[key].label;
+    btn.dataset.topic = key;
+    topicPicker.appendChild(btn);
+  });
+
+  function renderCard(key){
+    const t = topics[key];
+    cardArea.innerHTML = `
+      <div class="card-out is-visible">
+        <p class="card-head">${t.label}</p>
+        <div class="card-grid">
+          <div class="card-block"><h5>Key Facts</h5><ul>${t.facts.map(f => `<li>${f}</li>`).join('')}</ul></div>
+          <div class="card-block"><h5>Relevant Sources</h5><ul>${t.sources.map(s => `<li>${s}</li>`).join('')}</ul></div>
+          <div class="card-block" style="grid-column:1 / -1;"><h5>Story Angles</h5><ul>${t.angles.map(a => `<li>${a}</li>`).join('')}</ul></div>
+        </div>
+      </div>
+    `;
+  }
+
+  topicPicker.addEventListener('click', (e) => {
+    const btn = e.target.closest('.topic-btn');
+    if(!btn) return;
+    document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    renderCard(btn.dataset.topic);
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.2.3 — Carbon Markets Explained | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:920px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(2rem, 7vw, 4rem); line-height:1; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .mini-bento{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:640px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{ background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:1.2rem 1.3rem; transition:transform 0.2s ease, border-color 0.2s ease; }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{ font-family:'Fraunces', serif; font-size:1.05rem; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .mini-card p{font-size:0.9rem; margin:0;}
+  .caution-card{ background:var(--canopy-panel); border-left:3px solid var(--clay); border-radius:4px; padding:1.1rem 1.3rem; margin:1.4rem 0 1.8rem; }
+  .caution-card h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--clay); margin-bottom:0.5rem; }
+  .caution-card p{margin:0; color:var(--paper);}
+  .pull-quote{ font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:1.4rem; line-height:1.4; color:var(--paper); border-left:3px solid var(--brass); padding-left:1.2rem; margin:1.6rem 0; }
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:1.8rem; }
+  .quiz-item{ margin-bottom:1.5rem; }
+  .quiz-q{ font-size:0.96rem; color:var(--paper); margin-bottom:0.7rem; }
+  .quiz-q .qnum{ font-family:'IBM Plex Mono', monospace; color:var(--brass-bright); margin-right:0.5rem; }
+  .quiz-options{ display:flex; gap:0.6rem; flex-wrap:wrap; }
+  .quiz-opt{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.02em;
+    background:var(--canopy-panel); border:1px solid var(--moss); border-radius:20px; color:var(--paper-dim);
+    padding:0.5rem 1rem; cursor:pointer; transition:transform 0.15s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+  .quiz-opt:hover{transform:translateY(-2px); border-color:var(--brass);}
+  .quiz-opt.is-selected{background:var(--brass); border-color:var(--brass); color:var(--void);}
+  .evaluate-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.05em; text-transform:uppercase;
+    background:var(--brass); color:var(--void); border:none; border-radius:3px; padding:0.7rem 1.2rem; cursor:pointer;
+    transition:background 0.2s ease, transform 0.15s ease; margin-top:0.6rem;
+  }
+  .evaluate-btn:hover{ background:var(--brass-bright); transform:translateY(-2px); }
+  .result-box{ display:none; margin-top:1.8rem; border-top:1px solid var(--moss); padding-top:1.4rem; }
+  .result-box.is-visible{ display:block; animation:fadeUp 0.5s ease; }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  .verdict-badge{ font-family:'Fraunces', serif; font-weight:700; font-size:1.15rem; border-radius:4px; padding:0.55rem 0.9rem; margin-bottom:1.1rem; display:inline-block; }
+  .verdict-strong{background:var(--fern); color:var(--void);}
+  .verdict-mixed{background:var(--brass); color:var(--void);}
+  .verdict-weak{background:var(--clay); color:var(--paper);}
+  .question-list{ margin-top:0.6rem; }
+  .question-list h5{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--brass-bright); margin-bottom:0.7rem; }
+  .question-list ol{ margin:0 0 1.2rem; padding-left:1.2rem; }
+  .question-list li{ font-size:0.94rem; color:var(--paper); margin-bottom:0.6rem; }
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 2 · Ch.2 · 2.2.3</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Advanced</span>
+
+  <p class="lede reveal-line">A carbon credit is a claim that a specific amount of emissions was reduced or avoided because of a specific project. The entire market depends on that claim being true and not double-counted — which means the reporter's job is less about explaining the concept and more about testing whether a specific claim actually holds up.</p>
+
+  <h3 class="section-label">Compliance vs. Voluntary Markets</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line">
+      <h4>Compliance Markets</h4>
+      <p>Government-regulated systems where companies are legally required to hold credits or allowances up to a set emissions cap — generally more tightly verified.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Voluntary Markets</h4>
+      <p>Companies or individuals buy credits voluntarily, often for public sustainability claims — verification standards vary widely and enforcement is generally weaker.</p>
+    </div>
+  </div>
+  <p class="reveal-line">Most Bangladesh-based carbon projects that make the news — reforestation, mangrove restoration, cookstove programs — sell into voluntary markets, which is exactly why extra scrutiny matters: there's no regulator checking the claim before it's sold.</p>
+
+  <h3 class="section-label">Common Integrity Problems</h3>
+  <div class="caution-card reveal-line">
+    <h4>Double Counting and Phantom Credits</h4>
+    <p>Double counting happens when the same emissions reduction is claimed by more than one party — for instance, both a host country's national climate target and a company's voluntary offset purchase. Phantom credits are issued for reductions that would have happened anyway, or that never materialized as claimed — a project that doesn't clearly establish "additionality" (proof the reduction wouldn't have happened without it) is at high risk of this.</p>
+  </div>
+
+  <h3 class="section-label">Evaluating a Bangladesh-Based Claim</h3>
+  <p class="reveal-line">A credible project should be able to name its verification standard, show credits actually issued on a public registry (not just planned or pledged), demonstrate additionality, and show ongoing — not one-time — monitoring. A project that can't answer these clearly is a project whose claim you shouldn't report uncritically.</p>
+  <p class="pull-quote reveal-line">"A tree-planting announcement is not a verified carbon credit. Ask to see the registry listing, not the press release."</p>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Carbon Claim Evaluator</h3>
+    <p class="tool-instructions">Answer what you currently know about a specific project's claim. Get a tailored list of verification questions to put to the developer.</p>
+
+    <div id="quizContainer"></div>
+    <button class="evaluate-btn" id="evaluateBtn">Generate Verification Questions</button>
+    <div class="result-box" id="resultBox"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="2.2.2.html">&larr; 2.2 Climate Finance & Loss and Damage</a>
+    <a href="index.html">Canopy &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "Carbon Markets Explained".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.09) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  const questions = [
+    {
+      q:'Does the claim name a specific, recognized verification standard (e.g., Verra, Gold Standard)?',
+      key:'standard',
+      followUp:'Which specific verification standard certifies this project, and can you provide the certification documentation?'
+    },
+    {
+      q:'Is there a public registry listing showing credits as actually issued, not just planned?',
+      key:'registry',
+      followUp:'Can you provide the public registry link showing these credits as issued, with a serial number or listing ID?'
+    },
+    {
+      q:'Does the project demonstrate additionality — proof the reduction wouldn\'t have happened anyway?',
+      key:'additionality',
+      followUp:'What is the specific baseline scenario showing what would have happened without this project, and how was it established?'
+    },
+    {
+      q:'Has the project been monitored or re-verified more than once since credits were issued?',
+      key:'monitoring',
+      followUp:'What is the monitoring schedule going forward, and who conducts the independent re-verification?'
+    },
+    {
+      q:'Were local communities consulted, or do they directly benefit from the project?',
+      key:'community',
+      followUp:'What specific consultation process was used with local communities, and what direct benefits do they receive?'
+    }
+  ];
+
+  const quizContainer = document.getElementById('quizContainer');
+  const answers = {};
+
+  questions.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-item';
+    div.innerHTML = `
+      <p class="quiz-q"><span class="qnum">Q${i+1}</span>${item.q}</p>
+      <div class="quiz-options">
+        <button class="quiz-opt" data-val="yes">Yes</button>
+        <button class="quiz-opt" data-val="unsure">Unsure</button>
+        <button class="quiz-opt" data-val="no">No</button>
+      </div>
+    `;
+    div.querySelectorAll('.quiz-opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        div.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('is-selected'));
+        btn.classList.add('is-selected');
+        answers[item.key] = btn.dataset.val;
+      });
+    });
+    quizContainer.appendChild(div);
+  });
+
+  document.getElementById('evaluateBtn').addEventListener('click', () => {
+    const resultBox = document.getElementById('resultBox');
+    if(Object.keys(answers).length < questions.length){
+      resultBox.innerHTML = `<div style="color:var(--clay); font-size:0.9rem;">Answer all ${questions.length} questions first.</div>`;
+      resultBox.classList.add('is-visible');
+      return;
+    }
+
+    const yesCount = Object.values(answers).filter(v => v === 'yes').length;
+    const followUps = questions.filter(item => answers[item.key] !== 'yes').map(item => item.followUp);
+
+    let verdictClass, verdictText;
+    if(yesCount >= 4){ verdictClass = 'verdict-strong'; verdictText = 'Claim Looks Well-Supported'; }
+    else if(yesCount >= 2){ verdictClass = 'verdict-mixed'; verdictText = 'Significant Gaps — Verify Before Reporting'; }
+    else { verdictClass = 'verdict-weak'; verdictText = 'Claim Largely Unverified — High Caution'; }
+
+    let html = `<span class="verdict-badge ${verdictClass}">${verdictText} — ${yesCount}/${questions.length} confirmed</span>`;
+    if(followUps.length){
+      html += `<div class="question-list"><h5>Questions to Put to the Developer</h5><ol>${followUps.map(f => `<li>${f}</li>`).join('')}</ol></div>`;
+    } else {
+      html += `<div class="question-list"><p style="color:var(--paper-dim); font-size:0.92rem;">All five checks confirmed — still worth independently verifying the registry listing yourself before publication.</p></div>`;
+    }
+
+    resultBox.innerHTML = html;
+    resultBox.classList.add('is-visible');
+  });
+</script>
+
+</body>
+</html>

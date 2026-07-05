@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3.1.2 — Assessing Dataset Reliability | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:920px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(1.9rem, 6.5vw, 3.8rem); line-height:1; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .mini-bento{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:640px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{ background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:1.2rem 1.3rem; transition:transform 0.2s ease, border-color 0.2s ease; }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{ font-family:'Fraunces', serif; font-size:1.05rem; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .mini-card p{font-size:0.9rem; margin:0;}
+  .case-block{ background:var(--canopy-mid); border-left:3px solid var(--brass); border-radius:4px; padding:1.2rem 1.4rem; margin:1.2rem 0; }
+  .case-block h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .case-block p{margin:0; color:var(--paper);}
+  .caution-card{ background:var(--canopy-panel); border-left:3px solid var(--clay); border-radius:4px; padding:1.1rem 1.3rem; margin:1.4rem 0 1.8rem; }
+  .caution-card h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--clay); margin-bottom:0.5rem; }
+  .caution-card p{margin:0; color:var(--paper);}
+  .pull-quote{ font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:1.4rem; line-height:1.4; color:var(--paper); border-left:3px solid var(--brass); padding-left:1.2rem; margin:1.6rem 0; }
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:1.8rem; }
+  .quiz-item{ margin-bottom:1.5rem; }
+  .quiz-q{ font-size:0.96rem; color:var(--paper); margin-bottom:0.7rem; }
+  .quiz-q .qnum{ font-family:'IBM Plex Mono', monospace; color:var(--brass-bright); margin-right:0.5rem; }
+  .quiz-options{ display:flex; gap:0.6rem; flex-wrap:wrap; }
+  .quiz-opt{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.02em;
+    background:var(--canopy-panel); border:1px solid var(--moss); border-radius:20px; color:var(--paper-dim);
+    padding:0.5rem 1rem; cursor:pointer; transition:transform 0.15s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+  .quiz-opt:hover{transform:translateY(-2px); border-color:var(--brass);}
+  .quiz-opt.is-selected{background:var(--brass); border-color:var(--brass); color:var(--void);}
+  .assess-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.05em; text-transform:uppercase;
+    background:var(--brass); color:var(--void); border:none; border-radius:3px; padding:0.7rem 1.2rem; cursor:pointer;
+    transition:background 0.2s ease, transform 0.15s ease; margin-top:0.6rem;
+  }
+  .assess-btn:hover{ background:var(--brass-bright); transform:translateY(-2px); }
+  .result-box{ display:none; margin-top:1.8rem; border-top:1px solid var(--moss); padding-top:1.4rem; }
+  .result-box.is-visible{ display:block; animation:fadeUp 0.5s ease; }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  .verdict-badge{ font-family:'Fraunces', serif; font-weight:700; font-size:1.2rem; border-radius:4px; padding:0.6rem 1rem; margin-bottom:1.1rem; display:inline-block; }
+  .verdict-strong{background:var(--fern); color:var(--void);}
+  .verdict-mixed{background:var(--brass); color:var(--void);}
+  .verdict-weak{background:var(--clay); color:var(--paper);}
+  .result-item{ display:flex; gap:0.7rem; align-items:flex-start; padding:0.7rem 0; border-bottom:1px solid var(--canopy-panel); font-size:0.92rem; }
+  .result-icon{font-family:'IBM Plex Mono', monospace; flex-shrink:0;}
+  .result-item.good .result-icon{color:var(--fern);}
+  .result-item.fix .result-icon{color:var(--clay);}
+  .result-item p{margin:0; color:var(--paper-dim);}
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 3 · Ch.1 · 3.1.2</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Field Craft</span>
+
+  <p class="lede reveal-line">A dataset with a clean interface and a professional-looking chart isn't automatically reliable — it just means someone with design skills packaged it. The actual question is whether you know who collected it, how, and whether it holds up against an independent check.</p>
+
+  <h3 class="section-label">Provenance and Methodology</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line">
+      <h4>Who Collected It</h4>
+      <p>A named institution with a documented method is a different kind of source than an unattributed number circulating in a report or presentation.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>How It Was Collected</h4>
+      <p>Sensor readings, surveys, and modeled estimates all carry different kinds and degrees of uncertainty — knowing which one you're looking at changes how confidently you can report it.</p>
+    </div>
+  </div>
+
+  <h3 class="section-label">Known Gaps in Government Data</h3>
+  <div class="caution-card reveal-line">
+    <h4>Under-Reporting Is a Real Risk, Not Just a Cliché</h4>
+    <p>This isn't hypothetical — Module 4.3.1 in this toolkit documents a concrete example: one of the most useful open Bangladeshi weather datasets covers only 1948 to 2014, meaning anything more recent requires a separate, slower formal request. A dataset can be genuinely official and still have real coverage gaps that aren't obvious until you go looking for the most recent year.</p>
+  </div>
+
+  <h3 class="section-label">Cross-Checking Before You Publish</h3>
+  <p class="reveal-line">Before a specific number from a dataset becomes a specific claim in your story, find a second, independent source that roughly agrees with it — a different agency's figure, an academic study, or even a knowledgeable source's estimate. Agreement doesn't prove either source is right, but disagreement is exactly the kind of thing worth chasing down before you publish, not after a correction.</p>
+  <p class="pull-quote reveal-line">"A dataset earns your trust the same way a human source does: through a track record, a clear method, and agreement with someone else who checked independently."</p>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Dataset Reliability Checklist</h3>
+    <p class="tool-instructions">Answer honestly about a specific dataset you're considering using.</p>
+
+    <div id="quizContainer"></div>
+    <button class="assess-btn" id="assessBtn">Get My Confidence Rating</button>
+    <div class="result-box" id="resultBox"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="3.1.1.html">&larr; 1.1 Where Environmental Data Lives</a>
+    <a href="3.1.3.html">Next: 1.3 From Dataset to Story Lead &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "Assessing Dataset Reliability".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.08) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  const questions = [
+    {
+      q:'Do you know exactly who collected this data and how?',
+      key:'provenance',
+      good:'Knowing the specific collector and method is the foundation of trusting any dataset.',
+      fix:'Track down the specific source organization and collection method before relying on this data.'
+    },
+    {
+      q:'Is the collection methodology documented and publicly available?',
+      key:'methodology',
+      good:'Published methodology lets you (and your editor) evaluate the data\'s limitations directly.',
+      fix:'Look for a methodology page or technical appendix — if none exists, treat the data with extra caution.'
+    },
+    {
+      q:'Does the dataset have a clear coverage end-date, and is it recent enough for your story?',
+      key:'currency',
+      good:'Confirmed currency means you\'re not unknowingly citing outdated figures as current.',
+      fix:'Check the exact date range covered — some official-looking datasets have surprisingly old cutoffs.'
+    },
+    {
+      q:'Have you found a second, independent source that roughly agrees with this data?',
+      key:'crosscheck',
+      good:'Independent agreement is one of the strongest reliability signals available.',
+      fix:'Look for a second source — a different agency, an academic study, or a knowledgeable source\'s estimate — before publishing the claim.'
+    },
+    {
+      q:'Does the source lack an obvious interest in the data showing a particular result?',
+      key:'interest',
+      good:'A source without a stake in the outcome carries less risk of motivated framing.',
+      fix:'If the source has a clear interest in a specific finding, weigh the data more cautiously and disclose the source\'s interest if you cite it.'
+    }
+  ];
+
+  const quizContainer = document.getElementById('quizContainer');
+  const answers = {};
+
+  questions.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-item';
+    div.innerHTML = `
+      <p class="quiz-q"><span class="qnum">Q${i+1}</span>${item.q}</p>
+      <div class="quiz-options">
+        <button class="quiz-opt" data-val="yes">Yes</button>
+        <button class="quiz-opt" data-val="partial">Partially</button>
+        <button class="quiz-opt" data-val="no">No</button>
+      </div>
+    `;
+    div.querySelectorAll('.quiz-opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        div.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('is-selected'));
+        btn.classList.add('is-selected');
+        answers[item.key] = btn.dataset.val;
+      });
+    });
+    quizContainer.appendChild(div);
+  });
+
+  document.getElementById('assessBtn').addEventListener('click', () => {
+    if(Object.keys(answers).length < questions.length){
+      const resultBox = document.getElementById('resultBox');
+      resultBox.innerHTML = `<div class="result-item fix"><span class="result-icon">!</span><p>Answer all ${questions.length} questions first.</p></div>`;
+      resultBox.classList.add('is-visible');
+      return;
+    }
+
+    let score = 0;
+    const items = [];
+    questions.forEach(item => {
+      const val = answers[item.key];
+      if(val === 'yes'){ score += 2; items.push({type:'good', text:item.good}); }
+      else if(val === 'partial'){ score += 1; items.push({type:'fix', text:'Partially there: ' + item.fix}); }
+      else { items.push({type:'fix', text:item.fix}); }
+    });
+
+    const maxScore = questions.length * 2;
+    let verdictClass, verdictText;
+    if(score >= maxScore * 0.8){ verdictClass = 'verdict-strong'; verdictText = 'High Confidence'; }
+    else if(score >= maxScore * 0.5){ verdictClass = 'verdict-mixed'; verdictText = 'Moderate Confidence — Verify Further'; }
+    else { verdictClass = 'verdict-weak'; verdictText = 'Low Confidence — High Caution'; }
+
+    const resultBox = document.getElementById('resultBox');
+    resultBox.innerHTML = `
+      <span class="verdict-badge ${verdictClass}">${verdictText} — ${score}/${maxScore}</span>
+      ${items.map(it => `<div class="result-item ${it.type === 'good' ? 'good' : 'fix'}"><span class="result-icon">${it.type === 'good' ? '✓' : '!'}</span><p>${it.text}</p></div>`).join('')}
+    `;
+    resultBox.classList.add('is-visible');
+  });
+</script>
+
+</body>
+</html>

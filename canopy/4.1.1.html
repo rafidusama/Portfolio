@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4.1.1 — Government Bodies | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:960px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(2.2rem, 8vw, 4.6rem); line-height:0.98; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .mini-bento{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.9rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:700px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{ background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:1.1rem 1.2rem; transition:transform 0.2s ease, border-color 0.2s ease; }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{ font-family:'Fraunces', serif; font-size:1.05rem; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .mini-card p{font-size:0.88rem; margin:0;}
+  .caution-card{ background:var(--canopy-panel); border-left:3px solid var(--clay); border-radius:4px; padding:1.1rem 1.3rem; margin:1.4rem 0 1.8rem; }
+  .caution-card h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--clay); margin-bottom:0.5rem; }
+  .caution-card p{margin:0; color:var(--paper);}
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:0.8rem; }
+  .tool-caveat{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--fern);
+    background:var(--canopy-deep); border:1px dashed var(--moss); border-radius:4px; padding:0.7rem 0.9rem; margin-bottom:1.4rem; line-height:1.6;
+  }
+  .filter-row{ display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.6rem; }
+  .filter-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.74rem; letter-spacing:0.02em;
+    background:var(--canopy-panel); border:1px solid var(--moss); border-radius:20px; color:var(--paper-dim);
+    padding:0.5rem 0.9rem; cursor:pointer; transition:transform 0.15s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .filter-btn:hover{transform:translateY(-2px); border-color:var(--brass);}
+  .filter-btn.is-active{background:var(--brass); border-color:var(--brass); color:var(--void);}
+  .agency-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  @media (max-width:640px){ .agency-grid{grid-template-columns:1fr;} }
+  .agency-card{
+    background:var(--canopy-deep); border:1px solid var(--moss); border-left:3px solid var(--brass);
+    border-radius:4px; padding:1.1rem 1.2rem;
+  }
+  .agency-card.is-hidden{ display:none; }
+  .agency-category{ font-family:'IBM Plex Mono', monospace; font-size:0.62rem; text-transform:uppercase; letter-spacing:0.03em; color:var(--fern); margin-bottom:0.5rem; }
+  .agency-name{ font-family:'Fraunces', serif; font-weight:700; font-size:1.02rem; color:var(--paper); margin-bottom:0.4rem; }
+  .agency-focus{ font-size:0.88rem; color:var(--paper-dim); margin-bottom:0.5rem; }
+  .agency-note{ font-size:0.82rem; color:var(--brass-bright); }
+  .result-count{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--fern-dim); margin-bottom:1rem; }
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 4 · Ch.1 · 4.1.1</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Foundations</span>
+
+  <p class="lede reveal-line">Knowing which agency to call, and how quickly to expect anything back, is the difference between a story that gets an official response in the piece and one that says "did not respond to a request for comment" because the request went to the wrong desk.</p>
+
+  <h3 class="section-label">The Ministry Structure</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line"><h4>MoEFCC</h4><p>The Ministry of Environment, Forest and Climate Change is the lead policy ministry — parent to the Department of Environment and the Forest Department.</p></div>
+    <div class="mini-card reveal-line"><h4>MoWR</h4><p>The Ministry of Water Resources oversees water infrastructure policy — parent to BWDB and CEGIS.</p></div>
+    <div class="mini-card reveal-line"><h4>MoDMR</h4><p>The Ministry of Disaster Management and Relief oversees disaster response and relief coordination.</p></div>
+  </div>
+
+  <h3 class="section-label">Jurisdiction Overlaps</h3>
+  <div class="caution-card reveal-line">
+    <h4>The Same Issue, Multiple Agencies</h4>
+    <p>A river pollution story can touch DoE (industrial effluent, permits), BWDB (water infrastructure, embankments), and the Ministry of Water Resources (policy) all at once, and each may point you elsewhere. Ask each agency directly what specifically falls under its jurisdiction, and document if you're passed back and forth — that pattern is itself worth noting in the story.</p>
+  </div>
+
+  <h3 class="section-label">Typical Response Patterns</h3>
+  <p class="reveal-line">Government agencies in Bangladesh generally respond faster to formal written requests than informal phone calls, and multi-layer approval chains mean even a routine request can take time. These are general working patterns, not guarantees — always build in more time than feels necessary and follow up in writing.</p>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Government Agency Directory</h3>
+    <p class="tool-instructions">Filter by category to find the responsible agency.</p>
+    <p class="tool-caveat">Agency names, structures, and contact points are current as of research conducted mid-2026, but government structures can change — verify current details before a time-sensitive request.</p>
+
+    <div class="filter-row" id="filterRow">
+      <button class="filter-btn is-active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="water">Water & Rivers</button>
+      <button class="filter-btn" data-filter="air">Air & Industrial</button>
+      <button class="filter-btn" data-filter="climate">Climate & Disaster</button>
+      <button class="filter-btn" data-filter="forest">Forest & Biodiversity</button>
+      <button class="filter-btn" data-filter="agriculture">Agriculture</button>
+      <button class="filter-btn" data-filter="ministry">Parent Ministries</button>
+    </div>
+
+    <p class="result-count" id="resultCount"></p>
+    <div class="agency-grid" id="agencyGrid"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="index.html">&larr; Canopy</a>
+    <a href="4.1.2.html">Next: 1.2 Research, Advocacy & Civil Society &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "Government Bodies".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.09) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  const agencies = [
+    { cat:'air', name:'Department of Environment (DoE)', focus:'Primary regulator for pollution, industrial compliance, and environmental permits. Under MoEFCC.', note:'First call for a violation, permit, or compliance question.' },
+    { cat:'water', name:'Bangladesh Water Development Board (BWDB)', focus:'Manages embankments, drainage, and river infrastructure nationwide. Under MoWR.', note:'Technical authority on water systems and flood infrastructure.' },
+    { cat:'climate', name:'Bangladesh Meteorological Department (BMD)', focus:'Issues forecasts, cyclone warning signals, and weather data.', note:'Authoritative source on forecasts and storm risk.' },
+    { cat:'ministry', name:'Ministry of Environment, Forest and Climate Change (MoEFCC)', focus:'Lead policy ministry for environment, forestry, and climate — parent to DoE and Forest Department.', note:'Go here for policy-level questions above a technical agency\'s scope.' },
+    { cat:'climate', name:'Ministry of Disaster Management and Relief (MoDMR)', focus:'Oversees national disaster management and relief coordination.', note:'Relevant for cross-agency disaster response and relief policy questions.' },
+    { cat:'ministry', name:'Ministry of Water Resources (MoWR)', focus:'Water infrastructure policy ministry — parent to BWDB and CEGIS.', note:'Policy-level water questions above BWDB\'s technical scope.' },
+    { cat:'climate', name:'Bangladesh Climate Change Trust (BCCT)', focus:'Manages national climate funds and climate-related projects.', note:'Key contact for questions about domestic climate fund allocation and project financing.' },
+    { cat:'forest', name:'Forest Department', focus:'Manages forests including the Sundarbans, forestry permits, and conservation enforcement. Under MoEFCC.', note:'Contact via range offices for site access and species/forest data.' },
+    { cat:'agriculture', name:'Ministry of Agriculture (MoA)', focus:'Agricultural policy, crop research coordination, and food security programs.', note:'Relevant for crop adaptation, salinity-tolerant variety, and food security stories.' },
+    { cat:'water', name:'CEGIS (Center for Environmental and Geographic Information Services)', focus:'A public trust under MoWR providing GIS, remote sensing, and integrated environmental analysis for water, land, and disaster planning.', note:'Strong technical source for satellite/GIS-based river and land-use change data.' },
+    { cat:'climate', name:'Department of Disaster Management (DDM)', focus:'Implements disaster management policy at the operational level, under MoDMR.', note:'Contact for district-level disaster response and relief coordination data.' }
+  ];
+
+  const agencyGrid = document.getElementById('agencyGrid');
+  const resultCount = document.getElementById('resultCount');
+
+  function renderAgencies(filter){
+    agencyGrid.innerHTML = '';
+    const catLabels = { water:'Water & Rivers', air:'Air & Industrial', climate:'Climate & Disaster', forest:'Forest & Biodiversity', agriculture:'Agriculture', ministry:'Parent Ministry' };
+    let shown = 0;
+    agencies.forEach(a => {
+      const match = filter === 'all' || a.cat === filter;
+      if(match) shown++;
+      const card = document.createElement('div');
+      card.className = 'agency-card' + (match ? '' : ' is-hidden');
+      card.innerHTML = `
+        <div class="agency-category">${catLabels[a.cat]}</div>
+        <div class="agency-name">${a.name}</div>
+        <div class="agency-focus">${a.focus}</div>
+        <div class="agency-note">${a.note}</div>
+      `;
+      agencyGrid.appendChild(card);
+    });
+    resultCount.textContent = `${shown} of ${agencies.length} agencies`;
+  }
+  renderAgencies('all');
+
+  document.getElementById('filterRow').addEventListener('click', (e) => {
+    const btn = e.target.closest('.filter-btn');
+    if(!btn) return;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    renderAgencies(btn.dataset.filter);
+  });
+</script>
+
+</body>
+</html>

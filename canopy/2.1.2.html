@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.1.2 — Air Quality & Urban Pollution | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<style>
+  :root{
+    --void:#0A140F;
+    --canopy-deep:#122A1D;
+    --canopy-mid:#1B3D28;
+    --canopy-panel:#204731;
+    --moss:#3D6B4F;
+    --fern:#8FB89B;
+    --fern-dim:#5C8770;
+    --brass:#C9A24B;
+    --brass-bright:#E4C476;
+    --clay:#B5613F;
+    --paper:#EFE9D8;
+    --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--canopy-deep);
+    color:var(--paper);
+    font-family:'Manrope', sans-serif;
+    line-height:1.65;
+  }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+
+  .wrap{max-width:920px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+
+  .breadcrumb{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--fern-dim);
+    text-decoration:none;
+    display:inline-block;
+    margin-bottom:2rem;
+  }
+  .breadcrumb:hover{color:var(--brass-bright);}
+
+  .module-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--fern);
+    margin-bottom:0.8rem;
+  }
+  .kinetic-title{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:clamp(1.9rem, 6.5vw, 3.8rem);
+    line-height:1;
+    letter-spacing:-0.01em;
+    display:flex;
+    flex-wrap:wrap;
+    margin-bottom:1.2rem;
+  }
+  .kinetic-title .word{
+    display:inline-block;
+    opacity:0;
+    transform:translateY(0.5em);
+    animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards;
+    margin-right:0.28em;
+  }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+
+  .module-level{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--fern);
+    border:1px solid var(--fern-dim);
+    padding:0.2rem 0.6rem;
+    border-radius:20px;
+    margin-bottom:3rem;
+  }
+
+  .reveal-line{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+
+  h3.section-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--fern);
+    border-bottom:1px dashed var(--moss);
+    padding-bottom:0.4rem;
+    margin:3rem 0 1.2rem;
+  }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+
+  .compare-pair{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem;
+    margin:1.4rem 0 1.8rem;
+  }
+  @media (max-width:640px){ .compare-pair{grid-template-columns:1fr;} }
+  .compare-card{ border-radius:4px; padding:1.1rem 1.2rem; }
+  .compare-card.bad{background:rgba(181,97,63,0.12); border:1px solid var(--clay);}
+  .compare-card.good{background:rgba(143,184,155,0.12); border:1px solid var(--fern-dim);}
+  .compare-card h5{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    margin-bottom:0.5rem;
+  }
+  .compare-card.bad h5{color:var(--clay);}
+  .compare-card.good h5{color:var(--fern);}
+  .compare-card p{font-size:0.9rem; margin:0; color:var(--paper);}
+
+  .case-block{
+    background:var(--canopy-mid);
+    border-left:3px solid var(--brass);
+    border-radius:4px;
+    padding:1.2rem 1.4rem;
+    margin:1.2rem 0;
+  }
+  .case-block h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--brass-bright);
+    margin-bottom:0.5rem;
+  }
+  .case-block p{margin:0; color:var(--paper);}
+
+  .caution-card{
+    background:var(--canopy-panel);
+    border-left:3px solid var(--clay);
+    border-radius:4px;
+    padding:1.1rem 1.3rem;
+    margin:1.4rem 0 1.8rem;
+  }
+  .caution-card h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--clay);
+    margin-bottom:0.5rem;
+  }
+  .caution-card p{margin:0; color:var(--paper);}
+
+  /* ---------- Map tool ---------- */
+  .tool{
+    margin-top:3.5rem;
+    background:var(--canopy-mid);
+    border:1px solid var(--moss);
+    border-radius:6px;
+    padding:2rem 1.8rem;
+  }
+  .tool-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--brass-bright);
+    margin-bottom:0.4rem;
+  }
+  .tool-title{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:1.6rem;
+    margin-bottom:0.6rem;
+  }
+  .tool-instructions{
+    font-size:0.94rem;
+    color:var(--fern);
+    margin-bottom:1rem;
+  }
+  .api-note{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    color:var(--fern);
+    background:var(--canopy-deep);
+    border:1px dashed var(--moss);
+    border-radius:4px;
+    padding:0.8rem 1rem;
+    margin-bottom:1.4rem;
+    line-height:1.6;
+  }
+  .api-note a{color:var(--brass-bright);}
+  #airMap{
+    height:420px;
+    border-radius:6px;
+    border:1px solid var(--moss);
+  }
+  .leaflet-popup-content-wrapper{
+    background:var(--canopy-mid);
+    color:var(--paper);
+    border-radius:4px;
+  }
+  .leaflet-popup-tip{ background:var(--canopy-mid); }
+  .popup-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1rem; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .popup-status{ font-family:'IBM Plex Mono', monospace; font-size:0.66rem; text-transform:uppercase; letter-spacing:0.03em; margin-bottom:0.4rem; display:inline-block; padding:0.1rem 0.5rem; border-radius:20px; }
+  .popup-status.live{ background:rgba(143,184,155,0.2); color:var(--fern); border:1px solid var(--fern-dim); }
+  .popup-status.sample{ background:rgba(201,162,75,0.2); color:var(--brass-bright); border:1px solid var(--brass); }
+  .popup-reading{ font-size:0.85rem; color:var(--paper); margin-bottom:0.3rem; }
+  .popup-note{ font-size:0.78rem; color:var(--paper-dim); }
+  .map-legend{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    color:var(--fern-dim);
+    margin-top:0.9rem;
+  }
+
+  .nav-footer{
+    margin-top:4rem;
+    padding-top:1.4rem;
+    border-top:1px solid var(--canopy-panel);
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    text-transform:uppercase;
+  }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--brass-bright); outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 2 · Ch.1 · 2.1.2</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Foundations</span>
+
+  <p class="lede reveal-line">Dhaka's air quality is a national story that happens to be concentrated in one city, and it rarely has a single cause. Brick kilns, vehicle emissions, industrial sources, and construction dust tend to overlap in the same neighborhoods, which is exactly why a single-cause headline is usually an oversimplification.</p>
+
+  <h3 class="section-label">Brick Kiln Seasonality and Enforcement Gaps</h3>
+  <p class="reveal-line">Kiln pollution is strongly seasonal, worsening in the dry season when kilns run at full capacity, and seasonal bans on unlicensed kiln operation are common but unevenly enforced. A story that checks whether a specific ban is actually being enforced this season, rather than assuming it is, is usually the more useful story.</p>
+
+  <h3 class="section-label">Vehicle and Industrial Emissions</h3>
+  <p class="reveal-line">Vehicle emissions and industrial sources compound kiln smoke in dense urban corridors, which makes single-source blame — "it's the kilns" or "it's the traffic" — usually incomplete. Checking which sources dominate in a specific season and specific location produces a more defensible story than a general claim about Dhaka's air.</p>
+
+  <div class="case-block reveal-line">
+    <h4>Narayanganj as an Industrial Hotspot</h4>
+    <p>Narayanganj's concentration of dyeing, textile, and other industrial facilities makes it a recurring hotspot distinct from Dhaka's more traffic-and-kiln-driven pollution profile — a useful example of why "air quality in the capital region" often needs to be reported district by district rather than as one undifferentiated story.</p>
+  </div>
+
+  <h3 class="section-label">Acute vs. Chronic Stories</h3>
+  <div class="compare-pair">
+    <div class="compare-card bad reveal-line">
+      <h5>Acute Story</h5>
+      <p>A specific smog event, a sudden spike tied to a weather pattern or a specific incident — time-bound, news-driven, usually needs same-day framing.</p>
+    </div>
+    <div class="compare-card good reveal-line">
+      <h5>Chronic Story</h5>
+      <p>The annual AQI trend, cumulative health impact, and enforcement gaps over years — needs historical data and is less bound to a single news hook.</p>
+    </div>
+  </div>
+  <div class="caution-card reveal-line">
+    <h4>Don't Read a Chronic Problem Off One Bad Day</h4>
+    <p>A single day's poor reading is a data point, not a trend — check whether it fits a known seasonal pattern before framing it as either a crisis or an anomaly.</p>
+  </div>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Air Quality Beat Map</h3>
+    <p class="tool-instructions">Tap a marker for a live air quality reading where available.</p>
+    <p class="api-note" id="apiNote">Attempting a live fetch from the OpenAQ v3 API for each location. OpenAQ v3 requires a free personal API key (register at <a href="https://explore.openaq.org/register" target="_blank" rel="noopener">explore.openaq.org</a>) sent with each request — this demo doesn't include one, so where the live fetch fails, realistic sample data is shown instead, clearly labeled.</p>
+
+    <div id="airMap"></div>
+    <p class="map-legend">Map tiles © OpenStreetMap contributors, via Leaflet. Air quality data via OpenAQ where available.</p>
+  </div>
+
+  <div class="nav-footer">
+    <a href="2.1.1.html">&larr; 1.1 Rivers, Water & Encroachment</a>
+    <a href="index.html">Canopy &rarr;</a>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+  /* ---------- Kinetic title ---------- */
+  const titleEl = document.getElementById('kineticTitle');
+  "Air Quality & Urban Pollution".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word';
+    span.style.animationDelay = (i * 0.08) + 's';
+    span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  /* ---------- Scroll reveal ---------- */
+  const revealTargets = document.querySelectorAll('.reveal-line');
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('is-visible'); }
+    });
+  }, { threshold:0.3 });
+  revealTargets.forEach(t => revealObserver.observe(t));
+
+  /* ---------- Map ---------- */
+  const map = L.map('airMap').setView([23.8, 90.3], 8);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 18
+  }).addTo(map);
+
+  // Sample/fallback data, clearly labeled as illustrative, used when the live fetch fails
+  const sampleData = {
+    'Dhaka': { pm25: 78, note:'Illustrative sample — typical dry-season Dhaka PM2.5 range is well above WHO guidelines.' },
+    'Narayanganj': { pm25: 92, note:'Illustrative sample — industrial hotspot, often among the highest readings in the capital region.' },
+    'Gazipur': { pm25: 68, note:'Illustrative sample — mixed industrial and traffic sources.' },
+    'Chattogram': { pm25: 55, note:'Illustrative sample — port and industrial emissions, somewhat lower than Dhaka region typically.' },
+    'Khulna': { pm25: 47, note:'Illustrative sample — lower industrial density than Dhaka region.' }
+  };
+
+  const locations = [
+    { name:'Dhaka', coords:[23.8103, 90.4125] },
+    { name:'Narayanganj', coords:[23.6238, 90.5000] },
+    { name:'Gazipur', coords:[23.9999, 90.4203] },
+    { name:'Chattogram', coords:[22.3569, 91.7832] },
+    { name:'Khulna', coords:[22.8456, 89.5403] }
+  ];
+
+  async function fetchLiveReading(cityName){
+    // Genuine attempt at a live OpenAQ v3 fetch. This will fail with 401 without
+    // a personal API key, since v3 requires one in the X-API-Key header.
+    // A journalist using this tool with their own key could replace the fetch
+    // options below to get this working live.
+    try {
+      const res = await fetch(`https://api.openaq.org/v3/locations?limit=1&city=${encodeURIComponent(cityName)}`, {
+        headers: { } // Add 'X-API-Key': 'YOUR-OPENAQ-API-KEY' here to enable live data
+      });
+      if(!res.ok) throw new Error('OpenAQ request failed: ' + res.status);
+      const data = await res.json();
+      return data;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  locations.forEach(loc => {
+    const marker = L.marker(loc.coords).addTo(map);
+    marker.bindPopup(`<div class="popup-title">${loc.name}</div><div class="popup-reading">Loading reading…</div>`);
+
+    marker.on('click', async () => {
+      const live = await fetchLiveReading(loc.name);
+      let html = `<div class="popup-title">${loc.name}</div>`;
+      if(live && live.results && live.results.length){
+        html += `<span class="popup-status live">Live — OpenAQ</span>`;
+        html += `<div class="popup-reading">Data retrieved from OpenAQ v3.</div>`;
+      } else {
+        const sample = sampleData[loc.name];
+        html += `<span class="popup-status sample">Sample Data</span>`;
+        html += `<div class="popup-reading">PM2.5 (illustrative): ${sample.pm25} µg/m³</div>`;
+        html += `<div class="popup-note">${sample.note} Live fetch requires a personal OpenAQ API key.</div>`;
+      }
+      marker.setPopupContent(html);
+    });
+  });
+</script>
+
+</body>
+</html>

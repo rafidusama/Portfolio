@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.1.3 — Climate Adaptation & Displacement | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:920px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(1.8rem, 6.5vw, 3.7rem); line-height:1.02; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .pull-quote{ font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:1.4rem; line-height:1.4; color:var(--paper); border-left:3px solid var(--brass); padding-left:1.2rem; margin:1.6rem 0; }
+  .mini-bento{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:640px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{ background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:1.2rem 1.3rem; transition:transform 0.2s ease, border-color 0.2s ease; }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{ font-family:'Fraunces', serif; font-size:1.05rem; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .mini-card p{font-size:0.9rem; margin:0;}
+  .caution-card{ background:var(--canopy-panel); border-left:3px solid var(--clay); border-radius:4px; padding:1.1rem 1.3rem; margin:1.4rem 0 1.8rem; }
+  .caution-card h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--clay); margin-bottom:0.5rem; }
+  .caution-card p{margin:0; color:var(--paper);}
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:1.4rem; }
+  #migrationMap{ height:440px; border-radius:6px; border:1px solid var(--moss); }
+  .leaflet-popup-content-wrapper{ background:var(--canopy-mid); color:var(--paper); border-radius:4px; }
+  .leaflet-popup-tip{ background:var(--canopy-mid); }
+  .popup-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1rem; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .popup-role{ font-family:'IBM Plex Mono', monospace; font-size:0.62rem; text-transform:uppercase; letter-spacing:0.03em; color:var(--fern); margin-bottom:0.4rem; }
+  .popup-desc{ font-size:0.85rem; color:var(--paper); }
+  .map-legend{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--fern-dim); margin-top:0.9rem; }
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 2 · Ch.1 · 2.1.3</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Field Craft</span>
+
+  <p class="lede reveal-line">Climate displacement in Bangladesh is rarely a single dramatic departure. It's usually a sequence: a household adapts, adapts again, and eventually moves — often more than once, often incompletely, often without ever being formally counted as "displaced" anywhere. Reporting it as a systemic pattern rather than a one-time snapshot is the core skill here.</p>
+
+  <h3 class="section-label">Salinity Intrusion Mechanics</h3>
+  <p class="reveal-line">Rising soil and water salinity in coastal areas is driven by a mix of sea level rise, upstream freshwater diversion, and commercial shrimp farming practices that deliberately let in saline water. The livelihood impact compounds over seasons: a rice variety fails, then a second, then drinking water sources turn brackish — the decision to leave usually comes after several failed adaptations, not as a first response.</p>
+
+  <h3 class="section-label">Char Land Formation and Erosion Cycles</h3>
+  <p class="reveal-line">Char lands — river-formed sandbars and islands — erode and re-form in cycles that can displace and resettle the same families repeatedly within a single lifetime. Land ownership on a char is often informal or contested, which means a family can lose their home to erosion and have no clear legal claim to the same land when it re-forms years later.</p>
+
+  <h3 class="section-label">Internal Migration Routes Into Dhaka</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line">
+      <h4>Push Factors</h4>
+      <p>Salinity, erosion, and repeated crop failure are the most common drivers cited by displaced households moving toward Dhaka and other major cities.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Landing Points</h4>
+      <p>Informal settlements in Dhaka absorb much of this migration, often themselves in flood-prone or otherwise precarious parts of the city.</p>
+    </div>
+  </div>
+
+  <div class="caution-card reveal-line">
+    <h4>Avoiding "Climate Refugee" Framing</h4>
+    <p>"Climate refugee" has no formal legal status under international law, and using it can overstate certainty about a single cause when displacement is usually driven by an overlapping mix of economic, social, and environmental pressures. Naming the specific pressures a household describes is more accurate and more useful to the reader than reaching for the label.</p>
+  </div>
+  <p class="pull-quote reveal-line">"Ask what they tried before they left. The leaving is rarely the whole story — the adapting usually is."</p>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Migration Trail Map</h3>
+    <p class="tool-instructions">Tap a marker along each route for context on why people leave, and what they find at the other end.</p>
+
+    <div id="migrationMap"></div>
+    <p class="map-legend">Map tiles © OpenStreetMap contributors, via Leaflet.</p>
+  </div>
+
+  <div class="nav-footer">
+    <a href="2.1.2.html">&larr; 1.2 Air Quality & Urban Pollution</a>
+    <a href="2.1.4.html">Next: 1.4 The Sundarbans & Biodiversity &rarr;</a>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "Climate Adaptation & Displacement".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.07) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  const map = L.map('migrationMap').setView([23.3, 90.2], 7);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors', maxZoom: 18
+  }).addTo(map);
+
+  const routes = [
+    {
+      origin: { name:'Shyamnagar, Satkhira', coords:[22.1969, 89.1119], desc:'Coastal salinity intrusion has made rice cultivation increasingly unreliable in this Sundarbans-adjacent upazila.' },
+      dest: { name:'Mirpur / Karail, Dhaka', coords:[23.7930, 90.3680], desc:'A common landing point for salinity-displaced families, often working in garment factories or informal labor.' }
+    },
+    {
+      origin: { name:'Bhola Island (char erosion zone)', coords:[22.6850, 90.6480], desc:'Recurrent char erosion has displaced households here multiple times within a single generation.' },
+      dest: { name:'Dhaka (various informal settlements)', coords:[23.7461, 90.4180], desc:'Many Bhola-origin migrants settle across multiple informal Dhaka neighborhoods rather than one concentrated area.' }
+    },
+    {
+      origin: { name:'Kutubdia Island', coords:[21.8500, 91.8500], desc:'Severe long-term erosion has shrunk this island significantly, driving sustained outmigration for decades.' },
+      dest: { name:'Cox\'s Bazar / Chattogram', coords:[22.3569, 91.7832], desc:'A common secondary destination, offering coastal labor markets closer to home than Dhaka.' }
+    },
+    {
+      origin: { name:'Gabura Union, Shyamnagar', coords:[22.2167, 89.0500], desc:'One of the most cyclone- and salinity-exposed unions in the country, with repeated embankment failures.' },
+      dest: { name:'Khulna City', coords:[22.8456, 89.5403], desc:'A shorter-distance migration destination for households not moving as far as Dhaka.' }
+    }
+  ];
+
+  routes.forEach(route => {
+    L.polyline([route.origin.coords, route.dest.coords], {
+      color: '#C9A24B', weight: 2, opacity: 0.6, dashArray: '6, 6'
+    }).addTo(map);
+
+    const originMarker = L.marker(route.origin.coords).addTo(map);
+    originMarker.bindPopup(`<div class="popup-title">${route.origin.name}</div><div class="popup-role">Origin</div><div class="popup-desc">${route.origin.desc}</div>`);
+
+    const destMarker = L.marker(route.dest.coords).addTo(map);
+    destMarker.bindPopup(`<div class="popup-title">${route.dest.name}</div><div class="popup-role">Destination</div><div class="popup-desc">${route.dest.desc}</div>`);
+  });
+</script>
+
+</body>
+</html>
