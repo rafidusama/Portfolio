@@ -1,0 +1,14 @@
+{
+  "type": "FeatureCollection",
+  "note": "ILLUSTRATIVE PRACTICE DATA ONLY — not authoritative Bangladesh district boundaries. For real boundaries, use the sources linked in Module 3.3.1.",
+  "features": [
+    { "type": "Feature", "properties": { "district_id": "A", "district_name": "Practice District A" },
+      "geometry": { "type": "Polygon", "coordinates": [[[88.5,24.0],[89.5,24.0],[89.5,25.0],[88.5,25.0],[88.5,24.0]]] } },
+    { "type": "Feature", "properties": { "district_id": "B", "district_name": "Practice District B" },
+      "geometry": { "type": "Polygon", "coordinates": [[[89.5,24.0],[90.5,24.0],[90.5,25.0],[89.5,25.0],[89.5,24.0]]] } },
+    { "type": "Feature", "properties": { "district_id": "C", "district_name": "Practice District C" },
+      "geometry": { "type": "Polygon", "coordinates": [[[88.5,23.0],[89.5,23.0],[89.5,24.0],[88.5,24.0],[88.5,23.0]]] } },
+    { "type": "Feature", "properties": { "district_id": "D", "district_name": "Practice District D" },
+      "geometry": { "type": "Polygon", "coordinates": [[[89.5,23.0],[90.5,23.0],[90.5,24.0],[89.5,24.0],[89.5,23.0]]] } }
+  ]
+}

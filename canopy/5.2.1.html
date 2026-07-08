@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5.2.1 — Defamation & Legal Threats | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:920px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(2rem, 7vw, 4.2rem); line-height:0.98; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .case-block{ background:var(--canopy-mid); border-left:3px solid var(--brass); border-radius:4px; padding:1.2rem 1.4rem; margin:1.2rem 0; }
+  .case-block h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .case-block p{margin:0; color:var(--paper);}
+  .mini-bento{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:640px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{ background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:1.2rem 1.3rem; transition:transform 0.2s ease, border-color 0.2s ease; }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{ font-family:'Fraunces', serif; font-size:1.05rem; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .mini-card p{font-size:0.9rem; margin:0;}
+  .pull-quote{ font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:1.4rem; line-height:1.4; color:var(--paper); border-left:3px solid var(--brass); padding-left:1.2rem; margin:1.6rem 0; }
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:1.8rem; }
+  .quiz-item{ margin-bottom:1.5rem; }
+  .quiz-q{ font-size:0.96rem; color:var(--paper); margin-bottom:0.7rem; }
+  .quiz-q .qnum{ font-family:'IBM Plex Mono', monospace; color:var(--brass-bright); margin-right:0.5rem; }
+  .quiz-options{ display:flex; gap:0.6rem; flex-wrap:wrap; }
+  .quiz-opt{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.02em;
+    background:var(--canopy-panel); border:1px solid var(--moss); border-radius:20px; color:var(--paper-dim);
+    padding:0.5rem 1rem; cursor:pointer; transition:transform 0.15s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+  .quiz-opt:hover{transform:translateY(-2px); border-color:var(--brass);}
+  .quiz-opt.is-selected{background:var(--brass); border-color:var(--brass); color:var(--void);}
+  .assess-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.05em; text-transform:uppercase;
+    background:var(--brass); color:var(--void); border:none; border-radius:3px; padding:0.7rem 1.2rem; cursor:pointer;
+    transition:background 0.2s ease, transform 0.15s ease; margin-top:0.6rem;
+  }
+  .assess-btn:hover{ background:var(--brass-bright); transform:translateY(-2px); }
+  .result-box{ display:none; margin-top:1.8rem; border-top:1px solid var(--moss); padding-top:1.4rem; }
+  .result-box.is-visible{ display:block; animation:fadeUp 0.5s ease; }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  .verdict-badge{ font-family:'Fraunces', serif; font-weight:700; font-size:1.2rem; border-radius:4px; padding:0.6rem 1rem; margin-bottom:1.1rem; display:inline-block; }
+  .verdict-strong{background:var(--fern); color:var(--void);}
+  .verdict-mixed{background:var(--brass); color:var(--void);}
+  .verdict-weak{background:var(--clay); color:var(--paper);}
+  .result-item{ display:flex; gap:0.7rem; align-items:flex-start; padding:0.7rem 0; border-bottom:1px solid var(--canopy-panel); font-size:0.92rem; }
+  .result-icon{font-family:'IBM Plex Mono', monospace; flex-shrink:0;}
+  .result-item.good .result-icon{color:var(--fern);}
+  .result-item.fix .result-icon{color:var(--clay);}
+  .result-item p{margin:0; color:var(--paper-dim);}
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 5 · Ch.2 · 5.2.1</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Field Craft</span>
+
+  <p class="lede reveal-line">A defamation threat doesn't have to succeed in court to do damage — the cost and stress of a legal proceeding is often the actual point. Watchdog groups including the Committee to Protect Journalists have documented a rising pattern of what are sometimes called SLAPP suits (strategic lawsuits against public participation) used to burden reporters and outlets with costly proceedings rather than to win a genuine legal argument.</p>
+
+  <h3 class="section-label">How Defamation Claims Get Used as Pressure</h3>
+  <div class="case-block reveal-line">
+    <p>A company or official facing an accountability story doesn't need to win a defamation case to make it expensive and stressful for you to have written it. The strategy often isn't about the merits — it's about the burden of the process itself. Understanding this changes how you prepare: your goal isn't just to be right, it's to be able to demonstrate, quickly and clearly, exactly why you were right.</p>
+  </div>
+
+  <h3 class="section-label">Pre-Publication Legal Review</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line">
+      <h4>Review Before, Not After</h4>
+      <p>Getting a legal read on a genuinely risky accountability piece before publication is far cheaper and calmer than responding to a legal threat afterward.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Separate Fact From Characterization</h4>
+      <p>A factual claim needs a source or document behind it. A characterization ("appears to," "critics say") needs to be clearly framed as such, not blurred into a factual assertion.</p>
+    </div>
+  </div>
+
+  <h3 class="section-label">Documentation Standards</h3>
+  <p class="reveal-line">Every factual claim in an accountability piece should trace back to something you can produce if challenged: a document, a recording, a named source's on-record statement. Retain these systematically, not just in memory — a defamation defense often comes down to how quickly and completely you can show your work.</p>
+  <p class="pull-quote reveal-line">"You don't need to win the argument before you publish. You need to be able to prove, on demand, exactly how you got there."</p>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Pre-Publish Legal Risk Checklist</h3>
+    <p class="tool-instructions">Answer honestly about a specific accountability story before you file it.</p>
+
+    <div id="quizContainer"></div>
+    <button class="assess-btn" id="assessBtn">Check My Story</button>
+    <div class="result-box" id="resultBox"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="5.1.3.html">&larr; 1.3 Psychological Safety</a>
+    <a href="5.2.2.html">Next: 2.2 Cyber Security Act & Press Freedom Constraints &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "Defamation & Legal Threats".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.08) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  const questions = [
+    {
+      q:'Is every factual claim in the story traceable to a named source, document, or recording?',
+      key:'traceable',
+      good:'Traceable claims are your strongest defense if challenged.',
+      fix:'Go back through the draft and flag any factual claim you couldn\'t immediately back up with a source or document.'
+    },
+    {
+      q:'Did you seek comment from the person or company the story holds accountable, with specific questions?',
+      key:'comment',
+      good:'Seeking comment, even if declined, is both good practice and a meaningful legal safeguard.',
+      fix:'Reach out with specific written questions and a reasonable deadline before publishing, even if you expect no response.'
+    },
+    {
+      q:'Are opinion or characterization statements clearly distinguished from factual assertions?',
+      key:'characterization',
+      good:'Clear framing protects you from a claim being read as an unsupported statement of fact.',
+      fix:'Review any strongly worded characterizations and make sure they\'re clearly framed as interpretation, not stated as settled fact.'
+    },
+    {
+      q:'Do you have copies retained of the key documents, recordings, or messages behind the story?',
+      key:'retained',
+      good:'Retained evidence means you can respond to a challenge quickly rather than scrambling.',
+      fix:'Before publishing, organize and securely back up the specific evidence behind each major claim.'
+    },
+    {
+      q:'Has an editor (or legal counsel, for higher-risk pieces) reviewed the story specifically for legal exposure?',
+      key:'review',
+      good:'A second set of eyes focused specifically on legal risk catches what the reporting process alone often misses.',
+      fix:'Get a dedicated legal-risk read before publication, especially for a story naming a specific company or official.'
+    }
+  ];
+
+  const quizContainer = document.getElementById('quizContainer');
+  const answers = {};
+
+  questions.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-item';
+    div.innerHTML = `
+      <p class="quiz-q"><span class="qnum">Q${i+1}</span>${item.q}</p>
+      <div class="quiz-options">
+        <button class="quiz-opt" data-val="yes">Yes</button>
+        <button class="quiz-opt" data-val="partial">Partially</button>
+        <button class="quiz-opt" data-val="no">No</button>
+      </div>
+    `;
+    div.querySelectorAll('.quiz-opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        div.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('is-selected'));
+        btn.classList.add('is-selected');
+        answers[item.key] = btn.dataset.val;
+      });
+    });
+    quizContainer.appendChild(div);
+  });
+
+  document.getElementById('assessBtn').addEventListener('click', () => {
+    if(Object.keys(answers).length < questions.length){
+      const resultBox = document.getElementById('resultBox');
+      resultBox.innerHTML = `<div class="result-item fix"><span class="result-icon">!</span><p>Answer all ${questions.length} questions first.</p></div>`;
+      resultBox.classList.add('is-visible');
+      return;
+    }
+
+    let score = 0;
+    const items = [];
+    questions.forEach(item => {
+      const val = answers[item.key];
+      if(val === 'yes'){ score += 2; items.push({type:'good', text:item.good}); }
+      else if(val === 'partial'){ score += 1; items.push({type:'fix', text:'Partially there: ' + item.fix}); }
+      else { items.push({type:'fix', text:item.fix}); }
+    });
+
+    const maxScore = questions.length * 2;
+    let verdictClass, verdictText;
+    if(score >= maxScore * 0.8){ verdictClass = 'verdict-strong'; verdictText = 'Well-Prepared to Publish'; }
+    else if(score >= maxScore * 0.5){ verdictClass = 'verdict-mixed'; verdictText = 'Some Gaps — Address Before Filing'; }
+    else { verdictClass = 'verdict-weak'; verdictText = 'Significant Exposure — Not Ready Yet'; }
+
+    const resultBox = document.getElementById('resultBox');
+    resultBox.innerHTML = `
+      <span class="verdict-badge ${verdictClass}">${verdictText} — ${score}/${maxScore}</span>
+      ${items.map(it => `<div class="result-item ${it.type === 'good' ? 'good' : 'fix'}"><span class="result-icon">${it.type === 'good' ? '✓' : '!'}</span><p>${it.text}</p></div>`).join('')}
+    `;
+    resultBox.classList.add('is-visible');
+  });
+</script>
+
+</body>
+</html>

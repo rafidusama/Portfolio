@@ -1,0 +1,11 @@
+{
+  "type": "FeatureCollection",
+  "note": "ILLUSTRATIVE PRACTICE DATA ONLY — sample field-report site points for practicing a spatial join against the practice district polygons.",
+  "features": [
+    { "type": "Feature", "properties": { "site_name": "Field Site 1" }, "geometry": { "type": "Point", "coordinates": [88.8, 24.6] } },
+    { "type": "Feature", "properties": { "site_name": "Field Site 2" }, "geometry": { "type": "Point", "coordinates": [90.1, 24.7] } },
+    { "type": "Feature", "properties": { "site_name": "Field Site 3" }, "geometry": { "type": "Point", "coordinates": [88.7, 23.5] } },
+    { "type": "Feature", "properties": { "site_name": "Field Site 4" }, "geometry": { "type": "Point", "coordinates": [90.2, 23.3] } },
+    { "type": "Feature", "properties": { "site_name": "Field Site 5" }, "geometry": { "type": "Point", "coordinates": [89.9, 24.3] } }
+  ]
+}

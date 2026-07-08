@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.1.6 — Disasters: Floods & Cyclones | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:920px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(2rem, 7vw, 4.2rem); line-height:0.98; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .mini-bento{ display:grid; grid-template-columns:repeat(5, 1fr); gap:0.7rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:900px){ .mini-bento{grid-template-columns:repeat(3, 1fr);} }
+  @media (max-width:600px){ .mini-bento{grid-template-columns:1fr 1fr;} }
+  @media (max-width:420px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{ background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:1rem 1.05rem; transition:transform 0.2s ease, border-color 0.2s ease; }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{ font-family:'IBM Plex Mono', monospace; font-size:0.66rem; text-transform:uppercase; letter-spacing:0.03em; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .mini-card p{font-size:0.82rem; margin:0;}
+  .case-block{ background:var(--canopy-mid); border-left:3px solid var(--brass); border-radius:4px; padding:1.2rem 1.4rem; margin:1.2rem 0; }
+  .case-block h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .case-block p{margin:0; color:var(--paper);}
+  .caution-card{ background:var(--canopy-panel); border-left:3px solid var(--clay); border-radius:4px; padding:1.1rem 1.3rem; margin:1.4rem 0 1.8rem; }
+  .caution-card h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--clay); margin-bottom:0.5rem; }
+  .caution-card p{margin:0; color:var(--paper);}
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:1.4rem; }
+  .date-row{ display:flex; gap:1rem; align-items:center; flex-wrap:wrap; margin-bottom:1.6rem; }
+  .date-row input[type="date"]{
+    font-family:'IBM Plex Mono', monospace; font-size:0.9rem; background:var(--canopy-deep); color:var(--paper);
+    border:1px solid var(--moss); border-radius:4px; padding:0.6rem 0.8rem;
+  }
+  .plan-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.05em; text-transform:uppercase;
+    background:var(--brass); color:var(--void); border:none; border-radius:3px; padding:0.7rem 1.2rem; cursor:pointer;
+    transition:background 0.2s ease, transform 0.15s ease;
+  }
+  .plan-btn:hover{ background:var(--brass-bright); transform:translateY(-2px); }
+  .timeline-output{ display:none; }
+  .timeline-output.is-visible{ display:block; animation:fadeUp 0.4s ease; }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .timeline-stage{
+    display:grid; grid-template-columns:140px 1fr; gap:1rem;
+    padding:1rem 0; border-bottom:1px solid var(--canopy-panel);
+  }
+  @media (max-width:600px){ .timeline-stage{grid-template-columns:1fr;} }
+  .stage-date{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--brass-bright); }
+  .stage-label{ font-family:'IBM Plex Mono', monospace; font-size:0.66rem; text-transform:uppercase; letter-spacing:0.03em; color:var(--fern); margin-top:0.3rem; }
+  .stage-angles{ list-style:none; margin:0; padding:0; }
+  .stage-angles li{ font-size:0.92rem; color:var(--paper-dim); margin-bottom:0.4rem; padding-left:1rem; position:relative; }
+  .stage-angles li::before{ content:'—'; position:absolute; left:0; color:var(--fern-dim); }
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 2 · Ch.1 · 2.1.6</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Field Craft</span>
+
+  <p class="lede reveal-line">Most disaster coverage lives in the first 72 hours and then disappears. The more valuable and harder-to-find stories are usually in the months after, when reconstruction promises are tested against what actually gets built.</p>
+
+  <h3 class="section-label">The Disaster Reporting Arc</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line"><h4>Warning</h4><p>Forecast issued, evacuation orders, preparedness gaps.</p></div>
+    <div class="mini-card reveal-line"><h4>Impact</h4><p>Immediate damage, casualties, first response.</p></div>
+    <div class="mini-card reveal-line"><h4>Response</h4><p>Relief distribution, shelter, early coordination.</p></div>
+    <div class="mini-card reveal-line"><h4>Recovery</h4><p>Rebuilding, livelihoods, promised aid delivery.</p></div>
+    <div class="mini-card reveal-line"><h4>Accountability</h4><p>Were promises kept? What changed structurally?</p></div>
+  </div>
+
+  <h3 class="section-label">Early-Warning Systems and BMD Forecasting</h3>
+  <p class="reveal-line">The Bangladesh Meteorological Department issues staged cyclone warning signals — knowing the current signal number tells you the expected severity and how much lead time communities have had. A story on whether warnings actually reached the most exposed communities in time is often more revealing than the storm itself.</p>
+
+  <div class="caution-card reveal-line">
+    <h4>Where Recovery Stories Get Dropped</h4>
+    <p>Most newsroom attention leaves within the first two weeks, exactly when displaced households are settling into what often becomes months of limbo. Planning a follow-up story deliberately, rather than waiting for another news hook, is usually the only way it gets covered at all.</p>
+  </div>
+
+  <div class="case-block reveal-line">
+    <h4>Cyclone Mocha — Coordinated Relief Coverage</h4>
+    <p>Cyclone Mocha's 2023 landfall near the Bangladesh-Myanmar border prompted coordinated relief coverage involving government agencies, international humanitarian organizations, and local reporters — a useful reference case for how warning, evacuation, and early response can be covered together as a connected sequence rather than isolated news items.</p>
+  </div>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Disaster-Story Timeline Planner</h3>
+    <p class="tool-instructions">Enter the date of the event. Get a suggested story angle for each stage over the following year.</p>
+
+    <div class="date-row">
+      <input type="date" id="eventDate">
+      <button class="plan-btn" id="planBtn">Build My Timeline</button>
+    </div>
+
+    <div class="timeline-output" id="timelineOutput"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="2.1.5.html">&larr; 1.5 Industrial & Occupational Environment Beats</a>
+    <a href="2.1.7.html">Next: 1.7 Waste, Energy & Agriculture &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "Disasters: Floods & Cyclones".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.08) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  const stages = [
+    { offsetDays: 0, label:'Impact', angles:['Immediate damage assessment and casualty figures, clearly marked as provisional', 'Whether early warnings reached the most exposed communities in time'] },
+    { offsetDays: 7, label:'Week 1 — Response', angles:['Relief distribution coverage and gaps', 'Shelter conditions for displaced households'] },
+    { offsetDays: 30, label:'Month 1 — Early Recovery', angles:['What has and hasn\'t been rebuilt yet', 'Whether promised aid has actually been disbursed'] },
+    { offsetDays: 90, label:'Month 3 — Mid Recovery', angles:['Livelihood recovery: are people back to earning, or still dependent on aid?', 'Follow-up on any structural or embankment repairs promised'] },
+    { offsetDays: 180, label:'Month 6 — Extended Recovery', angles:['Long-term displacement: who still hasn\'t returned home?', 'Health and psychological impact follow-up'] },
+    { offsetDays: 365, label:'Month 12 — Accountability', angles:['One-year accountability piece: were reconstruction promises kept?', 'What structural changes, if any, reduce risk for the next event?'] }
+  ];
+
+  document.getElementById('planBtn').addEventListener('click', () => {
+    const dateInput = document.getElementById('eventDate').value;
+    const output = document.getElementById('timelineOutput');
+    if(!dateInput){
+      output.innerHTML = `<p style="color:var(--clay); font-size:0.9rem;">Enter a date first.</p>`;
+      output.classList.add('is-visible');
+      return;
+    }
+    const baseDate = new Date(dateInput + 'T00:00:00');
+    let html = '';
+    stages.forEach(stage => {
+      const d = new Date(baseDate);
+      d.setDate(d.getDate() + stage.offsetDays);
+      const dateStr = d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+      html += `
+        <div class="timeline-stage">
+          <div>
+            <div class="stage-date">${dateStr}</div>
+            <div class="stage-label">${stage.label}</div>
+          </div>
+          <ul class="stage-angles">${stage.angles.map(a => `<li>${a}</li>`).join('')}</ul>
+        </div>
+      `;
+    });
+    output.innerHTML = html;
+    output.classList.add('is-visible');
+  });
+</script>
+
+</body>
+</html>

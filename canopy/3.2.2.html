@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3.2.2 — Satellite Imagery for Change Detection | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:960px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(1.6rem, 5.8vw, 3.3rem); line-height:1.08; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .source-note{
+    font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color:var(--fern-dim);
+    background:var(--canopy-deep); border:1px dashed var(--moss); border-radius:4px; padding:0.7rem 0.9rem; margin:0.8rem 0 1.8rem; line-height:1.6;
+  }
+  .mini-bento{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:640px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{ background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:1.2rem 1.3rem; transition:transform 0.2s ease, border-color 0.2s ease; }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{ font-family:'Fraunces', serif; font-size:1.05rem; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .mini-card p{font-size:0.9rem; margin:0;}
+  .case-block{ background:var(--canopy-mid); border-left:3px solid var(--brass); border-radius:4px; padding:1.2rem 1.4rem; margin:1.2rem 0; }
+  .case-block h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .case-block p{margin:0; color:var(--paper);}
+  .caution-card{ background:var(--canopy-panel); border-left:3px solid var(--clay); border-radius:4px; padding:1.1rem 1.3rem; margin:1.4rem 0 1.8rem; }
+  .caution-card h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--clay); margin-bottom:0.5rem; }
+  .caution-card p{margin:0; color:var(--paper);}
+  .pull-quote{ font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:1.4rem; line-height:1.4; color:var(--paper); border-left:3px solid var(--brass); padding-left:1.2rem; margin:1.6rem 0; }
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:0.8rem; }
+  .tool-caveat{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--fern);
+    background:var(--canopy-deep); border:1px dashed var(--moss); border-radius:4px; padding:0.7rem 0.9rem; margin-bottom:1.4rem; line-height:1.6;
+  }
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem; }
+  @media (max-width:600px){ .field-row{grid-template-columns:1fr;} }
+  .field-group label{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--fern); margin-bottom:0.5rem; display:block; }
+  .field-group input{
+    width:100%; font-family:'Manrope', sans-serif; font-size:0.94rem; padding:0.7rem 0.9rem;
+    border:1px solid var(--moss); border-radius:4px; background:var(--canopy-deep); color:var(--paper);
+  }
+  .field-group input:focus-visible{ outline:none; border-color:var(--brass-bright); }
+  .preset-row{ display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.4rem; }
+  .preset-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem;
+    background:var(--canopy-panel); border:1px solid var(--moss); border-radius:20px; color:var(--paper-dim);
+    padding:0.4rem 0.85rem; cursor:pointer; transition:border-color 0.2s ease, transform 0.15s ease;
+  }
+  .preset-btn:hover{ border-color:var(--brass); transform:translateY(-2px); }
+  .generate-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.05em; text-transform:uppercase;
+    background:var(--brass); color:var(--void); border:none; border-radius:3px; padding:0.7rem 1.2rem; cursor:pointer;
+    transition:background 0.2s ease, transform 0.15s ease; margin-top:0.4rem;
+  }
+  .generate-btn:hover{ background:var(--brass-bright); transform:translateY(-2px); }
+  .link-output{ display:none; margin-top:1.6rem; }
+  .link-output.is-visible{ display:block; animation:fadeUp 0.4s ease; }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .link-card{
+    background:var(--canopy-deep); border:1px solid var(--moss); border-left:3px solid var(--brass);
+    border-radius:4px; padding:1.1rem 1.2rem; margin-bottom:1rem;
+  }
+  .link-name{ font-family:'Fraunces', serif; font-weight:700; font-size:1rem; margin-bottom:0.4rem; }
+  .link-name a{ color:var(--brass-bright); }
+  .link-desc{ font-size:0.86rem; color:var(--paper-dim); }
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 3 · Ch.2 · 3.2.2</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Advanced</span>
+
+  <p class="lede reveal-line">A satellite image comparison can show what an official denial can't — whether a riverbank has actually eroded, whether a factory has actually expanded, whether a forest has actually shrunk. It's often the only evidence available for places you can't safely or practically visit.</p>
+
+  <h3 class="section-label">Free vs. Paid Tiers</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line">
+      <h4>Free: Copernicus & NASA</h4>
+      <p>The Copernicus Browser (successor to the now-deprecated EO Browser) gives free access to the full Sentinel satellite archive, with built-in comparison and timelapse tools. NASA Worldview offers free near-real-time and historical imagery.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Paid: Higher Resolution</h4>
+      <p>Planet's commercial imagery offers much higher resolution (down to well under a meter per pixel) than free public satellites, useful when Sentinel's resolution isn't fine enough to see the specific detail your story needs — but it requires a paid subscription for full access.</p>
+    </div>
+  </div>
+
+  <h3 class="section-label">Building a Before/After Comparison</h3>
+  <p class="reveal-line">The comparison is only as credible as its consistency: match the season, ideally the same month in different years, to avoid a wet-season image being compared against a dry-season one and mistaking normal seasonal variation for genuine change. Both the Copernicus Browser and NASA Worldview support side-by-side or split-screen comparison directly in the tool.</p>
+
+  <h3 class="section-label">Use Cases</h3>
+  <div class="case-block reveal-line">
+    <p><strong style="color:var(--brass-bright);">River encroachment</strong> — compare a riverbank's edge across years to document informal construction or erosion. <strong style="color:var(--brass-bright);">Flooding extent</strong> — compare imagery just before and during a flood event to map affected area. <strong style="color:var(--brass-bright);">Industrial expansion</strong> — track a facility's footprint growing over time, useful when the company itself won't confirm its scale.</p>
+  </div>
+
+  <div class="caution-card reveal-line">
+    <h4>Imagery as Evidence Where You Can't Go</h4>
+    <p>For sites with restricted or denied access — a closed industrial facility, a politically sensitive border area, a hard-to-reach forest interior — satellite imagery may be the only way to independently verify a claim. It doesn't replace on-the-ground reporting, but it can confirm or contradict an official denial when nothing else can.</p>
+  </div>
+  <p class="pull-quote reveal-line">"A company can refuse your call. It can't stop the satellite from passing overhead."</p>
+  <p class="source-note">Compiled from the Copernicus Data Space Ecosystem, NASA Earthdata/Worldview, and Planet's public documentation — current as of research conducted mid-2026. Note: Sentinel Hub's original EO Browser has been deprecated in favor of the Copernicus Browser.</p>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Satellite Viewer Link Generator</h3>
+    <p class="tool-instructions">Enter coordinates and a date to generate real links into live satellite viewers.</p>
+    <p class="tool-caveat">NASA Worldview supports direct coordinate/date links, generated below. Copernicus Browser requires pasting coordinates into its own search box — the link below opens the tool itself, with your coordinates pre-formatted to paste in.</p>
+
+    <div class="preset-row" id="presetRow">
+      <button class="preset-btn" data-lat="23.7104" data-lon="90.3857" data-label="Buriganga River, Dhaka">Buriganga River, Dhaka</button>
+      <button class="preset-btn" data-lat="22.1" data-lon="89.4" data-label="Sundarbans, Khulna">Sundarbans, Khulna</button>
+      <button class="preset-btn" data-lat="22.3569" data-lon="91.8000" data-label="Karnaphuli, Chattogram">Karnaphuli, Chattogram</button>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group">
+        <label>Latitude</label>
+        <input type="text" id="latInput" placeholder="e.g. 23.7104">
+      </div>
+      <div class="field-group">
+        <label>Longitude</label>
+        <input type="text" id="lonInput" placeholder="e.g. 90.3857">
+      </div>
+    </div>
+    <div class="field-group" style="margin-bottom:1rem;">
+      <label>Date</label>
+      <input type="date" id="dateInput">
+    </div>
+
+    <button class="generate-btn" id="generateBtn">Generate Viewer Links</button>
+
+    <div class="link-output" id="linkOutput"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="3.2.1.html">&larr; 2.1 Air Quality Monitoring Tools</a>
+    <a href="3.2.3.html">Next: 2.3 Forest & Land-Use Tracking &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "Satellite Imagery for Change Detection".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.05) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  document.getElementById('presetRow').addEventListener('click', (e) => {
+    const btn = e.target.closest('.preset-btn');
+    if(!btn) return;
+    document.getElementById('latInput').value = btn.dataset.lat;
+    document.getElementById('lonInput').value = btn.dataset.lon;
+  });
+
+  document.getElementById('generateBtn').addEventListener('click', () => {
+    const lat = parseFloat(document.getElementById('latInput').value);
+    const lon = parseFloat(document.getElementById('lonInput').value);
+    const dateVal = document.getElementById('dateInput').value;
+    const output = document.getElementById('linkOutput');
+
+    if(isNaN(lat) || isNaN(lon)){
+      output.innerHTML = `<p style="color:var(--clay); font-size:0.9rem;">Enter valid latitude and longitude values first.</p>`;
+      output.classList.add('is-visible');
+      return;
+    }
+
+    const date = dateVal || new Date().toISOString().split('T')[0];
+    const buffer = 0.15;
+    const west = (lon - buffer).toFixed(4);
+    const east = (lon + buffer).toFixed(4);
+    const south = (lat - buffer).toFixed(4);
+    const north = (lat + buffer).toFixed(4);
+
+    const worldviewUrl = `https://worldview.earthdata.nasa.gov/?v=${west},${south},${east},${north}&t=${date}`;
+    const copernicusUrl = `https://browser.dataspace.copernicus.eu/`;
+    const coordString = `${lat.toFixed(4)},${lon.toFixed(4)}`;
+
+    output.innerHTML = `
+      <div class="link-card">
+        <div class="link-name"><a href="${worldviewUrl}" target="_blank" rel="noopener">Open in NASA Worldview ↗</a></div>
+        <div class="link-desc">Direct link, pre-centered on your coordinates and date — real, working deep-link.</div>
+      </div>
+      <div class="link-card">
+        <div class="link-name"><a href="${copernicusUrl}" target="_blank" rel="noopener">Open Copernicus Browser ↗</a></div>
+        <div class="link-desc">Paste this into its location search box: <strong style="color:var(--brass-bright);">${coordString}</strong> (lat,lon format), then set your date range and comparison mode manually.</div>
+      </div>
+    `;
+    output.classList.add('is-visible');
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.3.2 — Story-Idea Prompt Bank & Seasonal Calendar | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:920px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(1.6rem, 5.8vw, 3.2rem); line-height:1.08; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .mini-bento{ display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0.8rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:800px){ .mini-bento{grid-template-columns:1fr 1fr;} }
+  @media (max-width:500px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{ background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:1rem 1.1rem; transition:transform 0.2s ease, border-color 0.2s ease; }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.03em; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .mini-card p{font-size:0.85rem; margin:0;}
+  .calendar-strip{ display:flex; overflow-x:auto; gap:0.7rem; margin:1.4rem 0 1.8rem; padding-bottom:0.4rem; }
+  .calendar-item{
+    flex:0 0 auto; min-width:140px; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:0.9rem 1rem;
+  }
+  .calendar-item.is-current{ border-color:var(--brass-bright); background:var(--canopy-panel); }
+  .calendar-month{ font-family:'IBM Plex Mono', monospace; font-size:0.66rem; text-transform:uppercase; letter-spacing:0.03em; color:var(--fern); margin-bottom:0.4rem; }
+  .calendar-event{ font-size:0.85rem; color:var(--paper-dim); }
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:1rem; }
+  .season-note{
+    font-family:'IBM Plex Mono', monospace; font-size:0.75rem; color:var(--brass-bright);
+    background:var(--canopy-deep); border:1px dashed var(--moss); border-radius:4px; padding:0.7rem 1rem; margin-bottom:1.4rem;
+  }
+  .picker-row{ margin-bottom:1.3rem; }
+  .picker-label{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--fern); margin-bottom:0.6rem; }
+  .picker-options{ display:flex; flex-wrap:wrap; gap:0.6rem; }
+  .picker-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.02em;
+    background:var(--canopy-panel); border:1px solid var(--moss); border-radius:20px; color:var(--paper-dim);
+    padding:0.5rem 0.9rem; cursor:pointer; transition:transform 0.15s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .picker-btn:hover{transform:translateY(-2px); border-color:var(--brass); color:var(--brass-bright);}
+  .picker-btn.is-active{background:var(--brass); border-color:var(--brass); color:var(--void);}
+  .generate-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.05em; text-transform:uppercase;
+    background:var(--brass); color:var(--void); border:none; border-radius:3px; padding:0.7rem 1.2rem; cursor:pointer;
+    transition:background 0.2s ease, transform 0.15s ease; margin-top:0.4rem;
+  }
+  .generate-btn:hover{ background:var(--brass-bright); transform:translateY(-2px); }
+  .prompt-output{ display:none; margin-top:1.8rem; border-top:1px solid var(--moss); padding-top:1.4rem; }
+  .prompt-output.is-visible{ display:block; animation:fadeUp 0.5s ease; }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  .prompt-item{
+    background:var(--canopy-deep); border-left:3px solid var(--brass); border-radius:4px;
+    padding:0.9rem 1.1rem; margin-bottom:0.8rem; font-size:0.94rem; color:var(--paper);
+  }
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 2 · Ch.3 · 2.3.2</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Foundations</span>
+
+  <p class="lede reveal-line">Waiting for news to happen is a passive way to run a beat. A systematic prompt bank, tied to a real calendar of recurring events, produces story ideas on a schedule instead of by chance.</p>
+
+  <h3 class="section-label">Prompt Categories</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line"><h4>Anniversary</h4><p>A disaster, policy, or finding's one-year (or five-year) mark — a natural hook for a follow-up.</p></div>
+    <div class="mini-card reveal-line"><h4>Data Release</h4><p>Scheduled government or research data publications, known in advance and easy to plan around.</p></div>
+    <div class="mini-card reveal-line"><h4>Seasonal</h4><p>Recurring conditions — dry season scarcity, monsoon flooding, cyclone risk windows.</p></div>
+    <div class="mini-card reveal-line"><h4>Policy Deadline</h4><p>A commitment, review, or negotiation deadline coming due — a chance to check on follow-through.</p></div>
+  </div>
+
+  <h3 class="section-label">Bangladesh's Environmental News Calendar</h3>
+  <div class="calendar-strip" id="calendarStrip"></div>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Story-Idea Generator</h3>
+    <p class="tool-instructions">Pick a beat and a district. Prompts are generated for the current season, based on today's date.</p>
+    <p class="season-note" id="seasonNote"></p>
+
+    <div class="picker-row">
+      <p class="picker-label">Beat</p>
+      <div class="picker-options" id="beatPicker"></div>
+    </div>
+    <div class="picker-row">
+      <p class="picker-label">District</p>
+      <div class="picker-options" id="districtPicker"></div>
+    </div>
+
+    <button class="generate-btn" id="generateBtn">Generate Story Ideas</button>
+    <div class="prompt-output" id="promptOutput"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="2.3.1.html">&larr; 3.1 Building a Reusable Explainer Bank</a>
+    <a href="2.3.3.html">3.3 Pitch Development &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "Story-Idea Prompt Bank & Seasonal Calendar".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.05) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  /* ---------- Calendar strip ---------- */
+  const calendarEvents = [
+    { month:'Jan', event:'Dry season peak — scarcity stories' },
+    { month:'Feb', event:'Dry season continues' },
+    { month:'Mar', event:'Pre-monsoon heat begins' },
+    { month:'Apr', event:'Early cyclone season risk window' },
+    { month:'May', event:'World Environment Day prep (Jun 5)' },
+    { month:'Jun', event:'Monsoon onset — flooding season begins' },
+    { month:'Jul', event:'Peak monsoon flooding risk' },
+    { month:'Aug', event:'Continued monsoon coverage' },
+    { month:'Sep', event:'Monsoon tapering, late floods possible' },
+    { month:'Oct', event:'Post-monsoon cyclone risk window' },
+    { month:'Nov', event:'COP climate summit season' },
+    { month:'Dec', event:'Dry season begins' }
+  ];
+  const currentMonthIdx = new Date().getMonth();
+  const calendarStrip = document.getElementById('calendarStrip');
+  calendarEvents.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'calendar-item' + (i === currentMonthIdx ? ' is-current' : '');
+    div.innerHTML = `<div class="calendar-month">${item.month}</div><div class="calendar-event">${item.event}</div>`;
+    calendarStrip.appendChild(div);
+  });
+
+  /* ---------- Season detection ---------- */
+  function getSeason(month){
+    // month: 0=Jan ... 11=Dec
+    if([11,0,1].includes(month)) return 'dry';
+    if([2,3,4].includes(month)) return 'premonsoon';
+    if([5,6,7,8].includes(month)) return 'monsoon';
+    return 'postmonsoon'; // 9,10 = Oct, Nov
+  }
+  const seasonLabels = { dry:'Dry Season', premonsoon:'Pre-Monsoon / Cyclone Window', monsoon:'Monsoon Season', postmonsoon:'Post-Monsoon / Cyclone Window' };
+  const currentSeason = getSeason(currentMonthIdx);
+  const today = new Date();
+  document.getElementById('seasonNote').textContent = `Today is ${today.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric' })} — currently ${seasonLabels[currentSeason]}. Prompts below reflect this.`;
+
+  /* ---------- Beat + district pickers ---------- */
+  const beats = {
+    rivers:'Rivers & Water', air:'Air Quality', climate:'Climate Adaptation', sundarbans:'Sundarbans',
+    industrial:'Industrial', disaster:'Disasters', waste:'Waste, Energy & Agriculture'
+  };
+  const districts = ['Dhaka','Chattogram','Khulna','Sylhet','Rajshahi','Barisal','Rangpur','Mymensingh','Cox\'s Bazar'];
+
+  const beatPicker = document.getElementById('beatPicker');
+  const districtPicker = document.getElementById('districtPicker');
+  let selectedBeat = null, selectedDistrict = null;
+
+  Object.keys(beats).forEach(key => {
+    const btn = document.createElement('button');
+    btn.className = 'picker-btn'; btn.textContent = beats[key]; btn.dataset.key = key;
+    btn.addEventListener('click', () => {
+      beatPicker.querySelectorAll('.picker-btn').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active'); selectedBeat = key;
+    });
+    beatPicker.appendChild(btn);
+  });
+
+  districts.forEach(d => {
+    const btn = document.createElement('button');
+    btn.className = 'picker-btn'; btn.textContent = d; btn.dataset.key = d;
+    btn.addEventListener('click', () => {
+      districtPicker.querySelectorAll('.picker-btn').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active'); selectedDistrict = d;
+    });
+    districtPicker.appendChild(btn);
+  });
+
+  /* ---------- Prompt templates: [beat][season] = array of templates with {district} ---------- */
+  const prompts = {
+    rivers: {
+      dry: ["Check water levels at {district}'s main river crossing — has scarcity worsened compared to last dry season?", "Investigate irrigation competition disputes along {district}'s river system during low flow."],
+      premonsoon: ["Assess pre-monsoon embankment repair status in {district} before the rains arrive.", "Cover early salinity intrusion reports along {district}'s tidal river stretches."],
+      monsoon: ["Report on flooding and erosion along {district}'s riverbanks this monsoon.", "Check embankment failure risk points identified by BWDB near {district}."],
+      postmonsoon: ["Assess post-monsoon riverbank erosion and displacement in {district}.", "Follow up on any river encroachment cases pending in {district} courts."]
+    },
+    air: {
+      dry: ["Investigate brick kiln compliance with the seasonal ban in {district}.", "Compare {district}'s current AQI trend to the same period last dry season."],
+      premonsoon: ["Cover pre-monsoon dust and construction-related air quality in {district}.", "Check whether {district}'s kiln enforcement holds as the ban period ends."],
+      monsoon: ["Report on how monsoon rain affects {district}'s air quality trends.", "Investigate industrial emissions in {district} now that kiln season has paused."],
+      postmonsoon: ["Cover early kiln season restart preparations in {district}.", "Check vehicle emission trends in {district} as dry season approaches."]
+    },
+    climate: {
+      dry: ["Report on dry-season salinity intrusion effects on drinking water in {district}.", "Cover crop failure or adaptation stories tied to salinity in {district}."],
+      premonsoon: ["Investigate cyclone preparedness for climate-vulnerable communities in {district}.", "Check char land erosion updates ahead of monsoon in {district}."],
+      monsoon: ["Report on monsoon flooding displacement in vulnerable {district} communities.", "Cover embankment or adaptation infrastructure performance during monsoon in {district}."],
+      postmonsoon: ["Follow up on post-cyclone displacement recovery in {district}.", "Check migration patterns from {district} toward urban centers this season."]
+    },
+    sundarbans: {
+      dry: ["Cover dry-season water salinity stress on Sundarbans wildlife near {district}.", "Investigate tourism pressure during peak dry-season visitor season near {district}."],
+      premonsoon: ["Report on pre-cyclone forest buffer condition assessments near {district}.", "Check shrimp farm encroachment patterns near {district} before monsoon."],
+      monsoon: ["Cover monsoon flooding impact on Sundarbans-adjacent communities near {district}.", "Investigate illegal logging patterns during reduced monsoon patrol activity near {district}."],
+      postmonsoon: ["Report on post-monsoon forest health assessments near {district}.", "Cover honey collection season stories from communities near {district}."]
+    },
+    industrial: {
+      dry: ["Investigate dry-season effluent concentration in waterways near {district} industrial zones.", "Check compliance inspections at {district} facilities this season."],
+      premonsoon: ["Cover pre-monsoon effluent treatment capacity checks near {district}.", "Investigate worker safety conditions ahead of monsoon flooding risk in {district} facilities."],
+      monsoon: ["Report on monsoon flooding risk to industrial waste containment near {district}.", "Cover effluent runoff increases during heavy rain near {district}."],
+      postmonsoon: ["Check post-monsoon compliance inspection follow-ups near {district}.", "Investigate any flood-related industrial contamination incidents near {district}."]
+    },
+    disaster: {
+      dry: ["Cover dry-season wildfire or agricultural burning risk near {district}.", "Investigate disaster preparedness funding allocation for {district} this year."],
+      premonsoon: ["Report on cyclone early-warning system readiness in {district} ahead of cyclone season.", "Cover pre-monsoon flood shelter maintenance status in {district}."],
+      monsoon: ["Cover active flooding response and relief distribution in {district}.", "Investigate embankment failure incidents in {district} this monsoon."],
+      postmonsoon: ["Report on post-monsoon cyclone season preparedness in {district}.", "Follow up on recovery progress from this year's monsoon flooding in {district}."]
+    },
+    waste: {
+      dry: ["Cover dry-season crop planning and irrigation stories in {district}.", "Investigate waste burning increases during dry season near {district}."],
+      premonsoon: ["Report on pre-monsoon solar mini-grid performance in {district}.", "Check agricultural planting decisions ahead of monsoon in {district}."],
+      monsoon: ["Cover monsoon flooding impact on waste collection systems in {district}.", "Investigate crop damage from monsoon flooding in {district}."],
+      postmonsoon: ["Report on post-monsoon harvest outcomes and food security in {district}.", "Cover post-monsoon waste management recovery in {district}."]
+    }
+  };
+
+  document.getElementById('generateBtn').addEventListener('click', () => {
+    const output = document.getElementById('promptOutput');
+    if(!selectedBeat || !selectedDistrict){
+      output.innerHTML = `<p style="color:var(--clay); font-size:0.9rem;">Pick both a beat and a district first.</p>`;
+      output.classList.add('is-visible');
+      return;
+    }
+    const items = prompts[selectedBeat][currentSeason].map(t => t.replace(/{district}/g, selectedDistrict));
+    output.innerHTML = items.map(p => `<div class="prompt-item">${p}</div>`).join('');
+    output.classList.add('is-visible');
+  });
+</script>
+
+</body>
+</html>

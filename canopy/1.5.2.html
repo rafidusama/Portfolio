@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.5.2 — Interviewing Officials and Institutions | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F;
+    --canopy-deep:#122A1D;
+    --canopy-mid:#1B3D28;
+    --canopy-panel:#204731;
+    --moss:#3D6B4F;
+    --fern:#8FB89B;
+    --fern-dim:#5C8770;
+    --brass:#C9A24B;
+    --brass-bright:#E4C476;
+    --clay:#B5613F;
+    --paper:#EFE9D8;
+    --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--canopy-deep);
+    color:var(--paper);
+    font-family:'Manrope', sans-serif;
+    line-height:1.65;
+  }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+
+  .wrap{max-width:920px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+
+  .breadcrumb{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--fern-dim);
+    text-decoration:none;
+    display:inline-block;
+    margin-bottom:2rem;
+  }
+  .breadcrumb:hover{color:var(--brass-bright);}
+
+  .module-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--fern);
+    margin-bottom:0.8rem;
+  }
+  .kinetic-title{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:clamp(1.9rem, 6.5vw, 3.9rem);
+    line-height:1;
+    letter-spacing:-0.01em;
+    display:flex;
+    flex-wrap:wrap;
+    margin-bottom:1.2rem;
+  }
+  .kinetic-title .word{
+    display:inline-block;
+    opacity:0;
+    transform:translateY(0.5em);
+    animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards;
+    margin-right:0.28em;
+  }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+
+  .module-level{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--fern);
+    border:1px solid var(--fern-dim);
+    padding:0.2rem 0.6rem;
+    border-radius:20px;
+    margin-bottom:3rem;
+  }
+
+  .reveal-line{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+
+  h3.section-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--fern);
+    border-bottom:1px dashed var(--moss);
+    padding-bottom:0.4rem;
+    margin:3rem 0 1.2rem;
+  }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+
+  .mini-bento{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem;
+    margin:1.4rem 0 1.8rem;
+  }
+  @media (max-width:640px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{
+    background:var(--canopy-mid);
+    border:1px solid var(--moss);
+    border-radius:4px;
+    padding:1.2rem 1.3rem;
+    transition:transform 0.2s ease, border-color 0.2s ease;
+  }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{
+    font-family:'Fraunces', serif;
+    font-size:1.05rem;
+    color:var(--brass-bright);
+    margin-bottom:0.5rem;
+  }
+  .mini-card p{font-size:0.9rem; margin:0;}
+
+  .checklist{
+    background:var(--canopy-mid);
+    border:1px solid var(--moss);
+    border-radius:6px;
+    padding:1.4rem 1.5rem;
+    margin:1.4rem 0 1.8rem;
+  }
+  .checklist-title{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--brass-bright);
+    margin-bottom:0.9rem;
+  }
+  .checklist ul{margin:0; padding-left:1.3rem;}
+  .checklist li{margin-bottom:0.7rem; color:var(--paper-dim); font-size:0.95rem;}
+  .checklist li strong{color:var(--paper);}
+
+  .case-block{
+    background:var(--canopy-mid);
+    border-left:3px solid var(--brass);
+    border-radius:4px;
+    padding:1.2rem 1.4rem;
+    margin:1.2rem 0;
+  }
+  .case-block h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--brass-bright);
+    margin-bottom:0.5rem;
+  }
+  .case-block p{margin:0; color:var(--paper);}
+
+  /* ---------- Question builder tool ---------- */
+  .tool{
+    margin-top:3.5rem;
+    background:var(--canopy-mid);
+    border:1px solid var(--moss);
+    border-radius:6px;
+    padding:2rem 1.8rem;
+  }
+  .tool-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--brass-bright);
+    margin-bottom:0.4rem;
+  }
+  .tool-title{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:1.6rem;
+    margin-bottom:0.6rem;
+  }
+  .tool-instructions{
+    font-size:0.94rem;
+    color:var(--fern);
+    margin-bottom:1.4rem;
+  }
+  .picker-options{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.6rem;
+    margin-bottom:1.4rem;
+  }
+  .picker-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    background:var(--canopy-panel);
+    border:1px solid var(--moss);
+    border-radius:20px;
+    color:var(--paper-dim);
+    padding:0.5rem 0.9rem;
+    cursor:pointer;
+    transition:transform 0.15s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .picker-btn:hover{transform:translateY(-2px); border-color:var(--brass); color:var(--brass-bright);}
+  .picker-btn.is-active{background:var(--brass); border-color:var(--brass); color:var(--void);}
+
+  .generate-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    background:var(--brass);
+    color:var(--void);
+    border:none;
+    border-radius:3px;
+    padding:0.7rem 1.2rem;
+    cursor:pointer;
+    transition:background 0.2s ease, transform 0.15s ease;
+  }
+  .generate-btn:hover{background:var(--brass-bright); transform:translateY(-2px);}
+
+  .question-output{
+    display:none;
+    margin-top:1.6rem;
+    border-top:1px solid var(--moss);
+    padding-top:1.4rem;
+  }
+  .question-output.is-visible{display:block; animation:fadeUp 0.5s ease;}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  .q-category{ margin-bottom:1.3rem; }
+  .q-category h5{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--brass-bright);
+    margin-bottom:0.6rem;
+    border-bottom:1px dashed var(--moss);
+    padding-bottom:0.3rem;
+  }
+  .q-category ol{margin:0; padding-left:1.2rem;}
+  .q-category li{font-size:0.94rem; color:var(--paper); margin-bottom:0.6rem;}
+
+  /* ---------- Dialogue simulator ---------- */
+  .simulator{
+    margin-top:3.5rem;
+    background:var(--canopy-mid);
+    border:1px solid var(--moss);
+    border-radius:6px;
+    padding:2rem 1.8rem;
+  }
+  .sim-round-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--fern-dim);
+    margin-bottom:1.2rem;
+  }
+  .official-line{
+    background:var(--canopy-deep);
+    border-left:3px solid var(--clay);
+    border-radius:4px;
+    padding:1rem 1.2rem;
+    margin-bottom:1.4rem;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.02rem;
+    color:var(--paper);
+  }
+  .official-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-style:normal;
+    font-size:0.65rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--clay);
+    display:block;
+    margin-bottom:0.4rem;
+  }
+  .followup-options{
+    display:flex;
+    flex-direction:column;
+    gap:0.7rem;
+    margin-bottom:1rem;
+  }
+  .followup-btn{
+    text-align:left;
+    background:var(--canopy-panel);
+    border:1px solid var(--moss);
+    border-radius:4px;
+    padding:0.85rem 1.05rem;
+    color:var(--paper);
+    font-family:'Manrope', sans-serif;
+    font-size:0.93rem;
+    cursor:pointer;
+    transition:transform 0.15s ease, border-color 0.2s ease;
+  }
+  .followup-btn:hover{transform:translateX(3px); border-color:var(--brass);}
+  .followup-btn.chosen-good{border-color:var(--fern); background:rgba(143,184,155,0.12);}
+  .followup-btn.chosen-weak{border-color:var(--clay); background:rgba(181,97,63,0.12);}
+
+  .sim-feedback{
+    font-size:0.9rem;
+    color:var(--paper-dim);
+    background:var(--canopy-deep);
+    border-radius:4px;
+    padding:0.9rem 1.1rem;
+    margin-bottom:1rem;
+    display:none;
+  }
+  .sim-feedback.is-visible{display:block; animation:fadeUp 0.4s ease;}
+
+  .sim-next-btn{
+    display:none;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    background:var(--brass);
+    color:var(--void);
+    border:none;
+    border-radius:3px;
+    padding:0.7rem 1.2rem;
+    cursor:pointer;
+  }
+  .sim-next-btn.is-visible{display:inline-block;}
+  .sim-next-btn:hover{background:var(--brass-bright);}
+
+  .sim-debrief{
+    display:none;
+    border-top:1px solid var(--moss);
+    padding-top:1.4rem;
+    margin-top:1rem;
+  }
+  .sim-debrief.is-visible{display:block; animation:fadeUp 0.5s ease;}
+  .sim-debrief h4{
+    font-family:'Fraunces', serif;
+    font-size:1.2rem;
+    margin-bottom:0.8rem;
+    color:var(--paper);
+  }
+  .transcript-line{
+    font-size:0.88rem;
+    color:var(--paper-dim);
+    margin-bottom:0.5rem;
+    padding-left:1rem;
+    border-left:2px solid var(--moss);
+  }
+  .restart-btn{
+    margin-top:1rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    background:none;
+    border:1px solid var(--fern-dim);
+    color:var(--fern);
+    border-radius:20px;
+    padding:0.5rem 1rem;
+    cursor:pointer;
+  }
+  .restart-btn:hover{border-color:var(--brass-bright); color:var(--brass-bright);}
+
+  .nav-footer{
+    margin-top:4rem;
+    padding-top:1.4rem;
+    border-top:1px solid var(--canopy-panel);
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    text-transform:uppercase;
+  }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--brass-bright); outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 1 · Ch.5 · 1.5.2</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Field Craft</span>
+
+  <p class="lede reveal-line">Officials and institutional spokespeople are often trained, formally or informally, to protect the institution first. That's not necessarily dishonesty — it's the job. Your job is to ask in a way that still gets accountability-relevant material out of the exchange, even when the other side has every incentive to give you as little as possible.</p>
+
+  <h3 class="section-label">Anticipating Deflection</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line"><h4>The Reassurance</h4><p>"We take this very seriously" — sounds responsive, commits to nothing specific or checkable.</p></div>
+    <div class="mini-card reveal-line"><h4>The Redirect</h4><p>Answers a nearby, easier question instead of the one you asked.</p></div>
+    <div class="mini-card reveal-line"><h4>The Stall</h4><p>"I'll have to check and get back to you" — often means never, unless you set a specific deadline.</p></div>
+    <div class="mini-card reveal-line"><h4>The Buck-Pass</h4><p>Directs you to another agency or department, who may direct you right back.</p></div>
+  </div>
+
+  <h3 class="section-label">Follow-Up Techniques</h3>
+  <div class="checklist reveal-line">
+    <p class="checklist-title">Four Ways to Press Without Escalating</p>
+    <ul>
+      <li><strong>Narrow the question.</strong> If the answer is general, ask the same thing again with less room to generalize.</li>
+      <li><strong>Convert to yes/no.</strong> A specific factual question is harder to deflect than an open one.</li>
+      <li><strong>Set a concrete deadline.</strong> "I'll check and get back to you" becomes reportable if you ask "by when."</li>
+      <li><strong>Cite the specific document or date.</strong> Naming the exact record you're asking about makes a general answer visibly non-responsive.</li>
+    </ul>
+  </div>
+
+  <h3 class="section-label">Documenting Refusals</h3>
+  <div class="case-block reveal-line">
+    <p>"The agency declined to comment" is weak and vague. "The agency did not respond to specific questions about the 2022 warning or whether a formal inspection has occurred, saying only that the matter is under routine review" tells the reader exactly what was asked and exactly what wasn't answered — which is itself a reportable fact.</p>
+  </div>
+
+  <h3 class="section-label">Navigating Access Barriers</h3>
+  <p class="reveal-line">Many Bangladeshi institutions route all comment through a single designated spokesperson, which can mean long delays or no response at all. When formal channels stall, a written RTI request creates a paper trail and a legal response deadline; showing up in person can sometimes get past a gatekeeper who ignores calls; and documenting every attempt — date, method, and outcome — protects you if the institution later claims they were never asked.</p>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Interview Question Builder — Official / Institutional</h3>
+    <p class="tool-instructions">Pick your beat. Get a tailored set of accountability-focused questions.</p>
+    <div class="picker-options" id="beatPicker"></div>
+    <button class="generate-btn" id="generateBtn">Generate Questions</button>
+    <div class="question-output" id="questionOutput"></div>
+  </div>
+
+  <div class="simulator">
+    <span class="tool-kicker">Field Exercise</span>
+    <h3 class="tool-title">Follow the Deflection</h3>
+    <p class="tool-instructions">You've asked a spokesperson about your beat topic. They're going to deflect. Pick your follow-up each round and see how the exchange plays out.</p>
+    <div class="picker-options" id="simBeatPicker"></div>
+    <button class="generate-btn" id="startSimBtn">Start the Interview</button>
+
+    <div id="simArea" style="margin-top:1.6rem;"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="1.5.1.html">&larr; 5.1 Interviewing Scientists</a>
+    <a href="1.5.3.html">Next: 5.3 Interviewing Affected Communities &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Kinetic title ---------- */
+  const titleEl = document.getElementById('kineticTitle');
+  "Interviewing Officials and Institutions".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word';
+    span.style.animationDelay = (i * 0.06) + 's';
+    span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  /* ---------- Scroll reveal ---------- */
+  const revealTargets = document.querySelectorAll('.reveal-line');
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('is-visible'); }
+    });
+  }, { threshold:0.3 });
+  revealTargets.forEach(t => revealObserver.observe(t));
+
+  /* ---------- Question builder ---------- */
+  const beats = {
+    rivers:'river and water pollution',
+    air:'air quality',
+    climate:'salinity and climate adaptation',
+    sundarbans:'Sundarbans biodiversity',
+    industrial:'industrial and occupational pollution',
+    disaster:'flood and cyclone risk',
+    waste:'waste, energy, and agriculture'
+  };
+
+  const officialQuestions = {
+    'Establishing the Facts':[
+      'What specific enforcement action, if any, has been taken regarding {topic} at this location?',
+      'What is the exact date of the last inspection or review related to this?'
+    ],
+    'Testing the Response':[
+      'Given the documentation showing {topic} concerns here, how do you account for the current situation?',
+      'What specific standard or regulation applies here, and was it met?'
+    ],
+    'Documenting Accountability':[
+      'Who is the specific person or office responsible for oversight of {topic} in this area?',
+      'What happens next, and by what date should we expect a decision or action?'
+    ],
+    'Handling Deflection':[
+      'I understand the general position — can you answer specifically for this location and this date?',
+      'If you need to check on that, when exactly can I expect a response?'
+    ]
+  };
+
+  const beatPicker = document.getElementById('beatPicker');
+  let selectedBeat = null;
+
+  Object.keys(beats).forEach(key => {
+    const btn = document.createElement('button');
+    btn.className = 'picker-btn';
+    btn.textContent = beats[key].charAt(0).toUpperCase() + beats[key].slice(1);
+    btn.dataset.key = key;
+    btn.addEventListener('click', () => {
+      beatPicker.querySelectorAll('.picker-btn').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      selectedBeat = key;
+    });
+    beatPicker.appendChild(btn);
+  });
+
+  document.getElementById('generateBtn').addEventListener('click', () => {
+    const output = document.getElementById('questionOutput');
+    if(!selectedBeat){
+      output.innerHTML = `<p style="color:var(--clay); font-size:0.9rem;">Pick a beat first.</p>`;
+      output.classList.add('is-visible');
+      return;
+    }
+    const topic = beats[selectedBeat];
+    let html = '';
+    Object.keys(officialQuestions).forEach(cat => {
+      html += `<div class="q-category"><h5>${cat}</h5><ol>`;
+      officialQuestions[cat].forEach(q => { html += `<li>${q.replace(/{topic}/g, topic)}</li>`; });
+      html += `</ol></div>`;
+    });
+    output.innerHTML = html;
+    output.classList.add('is-visible');
+  });
+
+  /* ---------- Dialogue simulator ---------- */
+  const simBeatPicker = document.getElementById('simBeatPicker');
+  let simBeat = null;
+
+  Object.keys(beats).forEach(key => {
+    const btn = document.createElement('button');
+    btn.className = 'picker-btn';
+    btn.textContent = beats[key].charAt(0).toUpperCase() + beats[key].slice(1);
+    btn.dataset.key = key;
+    btn.addEventListener('click', () => {
+      simBeatPicker.querySelectorAll('.picker-btn').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      simBeat = key;
+    });
+    simBeatPicker.appendChild(btn);
+  });
+
+  const rounds = [
+    {
+      official:'"We take all concerns about {topic} very seriously, and the matter is under review."',
+      options:[
+        { text:'"Thank you, that\'s helpful."', quality:'weak', feedback:'This ends the interview with nothing checkable — "under review" commits to nothing and you\'ve let it stand as the final word.' },
+        { text:'"Can you tell me specifically what enforcement action, if any, has been taken so far?"', quality:'good', feedback:'Good — this narrows a vague reassurance into a specific, checkable question.' },
+        { text:'"Isn\'t it true your department was warned about this two years ago?"', quality:'weak', feedback:'Risky without documentation in hand to back this up — if challenged and you can\'t produce the record, you lose credibility for the rest of the interview.' }
+      ]
+    },
+    {
+      official:'"I\'d have to check on that specific enforcement history and get back to you."',
+      options:[
+        { text:'"When can I expect to hear back — today, this week?"', quality:'good', feedback:'Good — a concrete deadline turns an open-ended promise into something reportable if it\'s missed.' },
+        { text:'"That\'s not good enough, I need an answer now."', quality:'weak', feedback:'This risks shutting down cooperation entirely without getting you any closer to an answer.' },
+        { text:'"No problem, take your time."', quality:'weak', feedback:'Open-ended promises to "check" often mean no follow-up ever comes without a specific deadline attached.' }
+      ]
+    },
+    {
+      official:'"There have been some visits to the area as part of routine monitoring."',
+      options:[
+        { text:'"Is that a yes or a no on a formal inspection tied to this specific complaint?"', quality:'good', feedback:'Good — this keeps pressing for a specific yes/no rather than accepting a vague restatement.' },
+        { text:'"So there\'s been no real oversight then?"', quality:'weak', feedback:'This puts words in their mouth rather than asking directly, which usually provokes denial instead of clarification.' },
+        { text:'"I\'ll just write that you refused to answer."', quality:'weak', feedback:'A threat like this is unprofessional and undermines your credibility — let the actual record of the exchange speak for itself instead.' }
+      ]
+    }
+  ];
+
+  let simRoundIndex = 0;
+  const transcript = [];
+
+  function renderSimRound(){
+    const simArea = document.getElementById('simArea');
+    const r = rounds[simRoundIndex];
+    const topic = beats[simBeat];
+    simArea.innerHTML = `
+      <p class="sim-round-tag">Round ${simRoundIndex + 1} of ${rounds.length}</p>
+      <div class="official-line"><span class="official-label">Spokesperson</span>${r.official.replace(/{topic}/g, topic)}</div>
+      <div class="followup-options" id="followupOptions"></div>
+      <div class="sim-feedback" id="simFeedback"></div>
+      <button class="sim-next-btn" id="simNextBtn">${simRoundIndex === rounds.length - 1 ? 'See Debrief' : 'Next Round'}</button>
+    `;
+    const optsDiv = document.getElementById('followupOptions');
+    r.options.forEach((opt) => {
+      const btn = document.createElement('button');
+      btn.className = 'followup-btn';
+      btn.textContent = opt.text;
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.followup-btn').forEach(b => b.style.pointerEvents = 'none');
+        btn.classList.add(opt.quality === 'good' ? 'chosen-good' : 'chosen-weak');
+        const feedback = document.getElementById('simFeedback');
+        feedback.textContent = opt.feedback;
+        feedback.classList.add('is-visible');
+        document.getElementById('simNextBtn').classList.add('is-visible');
+        transcript.push({ official:r.official.replace(/{topic}/g, topic), chosen:opt.text, quality:opt.quality });
+      });
+      optsDiv.appendChild(btn);
+    });
+    document.getElementById('simNextBtn').addEventListener('click', () => {
+      if(simRoundIndex < rounds.length - 1){
+        simRoundIndex++;
+        renderSimRound();
+      } else {
+        renderDebrief();
+      }
+    });
+  }
+
+  function renderDebrief(){
+    const simArea = document.getElementById('simArea');
+    const goodCount = transcript.filter(t => t.quality === 'good').length;
+    simArea.innerHTML = `
+      <div class="sim-debrief is-visible">
+        <h4>Interview Debrief — ${goodCount} of ${rounds.length} follow-ups kept the exchange productive</h4>
+        ${transcript.map((t, i) => `
+          <p class="transcript-line"><strong>Round ${i+1}:</strong> Spokesperson said "${t.official}" — you followed up with "${t.chosen}"</p>
+        `).join('')}
+        <p style="margin-top:1rem; color:var(--paper-dim);">Whatever happened in this exchange, the transcript itself is useful: it shows exactly what was asked and exactly what wasn't answered, which you can now write up precisely instead of settling for "declined to comment."</p>
+        <button class="restart-btn" id="restartSimBtn">Run It Again</button>
+      </div>
+    `;
+    document.getElementById('restartSimBtn').addEventListener('click', () => {
+      simRoundIndex = 0;
+      transcript.length = 0;
+      renderSimRound();
+    });
+  }
+
+  document.getElementById('startSimBtn').addEventListener('click', () => {
+    if(!simBeat){
+      document.getElementById('simArea').innerHTML = `<p style="color:var(--clay); font-size:0.9rem;">Pick a beat first.</p>`;
+      return;
+    }
+    simRoundIndex = 0;
+    transcript.length = 0;
+    renderSimRound();
+  });
+</script>
+
+</body>
+</html>

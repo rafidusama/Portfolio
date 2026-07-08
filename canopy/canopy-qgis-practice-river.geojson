@@ -1,0 +1,8 @@
+{
+  "type": "FeatureCollection",
+  "note": "ILLUSTRATIVE PRACTICE DATA ONLY — not an authoritative river network. For real river/hydrology data, use HydroSHEDS or another authoritative source.",
+  "features": [
+    { "type": "Feature", "properties": { "river_name": "Practice River" },
+      "geometry": { "type": "LineString", "coordinates": [[88.4,25.2],[89.0,24.7],[89.6,24.2],[90.1,23.7],[90.6,22.8]] } }
+  ]
+}

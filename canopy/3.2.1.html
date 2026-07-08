@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3.2.1 — Air Quality Monitoring Tools | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:960px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(1.9rem, 6.5vw, 3.8rem); line-height:1; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .mini-bento{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:640px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{ background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:1.2rem 1.3rem; transition:transform 0.2s ease, border-color 0.2s ease; }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{ font-family:'Fraunces', serif; font-size:1.05rem; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .mini-card p{font-size:0.9rem; margin:0;}
+  .caution-card{ background:var(--canopy-panel); border-left:3px solid var(--clay); border-radius:4px; padding:1.1rem 1.3rem; margin:1.4rem 0 1.8rem; }
+  .caution-card h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--clay); margin-bottom:0.5rem; }
+  .caution-card p{margin:0; color:var(--paper);}
+  .pull-quote{ font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:1.4rem; line-height:1.4; color:var(--paper); border-left:3px solid var(--brass); padding-left:1.2rem; margin:1.6rem 0; }
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:0.8rem; }
+  .tool-caveat{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--fern);
+    background:var(--canopy-deep); border:1px dashed var(--moss); border-radius:4px; padding:0.7rem 0.9rem; margin-bottom:1.4rem; line-height:1.6;
+  }
+  .step-list{ display:flex; flex-direction:column; gap:0.8rem; margin-bottom:1.6rem; }
+  .step-item{ display:grid; grid-template-columns:36px 1fr; gap:0.9rem; align-items:start; }
+  .step-num{
+    width:36px; height:36px; border-radius:50%; background:var(--canopy-deep); border:1px solid var(--brass);
+    display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; color:var(--brass-bright); font-size:0.9rem; flex-shrink:0;
+  }
+  .step-content{ background:var(--canopy-deep); border:1px solid var(--moss); border-radius:4px; padding:1rem 1.2rem; flex:1; }
+  .step-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1rem; color:var(--paper); margin-bottom:0.5rem; }
+  .step-desc{ font-size:0.9rem; color:var(--paper-dim); margin-bottom:0.7rem; }
+  .step-select{
+    font-family:'Manrope', sans-serif; font-size:0.9rem; background:var(--canopy-panel); color:var(--paper);
+    border:1px solid var(--moss); border-radius:4px; padding:0.5rem 0.8rem; cursor:pointer;
+  }
+  .query-preview{
+    font-family:'IBM Plex Mono', monospace; font-size:0.8rem; color:var(--brass-bright);
+    background:var(--void); border-radius:4px; padding:0.8rem 1rem; word-break:break-all; margin-top:0.5rem;
+  }
+  .run-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.05em; text-transform:uppercase;
+    background:var(--brass); color:var(--void); border:none; border-radius:3px; padding:0.7rem 1.2rem; cursor:pointer;
+    transition:background 0.2s ease, transform 0.15s ease; margin-top:0.6rem;
+  }
+  .run-btn:hover{ background:var(--brass-bright); transform:translateY(-2px); }
+  .result-box{ display:none; margin-top:1.4rem; }
+  .result-box.is-visible{ display:block; animation:fadeUp 0.4s ease; }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .result-status{
+    font-family:'IBM Plex Mono', monospace; font-size:0.66rem; text-transform:uppercase; letter-spacing:0.03em;
+    padding:0.15rem 0.55rem; border-radius:20px; display:inline-block; margin-bottom:0.6rem;
+  }
+  .status-live{ background:rgba(143,184,155,0.2); color:var(--fern); border:1px solid var(--fern-dim); }
+  .status-sample{ background:rgba(201,162,75,0.2); color:var(--brass-bright); border:1px solid var(--brass); }
+  .result-detail{ font-size:0.9rem; color:var(--paper); }
+  .result-note{ font-size:0.85rem; color:var(--paper-dim); margin-top:0.5rem; }
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 3 · Ch.2 · 3.2.1</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Field Craft</span>
+
+  <p class="lede reveal-line">Air quality data is some of the most accessible environmental data available — the skill isn't finding it, it's knowing how to query it precisely and read what you get back correctly.</p>
+
+  <h3 class="section-label">Real-Time vs. Historical Data</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line">
+      <h4>Real-Time Queries</h4>
+      <p>Platforms like OpenAQ return the most recent measurements from monitoring stations, useful for covering an acute event as it happens.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Historical Queries</h4>
+      <p>The same platforms hold historical records, letting you compare a current reading against the same period last year — essential for distinguishing an acute spike from a chronic trend.</p>
+    </div>
+  </div>
+
+  <h3 class="section-label">Official Stations vs. Citizen Sensors</h3>
+  <p class="reveal-line">Official government monitoring stations are fewer in number but more rigorously calibrated; citizen sensor networks are denser but vary more in accuracy. Combining both gives you broader spatial coverage while still anchoring your headline number to the more rigorously maintained official readings.</p>
+
+  <h3 class="section-label">Reading Spatial and Temporal Variation</h3>
+  <div class="caution-card reveal-line">
+    <h4>One Station Isn't the Whole City</h4>
+    <p>Air quality varies significantly by neighborhood and even by street — a single monitoring station's reading may not represent conditions a few kilometers away. Similarly, time of day and season shift readings dramatically. Always specify which station, and when, a number came from.</p>
+  </div>
+  <p class="pull-quote reveal-line">"'Dhaka's AQI was 180 today' is a headline. 'The Darus Salam station recorded 180 at 9am, typical for a winter morning' is a story someone can actually verify."</p>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Guided Walkthrough: Live OpenAQ Query</h3>
+    <p class="tool-instructions">Follow the steps to build and run a real query against OpenAQ's v3 API for a Bangladeshi city.</p>
+    <p class="tool-caveat">OpenAQ v3 requires a personal API key sent in the request header. This demo doesn't include one, so the live attempt will likely fail — when it does, you'll see clearly labeled sample data instead, with the real query shown so you can see exactly what a working request looks like.</p>
+
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Choose a City</div>
+          <select class="step-select" id="citySelect">
+            <option value="Dhaka">Dhaka</option>
+            <option value="Chattogram">Chattogram</option>
+            <option value="Khulna">Khulna</option>
+            <option value="Narayanganj">Narayanganj</option>
+          </select>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">The Constructed Query</div>
+          <div class="step-desc">This is the real OpenAQ v3 API request that gets built from your selection.</div>
+          <div class="query-preview" id="queryPreview"></div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Run the Query</div>
+          <div class="step-desc">Attempt the live request and see the result.</div>
+          <button class="run-btn" id="runBtn">Run Query</button>
+          <div class="result-box" id="resultBox"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="3.1.3.html">&larr; 1.3 From Dataset to Story Lead</a>
+    <a href="3.2.2.html">Next: 2.2 Satellite Imagery for Change Detection &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "Air Quality Monitoring Tools".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.08) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  const sampleReadings = {
+    'Dhaka': { pm25: 96, note: 'Illustrative sample — typical dry-season Dhaka reading, well above WHO guidelines.' },
+    'Chattogram': { pm25: 58, note: 'Illustrative sample — port and industrial emissions, generally lower than Dhaka.' },
+    'Khulna': { pm25: 49, note: 'Illustrative sample — lower industrial density than Dhaka.' },
+    'Narayanganj': { pm25: 104, note: 'Illustrative sample — industrial hotspot, often among the highest readings in the capital region.' }
+  };
+
+  function updateQueryPreview(){
+    const city = document.getElementById('citySelect').value;
+    const url = `https://api.openaq.org/v3/locations?limit=5&city=${encodeURIComponent(city)}`;
+    document.getElementById('queryPreview').textContent = url;
+  }
+  document.getElementById('citySelect').addEventListener('change', updateQueryPreview);
+  updateQueryPreview();
+
+  document.getElementById('runBtn').addEventListener('click', async () => {
+    const city = document.getElementById('citySelect').value;
+    const url = `https://api.openaq.org/v3/locations?limit=5&city=${encodeURIComponent(city)}`;
+    const resultBox = document.getElementById('resultBox');
+    resultBox.innerHTML = `<p class="result-note">Attempting live request...</p>`;
+    resultBox.classList.add('is-visible');
+
+    let live = null;
+    try {
+      const res = await fetch(url, { headers: { /* Add 'X-API-Key': 'YOUR-KEY' here to enable live data */ } });
+      if(res.ok){ live = await res.json(); }
+    } catch(e){ live = null; }
+
+    if(live && live.results && live.results.length){
+      resultBox.innerHTML = `
+        <span class="result-status status-live">Live — OpenAQ</span>
+        <div class="result-detail">Data retrieved successfully from OpenAQ v3 for ${city}.</div>
+      `;
+    } else {
+      const sample = sampleReadings[city];
+      resultBox.innerHTML = `
+        <span class="result-status status-sample">Sample Data</span>
+        <div class="result-detail">PM2.5 (illustrative): ${sample.pm25} µg/m³</div>
+        <div class="result-note">${sample.note} Live fetch failed or requires a personal OpenAQ API key — add one to the request headers in this tool's code to enable real data.</div>
+      `;
+    }
+    resultBox.classList.add('is-visible');
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.2.1 — Reading and Trusting Scientific Sources | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F;
+    --canopy-deep:#122A1D;
+    --canopy-mid:#1B3D28;
+    --canopy-panel:#204731;
+    --moss:#3D6B4F;
+    --fern:#8FB89B;
+    --fern-dim:#5C8770;
+    --brass:#C9A24B;
+    --brass-bright:#E4C476;
+    --clay:#B5613F;
+    --paper:#EFE9D8;
+    --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--canopy-deep);
+    color:var(--paper);
+    font-family:'Manrope', sans-serif;
+    line-height:1.65;
+  }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+
+  .wrap{max-width:920px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+
+  .breadcrumb{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--fern-dim);
+    text-decoration:none;
+    display:inline-block;
+    margin-bottom:2rem;
+  }
+  .breadcrumb:hover{color:var(--brass-bright);}
+
+  .module-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--fern);
+    margin-bottom:0.8rem;
+  }
+  .kinetic-title{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:clamp(1.8rem, 6.4vw, 4rem);
+    line-height:1;
+    letter-spacing:-0.01em;
+    display:flex;
+    flex-wrap:wrap;
+    margin-bottom:1.2rem;
+  }
+  .kinetic-title .word{
+    display:inline-block;
+    opacity:0;
+    transform:translateY(0.5em);
+    animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards;
+    margin-right:0.28em;
+  }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+
+  .module-level{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--fern);
+    border:1px solid var(--fern-dim);
+    padding:0.2rem 0.6rem;
+    border-radius:20px;
+    margin-bottom:3rem;
+  }
+
+  .reveal-line{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+
+  h3.section-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--fern);
+    border-bottom:1px dashed var(--moss);
+    padding-bottom:0.4rem;
+    margin:3rem 0 1.2rem;
+  }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  p.lede em{color:var(--brass-bright); font-style:normal; font-weight:600;}
+
+  .mini-bento{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem;
+    margin:1.4rem 0 1.8rem;
+  }
+  @media (max-width:600px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-bento.four{grid-template-columns:1fr 1fr 1fr 1fr;}
+  @media (max-width:760px){ .mini-bento.four{grid-template-columns:1fr 1fr;} }
+  @media (max-width:480px){ .mini-bento.four{grid-template-columns:1fr;} }
+  .mini-card{
+    background:var(--canopy-mid);
+    border:1px solid var(--moss);
+    border-radius:4px;
+    padding:1.1rem 1.2rem;
+    transition:transform 0.2s ease, border-color 0.2s ease;
+  }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    color:var(--brass-bright);
+    margin-bottom:0.5rem;
+  }
+  .mini-card p{font-size:0.9rem; margin:0;}
+
+  .credibility-ladder{margin:1.4rem 0 1.8rem;}
+  .ladder-row{
+    display:grid;
+    grid-template-columns:180px 1fr;
+    gap:1rem;
+    padding:0.8rem 0;
+    border-bottom:1px solid var(--canopy-panel);
+    align-items:start;
+  }
+  @media (max-width:600px){ .ladder-row{grid-template-columns:1fr;} }
+  .ladder-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    color:var(--brass-bright);
+  }
+  .ladder-row p{font-size:0.92rem; margin:0;}
+
+  .working-test{
+    background:var(--canopy-mid);
+    border-left:3px solid var(--brass);
+    padding:1.2rem 1.4rem;
+    margin:1.6rem 0;
+  }
+  .working-test p{margin:0; color:var(--paper);}
+
+  /* ---------- Tool ---------- */
+  .tool{
+    margin-top:3.5rem;
+    background:var(--canopy-mid);
+    border:1px solid var(--moss);
+    border-radius:6px;
+    padding:2rem 1.8rem;
+  }
+  .tool-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--brass-bright);
+    margin-bottom:0.4rem;
+  }
+  .tool-title{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:1.7rem;
+    margin-bottom:0.6rem;
+  }
+  .tool-caveat{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    color:var(--fern);
+    background:var(--canopy-deep);
+    border:1px dashed var(--moss);
+    border-radius:4px;
+    padding:0.7rem 0.9rem;
+    margin-bottom:1.3rem;
+    line-height:1.5;
+  }
+  textarea{
+    width:100%;
+    min-height:150px;
+    font-family:'Manrope', sans-serif;
+    font-size:0.95rem;
+    padding:0.9rem;
+    border:1px solid var(--moss);
+    border-radius:4px;
+    background:var(--canopy-deep);
+    color:var(--paper);
+    resize:vertical;
+    margin-bottom:1rem;
+    transition:border-color 0.2s ease;
+  }
+  textarea:focus-visible{outline:none; border-color:var(--brass-bright);}
+
+  .scan-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    background:var(--brass);
+    color:var(--void);
+    border:none;
+    border-radius:3px;
+    padding:0.7rem 1.2rem;
+    cursor:pointer;
+    transition:background 0.2s ease, transform 0.15s ease;
+  }
+  .scan-btn:hover{background:var(--brass-bright); transform:translateY(-2px);}
+
+  .sample-links{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    color:var(--fern-dim);
+    margin-bottom:1rem;
+  }
+  .sample-links button{
+    background:none;
+    border:1px solid var(--moss);
+    border-radius:20px;
+    color:var(--fern);
+    font-family:inherit;
+    font-size:inherit;
+    padding:0.3rem 0.7rem;
+    cursor:pointer;
+    margin-right:0.5rem;
+    transition:border-color 0.2s ease, color 0.2s ease;
+  }
+  .sample-links button:hover{border-color:var(--brass-bright); color:var(--brass-bright);}
+
+  .result{
+    display:none;
+    margin-top:1.4rem;
+    border-top:1px solid var(--moss);
+    padding-top:1.4rem;
+  }
+  .result.is-visible{display:block; animation:fadeUp 0.5s ease;}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+
+  .result-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--fern);
+    margin-bottom:0.6rem;
+  }
+  .simplified-output{
+    background:var(--canopy-deep);
+    border:1px solid var(--moss);
+    border-radius:4px;
+    padding:1rem 1.1rem;
+    font-size:0.96rem;
+    color:var(--paper);
+    margin-bottom:1.4rem;
+    line-height:1.6;
+  }
+  .simplified-output mark{
+    background:transparent;
+    color:var(--brass-bright);
+    font-weight:600;
+  }
+  .flag-list{
+    display:flex;
+    flex-direction:column;
+    gap:0.6rem;
+  }
+  .flag-item{
+    display:grid;
+    grid-template-columns:160px 1fr;
+    gap:0.8rem;
+    font-size:0.88rem;
+    padding:0.5rem 0;
+    border-bottom:1px solid var(--canopy-panel);
+  }
+  @media (max-width:600px){ .flag-item{grid-template-columns:1fr;} }
+  .flag-term{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--clay);
+    text-transform:none;
+  }
+  .flag-term::before{content:'"'; }
+  .flag-term::after{content:'"'; }
+  .flag-def{color:var(--paper-dim);}
+  .flag-def strong{color:var(--fern);}
+  .no-flags{color:var(--fern-dim); font-style:italic; font-size:0.9rem;}
+
+  .nav-footer{
+    margin-top:4rem;
+    padding-top:1.4rem;
+    border-top:1px solid var(--canopy-panel);
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    text-transform:uppercase;
+  }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--brass-bright); outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 1 · Ch.2 · 1.2.1</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Foundations</span>
+
+  <p class="lede reveal-line">You don't need a science degree to report on science responsibly. You need to know what a study can and can't tell you, and enough structure to tell a solid finding from a shaky one — <em>before</em> it becomes your headline.</p>
+
+  <h3 class="section-label">Anatomy of a Scientific Paper</h3>
+  <div class="mini-bento four">
+    <div class="mini-card reveal-line">
+      <h4>Abstract</h4>
+      <p>The short summary. Useful for orientation, but never the whole story — it's written to sell the finding, not to qualify it.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Methods</h4>
+      <p>How the data was collected. A small or narrow sample here should soften how confidently you report the finding.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Findings</h4>
+      <p>What was actually measured. Distinguish what the data shows from what the authors speculate it might mean.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Limitations</h4>
+      <p>Often skipped by readers, and by headlines. This is where the authors tell you where not to over-extend their own finding.</p>
+    </div>
+  </div>
+
+  <h3 class="section-label">A Source Credibility Ladder</h3>
+  <div class="credibility-ladder">
+    <div class="ladder-row reveal-line">
+      <span class="ladder-label">Peer-Reviewed Study</span>
+      <p>Checked by independent experts before publication. Not infallible, but the strongest baseline for a factual claim.</p>
+    </div>
+    <div class="ladder-row reveal-line">
+      <span class="ladder-label">Preprint</span>
+      <p>Shared before peer review. Can be legitimate and timely, but treat findings as provisional and say so in your copy.</p>
+    </div>
+    <div class="ladder-row reveal-line">
+      <span class="ladder-label">Press Release</span>
+      <p>Written to be picked up, not to be precise. Trace claims back to the underlying study before repeating them.</p>
+    </div>
+    <div class="ladder-row reveal-line">
+      <span class="ladder-label">Advocacy Report</span>
+      <p>May contain real data, but is produced to support a position. Useful as a lead, not as a stand-alone citation.</p>
+    </div>
+  </div>
+
+  <h3 class="section-label">Confidence Is Not Certainty</h3>
+  <p class="reveal-line">A "statistically significant" result means a pattern is unlikely to be due to random chance — it does not mean the effect is large, important, or certain. A wide confidence interval means the true value could sit anywhere in a broad range. Reporting a number without its uncertainty is often more misleading than not reporting it at all.</p>
+
+  <div class="working-test reveal-line">
+    <p>Where Bangladeshi coverage most often loses precision: a hedged, narrow scientific finding gets flattened into a confident, general headline somewhere between the study and the front page. Your job on this beat is to be the point where that flattening stops.</p>
+  </div>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Jargon Translator</h3>
+    <p class="tool-caveat">This swaps a fixed dictionary of common science and policy terms for plain language — it does not read for meaning or context. Always re-read the simplified version against the original before publishing anything based on it.</p>
+
+    <p class="sample-links">Try a sample:
+      <button type="button" data-sample="ipcc">IPCC-style excerpt</button>
+      <button type="button" data-sample="study">Study abstract excerpt</button>
+    </p>
+
+    <textarea id="draftInput" placeholder="Paste a scientific abstract or IPCC excerpt here..."></textarea>
+    <button class="scan-btn" id="scanBtn">Translate</button>
+
+    <div class="result" id="result">
+      <p class="result-label">Simplified Version</p>
+      <div class="simplified-output" id="simplifiedOutput"></div>
+      <p class="result-label">Terms Flagged &amp; Why</p>
+      <div class="flag-list" id="flagList"></div>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="1.1.3.html">&larr; 1.3 The Beat Beyond the Desk</a>
+    <a href="1.2.2.html">Next: 2.2 Communicating Risk and Uncertainty &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "Reading and Trusting Scientific Sources".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word';
+    span.style.animationDelay = (i * 0.07) + 's';
+    span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  /* ---------- Jargon dictionary ---------- */
+  const glossary = [
+    { term:'anthropogenic', plain:'human-caused' },
+    { term:'mitigation', plain:'reducing emissions' },
+    { term:'adaptation', plain:'adjusting to changes already happening' },
+    { term:'resilience', plain:'ability to recover from shocks' },
+    { term:'vulnerability', plain:'how exposed and unprotected a place or group is' },
+    { term:'sequestration', plain:'storing carbon, e.g. in trees or soil' },
+    { term:'anomaly', plain:'difference from the long-term average' },
+    { term:'confidence interval', plain:'the range where the true value most likely falls' },
+    { term:'statistically significant', plain:'unlikely to be due to random chance' },
+    { term:'aerosol', plain:'tiny airborne particles' },
+    { term:'biodiversity', plain:'variety of living species in an area' },
+    { term:'ecosystem services', plain:'benefits nature provides to people, like clean water or pollination' },
+    { term:'carbon sink', plain:'something that absorbs more carbon than it releases' },
+    { term:'feedback loop', plain:'a cycle where an effect makes its own cause stronger or weaker' },
+    { term:'extrapolate', plain:'project forward based on existing data' },
+    { term:'baseline', plain:'the starting point used for comparison' },
+    { term:'correlation', plain:'a relationship between two things, not necessarily cause and effect' },
+    { term:'causation', plain:'one thing directly causing another' },
+    { term:'emission scenario', plain:'a projection of future emissions under certain assumptions' },
+    { term:'particulate matter', plain:'tiny solid or liquid particles in the air' },
+    { term:'salinity intrusion', plain:'saltwater moving into freshwater areas' },
+    { term:'loss and damage', plain:"harm from climate change that can't be avoided through adaptation" },
+    { term:'peer-reviewed', plain:'checked by other experts before publication' },
+    { term:'preprint', plain:'a study shared before peer review' },
+    { term:'meta-analysis', plain:'a study that combines results from many other studies' }
+  ];
+
+  // sort longest-term-first so multi-word terms match before their sub-words do
+  glossary.sort((a,b) => b.term.length - a.term.length);
+
+  const samples = {
+    ipcc: "Anthropogenic warming has increased the frequency of extreme precipitation events, with high confidence, based on multiple emission scenarios. Adaptation measures show limited effectiveness where baseline vulnerability is already high, and feedback loops may amplify regional anomalies.",
+    study: "This meta-analysis of peer-reviewed studies found a statistically significant correlation between particulate matter exposure and respiratory illness, though causation could not be established. A preprint version with a narrower confidence interval was released prior to formal review."
+  };
+
+  document.querySelectorAll('.sample-links button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('draftInput').value = samples[btn.dataset.sample];
+    });
+  });
+
+  document.getElementById('scanBtn').addEventListener('click', () => {
+    const text = document.getElementById('draftInput').value.trim();
+    const resultBox = document.getElementById('result');
+    if(!text){ resultBox.classList.remove('is-visible'); return; }
+
+    let simplified = text;
+    const found = [];
+
+    glossary.forEach(entry => {
+      const re = new RegExp('\\b' + entry.term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi');
+      if(re.test(simplified)){
+        found.push(entry);
+        simplified = simplified.replace(re, `<mark>${entry.plain}</mark>`);
+      }
+    });
+
+    document.getElementById('simplifiedOutput').innerHTML = simplified;
+
+    const flagList = document.getElementById('flagList');
+    if(found.length){
+      flagList.innerHTML = found.map(f =>
+        `<div class="flag-item"><span class="flag-term">${f.term}</span><span class="flag-def">swapped for <strong>${f.plain}</strong></span></div>`
+      ).join('');
+    } else {
+      flagList.innerHTML = '<p class="no-flags">No dictionary terms matched. This tool only recognizes a fixed list of common science and policy jargon — it won\'t catch everything.</p>';
+    }
+
+    resultBox.classList.add('is-visible');
+  });
+</script>
+
+</body>
+</html>

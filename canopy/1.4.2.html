@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.4.2 — Choosing Your Format | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F;
+    --canopy-deep:#122A1D;
+    --canopy-mid:#1B3D28;
+    --canopy-panel:#204731;
+    --moss:#3D6B4F;
+    --fern:#8FB89B;
+    --fern-dim:#5C8770;
+    --brass:#C9A24B;
+    --brass-bright:#E4C476;
+    --clay:#B5613F;
+    --paper:#EFE9D8;
+    --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--canopy-deep);
+    color:var(--paper);
+    font-family:'Manrope', sans-serif;
+    line-height:1.65;
+  }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+
+  .wrap{max-width:920px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+
+  .breadcrumb{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--fern-dim);
+    text-decoration:none;
+    display:inline-block;
+    margin-bottom:2rem;
+  }
+  .breadcrumb:hover{color:var(--brass-bright);}
+
+  .module-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--fern);
+    margin-bottom:0.8rem;
+  }
+  .kinetic-title{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:clamp(2.2rem, 7.5vw, 4.6rem);
+    line-height:0.98;
+    letter-spacing:-0.01em;
+    display:flex;
+    flex-wrap:wrap;
+    margin-bottom:1.2rem;
+  }
+  .kinetic-title .word{
+    display:inline-block;
+    opacity:0;
+    transform:translateY(0.5em);
+    animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards;
+    margin-right:0.28em;
+  }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+
+  .module-level{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--fern);
+    border:1px solid var(--fern-dim);
+    padding:0.2rem 0.6rem;
+    border-radius:20px;
+    margin-bottom:3rem;
+  }
+
+  .reveal-line{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+
+  h3.section-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--fern);
+    border-bottom:1px dashed var(--moss);
+    padding-bottom:0.4rem;
+    margin:3rem 0 1.2rem;
+  }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+
+  .mini-bento{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:0.9rem;
+    margin:1.4rem 0 1.8rem;
+  }
+  @media (max-width:680px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{
+    background:var(--canopy-mid);
+    border:1px solid var(--moss);
+    border-radius:4px;
+    padding:1.1rem 1.2rem;
+    transition:transform 0.2s ease, border-color 0.2s ease;
+  }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{
+    font-family:'Fraunces', serif;
+    font-size:1.05rem;
+    color:var(--brass-bright);
+    margin-bottom:0.5rem;
+  }
+  .mini-card p{font-size:0.88rem; margin:0;}
+
+  .case-block{
+    background:var(--canopy-mid);
+    border-left:3px solid var(--brass);
+    border-radius:4px;
+    padding:1.2rem 1.4rem;
+    margin:1.2rem 0;
+  }
+  .case-block h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--brass-bright);
+    margin-bottom:0.5rem;
+  }
+  .case-block p{margin:0; color:var(--paper);}
+
+  /* ---------- Exercise ---------- */
+  .exercise{
+    margin-top:3.5rem;
+    background:var(--canopy-mid);
+    border:1px solid var(--moss);
+    border-radius:6px;
+    padding:2rem 1.8rem;
+  }
+  .exercise-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--brass-bright);
+    margin-bottom:0.4rem;
+  }
+  .exercise-title{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:1.7rem;
+    margin-bottom:0.6rem;
+  }
+  .exercise-instructions{
+    font-size:0.94rem;
+    color:var(--fern);
+    margin-bottom:1.8rem;
+  }
+
+  .quiz-item{ margin-bottom:1.6rem; }
+  .quiz-q{
+    font-size:0.98rem;
+    color:var(--paper);
+    margin-bottom:0.8rem;
+  }
+  .quiz-q .qnum{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--brass-bright);
+    margin-right:0.5rem;
+  }
+  .quiz-options{
+    display:flex;
+    flex-direction:column;
+    gap:0.5rem;
+  }
+  .quiz-opt{
+    text-align:left;
+    font-family:'Manrope', sans-serif;
+    font-size:0.92rem;
+    background:var(--canopy-panel);
+    border:1px solid var(--moss);
+    border-radius:4px;
+    color:var(--paper-dim);
+    padding:0.7rem 0.9rem;
+    cursor:pointer;
+    transition:transform 0.15s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+  .quiz-opt:hover{transform:translateX(3px); border-color:var(--brass);}
+  .quiz-opt.is-selected{background:var(--brass); border-color:var(--brass); color:var(--void);}
+
+  .assess-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    background:var(--brass);
+    color:var(--void);
+    border:none;
+    border-radius:3px;
+    padding:0.7rem 1.2rem;
+    cursor:pointer;
+    transition:background 0.2s ease, transform 0.15s ease;
+    margin-top:0.6rem;
+  }
+  .assess-btn:hover{background:var(--brass-bright); transform:translateY(-2px);}
+
+  .result-box{
+    display:none;
+    margin-top:1.8rem;
+    border-top:1px solid var(--moss);
+    padding-top:1.4rem;
+  }
+  .result-box.is-visible{display:block; animation:fadeUp 0.5s ease;}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+
+  .format-badge{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:1.5rem;
+    color:var(--brass-bright);
+    margin-bottom:1rem;
+  }
+
+  .score-bars{
+    display:flex;
+    flex-direction:column;
+    gap:0.7rem;
+    margin-bottom:1.4rem;
+  }
+  .score-row{
+    display:grid;
+    grid-template-columns:110px 1fr 40px;
+    align-items:center;
+    gap:0.7rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    text-transform:uppercase;
+    color:var(--fern);
+  }
+  .score-track{
+    height:8px;
+    background:var(--canopy-deep);
+    border-radius:20px;
+    overflow:hidden;
+  }
+  .score-fill{
+    height:100%;
+    background:var(--brass);
+    transition:width 0.6s cubic-bezier(.2,.8,.2,1);
+  }
+  .score-row.is-winner .score-fill{background:var(--brass-bright);}
+  .score-row.is-winner{color:var(--brass-bright);}
+
+  .reasoning-list{ margin-top:1rem; }
+  .reasoning-item{
+    padding:0.6rem 0;
+    border-bottom:1px solid var(--canopy-panel);
+    font-size:0.9rem;
+    color:var(--paper-dim);
+  }
+
+  .nav-footer{
+    margin-top:4rem;
+    padding-top:1.4rem;
+    border-top:1px solid var(--canopy-panel);
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    text-transform:uppercase;
+  }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--brass-bright); outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 1 · Ch.4 · 1.4.2</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Field Craft</span>
+
+  <p class="lede reveal-line">The same tip can become three completely different stories, and picking the wrong one wastes the tip. A rumor about a factory's effluent could become a same-day explainer of what the regulation actually requires, a feature on the fishing community living downstream, or a weeks-long investigation into who approved the permit and why. Choosing which one to pursue is its own skill, separate from the reporting itself.</p>
+
+  <h3 class="section-label">Decision Criteria</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line">
+      <h4>Evidence in Hand</h4>
+      <p>A tip alone supports an explainer. A document or two supports a feature. A substantial, checkable body of evidence supports an investigation.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Time Available</h4>
+      <p>Same-day pressure favors an explainer using public information. Open-ended time supports the deeper reporting an investigation needs.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>The Core Question</h4>
+      <p>"What is this and why does it matter" points toward an explainer or feature. "Who did this and are they hiding it" points toward an investigation.</p>
+    </div>
+  </div>
+
+  <h3 class="section-label">Matching Format to What You Actually Have</h3>
+  <p class="reveal-line">A common mistake is picking the format you want to write rather than the one the evidence and time actually support. Starting an investigation with only a tip and a deadline tomorrow usually produces a thin, unconvincing piece — the same tip filed as a same-day explainer, with the investigation pursued properly over the following weeks, usually serves the reader and the story better.</p>
+
+  <div class="case-block reveal-line">
+    <h4>One Tip, Three Stories</h4>
+    <p>A resident calls to say a factory is dumping waste into a canal. Filed today with public regulation and one on-record quote, it's an explainer on what the rules require and whether this looks like a violation. Filed over a few days with a visit to the site and interviews with affected families, it's a feature on what living next to that canal is actually like. Pursued over weeks with permit records, effluent testing, and a paper trail on approvals, it's an investigation into how the violation was allowed to continue.</p>
+  </div>
+
+  <div class="exercise">
+    <span class="exercise-kicker">Field Exercise</span>
+    <h3 class="exercise-title">What Format Fits This Tip?</h3>
+    <p class="exercise-instructions">Answer honestly about a real tip or story idea you're weighing right now, then get a recommended format with reasoning.</p>
+
+    <div id="quizContainer"></div>
+
+    <button class="assess-btn" id="assessBtn">Get My Recommendation</button>
+
+    <div class="result-box" id="resultBox"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="1.4.1.html">&larr; 4.1 The Nut Graf and Story Contracts</a>
+    <a href="1.4.3.html">Next: 4.3 Explainer Craft &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Kinetic title ---------- */
+  const titleEl = document.getElementById('kineticTitle');
+  "Choosing Your Format".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word';
+    span.style.animationDelay = (i * 0.09) + 's';
+    span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  /* ---------- Scroll reveal ---------- */
+  const revealTargets = document.querySelectorAll('.reveal-line');
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('is-visible'); }
+    });
+  }, { threshold:0.3 });
+  revealTargets.forEach(t => revealObserver.observe(t));
+
+  /* ---------- Format quiz ---------- */
+  const questions = [
+    {
+      q:'How much time do you have before this needs to run?',
+      options:[
+        { text:'Same day or next cycle', points:{explainer:2, feature:0, investigation:-1}, note:'you have same-day pressure' },
+        { text:'Within a week', points:{explainer:1, feature:2, investigation:1}, note:'you have about a week' },
+        { text:'No fixed deadline', points:{explainer:0, feature:1, investigation:2}, note:'you have open-ended time' }
+      ]
+    },
+    {
+      q:'How much evidence do you have in hand right now?',
+      options:[
+        { text:'Just a tip or a rumor', points:{explainer:1, feature:0, investigation:-1}, note:'you\'re starting from just a tip' },
+        { text:'One or two solid sources or documents', points:{explainer:0, feature:1, investigation:1}, note:'you have a couple of solid sources already' },
+        { text:'A substantial, checkable body of evidence', points:{explainer:-1, feature:0, investigation:2}, note:'you already have substantial evidence' }
+      ]
+    },
+    {
+      q:'What\'s the core question you\'re trying to answer?',
+      options:[
+        { text:'Helping readers understand a concept or event', points:{explainer:2, feature:0, investigation:-1}, note:'your core question is about understanding, not exposure' },
+        { text:'Showing the human impact of something already known', points:{explainer:-1, feature:2, investigation:0}, note:'your core question is about human impact' },
+        { text:'Uncovering wrongdoing or something being hidden', points:{explainer:-1, feature:0, investigation:2}, note:'your core question is about accountability' }
+      ]
+    },
+    {
+      q:'How much reporting time can you realistically invest?',
+      options:[
+        { text:'A few hours', points:{explainer:2, feature:-1, investigation:-1}, note:'you can realistically invest only a few hours' },
+        { text:'A few days', points:{explainer:0, feature:2, investigation:1}, note:'you can invest a few days' },
+        { text:'Weeks or more', points:{explainer:-1, feature:1, investigation:2}, note:'you can invest weeks or more' }
+      ]
+    },
+    {
+      q:'Has this exact issue been reported on recently?',
+      options:[
+        { text:'Yes, it\'s already well covered', points:{explainer:1, feature:0, investigation:-1}, note:'this issue is already well covered elsewhere' },
+        { text:'Somewhat, but with real gaps', points:{explainer:0, feature:1, investigation:1}, note:'existing coverage has gaps' },
+        { text:'No, this looks genuinely new', points:{explainer:0, feature:1, investigation:2}, note:'this looks like genuinely new ground' }
+      ]
+    }
+  ];
+
+  const quizContainer = document.getElementById('quizContainer');
+  const answers = [];
+
+  questions.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-item';
+    div.innerHTML = `
+      <p class="quiz-q"><span class="qnum">Q${i+1}</span>${item.q}</p>
+      <div class="quiz-options"></div>
+    `;
+    const optsDiv = div.querySelector('.quiz-options');
+    item.options.forEach((opt, j) => {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-opt';
+      btn.textContent = opt.text;
+      btn.addEventListener('click', () => {
+        optsDiv.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('is-selected'));
+        btn.classList.add('is-selected');
+        answers[i] = { points: opt.points, note: opt.note };
+      });
+      optsDiv.appendChild(btn);
+    });
+    quizContainer.appendChild(div);
+  });
+
+  document.getElementById('assessBtn').addEventListener('click', () => {
+    const resultBox = document.getElementById('resultBox');
+    if(answers.filter(Boolean).length < questions.length){
+      resultBox.innerHTML = `<div class="reasoning-item">Answer all ${questions.length} questions to get a recommendation.</div>`;
+      resultBox.classList.add('is-visible');
+      return;
+    }
+
+    const totals = { explainer:0, feature:0, investigation:0 };
+    const notes = [];
+    answers.forEach(a => {
+      totals.explainer += a.points.explainer;
+      totals.feature += a.points.feature;
+      totals.investigation += a.points.investigation;
+      notes.push(a.note);
+    });
+
+    const labels = { explainer:'Explainer', feature:'Feature', investigation:'Investigation' };
+    const descriptions = {
+      explainer:'A same-day, evidence-light piece that helps readers understand what\'s happening and why it matters, using largely public information.',
+      feature:'A scene-driven piece over a few days that shows the human impact of the issue through specific characters and moments.',
+      investigation:'A weeks-long accountability piece built on a substantial, checkable body of evidence, aimed at establishing who is responsible.'
+    };
+
+    const maxVal = Math.max(totals.explainer, totals.feature, totals.investigation);
+    const winner = Object.keys(totals).find(k => totals[k] === maxVal);
+
+    const minVal = Math.min(totals.explainer, totals.feature, totals.investigation, 0);
+    const range = maxVal - minVal || 1;
+
+    let barsHtml = '';
+    ['explainer','feature','investigation'].forEach(key => {
+      const pct = Math.max(6, Math.round(((totals[key] - minVal) / range) * 100));
+      barsHtml += `
+        <div class="score-row ${key === winner ? 'is-winner' : ''}">
+          <span>${labels[key]}</span>
+          <div class="score-track"><div class="score-fill" style="width:${pct}%"></div></div>
+          <span>${totals[key]}</span>
+        </div>
+      `;
+    });
+
+    resultBox.innerHTML = `
+      <p class="format-badge">Recommended: ${labels[winner]}</p>
+      <p style="color:var(--paper-dim); margin-bottom:1.2rem;">${descriptions[winner]}</p>
+      <div class="score-bars">${barsHtml}</div>
+      <div class="reasoning-list">
+        <p style="font-family:'IBM Plex Mono', monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--fern); margin-bottom:0.6rem;">Based on your answers</p>
+        ${notes.map(n => `<div class="reasoning-item">You said ${n}.</div>`).join('')}
+      </div>
+    `;
+    resultBox.classList.add('is-visible');
+  });
+</script>
+
+</body>
+</html>

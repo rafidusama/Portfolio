@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2.3.1 — Building a Reusable Explainer Bank | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:920px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(1.7rem, 6vw, 3.5rem); line-height:1.05; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .mini-bento{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:640px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{ background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:1.2rem 1.3rem; transition:transform 0.2s ease, border-color 0.2s ease; }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{ font-family:'Fraunces', serif; font-size:1.05rem; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .mini-card p{font-size:0.9rem; margin:0;}
+  .caution-card{ background:var(--canopy-panel); border-left:3px solid var(--clay); border-radius:4px; padding:1.1rem 1.3rem; margin:1.4rem 0 1.8rem; }
+  .caution-card h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--clay); margin-bottom:0.5rem; }
+  .caution-card p{margin:0; color:var(--paper);}
+  .pull-quote{ font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:1.4rem; line-height:1.4; color:var(--paper); border-left:3px solid var(--brass); padding-left:1.2rem; margin:1.6rem 0; }
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:1.4rem; }
+  .topic-picker{ display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.6rem; }
+  .topic-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.02em;
+    background:var(--canopy-panel); border:1px solid var(--moss); border-radius:20px; color:var(--paper-dim);
+    padding:0.55rem 1rem; cursor:pointer; transition:transform 0.15s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .topic-btn:hover{transform:translateY(-2px); border-color:var(--brass); color:var(--brass-bright);}
+  .topic-btn.is-active{background:var(--brass); border-color:var(--brass); color:var(--void);}
+  .template-out{ display:none; background:var(--canopy-deep); border:1px solid var(--moss); border-left:4px solid var(--brass); border-radius:6px; padding:1.5rem 1.6rem; }
+  .template-out.is-visible{ display:block; animation:fadeUp 0.4s ease; }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  .template-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem; flex-wrap:wrap; gap:0.6rem; }
+  .template-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.25rem; color:var(--paper); }
+  .template-meta{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--fern-dim); text-transform:uppercase; }
+  .template-section{ margin-bottom:1.1rem; }
+  .template-section h5{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .template-section p{ font-size:0.92rem; color:var(--paper-dim); margin:0; font-style:italic; }
+  .empty-state{ font-family:'IBM Plex Mono', monospace; font-size:0.85rem; color:var(--fern-dim); font-style:italic; padding:1rem 0; }
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 2 · Ch.3 · 2.3.1</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Foundations</span>
+
+  <p class="lede reveal-line">Every environmental reporter ends up explaining the same handful of concepts over and over — what a carbon credit is, how salinity intrusion works, what loss and damage means. Writing that explanation fresh every time wastes effort a reusable, well-maintained explainer bank avoids entirely.</p>
+
+  <h3 class="section-label">Modular Structure for Reuse</h3>
+  <p class="reveal-line">An explainer built for reuse should be written in swappable sections — a paragraph on the mechanism, a paragraph on the current numbers, a paragraph on Bangladesh's specific stake — so a section can be lifted directly into breaking coverage without rewriting from scratch under deadline pressure. Writing it this way from the start costs a little more time up front and saves far more later.</p>
+
+  <h3 class="section-label">Maintaining the Library</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line">
+      <h4>Version and Date Everything</h4>
+      <p>Every saved explainer needs a "last verified" date. A number or policy detail from eighteen months ago may already be wrong.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>One File, Findable Fast</h4>
+      <p>A shared, searchable location beats scattered documents — the value of the bank depends entirely on being able to find the right piece under deadline pressure.</p>
+    </div>
+  </div>
+
+  <h3 class="section-label">Keeping Explainers Current</h3>
+  <div class="caution-card reveal-line">
+    <h4>Science and Policy Don't Stand Still</h4>
+    <p>A perfectly accurate explainer written two years ago can become quietly wrong as policy changes, funding mechanisms evolve, or new research shifts a scientific consensus. Build a habit of reviewing high-use explainers on a schedule, not just when someone happens to notice an error.</p>
+  </div>
+  <p class="pull-quote reveal-line">"An explainer bank is only an asset if someone is responsible for keeping it true. Otherwise it's just old copy waiting to mislead someone."</p>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Explainer Template Generator</h3>
+    <p class="tool-instructions">Pick a topic to generate a reusable, modular explainer skeleton — fill in the italicized prompts with current, verified detail.</p>
+
+    <div class="topic-picker" id="topicPicker"></div>
+    <div id="templateArea">
+      <p class="empty-state">Select a topic above to generate a template.</p>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="2.2.3.html">&larr; 2.3 Carbon Markets Explained</a>
+    <a href="2.3.2.html">Next: 3.2 Story-Idea Prompt Bank & Seasonal Calendar &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "Building a Reusable Explainer Bank".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.06) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  const templates = {
+    climatebasics: {
+      label:'Climate Basics',
+      sections:{
+        'What': 'State plainly what is meant by "climate change" in one or two sentences, avoiding jargon.',
+        'Why': 'Explain why this matters for Bangladesh specifically right now — cite the most current vulnerability context you have verified.',
+        'How': 'Walk through the basic mechanism (greenhouse gases trapping heat) in plain language, one step at a time.',
+        'What\'s Next': 'Note the next major report, policy deadline, or negotiation round relevant to this topic.'
+      }
+    },
+    carbonmarkets: {
+      label:'Carbon Markets',
+      sections:{
+        'What': 'Define a carbon credit in one sentence: a claim that a specific amount of emissions was reduced or avoided.',
+        'Why': 'Explain why carbon markets matter for Bangladesh-based projects specifically — cite a current local example if verified.',
+        'How': 'Walk through compliance vs. voluntary markets and the verification/registry process in plain terms.',
+        'What\'s Next': 'Note any pending local project verifications or policy changes worth tracking.'
+      }
+    },
+    lossdamage: {
+      label:'Loss and Damage',
+      sections:{
+        'What': 'Define loss and damage as harm from climate change that couldn\'t be avoided through mitigation or adaptation.',
+        'Why': 'Explain Bangladesh\'s specific stake and negotiating position — cite the most current verified figure available.',
+        'How': 'Walk through how the relevant fund or mechanism is structured and how money is meant to flow.',
+        'What\'s Next': 'Note the next disbursement decision, negotiation round, or reporting deadline to watch.'
+      }
+    },
+    salinity: {
+      label:'Salinity Intrusion',
+      sections:{
+        'What': 'Define salinity intrusion: saline water moving into freshwater soil, rivers, or groundwater.',
+        'Why': 'Explain the livelihood stakes for a specific affected district, using your most current verified data.',
+        'How': 'Walk through the combined mechanism: sea level rise, upstream diversion, and shrimp farming practices.',
+        'What\'s Next': 'Note any adaptation program, policy response, or upcoming dry season risk to track.'
+      }
+    },
+    monsoon: {
+      label:'Monsoon & Flooding Basics',
+      sections:{
+        'What': 'Define the monsoon system and its role in Bangladesh\'s annual water cycle in plain terms.',
+        'Why': 'Explain why this year\'s monsoon pattern matters for a specific region — cite your most current verified forecast or data.',
+        'How': 'Walk through how monsoon rainfall interacts with river systems and embankments to produce flooding.',
+        'What\'s Next': 'Note the current BMD forecast outlook or any relevant embankment/infrastructure update.'
+      }
+    }
+  };
+
+  const topicPicker = document.getElementById('topicPicker');
+  const templateArea = document.getElementById('templateArea');
+
+  Object.keys(templates).forEach(key => {
+    const btn = document.createElement('button');
+    btn.className = 'topic-btn';
+    btn.textContent = templates[key].label;
+    btn.dataset.topic = key;
+    topicPicker.appendChild(btn);
+  });
+
+  function renderTemplate(key){
+    const t = templates[key];
+    const today = new Date().toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+    let html = `
+      <div class="template-out is-visible">
+        <div class="template-head">
+          <span class="template-title">${t.label} — Explainer Template</span>
+          <span class="template-meta">Draft created: ${today} — set your own "last verified" date once filled in</span>
+        </div>
+    `;
+    Object.keys(t.sections).forEach(section => {
+      html += `<div class="template-section"><h5>${section}</h5><p>${t.sections[section]}</p></div>`;
+    });
+    html += `</div>`;
+    templateArea.innerHTML = html;
+  }
+
+  topicPicker.addEventListener('click', (e) => {
+    const btn = e.target.closest('.topic-btn');
+    if(!btn) return;
+    document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    renderTemplate(btn.dataset.topic);
+  });
+</script>
+
+</body>
+</html>

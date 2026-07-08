@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.2.2 — Communicating Risk and Uncertainty | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F;
+    --canopy-deep:#122A1D;
+    --canopy-mid:#1B3D28;
+    --canopy-panel:#204731;
+    --moss:#3D6B4F;
+    --fern:#8FB89B;
+    --fern-dim:#5C8770;
+    --brass:#C9A24B;
+    --brass-bright:#E4C476;
+    --clay:#B5613F;
+    --paper:#EFE9D8;
+    --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--canopy-deep);
+    color:var(--paper);
+    font-family:'Manrope', sans-serif;
+    line-height:1.65;
+  }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+
+  .wrap{max-width:920px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+
+  .breadcrumb{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--fern-dim);
+    text-decoration:none;
+    display:inline-block;
+    margin-bottom:2rem;
+  }
+  .breadcrumb:hover{color:var(--brass-bright);}
+
+  .module-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--fern);
+    margin-bottom:0.8rem;
+  }
+  .kinetic-title{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:clamp(2rem, 7vw, 4.4rem);
+    line-height:0.98;
+    letter-spacing:-0.01em;
+    display:flex;
+    flex-wrap:wrap;
+    margin-bottom:1.2rem;
+  }
+  .kinetic-title .word{
+    display:inline-block;
+    opacity:0;
+    transform:translateY(0.5em);
+    animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards;
+    margin-right:0.28em;
+  }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+
+  .module-level{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--fern);
+    border:1px solid var(--fern-dim);
+    padding:0.2rem 0.6rem;
+    border-radius:20px;
+    margin-bottom:3rem;
+  }
+
+  .reveal-line{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+
+  h3.section-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--fern);
+    border-bottom:1px dashed var(--moss);
+    padding-bottom:0.4rem;
+    margin:3rem 0 1.2rem;
+  }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  p.lede em{color:var(--brass-bright); font-style:normal; font-weight:600;}
+
+  .pull-quote{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:1.4rem;
+    line-height:1.4;
+    color:var(--paper);
+    border-left:3px solid var(--brass);
+    padding-left:1.2rem;
+    margin:1.6rem 0;
+  }
+
+  /* ---------- Uncertainty vs doubt contrast ---------- */
+  .mini-bento{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem;
+    margin:1.4rem 0 1.8rem;
+  }
+  @media (max-width:640px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{
+    background:var(--canopy-mid);
+    border:1px solid var(--moss);
+    border-radius:4px;
+    padding:1.2rem 1.3rem;
+    transition:transform 0.2s ease, border-color 0.2s ease;
+  }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{
+    font-family:'Fraunces', serif;
+    font-size:1.1rem;
+    color:var(--brass-bright);
+    margin-bottom:0.5rem;
+  }
+  .mini-card p{font-size:0.92rem; margin:0;}
+
+  /* ---------- Case examples ---------- */
+  .case-block{
+    background:var(--canopy-mid);
+    border-left:3px solid var(--brass);
+    border-radius:4px;
+    padding:1.2rem 1.4rem;
+    margin:1.2rem 0;
+  }
+  .case-block h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--brass-bright);
+    margin-bottom:0.5rem;
+  }
+  .case-block p{margin:0; color:var(--paper);}
+
+  /* ---------- Exercise ---------- */
+  .exercise{
+    margin-top:3.5rem;
+    background:var(--canopy-mid);
+    border:1px solid var(--moss);
+    border-radius:6px;
+    padding:2rem 1.8rem;
+  }
+  .exercise-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--brass-bright);
+    margin-bottom:0.4rem;
+  }
+  .exercise-title{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:1.7rem;
+    margin-bottom:0.6rem;
+  }
+  .exercise-instructions{
+    font-size:0.94rem;
+    color:var(--fern);
+    margin-bottom:1rem;
+  }
+  .progress-track{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--fern-dim);
+    margin-bottom:1.6rem;
+  }
+
+  .scenario-context{
+    background:var(--canopy-deep);
+    border:1px dashed var(--moss);
+    border-radius:4px;
+    padding:1rem 1.2rem;
+    margin-bottom:1.4rem;
+    font-size:0.92rem;
+    color:var(--paper-dim);
+  }
+  .scenario-context strong{color:var(--paper);}
+  .scenario-headline{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-style:italic;
+    font-size:1.15rem;
+    color:var(--clay);
+    margin:0.6rem 0 0;
+  }
+
+  .option-list{
+    display:flex;
+    flex-direction:column;
+    gap:0.7rem;
+    margin-bottom:1.4rem;
+  }
+  .option-btn{
+    text-align:left;
+    background:var(--canopy-panel);
+    border:1px solid var(--moss);
+    border-radius:4px;
+    padding:0.9rem 1.1rem;
+    color:var(--paper);
+    font-family:'Manrope', sans-serif;
+    font-size:0.95rem;
+    cursor:pointer;
+    display:flex;
+    gap:0.7rem;
+    align-items:flex-start;
+    transition:transform 0.15s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+  .option-btn:hover{transform:translateX(3px); border-color:var(--brass);}
+  .option-letter{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.8rem;
+    color:var(--brass-bright);
+    flex-shrink:0;
+  }
+  .option-btn.is-correct{border-color:var(--fern); background:rgba(143,184,155,0.12);}
+  .option-btn.is-incorrect{border-color:var(--clay); background:rgba(181,97,63,0.12);}
+  .option-btn.is-dimmed{opacity:0.55;}
+
+  .option-feedback{
+    display:none;
+    font-size:0.88rem;
+    color:var(--paper-dim);
+    margin-top:0.6rem;
+    padding-top:0.6rem;
+    border-top:1px solid var(--moss);
+    width:100%;
+  }
+  .option-btn.is-revealed .option-feedback{display:block;}
+  .option-content{display:flex; flex-direction:column; flex:1;}
+
+  .exercise-nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:1rem;
+  }
+  .next-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    background:var(--brass);
+    color:var(--void);
+    border:none;
+    border-radius:3px;
+    padding:0.7rem 1.2rem;
+    cursor:pointer;
+    transition:background 0.2s ease, transform 0.15s ease;
+  }
+  .next-btn:hover{background:var(--brass-bright); transform:translateY(-2px);}
+  .next-btn:disabled{opacity:0.3; cursor:not-allowed; transform:none;}
+  .score-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    color:var(--fern);
+  }
+
+  .summary-card{
+    display:none;
+    text-align:center;
+    padding:2rem 1rem;
+  }
+  .summary-card.is-visible{display:block; animation:fadeUp 0.5s ease;}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  .summary-card .summary-num{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:3.2rem;
+    color:var(--brass-bright);
+  }
+  .summary-card p{color:var(--paper-dim); margin-top:0.6rem;}
+  .restart-btn{
+    margin-top:1.2rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    background:none;
+    border:1px solid var(--fern-dim);
+    color:var(--fern);
+    border-radius:20px;
+    padding:0.5rem 1rem;
+    cursor:pointer;
+  }
+  .restart-btn:hover{border-color:var(--brass-bright); color:var(--brass-bright);}
+
+  .nav-footer{
+    margin-top:4rem;
+    padding-top:1.4rem;
+    border-top:1px solid var(--canopy-panel);
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    text-transform:uppercase;
+  }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--brass-bright); outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 1 · Ch.2 · 1.2.2</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Field Craft</span>
+
+  <p class="lede reveal-line">"Scientists are unsure" is one of the most common headlines in environmental reporting, and one of the most misleading. It usually means something much more specific: unsure about the exact magnitude, unsure about attributing a single event, unsure about the timeline. Collapsing all of that into "unsure" tells the reader almost nothing, and it often does more damage than a wrong number would — because it invites the reader to distrust the science itself rather than understand its actual shape.</p>
+
+  <p class="reveal-line">The job on this beat is not to remove uncertainty from a story. Real uncertainty is part of how honest science works. The job is to describe that uncertainty precisely enough that the reader ends up better calibrated than before they read it, not worse.</p>
+
+  <h3 class="section-label">Framing Ranges and Probabilities in Prose</h3>
+  <p class="reveal-line">Most climate and risk findings come as a range or a probability, not a single number. "Salinity could rise between 20% and 45% by 2050" is a very different claim from "salinity will rise 45% by 2050," even though the second is technically inside the range of the first. Reporting only the upper bound isn't lying, exactly — it's cherry-picking the most dramatic true thing instead of the most representative true thing.</p>
+  <p class="reveal-line">A workable habit: if the source gives you a range, put the range in the story, not just one end of it. If the source gives you a probability, say what it's a probability <em style="color:var(--brass-bright); font-style:normal; font-weight:600;">of</em> — "a 1-in-20 chance in any given year" reads very differently from "unlikely," even though a forecaster might use both to describe the same number.</p>
+
+  <h3 class="section-label">Real Uncertainty vs. Manufactured Doubt</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line">
+      <h4>Scientific Uncertainty</h4>
+      <p>A genuine, quantifiable range in a model or measurement — for example, disagreement between climate models on exactly how much a river's flow will change, even though all models agree on the direction of change.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Manufactured Doubt</h4>
+      <p>A disputed claim from a party with a financial or political interest in the outcome, dressed up to look like the same kind of uncertainty — for example, a polluter disputing well-established measurement data with no competing evidence of their own.</p>
+    </div>
+  </div>
+  <p class="reveal-line">Treating both kinds of "disagreement" as equally weighted is the false-balance trap. The test is simple: does the disputing party have independent evidence, or only an interest in the answer?</p>
+
+  <h3 class="section-label">Case Examples: Forecasting Under Uncertainty</h3>
+  <div class="case-block reveal-line">
+    <h4>Flood Risk</h4>
+    <p>A flood forecast is usually expressed as a probability of a river crossing a danger level within a time window, not a certainty. Reporting "the river will flood this week" when the actual forecast is "a significant chance of crossing the danger mark within five days" overstates certainty in a way that can backfire — if the flood arrives a few days late, the story reads as having been wrong, when the forecast itself was accurate.</p>
+  </div>
+  <div class="case-block reveal-line">
+    <h4>Cyclone Intensity</h4>
+    <p>Cyclone tracks and intensities are forecast as a cone of probability, not a single line. Two forecasters using slightly different intensity ranges for the same storm are not "in dispute" — they're describing the same underlying uncertainty with different but compatible numbers. Framing that as forecasters being "split" invents a disagreement that isn't really there.</p>
+  </div>
+
+  <div class="exercise">
+    <span class="exercise-kicker">Field Exercise</span>
+    <h3 class="exercise-title">Rewrite the Headline</h3>
+    <p class="exercise-instructions">Each scenario shows a misleading headline and the finding behind it. Pick the rewrite that best preserves accuracy while staying readable — every option gets feedback once you pick it.</p>
+    <div class="progress-track" id="progressTrack">Scenario 1 of 5</div>
+
+    <div id="scenarioArea"></div>
+
+    <div class="summary-card" id="summaryCard">
+      <div class="summary-num" id="summaryNum">0 / 5</div>
+      <p>correct on the first pick. Review any you'd like, then try again if you want another pass.</p>
+      <button class="restart-btn" id="restartBtn">Restart Exercise</button>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="1.2.1.html">&larr; 2.1 Reading Scientific Sources</a>
+    <a href="1.2.3.html">Next: 2.3 Avoiding False Balance &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Kinetic title ---------- */
+  const titleEl = document.getElementById('kineticTitle');
+  "Communicating Risk and Uncertainty".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word';
+    span.style.animationDelay = (i * 0.08) + 's';
+    span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  /* ---------- Scroll reveal ---------- */
+  const revealTargets = document.querySelectorAll('.reveal-line');
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('is-visible'); }
+    });
+  }, { threshold:0.3 });
+  revealTargets.forEach(t => revealObserver.observe(t));
+
+  /* ---------- Exercise data ---------- */
+  const scenarios = [
+    {
+      context: 'A river flooded a district. Researchers say this kind of flood is becoming more frequent as regional rainfall patterns shift, but attributing any single flood to climate change with certainty isn\'t possible from one event alone.',
+      badHeadline: '"Scientists Unsure If Climate Change Caused This Flood"',
+      options: [
+        { text: '"Climate Change Caused This Flood, Scientists Confirm"', correct:false, feedback:'Overstates certainty. Single events can\'t be attributed to climate change with the confidence this implies — a common and serious overclaim.' },
+        { text: '"This Flood Fits a Pattern Scientists Link to Climate Change"', correct:true, feedback:'Correct. This keeps the real finding — a pattern, not a single-event certainty — without collapsing into "unsure," which throws away the actual science.' },
+        { text: '"No Link Between This Flood and Climate Change, Experts Say"', correct:false, feedback:'Overstates the opposite direction. Experts aren\'t saying there\'s no link — they\'re saying single-event attribution has limits. This misrepresents the finding entirely.' },
+        { text: '"Scientists Debate Whether Climate Change Is Real"', correct:false, feedback:'This conflates a narrow, technical uncertainty (attributing one event) with the existence of climate change itself — a classic false-balance framing.' }
+      ]
+    },
+    {
+      context: 'A cyclone forecast shows a wide but genuine range of possible landfall intensities, with the storm plausibly reaching Category 5 under some model runs.',
+      badHeadline: '"Cyclone Will Hit as Category 5 Storm"',
+      options: [
+        { text: '"Cyclone Could Reach Category 5 Intensity, Forecasters Say"', correct:true, feedback:'Correct. "Could reach" accurately reflects a plausible upper bound without presenting it as the confirmed outcome.' },
+        { text: '"Cyclone Confirmed as Category 5 Threat"', correct:false, feedback:'Overstates certainty about a future event. Forecasts describe probability ranges, not confirmed outcomes.' },
+        { text: '"Cyclone May or May Not Be Dangerous, Experts Unsure"', correct:false, feedback:'Underplays real risk. This vague framing could lead readers to under-prepare for a storm that genuinely could be severe.' },
+        { text: '"Forecasters Split on Cyclone\'s Path and Strength"', correct:false, feedback:'Invents a disagreement. Different intensity ranges from different models usually reflect the same underlying uncertainty, not a real dispute between forecasters.' }
+      ]
+    },
+    {
+      context: 'A study projects that coastal salinity could rise between 20% and 45% by 2050, depending on which adaptation measures are implemented.',
+      badHeadline: '"Salinity to Rise 45% by 2050, Study Finds"',
+      options: [
+        { text: '"Salinity Could Rise Up to 45% by 2050, Study Projects"', correct:false, feedback:'Better than the original, but still only reports the upper bound. It\'s technically accurate but selectively dramatic rather than representative.' },
+        { text: '"Study: Salinity Could Rise Between 20% and 45% by 2050"', correct:true, feedback:'Correct. This reports the full range the study actually found, which is what lets a reader understand both the scale and the uncertainty.' },
+        { text: '"Salinity Set to Nearly Double by 2050"', correct:false, feedback:'Inaccurate rounding dressed up as a dramatic framing. Nothing in the study supports "double," and this discards the real numbers entirely.' },
+        { text: '"Experts Predict Sharp Rise in Salinity"', correct:false, feedback:'So vague it loses the actual finding. A reader learns nothing they could act on or fact-check.' }
+      ]
+    },
+    {
+      context: 'Multiple independent studies confirm a factory\'s effluent is harming a local water source. The factory\'s spokesperson disputes this, offering no competing data of their own.',
+      badHeadline: '"Debate Continues Over Whether Factory Pollution Is Harmful"',
+      options: [
+        { text: '"Independent Studies Confirm Pollution Harm; Company Disputes Findings"', correct:true, feedback:'Correct. This leads with the evidence-based finding and accurately notes the dispute without treating it as an equally weighted side of a debate.' },
+        { text: '"Scientists and Company Disagree on Pollution\'s Impact"', correct:false, feedback:'False balance. This frames independent, evidence-based findings and an interested party\'s denial as two equally credible positions.' },
+        { text: '"Pollution Harm Unclear as Sides Clash"', correct:false, feedback:'Implies genuine unresolved uncertainty that doesn\'t exist here — multiple independent studies already agree.' },
+        { text: '"Company Insists Pollution Is Safe, Despite Criticism"', correct:false, feedback:'Leads with the company\'s unsupported claim ahead of the evidence, which reverses the actual weight of what\'s known.' }
+      ]
+    },
+    {
+      context: 'A single new study projects sharp groundwater declines by 2040. It hasn\'t yet been replicated by other research.',
+      badHeadline: '"New Study Proves Groundwater Crisis Coming by 2040"',
+      options: [
+        { text: '"Groundwater Levels Could Fall Sharply by 2040, New Study Suggests"', correct:true, feedback:'Correct. "Could" and "suggests" appropriately signal single-study confidence without dismissing a legitimate, concerning finding.' },
+        { text: '"Groundwater Crisis Confirmed by New Study"', correct:false, feedback:'"Proves" and "confirmed" overstate what a single, unreplicated study can establish.' },
+        { text: '"Study Raises Questions About Groundwater, But Conclusions Remain Shaky"', correct:false, feedback:'Unduly undermines a legitimate finding. Being a single study is a reason for appropriate hedging, not for dismissing the result as "shaky" without cause.' },
+        { text: '"Experts Fear Worst for Groundwater Supply"', correct:false, feedback:'Vague and emotionally loaded, and it discards the actual finding in favor of a mood.' }
+      ]
+    }
+  ];
+
+  let current = 0;
+  let score = 0;
+  let answeredThisRound = false;
+
+  const scenarioArea = document.getElementById('scenarioArea');
+  const progressTrack = document.getElementById('progressTrack');
+  const summaryCard = document.getElementById('summaryCard');
+  const summaryNum = document.getElementById('summaryNum');
+
+  function renderScenario(){
+    answeredThisRound = false;
+    const s = scenarios[current];
+    progressTrack.textContent = `Scenario ${current + 1} of ${scenarios.length}`;
+
+    let html = `
+      <div class="scenario-context">
+        <strong>The finding:</strong> ${s.context}
+        <p class="scenario-headline">${s.badHeadline}</p>
+      </div>
+      <div class="option-list" id="optionList">
+    `;
+    s.options.forEach((opt, i) => {
+      html += `
+        <button class="option-btn" data-index="${i}">
+          <span class="option-letter">${String.fromCharCode(65+i)}</span>
+          <span class="option-content">
+            <span>${opt.text}</span>
+            <span class="option-feedback">${opt.feedback}</span>
+          </span>
+        </button>
+      `;
+    });
+    html += `</div>
+      <div class="exercise-nav">
+        <span class="score-tag" id="scoreTag">Score so far: ${score} / ${current}</span>
+        <button class="next-btn" id="nextBtn" disabled>${current === scenarios.length - 1 ? 'See Results' : 'Next Scenario'}</button>
+      </div>
+    `;
+    scenarioArea.innerHTML = html;
+
+    document.querySelectorAll('.option-btn').forEach(btn => {
+      btn.addEventListener('click', () => handleAnswer(btn));
+    });
+    document.getElementById('nextBtn').addEventListener('click', nextScenario);
+  }
+
+  function handleAnswer(btn){
+    if(answeredThisRound) {
+      // allow exploring other options without rescoring
+      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('is-revealed'));
+      btn.classList.add('is-revealed');
+      return;
+    }
+    answeredThisRound = true;
+    const idx = parseInt(btn.dataset.index, 10);
+    const s = scenarios[current];
+    const isCorrect = s.options[idx].correct;
+    if(isCorrect) score++;
+
+    document.querySelectorAll('.option-btn').forEach((b, i) => {
+      b.classList.add('is-revealed');
+      if(s.options[i].correct){ b.classList.add('is-correct'); }
+      if(i === idx && !isCorrect){ b.classList.add('is-incorrect'); }
+      if(i !== idx){ b.classList.remove('is-revealed'); b.classList.add('is-dimmed'); }
+    });
+    btn.classList.add('is-revealed');
+    btn.classList.remove('is-dimmed');
+
+    document.getElementById('nextBtn').disabled = false;
+    document.getElementById('scoreTag').textContent = `Score so far: ${score} / ${current + 1}`;
+  }
+
+  function nextScenario(){
+    if(current < scenarios.length - 1){
+      current++;
+      renderScenario();
+    } else {
+      scenarioArea.innerHTML = '';
+      progressTrack.textContent = 'Exercise complete';
+      summaryNum.textContent = `${score} / ${scenarios.length}`;
+      summaryCard.classList.add('is-visible');
+    }
+  }
+
+  document.getElementById('restartBtn').addEventListener('click', () => {
+    current = 0; score = 0;
+    summaryCard.classList.remove('is-visible');
+    renderScenario();
+  });
+
+  renderScenario();
+</script>
+
+</body>
+</html>

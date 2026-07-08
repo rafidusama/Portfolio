@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3.2.4 — Fire & Disaster Tracking | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:960px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(1.9rem, 6.5vw, 3.8rem); line-height:1; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .mini-bento{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:640px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{ background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:1.2rem 1.3rem; transition:transform 0.2s ease, border-color 0.2s ease; }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{ font-family:'Fraunces', serif; font-size:1.05rem; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .mini-card p{font-size:0.9rem; margin:0;}
+  .case-block{ background:var(--canopy-mid); border-left:3px solid var(--brass); border-radius:4px; padding:1.2rem 1.4rem; margin:1.2rem 0; }
+  .case-block h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .case-block p{margin:0; color:var(--paper);}
+  .pull-quote{ font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:1.4rem; line-height:1.4; color:var(--paper); border-left:3px solid var(--brass); padding-left:1.2rem; margin:1.6rem 0; }
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:0.8rem; }
+  .tool-caveat{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--fern);
+    background:var(--canopy-deep); border:1px dashed var(--moss); border-radius:4px; padding:0.7rem 0.9rem; margin-bottom:1.4rem; line-height:1.6;
+  }
+  .district-picker{ display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.6rem; }
+  .district-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.02em;
+    background:var(--canopy-panel); border:1px solid var(--moss); border-radius:20px; color:var(--paper-dim);
+    padding:0.55rem 1rem; cursor:pointer; transition:transform 0.15s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .district-btn:hover{transform:translateY(-2px); border-color:var(--brass);}
+  .district-btn.is-active{background:var(--brass); border-color:var(--brass); color:var(--void);}
+  .lookup-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.05em; text-transform:uppercase;
+    background:var(--brass); color:var(--void); border:none; border-radius:3px; padding:0.7rem 1.2rem; cursor:pointer;
+    transition:background 0.2s ease, transform 0.15s ease; margin-bottom:1.4rem;
+  }
+  .lookup-btn:hover{ background:var(--brass-bright); transform:translateY(-2px); }
+  .result-section{ display:none; }
+  .result-section.is-visible{ display:block; animation:fadeUp 0.4s ease; }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .result-card{ background:var(--canopy-deep); border:1px solid var(--moss); border-left:3px solid var(--brass); border-radius:4px; padding:1.2rem 1.3rem; margin-bottom:1.2rem; }
+  .result-head{ font-family:'Fraunces', serif; font-weight:700; font-size:1.05rem; color:var(--paper); margin-bottom:0.4rem; }
+  .result-status{
+    font-family:'IBM Plex Mono', monospace; font-size:0.62rem; text-transform:uppercase; letter-spacing:0.03em;
+    padding:0.15rem 0.55rem; border-radius:20px; display:inline-block; margin-bottom:0.6rem;
+  }
+  .status-live{ background:rgba(143,184,155,0.2); color:var(--fern); border:1px solid var(--fern-dim); }
+  .status-sample{ background:rgba(201,162,75,0.2); color:var(--brass-bright); border:1px solid var(--brass); }
+  .result-detail{ font-size:0.9rem; color:var(--paper); margin-bottom:0.5rem; }
+  .result-note{ font-size:0.84rem; color:var(--paper-dim); }
+  .disaster-list{ margin:0; padding-left:1.2rem; }
+  .disaster-list li{ font-size:0.9rem; color:var(--paper-dim); margin-bottom:0.6rem; }
+  .disaster-list li strong{ color:var(--paper); }
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 3 · Ch.2 · 3.2.4</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Field Craft</span>
+
+  <p class="lede reveal-line">Fire detection satellites don't just track wildfires — they're a genuinely useful tool for the seasonal, on-the-ground realities of brick kiln enforcement and agricultural burning, both real recurring beats in Bangladesh.</p>
+
+  <h3 class="section-label">Near Real-Time Fire Detection in Practice</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line">
+      <h4>Brick Kiln Verification</h4>
+      <p>A cluster of heat signatures over a known kiln zone during the seasonal ban period is a direct, checkable signal worth following up with a site visit.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Agricultural Burning</h4>
+      <p>Post-harvest field burning shows up as widespread, scattered detections concentrated in specific weeks — useful for air-quality-cause stories tied to a specific season.</p>
+    </div>
+  </div>
+
+  <h3 class="section-label">EM-DAT as a Historical Reference</h3>
+  <div class="case-block reveal-line">
+    <p>Where NASA FIRMS gives you what's happening right now, EM-DAT gives you the historical baseline — how many comparable disasters a district or country has recorded, going back decades. Citing "this is the third major flood event recorded for this district since 2010" requires exactly this kind of historical reference, not just this week's news.</p>
+  </div>
+  <p class="pull-quote reveal-line">"A single fire detection is a data point. A pattern against a historical baseline is a story."</p>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Fire & Disaster Lookup</h3>
+    <p class="tool-instructions">Pick a district to check recent fire activity and historical disaster records.</p>
+    <p class="tool-caveat">Fire detection attempts a genuine live request to NASA FIRMS' public Area API, which requires a free personal MAP_KEY — without one embedded here, it will honestly fall back to labeled sample data. EM-DAT has no public live-query API, so its historical records shown here are illustrative examples, not live pulls from the actual database.</p>
+
+    <div class="district-picker" id="districtPicker">
+      <button class="district-btn" data-district="Dhaka" data-bbox="90.30,23.65,90.55,23.90">Dhaka</button>
+      <button class="district-btn" data-district="Narayanganj" data-bbox="90.40,23.55,90.60,23.70">Narayanganj</button>
+      <button class="district-btn" data-district="Khulna" data-bbox="89.45,22.75,89.65,22.95">Khulna</button>
+      <button class="district-btn" data-district="Sylhet" data-bbox="91.80,24.80,92.00,25.00">Sylhet</button>
+    </div>
+
+    <button class="lookup-btn" id="lookupBtn">Run Lookup</button>
+
+    <div class="result-section" id="resultSection"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="3.2.3.html">&larr; 2.3 Forest & Land-Use Tracking</a>
+    <a href="3.3.1.html">3.1 GIS Basics for Journalists &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "Fire & Disaster Tracking".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.08) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  const fireSamples = {
+    'Dhaka': { count: 12, note: 'Illustrative sample — dry-season detections often cluster around brick kiln zones on the city\'s outskirts.' },
+    'Narayanganj': { count: 18, note: 'Illustrative sample — a known industrial and kiln-dense district, typically higher detection counts in dry season.' },
+    'Khulna': { count: 4, note: 'Illustrative sample — lower kiln density than the capital region.' },
+    'Sylhet': { count: 2, note: 'Illustrative sample — detections here are more often tied to agricultural burning than industrial kilns.' }
+  };
+
+  const disasterSamples = {
+    'Dhaka': [
+      { year:'2020', event:'Severe monsoon flooding affecting low-lying wards' },
+      { year:'2016', event:'Flash flooding following exceptionally heavy rainfall' }
+    ],
+    'Narayanganj': [
+      { year:'2021', event:'Industrial fire incident with significant property damage' },
+      { year:'2019', event:'Riverine flooding along the Shitalakkhya' }
+    ],
+    'Khulna': [
+      { year:'2020', event:'Cyclone Amphan storm surge and coastal flooding' },
+      { year:'2009', event:'Cyclone Aila widespread embankment failure' }
+    ],
+    'Sylhet': [
+      { year:'2022', event:'Major haor-region flash flooding, among the most severe on record' },
+      { year:'2017', event:'Early flash flooding damaging pre-harvest boro rice crops' }
+    ]
+  };
+
+  let selectedDistrict = null;
+  let selectedBbox = null;
+
+  document.getElementById('districtPicker').addEventListener('click', (e) => {
+    const btn = e.target.closest('.district-btn');
+    if(!btn) return;
+    document.querySelectorAll('.district-btn').forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    selectedDistrict = btn.dataset.district;
+    selectedBbox = btn.dataset.bbox;
+  });
+
+  document.getElementById('lookupBtn').addEventListener('click', async () => {
+    const resultSection = document.getElementById('resultSection');
+    if(!selectedDistrict){
+      resultSection.innerHTML = `<p style="color:var(--clay); font-size:0.9rem;">Pick a district first.</p>`;
+      resultSection.classList.add('is-visible');
+      return;
+    }
+
+    resultSection.innerHTML = `<p class="result-note">Attempting live NASA FIRMS request...</p>`;
+    resultSection.classList.add('is-visible');
+
+    // Genuine attempt at NASA FIRMS Area API. Requires a free MAP_KEY —
+    // replace 'DEMO_KEY_PLACEHOLDER' below with a real key to enable live data.
+    const mapKey = 'DEMO_KEY_PLACEHOLDER';
+    const firmsUrl = `https://firms.modaps.eosdis.nasa.gov/api/area/csv/${mapKey}/VIIRS_NOAA20_NRT/${selectedBbox}/1`;
+
+    let liveText = null;
+    try {
+      const res = await fetch(firmsUrl);
+      if(res.ok){
+        const text = await res.text();
+        if(text && !text.toLowerCase().includes('invalid')){ liveText = text; }
+      }
+    } catch(e){ liveText = null; }
+
+    let fireHtml;
+    if(liveText){
+      const lineCount = liveText.trim().split('\n').length - 1;
+      fireHtml = `
+        <span class="result-status status-live">Live — NASA FIRMS</span>
+        <div class="result-detail">${lineCount} fire detection(s) retrieved for the last 24 hours near ${selectedDistrict}.</div>
+      `;
+    } else {
+      const sample = fireSamples[selectedDistrict];
+      fireHtml = `
+        <span class="result-status status-sample">Sample Data</span>
+        <div class="result-detail">${sample.count} fire detections (illustrative) in the last 24 hours near ${selectedDistrict}.</div>
+        <div class="result-note">${sample.note} Live fetch requires a real NASA FIRMS MAP_KEY — free to obtain at firms.modaps.eosdis.nasa.gov.</div>
+      `;
+    }
+
+    const disasters = disasterSamples[selectedDistrict];
+    const disasterHtml = `
+      <span class="result-status status-sample">Illustrative Historical Examples</span>
+      <div class="result-detail">Representative past disaster events for ${selectedDistrict} (not a live EM-DAT query):</div>
+      <ul class="disaster-list">
+        ${disasters.map(d => `<li><strong>${d.year}</strong> — ${d.event}</li>`).join('')}
+      </ul>
+      <div class="result-note">For actual EM-DAT records, search directly at emdat.be — there is no public API for live queries.</div>
+    `;
+
+    resultSection.innerHTML = `
+      <div class="result-card"><div class="result-head">Fire Detections — ${selectedDistrict}</div>${fireHtml}</div>
+      <div class="result-card"><div class="result-head">Historical Disasters — ${selectedDistrict}</div>${disasterHtml}</div>
+    `;
+    resultSection.classList.add('is-visible');
+  });
+</script>
+
+</body>
+</html>

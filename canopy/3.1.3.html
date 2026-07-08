@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3.1.3 — From Dataset to Story Lead | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:960px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(1.9rem, 6.5vw, 3.8rem); line-height:1; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .mini-bento{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:640px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{ background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:1.2rem 1.3rem; transition:transform 0.2s ease, border-color 0.2s ease; }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{ font-family:'Fraunces', serif; font-size:1.05rem; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .mini-card p{font-size:0.9rem; margin:0;}
+  .caution-card{ background:var(--canopy-panel); border-left:3px solid var(--clay); border-radius:4px; padding:1.1rem 1.3rem; margin:1.4rem 0 1.8rem; }
+  .caution-card h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--clay); margin-bottom:0.5rem; }
+  .caution-card p{margin:0; color:var(--paper);}
+  .pull-quote{ font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:1.4rem; line-height:1.4; color:var(--paper); border-left:3px solid var(--brass); padding-left:1.2rem; margin:1.6rem 0; }
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:0.8rem; }
+  .tool-caveat{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--fern);
+    background:var(--canopy-deep); border:1px dashed var(--moss); border-radius:4px; padding:0.7rem 0.9rem; margin-bottom:1.4rem; line-height:1.6;
+  }
+  .upload-row{ display:flex; flex-wrap:wrap; gap:0.8rem; align-items:center; margin-bottom:1.6rem; }
+  .upload-zone{
+    flex:1; min-width:220px; border:2px dashed var(--moss); border-radius:6px; padding:1.4rem 1.2rem;
+    text-align:center; cursor:pointer; transition:border-color 0.2s ease, background 0.2s ease;
+  }
+  .upload-zone:hover, .upload-zone.is-dragover{ border-color:var(--brass); background:rgba(201,162,75,0.06); }
+  .upload-zone p{ margin:0; color:var(--fern); font-family:'IBM Plex Mono', monospace; font-size:0.8rem; }
+  .upload-zone input{ display:none; }
+  .sample-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.04em; text-transform:uppercase;
+    background:var(--canopy-panel); border:1px solid var(--moss); border-radius:4px; color:var(--paper);
+    padding:0.9rem 1.2rem; cursor:pointer; transition:border-color 0.2s ease, transform 0.15s ease;
+  }
+  .sample-btn:hover{ border-color:var(--brass); transform:translateY(-2px); }
+  .file-name{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; color:var(--brass-bright); margin-bottom:1rem; }
+  .data-preview{ display:none; margin-bottom:1.6rem; overflow-x:auto; }
+  .data-preview.is-visible{ display:block; animation:fadeUp 0.4s ease; }
+  .data-preview table{ width:100%; border-collapse:collapse; font-family:'IBM Plex Mono', monospace; font-size:0.8rem; }
+  .data-preview th, .data-preview td{ border:1px solid var(--moss); padding:0.5rem 0.7rem; text-align:left; white-space:nowrap; }
+  .data-preview th{ background:var(--canopy-panel); color:var(--brass-bright); text-transform:uppercase; font-size:0.68rem; letter-spacing:0.03em; }
+  .data-preview td{ color:var(--paper-dim); background:var(--canopy-deep); }
+  .data-preview-note{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--fern-dim); margin-top:0.5rem; }
+  .analysis-output{ display:none; margin-top:1rem; }
+  .analysis-output.is-visible{ display:block; animation:fadeUp 0.4s ease; }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .column-card{
+    background:var(--canopy-deep); border:1px solid var(--moss); border-left:3px solid var(--brass);
+    border-radius:4px; padding:1.1rem 1.2rem; margin-bottom:1rem;
+  }
+  .column-name{ font-family:'Fraunces', serif; font-weight:700; font-size:1.02rem; color:var(--paper); margin-bottom:0.6rem; }
+  .stat-row{ display:flex; flex-wrap:wrap; gap:1.2rem; margin-bottom:0.7rem; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--fern); }
+  .stat-row span strong{ color:var(--paper); }
+  .trend-note{ font-size:0.9rem; color:var(--paper-dim); margin-bottom:0.5rem; }
+  .outlier-note{ font-size:0.9rem; color:var(--clay); }
+  .correlation-card{
+    background:var(--canopy-panel); border-radius:4px; padding:1.1rem 1.2rem; margin-top:1rem;
+  }
+  .correlation-card h5{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--brass-bright); margin-bottom:0.6rem; }
+  .correlation-card p{ font-size:0.9rem; color:var(--paper); margin:0; }
+  .error-note{ color:var(--clay); font-size:0.9rem; }
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 3 · Ch.1 · 3.1.3</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Field Craft</span>
+
+  <p class="lede reveal-line">You don't need advanced statistics to find a lead in a dataset. A trend, an outlier, and a rough sense of whether two things move together will surface most of what's actually reportable — the skill is knowing which pattern is worth chasing and which is just noise.</p>
+
+  <h3 class="section-label">Trends, Outliers, and Anomalies</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line">
+      <h4>Trend</h4>
+      <p>A sustained direction over time — this month's reading being higher than last month's isn't a trend on its own, but a consistent rise across many periods is.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Outlier</h4>
+      <p>A single value far outside the normal range — worth investigating specifically, since it could be a real event, a data error, or a measurement anomaly.</p>
+    </div>
+  </div>
+
+  <h3 class="section-label">Correlation Is Not Causation</h3>
+  <div class="caution-card reveal-line">
+    <h4>Two Things Moving Together Isn't Proof One Caused the Other</h4>
+    <p>If pollution readings and hospital admissions rise together, that's a real, reportable pattern worth investigating — but it's not by itself proof that one caused the other. Both could be driven by a third factor, like a weather pattern. Report the correlation honestly as a pattern to investigate, not as a proven causal claim, until you have more than the numbers alone.</p>
+  </div>
+
+  <h3 class="section-label">Lead vs. Noise</h3>
+  <p class="reveal-line">A single unusual data point in a long, otherwise stable series might be a lead. The same unusual point in a dataset that jumps around constantly might just be normal noise for that particular measurement. Before chasing an outlier as a story, check how much the data typically varies — an outlier only means something relative to how stable the baseline usually is.</p>
+  <p class="pull-quote reveal-line">"The pattern is the tip. The reporting is still the part that tells you what it's the tip of."</p>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Dataset Analyzer</h3>
+    <p class="tool-instructions">Upload a CSV with a header row, or try the sample dataset. Numeric columns are analyzed for trend and outliers automatically.</p>
+    <p class="tool-caveat">This runs simple descriptive statistics (mean, basic outlier detection, a two-column correlation) entirely in your browser — nothing is uploaded anywhere. It's a starting point for investigation, not a substitute for real analysis on an important story.</p>
+
+    <div class="upload-row">
+      <div class="upload-zone" id="uploadZone">
+        <p>Tap to upload a CSV file, or drag one here</p>
+        <input type="file" id="fileInput" accept=".csv,text/csv">
+      </div>
+      <button class="sample-btn" id="sampleBtn">Try Sample Dataset</button>
+    </div>
+    <p class="file-name" id="fileName"></p>
+
+    <div class="data-preview" id="dataPreview"></div>
+    <div class="analysis-output" id="analysisOutput"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="3.1.2.html">&larr; 1.2 Assessing Dataset Reliability</a>
+    <a href="3.2.1.html">2.1 Air Quality Monitoring Tools &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "From Dataset to Story Lead".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.08) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  const sampleCSV = `Month,PM2.5,RespiratoryCases
+Jan,68,120
+Feb,72,135
+Mar,80,150
+Apr,95,180
+May,110,210
+Jun,60,140
+Jul,240,175
+Aug,130,260
+Sep,140,275
+Oct,150,290
+Nov,160,310
+Dec,170,330`;
+
+  function parseCSV(text){
+    const lines = text.trim().split(/\r?\n/);
+    const headers = lines[0].split(',').map(h => h.trim());
+    const rows = lines.slice(1).map(line => line.split(',').map(cell => cell.trim()));
+    return { headers, rows };
+  }
+
+  function renderPreview(text){
+    const preview = document.getElementById('dataPreview');
+    let parsed;
+    try {
+      parsed = parseCSV(text);
+    } catch(e){
+      preview.classList.remove('is-visible');
+      return;
+    }
+    const { headers, rows } = parsed;
+    const maxRows = 15;
+    const shownRows = rows.slice(0, maxRows);
+    let html = `<table><thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>`;
+    shownRows.forEach(row => {
+      html += `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`;
+    });
+    html += `</tbody></table>`;
+    if(rows.length > maxRows){
+      html += `<p class="data-preview-note">Showing first ${maxRows} of ${rows.length} rows.</p>`;
+    }
+    preview.innerHTML = html;
+    preview.classList.add('is-visible');
+  }
+
+  function analyze(text){
+    const output = document.getElementById('analysisOutput');
+    let parsed;
+    try {
+      parsed = parseCSV(text);
+    } catch(e){
+      output.innerHTML = `<p class="error-note">Couldn't parse this file as CSV. Make sure it has a header row and comma-separated values.</p>`;
+      output.classList.add('is-visible');
+      return;
+    }
+
+    const { headers, rows } = parsed;
+    if(rows.length < 2){
+      output.innerHTML = `<p class="error-note">Not enough rows to analyze — need at least a few data points.</p>`;
+      output.classList.add('is-visible');
+      return;
+    }
+
+    const numericColumns = [];
+    headers.forEach((header, colIdx) => {
+      const values = rows.map(r => parseFloat(r[colIdx])).filter(v => !isNaN(v));
+      if(values.length >= rows.length * 0.7 && values.length > 1){
+        numericColumns.push({ name: header, index: colIdx, values });
+      }
+    });
+
+    if(numericColumns.length === 0){
+      output.innerHTML = `<p class="error-note">No numeric columns detected — this tool analyzes numeric data only.</p>`;
+      output.classList.add('is-visible');
+      return;
+    }
+
+    let html = '';
+    numericColumns.forEach(col => {
+      const vals = col.values;
+      const n = vals.length;
+      const mean = vals.reduce((a,b) => a+b, 0) / n;
+      const variance = vals.reduce((a,b) => a + Math.pow(b - mean, 2), 0) / n;
+      const stdDev = Math.sqrt(variance);
+      const min = Math.min(...vals);
+      const max = Math.max(...vals);
+
+      // Outliers: more than 2 standard deviations from the mean
+      const outlierIndices = [];
+      vals.forEach((v, i) => {
+        if(Math.abs(v - mean) > 2 * stdDev && stdDev > 0){
+          outlierIndices.push(i);
+        }
+      });
+
+      // Trend: compare first third average to last third average
+      const third = Math.max(1, Math.floor(n / 3));
+      const firstThird = vals.slice(0, third);
+      const lastThird = vals.slice(-third);
+      const firstAvg = firstThird.reduce((a,b)=>a+b,0) / firstThird.length;
+      const lastAvg = lastThird.reduce((a,b)=>a+b,0) / lastThird.length;
+      const pctChange = firstAvg !== 0 ? ((lastAvg - firstAvg) / Math.abs(firstAvg)) * 100 : 0;
+
+      let trendText;
+      if(Math.abs(pctChange) < 10){
+        trendText = 'No strong trend — values stay in a broadly similar range across the series.';
+      } else if(pctChange > 0){
+        trendText = `Rising trend — later values run roughly ${pctChange.toFixed(0)}% higher than earlier ones.`;
+      } else {
+        trendText = `Falling trend — later values run roughly ${Math.abs(pctChange).toFixed(0)}% lower than earlier ones.`;
+      }
+
+      let outlierText;
+      if(outlierIndices.length === 0){
+        outlierText = 'No statistical outliers detected (nothing more than 2 standard deviations from the mean).';
+      } else {
+        const labels = outlierIndices.map(i => `row ${i+2} (${rows[i][0] || 'value'}: ${vals[i]})`);
+        outlierText = `Possible outlier(s): ${labels.join(', ')} — worth checking whether this reflects a real event or a data error.`;
+      }
+
+      html += `
+        <div class="column-card">
+          <div class="column-name">${col.name}</div>
+          <div class="stat-row">
+            <span>Mean: <strong>${mean.toFixed(1)}</strong></span>
+            <span>Min: <strong>${min}</strong></span>
+            <span>Max: <strong>${max}</strong></span>
+          </div>
+          <div class="trend-note">${trendText}</div>
+          <div class="outlier-note">${outlierText}</div>
+        </div>
+      `;
+    });
+
+    // Pairwise correlation between first two numeric columns
+    if(numericColumns.length >= 2){
+      const colA = numericColumns[0];
+      const colB = numericColumns[1];
+      const len = Math.min(colA.values.length, colB.values.length);
+      const a = colA.values.slice(0, len);
+      const b = colB.values.slice(0, len);
+      const meanA = a.reduce((x,y)=>x+y,0) / len;
+      const meanB = b.reduce((x,y)=>x+y,0) / len;
+      let cov = 0, varA = 0, varB = 0;
+      for(let i = 0; i < len; i++){
+        cov += (a[i]-meanA) * (b[i]-meanB);
+        varA += Math.pow(a[i]-meanA, 2);
+        varB += Math.pow(b[i]-meanB, 2);
+      }
+      const r = (varA > 0 && varB > 0) ? cov / Math.sqrt(varA * varB) : 0;
+
+      let strength;
+      const absR = Math.abs(r);
+      if(absR < 0.3) strength = 'weak';
+      else if(absR < 0.6) strength = 'moderate';
+      else strength = 'strong';
+      const direction = r >= 0 ? 'positive' : 'negative';
+
+      html += `
+        <div class="correlation-card">
+          <h5>Correlation Check: ${colA.name} vs. ${colB.name}</h5>
+          <p>Correlation coefficient: <strong>${r.toFixed(2)}</strong> — a ${strength} ${direction} relationship. Remember: this shows the two move together, not that one causes the other. Treat it as a pattern to investigate, not a finding to publish on its own.</p>
+        </div>
+      `;
+    }
+
+    output.innerHTML = html;
+    output.classList.add('is-visible');
+  }
+
+  const uploadZone = document.getElementById('uploadZone');
+  const fileInput = document.getElementById('fileInput');
+  const fileName = document.getElementById('fileName');
+
+  uploadZone.addEventListener('click', () => fileInput.click());
+  uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.classList.add('is-dragover'); });
+  uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('is-dragover'));
+  uploadZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadZone.classList.remove('is-dragover');
+    if(e.dataTransfer.files.length){ handleFile(e.dataTransfer.files[0]); }
+  });
+  fileInput.addEventListener('change', () => {
+    if(fileInput.files.length){ handleFile(fileInput.files[0]); }
+  });
+
+  function handleFile(file){
+    fileName.textContent = `Loaded: ${file.name}`;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      renderPreview(e.target.result);
+      analyze(e.target.result);
+    };
+    reader.readAsText(file);
+  }
+
+  document.getElementById('sampleBtn').addEventListener('click', () => {
+    fileName.textContent = 'Loaded: sample-air-quality-data.csv (illustrative)';
+    renderPreview(sampleCSV);
+    analyze(sampleCSV);
+  });
+</script>
+
+</body>
+</html>

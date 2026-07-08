@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3.4.1 — RTI Requests in Bangladesh | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:960px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(2rem, 7vw, 4rem); line-height:1; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .cross-link{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--fern);
+    background:var(--canopy-mid); border:1px dashed var(--moss); border-radius:4px; padding:0.9rem 1.1rem; margin:1.4rem 0 1.8rem;
+  }
+  .cross-link a{ text-decoration:underline; }
+  .compare-pair{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:640px){ .compare-pair{grid-template-columns:1fr;} }
+  .compare-card{ border-radius:4px; padding:1.1rem 1.2rem; }
+  .compare-card.bad{background:rgba(181,97,63,0.12); border:1px solid var(--clay);}
+  .compare-card.good{background:rgba(143,184,155,0.12); border:1px solid var(--fern-dim);}
+  .compare-card h5{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.5rem; }
+  .compare-card.bad h5{color:var(--clay);}
+  .compare-card.good h5{color:var(--fern);}
+  .compare-card p{font-size:0.9rem; margin:0; color:var(--paper);}
+  .mini-bento{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:640px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{ background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:1.2rem 1.3rem; transition:transform 0.2s ease, border-color 0.2s ease; }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{ font-family:'Fraunces', serif; font-size:1.05rem; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .mini-card p{font-size:0.9rem; margin:0;}
+  .pull-quote{ font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:1.4rem; line-height:1.4; color:var(--paper); border-left:3px solid var(--brass); padding-left:1.2rem; margin:1.6rem 0; }
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:1.6rem; }
+  .field-group{ margin-bottom:1.2rem; }
+  .field-label{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--fern); margin-bottom:0.5rem; display:block; }
+  input[type="text"], textarea{
+    width:100%; font-family:'Manrope', sans-serif; font-size:0.94rem; padding:0.7rem 0.9rem;
+    border:1px solid var(--moss); border-radius:4px; background:var(--canopy-deep); color:var(--paper);
+    transition:border-color 0.2s ease;
+  }
+  textarea{ min-height:80px; resize:vertical; }
+  input:focus-visible, textarea:focus-visible{ outline:none; border-color:var(--brass-bright); }
+  .build-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.05em; text-transform:uppercase;
+    background:var(--brass); color:var(--void); border:none; border-radius:3px; padding:0.7rem 1.2rem; cursor:pointer;
+    transition:background 0.2s ease, transform 0.15s ease; margin-top:0.6rem;
+  }
+  .build-btn:hover{ background:var(--brass-bright); transform:translateY(-2px); }
+  .letter-output{ display:none; margin-top:1.8rem; border-top:1px solid var(--moss); padding-top:1.4rem; }
+  .letter-output.is-visible{ display:block; animation:fadeUp 0.5s ease; }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  .letter-card{
+    background:var(--canopy-deep); border:1px solid var(--moss); border-left:4px solid var(--brass);
+    border-radius:6px; padding:1.6rem 1.7rem; font-family:'Manrope', sans-serif; font-size:0.92rem; color:var(--paper);
+    white-space:pre-wrap; line-height:1.7;
+  }
+  .copy-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.04em; text-transform:uppercase;
+    background:none; border:1px solid var(--fern-dim); color:var(--fern); border-radius:20px; padding:0.4rem 0.9rem;
+    cursor:pointer; margin-top:1rem;
+  }
+  .copy-btn:hover{ border-color:var(--brass-bright); color:var(--brass-bright); }
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 3 · Ch.4 · 3.4.1</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Field Craft</span>
+
+  <p class="lede reveal-line">A well-drafted RTI request gets a substantive answer. A vague one gives an unwilling authority an easy excuse to stall. This module is about the practical drafting skill — for the legal scope, exemptions, and appeal process behind the Act itself, see the cross-link below.</p>
+
+  <div class="cross-link reveal-line">
+    For the RTI Act's full legal scope, exemptions, and appeal ladder, see <a href="4.2.3.html">Pillar 4, Module 2.3 (The Right to Information Act in Practice)</a> — this module focuses specifically on drafting an effective request.
+  </div>
+
+  <h3 class="section-label">Drafting a Request That's Hard to Reject</h3>
+  <div class="compare-pair">
+    <div class="compare-card bad reveal-line">
+      <h5>Vague</h5>
+      <p>"All information about the factory's environmental compliance" — broad enough that an authority can claim it doesn't know what specifically to search for, or take months to compile.</p>
+    </div>
+    <div class="compare-card good reveal-line">
+      <h5>Specific</h5>
+      <p>"Copies of all Environmental Clearance Certificate applications and renewal decisions for [named facility] from [date] to [date]" — names the exact document type, the exact entity, and a bounded date range.</p>
+    </div>
+  </div>
+
+  <div class="mini-bento">
+    <div class="mini-card reveal-line">
+      <h4>Name the Document Type</h4>
+      <p>Ask for a specific record — an inspection report, a permit file, a meeting minute — not a general subject area.</p>
+    </div>
+    <div class="mini-card reveal-line">
+      <h4>Bound the Date Range</h4>
+      <p>An unbounded request is easier to deprioritize. A specific window signals you know exactly what you're looking for.</p>
+    </div>
+  </div>
+
+  <h3 class="section-label">Common Rejection Patterns</h3>
+  <p class="reveal-line">The most common rejection isn't a formal exemption claim — it's simply going quiet. A specific, well-bounded request makes silence more obviously indefensible if you escalate to appeal, because there's no ambiguity about what was actually asked for.</p>
+  <p class="pull-quote reveal-line">"A precise request doesn't just get better answers. It gets you a stronger position if you have to appeal a non-answer."</p>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">RTI Request Template Generator</h3>
+    <p class="tool-instructions">Fill in the details to generate a properly formatted draft request citing the RTI Act 2009.</p>
+
+    <div class="field-group">
+      <label class="field-label">Authority / Agency Name</label>
+      <input type="text" id="fAgency" placeholder="e.g. Department of Environment, Khulna Divisional Office">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Specific Information Sought</label>
+      <textarea id="fInfo" placeholder="e.g. Copies of all Environmental Clearance Certificate applications and renewal decisions for [Facility Name] from January 2023 to present"></textarea>
+    </div>
+    <div class="field-group">
+      <label class="field-label">Your Name</label>
+      <input type="text" id="fName" placeholder="Your full name">
+    </div>
+
+    <button class="build-btn" id="buildBtn">Generate Draft Request</button>
+
+    <div class="letter-output" id="letterOutput"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="3.3.3.html">&larr; 3.3 From Analysis to Publication Graphic</a>
+    <a href="3.4.2.html">Next: 4.2 Reading Environmental Impact Assessments &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "RTI Requests in Bangladesh".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.08) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  document.getElementById('buildBtn').addEventListener('click', () => {
+    const agency = document.getElementById('fAgency').value.trim();
+    const info = document.getElementById('fInfo').value.trim();
+    const name = document.getElementById('fName').value.trim();
+    const output = document.getElementById('letterOutput');
+
+    if(!agency || !info){
+      output.innerHTML = `<p style="color:var(--clay); font-size:0.9rem;">Fill in at minimum the agency name and the information sought.</p>`;
+      output.classList.add('is-visible');
+      return;
+    }
+
+    const today = new Date().toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric' });
+    const letterText = `To: The Designated Officer\n${agency}\n\nDate: ${today}\n\nSubject: Request for Information under the Right to Information Act, 2009\n\nDear Sir/Madam,\n\nUnder Section 8 of the Right to Information Act, 2009, I am requesting the following specific information:\n\n${info}\n\nI would be grateful if this information could be provided within the statutory timeframe (20 working days, or 30 days in exceptional cases as provided under the Act). If any part of this request must be refused, I request that the specific provision relied upon be cited, and that any non-exempt portions be provided as required under the Act.\n\nPlease advise if a fee applies to this request.\n\nSincerely,\n${name || '[Your Name]'}`;
+
+    output.innerHTML = `
+      <div class="letter-card">${letterText}</div>
+      <button class="copy-btn" id="copyBtn">Copy Draft</button>
+    `;
+    output.classList.add('is-visible');
+
+    document.getElementById('copyBtn').addEventListener('click', () => {
+      navigator.clipboard.writeText(letterText).then(() => {
+        const btn = document.getElementById('copyBtn');
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = original; }, 1500);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

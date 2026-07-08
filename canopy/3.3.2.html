@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3.3.2 — Web Mapping with Carto | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F; --canopy-deep:#122A1D; --canopy-mid:#1B3D28; --canopy-panel:#204731;
+    --moss:#3D6B4F; --fern:#8FB89B; --fern-dim:#5C8770; --brass:#C9A24B; --brass-bright:#E4C476;
+    --clay:#B5613F; --paper:#EFE9D8; --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;} }
+  html{scroll-behavior:smooth;}
+  body{ background:var(--canopy-deep); color:var(--paper); font-family:'Manrope', sans-serif; line-height:1.65; }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+  .wrap{max-width:960px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+  .breadcrumb{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern-dim); text-decoration:none; display:inline-block; margin-bottom:2rem; }
+  .breadcrumb:hover{color:var(--brass-bright);}
+  .module-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); margin-bottom:0.8rem; }
+  .kinetic-title{ font-family:'Fraunces', serif; font-weight:900; font-size:clamp(2rem, 7vw, 4rem); line-height:1; letter-spacing:-0.01em; display:flex; flex-wrap:wrap; margin-bottom:1.2rem; }
+  .kinetic-title .word{ display:inline-block; opacity:0; transform:translateY(0.5em); animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards; margin-right:0.28em; }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+  .module-level{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--fern); border:1px solid var(--fern-dim); padding:0.2rem 0.6rem; border-radius:20px; margin-bottom:3rem; }
+  .reveal-line{ opacity:0; transform:translateY(16px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+  h3.section-label{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--fern); border-bottom:1px dashed var(--moss); padding-bottom:0.4rem; margin:3rem 0 1.2rem; }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+  .mini-bento{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.9rem; margin:1.4rem 0 1.8rem; }
+  @media (max-width:700px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{ background:var(--canopy-mid); border:1px solid var(--moss); border-radius:4px; padding:1.1rem 1.2rem; transition:transform 0.2s ease, border-color 0.2s ease; }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{ font-family:'Fraunces', serif; font-size:1.02rem; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .mini-card p{font-size:0.88rem; margin:0;}
+  .case-block{ background:var(--canopy-mid); border-left:3px solid var(--brass); border-radius:4px; padding:1.2rem 1.4rem; margin:1.2rem 0; }
+  .case-block h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--brass-bright); margin-bottom:0.5rem; }
+  .case-block p{margin:0; color:var(--paper);}
+  .caution-card{ background:var(--canopy-panel); border-left:3px solid var(--clay); border-radius:4px; padding:1.1rem 1.3rem; margin:1.4rem 0 1.8rem; }
+  .caution-card h4{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--clay); margin-bottom:0.5rem; }
+  .caution-card p{margin:0; color:var(--paper);}
+  .pull-quote{ font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:1.4rem; line-height:1.4; color:var(--paper); border-left:3px solid var(--brass); padding-left:1.2rem; margin:1.6rem 0; }
+  .cross-link{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--fern);
+    background:var(--canopy-mid); border:1px dashed var(--moss); border-radius:4px; padding:0.9rem 1.1rem; margin:1.4rem 0 1.8rem;
+  }
+  .cross-link a{ text-decoration:underline; }
+  .tool{ margin-top:3.5rem; background:var(--canopy-mid); border:1px solid var(--moss); border-radius:6px; padding:2rem 1.8rem; }
+  .tool-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:0.4rem; }
+  .tool-title{ font-family:'Fraunces', serif; font-weight:700; font-size:1.6rem; margin-bottom:0.6rem; }
+  .tool-instructions{ font-size:0.94rem; color:var(--fern); margin-bottom:1.8rem; }
+  .quiz-item{ margin-bottom:1.5rem; }
+  .quiz-q{ font-size:0.96rem; color:var(--paper); margin-bottom:0.7rem; }
+  .quiz-q .qnum{ font-family:'IBM Plex Mono', monospace; color:var(--brass-bright); margin-right:0.5rem; }
+  .quiz-options{ display:flex; flex-direction:column; gap:0.5rem; }
+  .quiz-opt{
+    text-align:left; font-family:'Manrope', sans-serif; font-size:0.92rem;
+    background:var(--canopy-panel); border:1px solid var(--moss); border-radius:4px; color:var(--paper-dim);
+    padding:0.7rem 0.9rem; cursor:pointer; transition:transform 0.15s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+  .quiz-opt:hover{transform:translateX(3px); border-color:var(--brass);}
+  .quiz-opt.is-selected{background:var(--brass); border-color:var(--brass); color:var(--void);}
+  .assess-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.05em; text-transform:uppercase;
+    background:var(--brass); color:var(--void); border:none; border-radius:3px; padding:0.7rem 1.2rem; cursor:pointer;
+    transition:background 0.2s ease, transform 0.15s ease; margin-top:0.6rem;
+  }
+  .assess-btn:hover{ background:var(--brass-bright); transform:translateY(-2px); }
+  .result-box{ display:none; margin-top:1.8rem; border-top:1px solid var(--moss); padding-top:1.4rem; }
+  .result-box.is-visible{ display:block; animation:fadeUp 0.5s ease; }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  .map-badge{ font-family:'Fraunces', serif; font-weight:700; font-size:1.5rem; color:var(--brass-bright); margin-bottom:1rem; }
+  .score-bars{ display:flex; flex-direction:column; gap:0.6rem; margin-bottom:1.2rem; }
+  .score-row{
+    display:grid; grid-template-columns:100px 1fr 40px; align-items:center; gap:0.7rem;
+    font-family:'IBM Plex Mono', monospace; font-size:0.68rem; text-transform:uppercase; color:var(--fern);
+  }
+  .score-track{ height:8px; background:var(--canopy-deep); border-radius:20px; overflow:hidden; }
+  .score-fill{ height:100%; background:var(--brass); transition:width 0.6s cubic-bezier(.2,.8,.2,1); }
+  .score-row.is-winner .score-fill{background:var(--brass-bright);}
+  .score-row.is-winner{color:var(--brass-bright);}
+  .pitfall-box{
+    background:var(--canopy-panel); border-left:3px solid var(--clay); border-radius:4px;
+    padding:0.9rem 1.1rem; margin-top:1rem; font-size:0.92rem; color:var(--paper);
+  }
+  .pitfall-box strong{ display:block; font-family:'IBM Plex Mono', monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--clay); margin-bottom:0.4rem; }
+  .nav-footer{ margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--canopy-panel); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:0.78rem; text-transform:uppercase; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--brass-bright); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 3 · Ch.3 · 3.3.2</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Field Craft</span>
+
+  <p class="lede reveal-line">Not every map needs QGIS and a shapefile pipeline. Web mapping tools like Carto let you go from a spreadsheet with location data to a shareable, embeddable interactive map without writing code — the right choice for most publication-ready story maps.</p>
+
+  <h3 class="section-label">Carto Basics</h3>
+  <p class="reveal-line">Carto is a cloud-based mapping platform built around a simple workflow: upload a spreadsheet with location data (addresses, coordinates, or region names), choose how to visualize it, and style the result — no GIS software installation or coding required for the basics. It sits between a static chart tool and full desktop GIS software like QGIS: more mapping power than a chart, less complexity than a full spatial analysis pipeline.</p>
+
+  <h3 class="section-label">Choosing the Right Map Type</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line"><h4>Choropleth</h4><p>Colors regions (districts, divisions) by a value — best for comparing a quantity across administrative areas.</p></div>
+    <div class="mini-card reveal-line"><h4>Point Map</h4><p>Plots individual locations — best for showing exactly where specific things are (incidents, facilities, monitoring stations).</p></div>
+    <div class="mini-card reveal-line"><h4>Heat Map</h4><p>Shows density or concentration across space — best when the pattern of clustering matters more than any single point.</p></div>
+  </div>
+
+  <h3 class="section-label">Publishing and Embedding</h3>
+  <div class="case-block reveal-line">
+    <p>Once built, a Carto map generates a shareable link and an embed code — a snippet you can drop directly into a web story's HTML, the same way you'd embed a YouTube video. This is what makes web mapping tools genuinely practical for daily publishing, versus a static map image that has to be re-exported every time the underlying data updates.</p>
+  </div>
+  <div class="caution-card reveal-line">
+    <h4>Don't Over-Interact</h4>
+    <p>An interactive map with too many toggles and filters can bury the actual finding under options the reader has to figure out themselves. Default the map to the view that makes your point, and add interactivity only where it genuinely helps the reader explore further.</p>
+  </div>
+  <p class="pull-quote reveal-line">"The map should make its point before the reader touches anything. Interactivity is for exploring further, not for finding the story."</p>
+
+  <div class="cross-link reveal-line">
+    See <a href="1.7.2.html">Pillar 1, Module 7.2 (Data Visualization for Narrative)</a> for the same chart-choice principles applied to charts more broadly.
+  </div>
+
+  <div class="tool">
+    <span class="tool-kicker">Field Tool</span>
+    <h3 class="tool-title">Which Map Fits My Data?</h3>
+    <p class="tool-instructions">Answer two questions to get a recommended map type with reasoning.</p>
+
+    <div id="quizContainer"></div>
+    <button class="assess-btn" id="assessBtn">Get My Recommendation</button>
+    <div class="result-box" id="resultBox"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="3.3.1.html">&larr; 3.1 GIS Basics for Journalists</a>
+    <a href="3.3.3.html">Next: 3.3 From Analysis to Publication Graphic &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  const titleEl = document.getElementById('kineticTitle');
+  "Web Mapping with Carto".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word'; span.style.animationDelay = (i * 0.09) + 's'; span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('is-visible'); } });
+  }, { threshold:0.3 });
+  document.querySelectorAll('.reveal-line').forEach(t => revealObserver.observe(t));
+
+  const questions = [
+    {
+      q:'What kind of location data do you have?',
+      options:[
+        { text:'A value tied to each administrative region (district, division)', points:{choropleth:3, point:0, heat:0} },
+        { text:'Individual specific locations (addresses, facilities, incidents)', points:{choropleth:0, point:3, heat:1} },
+        { text:'Many overlapping points where clustering itself matters', points:{choropleth:0, point:1, heat:3} }
+      ]
+    },
+    {
+      q:'What\'s the point you\'re trying to make?',
+      options:[
+        { text:'Comparing a quantity across regions', points:{choropleth:2, point:0, heat:0} },
+        { text:'Showing exactly where specific things are located', points:{choropleth:0, point:2, heat:0} },
+        { text:'Showing where something is most concentrated', points:{choropleth:0, point:0, heat:2} }
+      ]
+    }
+  ];
+
+  const labels = { choropleth:'Choropleth', point:'Point Map', heat:'Heat Map' };
+  const descriptions = {
+    choropleth:'Color-codes each region by value — ideal for comparing a quantity across districts or divisions.',
+    point:'Plots individual locations — ideal for showing readers exactly where specific things are.',
+    heat:'Shows concentration and density across space — ideal when clustering itself is the finding.'
+  };
+  const pitfalls = {
+    choropleth:'Large regions with few data points can visually dominate a choropleth even if the underlying number isn\'t that significant — consider whether a per-capita or rate value would be more honest than a raw count.',
+    point:'Too many overlapping points can become unreadable at a glance — consider clustering or filtering if you have hundreds of points.',
+    heat:'A heat map can visually suggest precision that isn\'t really there — make clear in the caption that it shows relative density, not exact counts at exact locations.'
+  };
+
+  const quizContainer = document.getElementById('quizContainer');
+  const answers = [];
+
+  questions.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-item';
+    div.innerHTML = `<p class="quiz-q"><span class="qnum">Q${i+1}</span>${item.q}</p><div class="quiz-options"></div>`;
+    const optsDiv = div.querySelector('.quiz-options');
+    item.options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-opt';
+      btn.textContent = opt.text;
+      btn.addEventListener('click', () => {
+        optsDiv.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('is-selected'));
+        btn.classList.add('is-selected');
+        answers[i] = opt.points;
+      });
+      optsDiv.appendChild(btn);
+    });
+    quizContainer.appendChild(div);
+  });
+
+  document.getElementById('assessBtn').addEventListener('click', () => {
+    const resultBox = document.getElementById('resultBox');
+    if(answers.filter(Boolean).length < questions.length){
+      resultBox.innerHTML = `<div style="color:var(--clay); font-size:0.9rem;">Answer both questions to get a recommendation.</div>`;
+      resultBox.classList.add('is-visible');
+      return;
+    }
+
+    const totals = { choropleth:0, point:0, heat:0 };
+    answers.forEach(a => { Object.keys(a).forEach(k => totals[k] += a[k]); });
+
+    const maxVal = Math.max(...Object.values(totals));
+    const winner = Object.keys(totals).find(k => totals[k] === maxVal);
+    const minVal = Math.min(...Object.values(totals), 0);
+    const range = maxVal - minVal || 1;
+
+    let barsHtml = '';
+    Object.keys(labels).forEach(key => {
+      const pct = Math.max(6, Math.round(((totals[key] - minVal) / range) * 100));
+      barsHtml += `
+        <div class="score-row ${key === winner ? 'is-winner' : ''}">
+          <span>${labels[key]}</span>
+          <div class="score-track"><div class="score-fill" style="width:${pct}%"></div></div>
+          <span>${totals[key]}</span>
+        </div>
+      `;
+    });
+
+    resultBox.innerHTML = `
+      <p class="map-badge">Recommended: ${labels[winner]}</p>
+      <p style="color:var(--paper-dim); margin-bottom:1.2rem;">${descriptions[winner]}</p>
+      <div class="score-bars">${barsHtml}</div>
+      <div class="pitfall-box"><strong>Watch For</strong>${pitfalls[winner]}</div>
+    `;
+    resultBox.classList.add('is-visible');
+  });
+</script>
+
+</body>
+</html>

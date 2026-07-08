@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1.7.3 — Scrollytelling and Interactive Formats | Canopy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0A140F;
+    --canopy-deep:#122A1D;
+    --canopy-mid:#1B3D28;
+    --canopy-panel:#204731;
+    --moss:#3D6B4F;
+    --fern:#8FB89B;
+    --fern-dim:#5C8770;
+    --brass:#C9A24B;
+    --brass-bright:#E4C476;
+    --clay:#B5613F;
+    --paper:#EFE9D8;
+    --paper-dim:#B9C4B9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--canopy-deep);
+    color:var(--paper);
+    font-family:'Manrope', sans-serif;
+    line-height:1.65;
+  }
+  a{color:var(--brass-bright);}
+  ::selection{background:var(--brass); color:var(--void);}
+
+  .wrap{max-width:920px; margin:0 auto; padding:2.4rem 6vw 6rem;}
+
+  .breadcrumb{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--fern-dim);
+    text-decoration:none;
+    display:inline-block;
+    margin-bottom:2rem;
+  }
+  .breadcrumb:hover{color:var(--brass-bright);}
+
+  .module-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--fern);
+    margin-bottom:0.8rem;
+  }
+  .kinetic-title{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:clamp(1.8rem, 6.5vw, 3.7rem);
+    line-height:1.02;
+    letter-spacing:-0.01em;
+    display:flex;
+    flex-wrap:wrap;
+    margin-bottom:1.2rem;
+  }
+  .kinetic-title .word{
+    display:inline-block;
+    opacity:0;
+    transform:translateY(0.5em);
+    animation:wordUp 0.7s cubic-bezier(.2,.8,.2,1) forwards;
+    margin-right:0.28em;
+  }
+  @keyframes wordUp{ to{opacity:1; transform:translateY(0);} }
+
+  .module-level{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--fern);
+    border:1px solid var(--fern-dim);
+    padding:0.2rem 0.6rem;
+    border-radius:20px;
+    margin-bottom:3rem;
+  }
+
+  .reveal-line{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal-line.is-visible{opacity:1; transform:translateY(0);}
+
+  h3.section-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--fern);
+    border-bottom:1px dashed var(--moss);
+    padding-bottom:0.4rem;
+    margin:3rem 0 1.2rem;
+  }
+  p{margin:0 0 1.1rem; color:var(--paper-dim); font-size:1rem;}
+  p.lede{font-size:1.08rem;}
+
+  .pull-quote{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:1.4rem;
+    line-height:1.4;
+    color:var(--paper);
+    border-left:3px solid var(--brass);
+    padding-left:1.2rem;
+    margin:1.6rem 0;
+  }
+
+  .compare-pair{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem;
+    margin:1.4rem 0 1.8rem;
+  }
+  @media (max-width:640px){ .compare-pair{grid-template-columns:1fr;} }
+  .compare-card{ border-radius:4px; padding:1.1rem 1.2rem; }
+  .compare-card.bad{background:rgba(181,97,63,0.12); border:1px solid var(--clay);}
+  .compare-card.good{background:rgba(143,184,155,0.12); border:1px solid var(--fern-dim);}
+  .compare-card h5{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    margin-bottom:0.5rem;
+  }
+  .compare-card.bad h5{color:var(--clay);}
+  .compare-card.good h5{color:var(--fern);}
+  .compare-card p{font-size:0.9rem; margin:0; color:var(--paper);}
+
+  .mini-bento{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr 1fr;
+    gap:0.8rem;
+    margin:1.4rem 0 1.8rem;
+  }
+  @media (max-width:800px){ .mini-bento{grid-template-columns:1fr 1fr;} }
+  @media (max-width:500px){ .mini-bento{grid-template-columns:1fr;} }
+  .mini-card{
+    background:var(--canopy-mid);
+    border:1px solid var(--moss);
+    border-radius:4px;
+    padding:1rem 1.1rem;
+    transition:transform 0.2s ease, border-color 0.2s ease;
+  }
+  .mini-card:hover{transform:translateY(-3px); border-color:var(--brass);}
+  .mini-card h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    color:var(--brass-bright);
+    margin-bottom:0.5rem;
+  }
+  .mini-card p{font-size:0.85rem; margin:0;}
+
+  .case-block{
+    background:var(--canopy-mid);
+    border-left:3px solid var(--brass);
+    border-radius:4px;
+    padding:1.2rem 1.4rem;
+    margin:1.2rem 0;
+  }
+  .case-block h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--brass-bright);
+    margin-bottom:0.5rem;
+  }
+  .case-block p{margin:0; color:var(--paper);}
+
+  /* ---------- Exercise ---------- */
+  .exercise{
+    margin-top:3.5rem;
+    background:var(--canopy-mid);
+    border:1px solid var(--moss);
+    border-radius:6px;
+    padding:2rem 1.8rem;
+  }
+  .exercise-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--brass-bright);
+    margin-bottom:0.4rem;
+  }
+  .exercise-title{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:1.7rem;
+    margin-bottom:0.6rem;
+  }
+  .exercise-instructions{
+    font-size:0.94rem;
+    color:var(--fern);
+    margin-bottom:1rem;
+  }
+  .sample-links{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--fern-dim); margin-bottom:1.4rem; }
+  .sample-links button{
+    background:none; border:1px solid var(--moss); border-radius:20px; color:var(--fern);
+    font-family:inherit; font-size:inherit; padding:0.3rem 0.7rem; cursor:pointer; margin-right:0.5rem; margin-bottom:0.4rem;
+    transition:border-color 0.2s ease, color 0.2s ease;
+  }
+  .sample-links button:hover{border-color:var(--brass-bright); color:var(--brass-bright);}
+
+  .palette{
+    display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.6rem;
+    padding:1rem; background:var(--canopy-deep); border:1px dashed var(--moss); border-radius:4px;
+  }
+  .block-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.76rem; letter-spacing:0.02em;
+    border-radius:4px; padding:0.6rem 0.9rem; cursor:pointer; border:1px solid; transition:transform 0.15s ease;
+  }
+  .block-btn:hover{transform:translateY(-2px);}
+  .block-btn.is-selected{outline:2px solid var(--paper); outline-offset:1px;}
+  .block-hook{background:rgba(228,196,118,0.15); color:var(--brass-bright); border-color:var(--brass);}
+  .block-data{background:rgba(143,184,155,0.15); color:var(--fern); border-color:var(--fern-dim);}
+  .block-anchor{background:rgba(181,97,63,0.15); color:var(--clay); border-color:var(--clay);}
+  .block-interactive{background:rgba(185,196,185,0.15); color:var(--paper); border-color:var(--paper-dim);}
+  .block-resolution{background:rgba(201,162,75,0.25); color:var(--brass-bright); border-color:var(--brass-bright);}
+
+  .slot-track{
+    display:grid; grid-template-columns:repeat(6, 1fr); gap:0.5rem; margin-bottom:1.6rem;
+  }
+  @media (max-width:680px){ .slot-track{grid-template-columns:repeat(3, 1fr);} }
+  .slot{
+    min-height:70px; border:2px dashed var(--moss); border-radius:4px;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--fern-dim);
+    cursor:pointer; padding:0.3rem; transition:border-color 0.2s ease;
+  }
+  .slot:hover{border-color:var(--brass);}
+  .slot.filled{border-style:solid; color:var(--paper); font-family:'Manrope', sans-serif; font-size:0.72rem;}
+
+  .exercise-controls{ display:flex; gap:0.8rem; flex-wrap:wrap; margin-bottom:1.4rem; }
+  .action-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.05em; text-transform:uppercase;
+    border:none; border-radius:3px; padding:0.7rem 1.2rem; cursor:pointer; transition:background 0.2s ease, transform 0.15s ease;
+  }
+  .analyze-btn{background:var(--brass); color:var(--void);}
+  .analyze-btn:hover{background:var(--brass-bright); transform:translateY(-2px);}
+  .clear-btn{background:none; border:1px solid var(--fern-dim); color:var(--fern);}
+  .clear-btn:hover{border-color:var(--brass-bright); color:var(--brass-bright);}
+
+  .feedback-box{ display:none; border-top:1px solid var(--moss); padding-top:1.4rem; margin-top:0.6rem; }
+  .feedback-box.is-visible{display:block; animation:fadeUp 0.5s ease;}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  .feedback-item{
+    display:flex; gap:0.7rem; align-items:flex-start; padding:0.7rem 0;
+    border-bottom:1px solid var(--canopy-panel); font-size:0.92rem;
+  }
+  .feedback-icon{font-family:'IBM Plex Mono', monospace; flex-shrink:0;}
+  .feedback-item.positive .feedback-icon{color:var(--fern);}
+  .feedback-item.caution .feedback-icon{color:var(--clay);}
+  .feedback-item p{margin:0; color:var(--paper-dim);}
+
+  .nav-footer{
+    margin-top:4rem;
+    padding-top:1.4rem;
+    border-top:1px solid var(--canopy-panel);
+    display:flex;
+    justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    text-transform:uppercase;
+  }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--brass-bright); outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="breadcrumb" href="index.html">&larr; Back to Canopy</a>
+
+  <p class="module-kicker">Module 1 · Ch.7 · 1.7.3</p>
+  <h1 class="kinetic-title" id="kineticTitle"></h1>
+  <span class="module-level">Advanced</span>
+
+  <p class="lede reveal-line">Scrollytelling is expensive to build and easy to misuse. Before writing a line of code, the real question is whether the content actually needs the reader's scroll position to unfold — or whether it's being used because it looks impressive, not because it serves the story.</p>
+
+  <h3 class="section-label">When Interactive Format Adds Value vs. Decoration</h3>
+  <div class="compare-pair">
+    <div class="compare-card bad reveal-line">
+      <h5>Decoration</h5>
+      <p>A simple linear narrative gets chopped into scroll-triggered fragments purely for visual novelty — the reader could get the same understanding from a normal article, just with more friction to read it.</p>
+    </div>
+    <div class="compare-card good reveal-line">
+      <h5>Genuine Value</h5>
+      <p>A story with a genuinely spatial or sequential dimension — how deforestation spread across a map over a decade, how a river's course shifted — where seeing the change unfold as you scroll or interact conveys something static text and images can't.</p>
+    </div>
+  </div>
+  <p class="reveal-line">A useful test: could this story be told just as well as a well-structured long-form article with embedded charts? If yes, the interactive format is probably decoration. If the sequence or interactivity itself is doing narrative work a static article couldn't, it's earning its place.</p>
+
+  <h3 class="section-label">Pacing Scroll-Triggered Reveals</h3>
+  <p class="reveal-line">Each scroll-triggered reveal should mirror the pace at which a reader can actually absorb new information — not the pace that looks most dramatic in a demo. Revealing three data points in rapid succession without pause tends to overwhelm rather than build understanding; spacing reveals to match a natural reading rhythm respects the reader's attention.</p>
+
+  <h3 class="section-label">Structuring a Scrollytelling Outline</h3>
+  <div class="mini-bento">
+    <div class="mini-card reveal-line"><h4>Hook</h4><p>A striking opening moment or visual that earns the scroll — before any data appears.</p></div>
+    <div class="mini-card reveal-line"><h4>Escalating Data Reveals</h4><p>Each reveal should build on the last, increasing in specificity or stakes rather than repeating the same kind of point.</p></div>
+    <div class="mini-card reveal-line"><h4>Human Anchor</h4><p>At least one grounding character moment partway through, so the piece doesn't read as pure abstraction.</p></div>
+    <div class="mini-card reveal-line"><h4>Resolution</h4><p>A closing takeaway that gives the reader something to do with everything they've just scrolled through.</p></div>
+  </div>
+
+  <h3 class="section-label">Production Basics</h3>
+  <div class="case-block reveal-line">
+    <p>Technically, most of what you need is a single HTML file with scroll-position detection (an Intersection Observer watching each section as it enters the viewport) triggering CSS transitions or class changes — the same underlying pattern used throughout this toolkit's own modules. Keep the file self-contained, test on an actual phone rather than only a desktop browser, and always build in a way for the content to be understood even if the animation fails to load.</p>
+  </div>
+  <p class="pull-quote reveal-line">"If turning off the animation would make the story unreadable, the story was relying on the effect instead of the reporting."</p>
+
+  <div class="exercise">
+    <span class="exercise-kicker">Field Exercise</span>
+    <h3 class="exercise-title">Build the Scrollytelling Outline</h3>
+    <p class="exercise-instructions">Tap a block, then tap a slot to place it across six sections. Fill all six, then analyze the pacing.</p>
+
+    <p class="sample-links">Load a sample shape:
+      <button type="button" data-sample="investigative">Investigative</button>
+      <button type="button" data-sample="explainer">Explainer</button>
+    </p>
+
+    <div class="palette" id="palette">
+      <button class="block-btn block-hook" data-type="hook">Hook</button>
+      <button class="block-btn block-data" data-type="data">Data Reveal</button>
+      <button class="block-btn block-anchor" data-type="anchor">Human Anchor</button>
+      <button class="block-btn block-interactive" data-type="interactive">Interactive Moment</button>
+      <button class="block-btn block-resolution" data-type="resolution">Resolution</button>
+    </div>
+
+    <div class="slot-track" id="slotTrack"></div>
+
+    <div class="exercise-controls">
+      <button class="action-btn analyze-btn" id="analyzeBtn">Analyze Pacing</button>
+      <button class="action-btn clear-btn" id="clearBtn">Clear</button>
+    </div>
+
+    <div class="feedback-box" id="feedbackBox"></div>
+  </div>
+
+  <div class="nav-footer">
+    <a href="1.7.2.html">&larr; 7.2 Data Visualization for Narrative</a>
+    <a href="index.html">Canopy &rarr;</a>
+  </div>
+
+</div>
+
+<script>
+  /* ---------- Kinetic title ---------- */
+  const titleEl = document.getElementById('kineticTitle');
+  "Scrollytelling and Interactive Formats".split(' ').forEach((w, i) => {
+    const span = document.createElement('span');
+    span.className = 'word';
+    span.style.animationDelay = (i * 0.07) + 's';
+    span.textContent = w;
+    titleEl.appendChild(span);
+  });
+
+  /* ---------- Scroll reveal ---------- */
+  const revealTargets = document.querySelectorAll('.reveal-line');
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('is-visible'); }
+    });
+  }, { threshold:0.3 });
+  revealTargets.forEach(t => revealObserver.observe(t));
+
+  /* ---------- Outline builder ---------- */
+  const labels = { hook:'Hook', data:'Data Reveal', anchor:'Human Anchor', interactive:'Interactive Moment', resolution:'Resolution' };
+  const slotCount = 6;
+  let slots = new Array(slotCount).fill(null);
+  let selectedType = null;
+
+  const slotTrack = document.getElementById('slotTrack');
+  const paletteButtons = document.querySelectorAll('.block-btn');
+  const feedbackBox = document.getElementById('feedbackBox');
+
+  function renderSlots(){
+    slotTrack.innerHTML = '';
+    slots.forEach((val, i) => {
+      const slot = document.createElement('div');
+      slot.className = 'slot' + (val ? ' filled block-' + val : '');
+      slot.textContent = val ? (i + 1) + '. ' + labels[val] : (i + 1);
+      slot.addEventListener('click', () => placeBlock(i));
+      slotTrack.appendChild(slot);
+    });
+  }
+
+  function placeBlock(i){
+    if(!selectedType) return;
+    slots[i] = selectedType;
+    renderSlots();
+    feedbackBox.classList.remove('is-visible');
+  }
+
+  paletteButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      paletteButtons.forEach(b => b.classList.remove('is-selected'));
+      btn.classList.add('is-selected');
+      selectedType = btn.dataset.type;
+    });
+  });
+
+  document.getElementById('clearBtn').addEventListener('click', () => {
+    slots = new Array(slotCount).fill(null);
+    renderSlots();
+    feedbackBox.classList.remove('is-visible');
+  });
+
+  const samples = {
+    investigative: ['hook','data','anchor','data','interactive','resolution'],
+    explainer: ['hook','anchor','data','interactive','data','resolution']
+  };
+
+  document.querySelectorAll('.sample-links button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      slots = [...samples[btn.dataset.sample]];
+      renderSlots();
+      feedbackBox.classList.remove('is-visible');
+    });
+  });
+
+  document.getElementById('analyzeBtn').addEventListener('click', () => {
+    if(slots.some(s => s === null)){
+      feedbackBox.innerHTML = `<div class="feedback-item caution"><span class="feedback-icon">!</span><p>Fill all six slots before analyzing.</p></div>`;
+      feedbackBox.classList.add('is-visible');
+      return;
+    }
+
+    const items = [];
+
+    if(slots[0] !== 'hook'){
+      items.push({type:'caution', text:'Doesn\'t open with a Hook. Starting elsewhere risks losing the reader before they\'ve decided to invest in scrolling further.'});
+    } else {
+      items.push({type:'positive', text:'Opens with a Hook — a strong choice for earning the scroll.'});
+    }
+
+    if(slots[slots.length-1] !== 'resolution'){
+      items.push({type:'caution', text:'Doesn\'t end with a Resolution. Without a closing takeaway, the reader may finish scrolling without a clear sense of what to do with what they\'ve seen.'});
+    } else {
+      items.push({type:'positive', text:'Ends with a Resolution, giving the reader a clear closing takeaway.'});
+    }
+
+    let maxRun = 1, currentRun = 1, runType = slots[0];
+    for(let i = 1; i < slots.length; i++){
+      if(slots[i] === slots[i-1]){
+        currentRun++;
+        if(currentRun > maxRun){ maxRun = currentRun; runType = slots[i]; }
+      } else { currentRun = 1; }
+    }
+    if(maxRun >= 3){
+      items.push({type:'caution', text:`There's a run of ${maxRun} consecutive ${labels[runType]} sections. Especially for Data Reveals, an unbroken run without a Human Anchor between them risks feeling like a wall of statistics.`});
+    } else {
+      items.push({type:'positive', text:'No long unbroken runs of the same block type — the sequence alternates at a reasonable rate.'});
+    }
+
+    const hasAnchor = slots.includes('anchor');
+    if(!hasAnchor){
+      items.push({type:'caution', text:'No Human Anchor at all. A scrollytelling piece built entirely from data and hooks risks feeling cold or abstract by the end.'});
+    }
+
+    const hasInteractive = slots.includes('interactive');
+    if(!hasInteractive){
+      items.push({type:'caution', text:'No Interactive Moment in this outline. Worth asking directly: does this piece actually need the scrollytelling format, or would a well-structured static article serve it just as well?'});
+    } else {
+      items.push({type:'positive', text:'Includes at least one genuine Interactive Moment, supporting the case for using this format at all.'});
+    }
+
+    const dataCount = slots.filter(s => s === 'data').length;
+    if(dataCount >= 2){
+      items.push({type:'positive', text:'Multiple Data Reveals present — check that each one escalates in specificity or stakes rather than repeating the same kind of point.'});
+    }
+
+    feedbackBox.innerHTML = items.map(it =>
+      `<div class="feedback-item ${it.type}"><span class="feedback-icon">${it.type === 'positive' ? '✓' : '!'}</span><p>${it.text}</p></div>`
+    ).join('');
+    feedbackBox.classList.add('is-visible');
+  });
+
+  renderSlots();
+</script>
+
+</body>
+</html>
