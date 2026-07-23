@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framing Theory, Media Theory Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15130f; --paper:#ede7dc; --paper-dim:#ddd5c4; --line:#15130f33;
+    --red:#c9391f; --blue:#1f4f8f; --olive:#4c5f2a; --mustard:#c98b12; --violet:#5c3a80;
+    --bg: var(--paper); --fg: var(--ink); --bg-dim: var(--paper-dim); --rule: var(--line);
+    --invert-bg: var(--ink); --invert-fg: var(--paper); --theme: var(--mustard);
+  }
+  html.dark{ --bg:#121110; --fg:#ede7dc; --bg-dim:#1c1a17; --rule:#ede7dc2e; --invert-bg: var(--paper); --invert-fg: var(--ink); }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--fg); font-family:'Archivo', sans-serif; transition:background .25s ease, color .25s ease; overflow-x:hidden; }
+  .display{ font-family:'Anton', sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.92; }
+  .mono{ font-family:'Space Mono', monospace; text-transform:uppercase; letter-spacing:0.08em; }
+  a{ color:inherit; }
+  :focus-visible{ outline: 3px solid currentColor; outline-offset: 3px; }
+
+  header.nav{ position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:16px 28px; background:var(--bg); border-bottom:1.5px solid var(--rule); }
+  .nav-logo{ font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .nav-logo .dot{ width:9px; height:9px; border-radius:50%; background: conic-gradient(var(--red) 0 20%, var(--blue) 20% 40%, var(--olive) 40% 60%, var(--mustard) 60% 80%, var(--violet) 80% 100%); flex-shrink:0; }
+  .nav-right{ display:flex; gap:10px; align-items:center; }
+  .icon-btn{ background:none; border:1.5px solid var(--fg); color:var(--fg); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .icon-btn svg{ width:16px; height:16px; }
+  .back-link{ display:flex; align-items:center; gap:8px; font-family:'Space Mono', monospace; font-size:11.5px; text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; }
+
+  .theory-hero{ background:var(--theme); color:var(--ink); padding:64px 6vw 70px; border-bottom:1.5px solid var(--rule); }
+  .theory-meta{ display:flex; gap:22px; align-items:center; flex-wrap:wrap; margin-bottom:26px; }
+  .theory-meta .mono{ font-size:12px; opacity:0.75; }
+  .theme-tag{ display:inline-flex; align-items:center; gap:8px; border:1.3px solid var(--ink); border-radius:999px; padding:6px 14px; font-size:11px; }
+  .theme-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--ink); }
+  .theory-hero h1{ font-size:clamp(40px, 8vw, 108px); margin:0; max-width:20ch; }
+  .theory-hero .aka{ font-size:clamp(15px,1.8vw,20px); margin-top:18px; font-style:italic; opacity:0.85; font-weight:500; }
+  .theorist-line{ margin-top:34px; display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; }
+  .theorist-line .name{ font-size:18px; font-weight:700; }
+  .theorist-line .role{ font-size:13px; opacity:0.75; }
+
+  section{ padding:80px 6vw; border-bottom:1.5px solid var(--rule); }
+  .section-eyebrow{ font-size:12px; opacity:0.6; margin-bottom:16px; display:flex; align-items:center; gap:12px; }
+  .section-eyebrow::before{ content:""; width:30px; height:2px; background:var(--theme); }
+  .section-title{ font-size:clamp(26px,3.4vw,44px); margin:0 0 30px; }
+
+  .context-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap:60px; align-items:start; }
+  .context-grid p{ font-size:16px; line-height:1.7; margin:0 0 20px; }
+  .context-card{ background:var(--bg-dim); border:1.5px solid var(--rule); border-radius:8px; padding:26px; }
+  .context-card .mono{ font-size:11px; opacity:0.6; margin-bottom:14px; display:block; }
+  .context-card ul{ margin:0; padding-left:18px; }
+  .context-card li{ font-size:14px; line-height:1.7; margin-bottom:10px; }
+  @media (max-width: 860px){ .context-grid{ grid-template-columns:1fr; gap:34px; } }
+
+  .term-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; }
+  .term-card{ border:1.5px solid var(--rule); border-radius:8px; padding:24px; }
+  .term-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:10px; display:block; }
+  .term-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:19px; margin:0 0 12px; line-height:1.05; }
+  .term-card p{ font-size:13.5px; line-height:1.6; margin:0; opacity:0.9; }
+  @media (max-width: 860px){ .term-grid{ grid-template-columns:1fr; } }
+
+  .example-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:22px; }
+  .example-card{ background:var(--bg-dim); border-radius:8px; padding:26px 28px; border-top:5px solid var(--theme); }
+  .example-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:12px; display:block; }
+  .example-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:20px; margin:0 0 12px; line-height:1.08; }
+  .example-card p{ font-size:14px; line-height:1.65; margin:0; }
+  .example-card p + p{ margin-top:12px; }
+  @media (max-width: 860px){ .example-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- FRAME SWITCHER ---------- */
+  .stage{ background:var(--invert-bg); color:var(--invert-fg); border-radius:14px; padding:50px 6vw; position:relative; overflow:hidden; }
+  .stage-head{ margin-bottom:16px; }
+  .stage-head h3{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(22px,3vw,34px); margin:0; }
+  .stage-head p{ max-width:64ch; font-size:14px; line-height:1.6; opacity:0.75; margin:10px 0 0; }
+  .event-line{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    border:1.3px solid var(--invert-fg);
+    border-radius:999px;
+    padding:10px 20px;
+    display:inline-block;
+    margin:20px 0 34px;
+  }
+
+  .frame-tabs{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:30px; }
+  .frame-tab{
+    font-family:'Space Mono', monospace;
+    font-size:11.5px;
+    border:1.3px solid var(--invert-fg);
+    background:none;
+    color:var(--invert-fg);
+    border-radius:999px;
+    padding:10px 18px;
+    cursor:pointer;
+  }
+  .frame-tab.active{ background:var(--theme); border-color:var(--theme); color:var(--ink); }
+
+  .frame-mockup{
+    max-width:640px;
+    margin:0 auto;
+    background:var(--bg-dim);
+    color:var(--fg);
+    border-radius:10px;
+    padding:28px 30px;
+    border:1.5px solid var(--rule);
+  }
+  html.dark .frame-mockup{ color:var(--invert-fg); }
+  .frame-mockup .frame-tag{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    opacity:0.6;
+    display:block;
+    margin-bottom:10px;
+  }
+  .frame-mockup .frame-headline{
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    font-size:21px;
+    line-height:1.1;
+    margin:0 0 14px;
+  }
+  .frame-mockup .frame-body{ font-size:13.5px; line-height:1.7; margin:0; }
+
+  .frame-caption{ max-width:640px; margin:22px auto 0; text-align:center; }
+  .frame-caption .mono{ font-size:10.5px; opacity:0.6; display:block; margin-bottom:8px; }
+  .frame-caption p{ font-size:13.5px; line-height:1.6; margin:0; opacity:0.85; }
+
+  .summary{ display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap; }
+  .summary .big-quote{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(24px,3.6vw,42px); line-height:1.05; max-width:20ch; color:var(--theme); }
+  .summary .side-note{ max-width:42ch; font-size:14.5px; line-height:1.7; opacity:0.85; padding-top:8px; }
+
+  .challenge{ background:var(--bg-dim); border-left:4px solid var(--theme); border-radius:0 8px 8px 0; padding:26px 30px; }
+  .challenge .mono{ font-size:11px; opacity:0.6; margin-bottom:12px; display:block; }
+  .challenge p{ margin:0 0 16px; font-size:15px; line-height:1.7; }
+  .challenge p:last-child{ margin-bottom:0; }
+
+  .next-teaser{ display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; background:var(--olive); color:var(--paper); border-radius:10px; padding:34px 36px; }
+  .next-teaser .mono{ font-size:11px; opacity:0.85; margin-bottom:10px; display:block; }
+  .next-teaser h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(20px,2.6vw,30px); margin:0; }
+  .next-teaser a{ text-decoration:none; border:1.3px solid var(--paper); border-radius:999px; padding:11px 22px; font-family:'Space Mono', monospace; font-size:11.5px; letter-spacing:0.05em; white-space:nowrap; }
+
+  footer{ padding:34px 6vw; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; font-size:11.5px; }
+  footer .foot-links{ display:flex; gap:20px; }
+  footer a{ text-decoration:none; }
+  footer a:hover{ opacity:0.6; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="back-link" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg>
+    All theories
+  </a>
+  <a class="nav-logo" href="index.html">
+    <span class="dot"></span>
+    <span class="mono">Media Theory Atlas</span>
+  </a>
+  <div class="nav-right">
+    <button class="icon-btn" id="modeToggle" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2 12h2.4M19.6 12H22M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="theory-hero" style="border-bottom:none;">
+  <div class="theory-meta">
+    <span class="mono">1970s</span>
+    <span class="theme-tag"><span class="dot"></span>Form and Technology</span>
+  </div>
+  <h1 class="display">Framing Theory</h1>
+  <div class="theorist-line">
+    <span class="name">Erving Goffman</span>
+    <span class="role">Sociologist, later applied to journalism by Robert Entman and others</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Historical context</div>
+  <h2 class="section-title display">Deciding what is going on here</h2>
+  <div class="context-grid">
+    <div>
+      <p>Erving Goffman spent his career studying the small, often invisible rules people use to make sense of everyday situations, and in his 1974 book <em>Frame Analysis: An Essay on the Organization of Experience</em>, he gave that process a name. A frame, in Goffman's sense, is the interpretive structure a person uses to answer a question they are usually not even aware of asking: what is going on here. The same physical actions, two people grappling on the ground, mean something entirely different depending on whether the frame in play is a sporting match, a street fight, or a rehearsal for a play.</p>
+      <p>Goffman's framework was originally about everyday social life, not journalism, but communication researchers quickly recognized its relevance to the news. A journalist deciding how to cover a story is, whether consciously or not, choosing a frame: which details to lead with, which sources to quote first, which words to use for the people involved, and which broader storyline the specific facts get slotted into.</p>
+      <p>The political scientist Robert Entman gave media framing its most widely cited definition in 1993, describing it as the act of selecting some aspects of a perceived reality and making them more salient in a way that promotes a particular problem definition, a particular explanation of its cause, a moral judgment about it, and a particular way of thinking about how to address it. Crucially, framing does not require leaving out facts or stating anything false. It works entirely through selection and emphasis of facts that are often all genuinely true.</p>
+      <p>Framing theory also draws real support from outside media research entirely. The psychologists Daniel Kahneman and Amos Tversky demonstrated in the 1980s that people offered the identical statistical outcome, framed once as a number of lives saved and once as a number of lives lost, made significantly different choices depending purely on which framing they heard, evidence that framing effects are not just a media studies theory but a documented feature of human judgment itself.</p>
+    </div>
+    <div class="context-card">
+      <span class="mono">What fed this theory</span>
+      <ul>
+        <li>Goffman's 1974 book, <em>Frame Analysis: An Essay on the Organization of Experience</em></li>
+        <li>Robert Entman's influential 1993 definition of media framing</li>
+        <li>Kahneman and Tversky's experimental work on framing effects in decision making</li>
+        <li>Growing interest in how journalists' routine choices shape audience understanding without outright bias</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Core concepts</div>
+  <h2 class="section-title display">Three ideas doing the work underneath</h2>
+  <div class="term-grid">
+    <div class="term-card">
+      <span class="mono">Concept 01</span>
+      <h4>The frame</h4>
+      <p>An organizing structure that selects certain aspects of an issue and makes them more prominent, while quietly pushing other true, available aspects into the background.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 02</span>
+      <h4>Framing effects</h4>
+      <p>Measurable shifts in how an audience interprets or judges an issue, caused purely by how the same underlying facts are organized and emphasized, with no new information added at all.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 03</span>
+      <h4>Frame building and frame setting</h4>
+      <p>Frame building is the process by which journalists and institutions construct a frame in the first place. Frame setting is what happens next, as that frame goes on to shape how an audience actually understands the issue.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Examples in practice</div>
+  <h2 class="section-title display">Where this pattern turned up</h2>
+  <div class="example-grid">
+    <div class="example-card">
+      <span class="mono">Goffman's original example</span>
+      <h4>A fight, a sport, or a rehearsal</h4>
+      <p>The same physical grappling between two people reads entirely differently depending on the frame applied to it, evidence that meaning lives in the interpretive structure as much as in the raw observed action itself.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Entman's episodic versus thematic frame</span>
+      <h4>One struggling family, or a broken system</h4>
+      <p>Coverage of poverty that focuses on one family's individual hardship, versus coverage that discusses structural economic policy, can leave audiences with very different explanations for who or what is responsible for the same underlying social problem.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Kahneman and Tversky, 1981</span>
+      <h4>Lives saved, or lives lost</h4>
+      <p>Presented with mathematically identical outcomes of a hypothetical disease treatment, participants made significantly different choices depending on whether the outcome was framed in terms of lives saved or lives lost, a foundational finding behind framing effects generally.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Immigration coverage</span>
+      <h4>"Illegal immigrant" versus "undocumented immigrant"</h4>
+      <p>A frequently studied case of word choice alone shifting audience perception of the same underlying legal status, showing how a single term can carry an entire frame's worth of moral and political implication.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">The mechanism, demonstrated</div>
+  <h2 class="section-title display">One event, run through four frames</h2>
+  <div class="stage">
+    <div class="stage-head">
+      <h3>The facts never change. The frame decides what they mean.</h3>
+      <p>The underlying event is fixed. Switch between four frames a newsroom could genuinely choose, and watch how the headline and emphasis shift without a single fact being added or removed.</p>
+    </div>
+
+    <div class="event-line mono">The event: a local factory lays off 200 workers this week</div>
+
+    <div class="frame-tabs" id="frameTabs">
+      <button class="frame-tab active" data-frame="economic">Economic frame</button>
+      <button class="frame-tab" data-frame="human">Human-interest frame</button>
+      <button class="frame-tab" data-frame="conflict">Conflict frame</button>
+      <button class="frame-tab" data-frame="moral">Moral responsibility frame</button>
+    </div>
+
+    <div class="frame-mockup" id="frameMockup"></div>
+    <div class="frame-caption" id="frameCaption"></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">In one sentence</div>
+  <div class="summary">
+    <div class="big-quote">The same true facts can produce very different understandings, depending entirely on which details a frame chooses to emphasize.</div>
+    <div class="side-note">
+      <p>The theory asks a reader to notice not just whether a story is accurate, but which of many accurate versions of the story they were given, and what that particular choice quietly suggests about who is responsible and what should happen next.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Where the theory ran into trouble</div>
+  <h2 class="section-title display">A useful concept stretched almost too far</h2>
+  <div class="challenge">
+    <span class="mono">The pushback</span>
+    <p>Framing effects are well documented in controlled experiments, but real audiences rarely encounter a frame on a blank slate. People bring their own existing beliefs and mental structures to a story, which can blunt, redirect, or even reverse the effect a given frame would otherwise have, an interaction later reception researchers explored in far more depth than framing studies alone typically capture.</p>
+    <p>The concept itself has also been criticized for spreading in so many directions, across psychology, sociology, and communication research, that some scholars argue framing has become difficult to define precisely enough to test rigorously. Its overlap with second-level agenda-setting, discussed earlier in this atlas, remains a genuine and still unresolved point of debate: researchers continue to disagree about exactly where emphasizing an issue's importance ends and shaping how that issue is understood begins.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="mono">Media Theory Atlas</div>
+  <div class="foot-links mono">
+    <a href="index.html">All theories</a>
+    <a href="index.html#themes">Themes</a>
+    <a href="index.html#chrono-anchor">Chronology</a>
+  </div>
+</footer>
+
+<script>
+  const modeToggle = document.getElementById('modeToggle');
+  modeToggle.addEventListener('click', function(){ document.documentElement.classList.toggle('dark'); });
+
+  const FRAME_CONTENT = {
+    economic: {
+      tag: "Economic frame",
+      headline: "Local Unemployment Set to Rise as Factory Cuts 200 Jobs",
+      body: "The layoffs will add roughly two percentage points to the county's unemployment rate, analysts say, with ripple effects expected across local suppliers and small businesses that depend on factory workers' spending.",
+      caption: "Leads with statistics and economic consequence, framing the event primarily as a matter of numbers and forecasts."
+    },
+    human: {
+      tag: "Human-interest frame",
+      headline: "After 22 Years on the Line, Maria Torres Wonders What Comes Next",
+      body: "Torres started at the plant the same year her daughter was born. Now, with two weeks' notice, she is weighing whether to retrain at 51 or take an early, reduced pension.",
+      caption: "Leads with one person's individual story, framing the event as a personal, emotional experience rather than a statistic."
+    },
+    conflict: {
+      tag: "Conflict frame",
+      headline: "Union Accuses Management of Breaking Promises Made Last Year",
+      body: "Union representatives say the company assured workers of job security during last year's contract talks. Management maintains the cuts were unavoidable given rising costs.",
+      caption: "Leads with a dispute between two sides, framing the event as a clash of claims and blame rather than a shared hardship."
+    },
+    moral: {
+      tag: "Moral responsibility frame",
+      headline: "Company Posts Record Profits Same Week It Cuts 200 Jobs",
+      body: "The layoffs come days after the company reported its highest quarterly profit in a decade, raising questions among workers and local officials about the company's obligations to the community that supported it.",
+      caption: "Leads with a contrast that implies ethical judgment, framing the event as a question of corporate responsibility."
+    }
+  };
+
+  const frameTabs = document.getElementById('frameTabs');
+  const frameMockup = document.getElementById('frameMockup');
+  const frameCaption = document.getElementById('frameCaption');
+
+  function showFrame(key){
+    const data = FRAME_CONTENT[key];
+    frameMockup.innerHTML =
+      '<span class="frame-tag">' + data.tag + '</span>' +
+      '<h4 class="frame-headline">' + data.headline + '</h4>' +
+      '<p class="frame-body">' + data.body + '</p>';
+    frameCaption.innerHTML = '<span class="mono">What this frame emphasizes</span><p>' + data.caption + '</p>';
+  }
+
+  frameTabs.addEventListener('click', function(e){
+    const btn = e.target.closest('.frame-tab');
+    if(!btn) return;
+    frameTabs.querySelectorAll('.frame-tab').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    showFrame(btn.dataset.frame);
+  });
+
+  showFrame('economic');
+</script>
+</body>
+</html>

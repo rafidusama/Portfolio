@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Postcolonial Media Theory, Media Theory Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15130f; --paper:#ede7dc; --paper-dim:#ddd5c4; --line:#15130f33;
+    --red:#c9391f; --blue:#1f4f8f; --olive:#4c5f2a; --mustard:#c98b12; --violet:#5c3a80;
+    --bg: var(--paper); --fg: var(--ink); --bg-dim: var(--paper-dim); --rule: var(--line);
+    --invert-bg: var(--ink); --invert-fg: var(--paper); --theme: var(--violet);
+  }
+  html.dark{ --bg:#121110; --fg:#ede7dc; --bg-dim:#1c1a17; --rule:#ede7dc2e; --invert-bg: var(--paper); --invert-fg: var(--ink); }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--fg); font-family:'Archivo', sans-serif; transition:background .25s ease, color .25s ease; overflow-x:hidden; }
+  .display{ font-family:'Anton', sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.92; }
+  .mono{ font-family:'Space Mono', monospace; text-transform:uppercase; letter-spacing:0.08em; }
+  a{ color:inherit; }
+  :focus-visible{ outline: 3px solid currentColor; outline-offset: 3px; }
+
+  header.nav{ position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:16px 28px; background:var(--bg); border-bottom:1.5px solid var(--rule); }
+  .nav-logo{ font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .nav-logo .dot{ width:9px; height:9px; border-radius:50%; background: conic-gradient(var(--red) 0 20%, var(--blue) 20% 40%, var(--olive) 40% 60%, var(--mustard) 60% 80%, var(--violet) 80% 100%); flex-shrink:0; }
+  .nav-right{ display:flex; gap:10px; align-items:center; }
+  .icon-btn{ background:none; border:1.5px solid var(--fg); color:var(--fg); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .icon-btn svg{ width:16px; height:16px; }
+  .back-link{ display:flex; align-items:center; gap:8px; font-family:'Space Mono', monospace; font-size:11.5px; text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; }
+
+  .theory-hero{ background:var(--theme); color:var(--paper); padding:64px 6vw 70px; border-bottom:1.5px solid var(--rule); }
+  .theory-meta{ display:flex; gap:22px; align-items:center; flex-wrap:wrap; margin-bottom:26px; }
+  .theory-meta .mono{ font-size:12px; opacity:0.9; }
+  .theme-tag{ display:inline-flex; align-items:center; gap:8px; border:1.3px solid var(--paper); border-radius:999px; padding:6px 14px; font-size:11px; }
+  .theme-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--paper); }
+  .theory-hero h1{ font-size:clamp(36px, 6.8vw, 92px); margin:0; max-width:22ch; }
+  .theory-hero .aka{ font-size:clamp(15px,1.8vw,20px); margin-top:18px; font-style:italic; opacity:0.9; font-weight:500; }
+  .theorist-line{ margin-top:34px; display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; }
+  .theorist-line .name{ font-size:18px; font-weight:700; }
+  .theorist-line .role{ font-size:13px; opacity:0.85; }
+
+  section{ padding:80px 6vw; border-bottom:1.5px solid var(--rule); }
+  .section-eyebrow{ font-size:12px; opacity:0.6; margin-bottom:16px; display:flex; align-items:center; gap:12px; }
+  .section-eyebrow::before{ content:""; width:30px; height:2px; background:var(--theme); }
+  .section-title{ font-size:clamp(26px,3.4vw,44px); margin:0 0 30px; }
+
+  .context-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap:60px; align-items:start; }
+  .context-grid p{ font-size:16px; line-height:1.7; margin:0 0 20px; }
+  .context-card{ background:var(--bg-dim); border:1.5px solid var(--rule); border-radius:8px; padding:26px; }
+  .context-card .mono{ font-size:11px; opacity:0.6; margin-bottom:14px; display:block; }
+  .context-card ul{ margin:0; padding-left:18px; }
+  .context-card li{ font-size:14px; line-height:1.7; margin-bottom:10px; }
+  @media (max-width: 860px){ .context-grid{ grid-template-columns:1fr; gap:34px; } }
+
+  .term-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; }
+  .term-card{ border:1.5px solid var(--rule); border-radius:8px; padding:24px; }
+  .term-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:10px; display:block; }
+  .term-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:19px; margin:0 0 12px; line-height:1.05; }
+  .term-card p{ font-size:13.5px; line-height:1.6; margin:0; opacity:0.9; }
+  @media (max-width: 860px){ .term-grid{ grid-template-columns:1fr; } }
+
+  .example-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:22px; }
+  .example-card{ background:var(--bg-dim); border-radius:8px; padding:26px 28px; border-top:5px solid var(--theme); }
+  .example-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:12px; display:block; }
+  .example-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:20px; margin:0 0 12px; line-height:1.08; }
+  .example-card p{ font-size:14px; line-height:1.65; margin:0; }
+  .example-card p + p{ margin-top:12px; }
+  @media (max-width: 860px){ .example-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- FRAMING COMPARISON ---------- */
+  .stage{ background:var(--invert-bg); color:var(--invert-fg); border-radius:14px; padding:50px 6vw; position:relative; overflow:hidden; }
+  .stage-head{ margin-bottom:16px; }
+  .stage-head h3{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(22px,3vw,34px); margin:0; }
+  .stage-head p{ max-width:64ch; font-size:14px; line-height:1.6; opacity:0.75; margin:10px 0 0; }
+  .stage-note{ font-size:11.5px; opacity:0.55; margin-bottom:30px; max-width:64ch; }
+
+  .pair-tabs{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:30px; }
+  .pair-tab{
+    font-family:'Space Mono', monospace;
+    font-size:11.5px;
+    border:1.3px solid var(--invert-fg);
+    background:none;
+    color:var(--invert-fg);
+    border-radius:999px;
+    padding:10px 18px;
+    cursor:pointer;
+  }
+  .pair-tab.active{ background:var(--theme); border-color:var(--theme); }
+
+  .pair-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:18px;
+    max-width:760px;
+    margin:0 auto 24px;
+  }
+  .pair-card{
+    background:var(--bg-dim);
+    color:var(--fg);
+    border-radius:10px;
+    padding:22px 24px;
+  }
+  html.dark .pair-card{ color:var(--invert-fg); }
+  .pair-card.trope{ border-top:5px solid var(--red); }
+  .pair-card.alt{ border-top:5px solid var(--olive); }
+  .pair-card .mono{ font-size:10px; opacity:0.6; display:block; margin-bottom:10px; }
+  .pair-card p{ margin:0; font-size:13.5px; line-height:1.6; }
+
+  @media (max-width: 700px){ .pair-grid{ grid-template-columns:1fr; } }
+
+  .pair-caption{ max-width:700px; margin:0 auto; text-align:center; font-size:13px; opacity:0.8; }
+
+  .summary{ display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap; }
+  .summary .big-quote{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(24px,3.6vw,42px); line-height:1.05; max-width:20ch; color:var(--theme); }
+  .summary .side-note{ max-width:42ch; font-size:14.5px; line-height:1.7; opacity:0.85; padding-top:8px; }
+
+  .challenge{ background:var(--bg-dim); border-left:4px solid var(--theme); border-radius:0 8px 8px 0; padding:26px 30px; }
+  .challenge .mono{ font-size:11px; opacity:0.6; margin-bottom:12px; display:block; }
+  .challenge p{ margin:0 0 16px; font-size:15px; line-height:1.7; }
+  .challenge p:last-child{ margin-bottom:0; }
+
+  .next-teaser{ display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; background:var(--olive); color:var(--paper); border-radius:10px; padding:34px 36px; }
+  .next-teaser .mono{ font-size:11px; opacity:0.85; margin-bottom:10px; display:block; }
+  .next-teaser h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(20px,2.6vw,30px); margin:0; }
+  .next-teaser a{ text-decoration:none; border:1.3px solid var(--paper); border-radius:999px; padding:11px 22px; font-family:'Space Mono', monospace; font-size:11.5px; letter-spacing:0.05em; white-space:nowrap; }
+
+  footer{ padding:34px 6vw; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; font-size:11.5px; }
+  footer .foot-links{ display:flex; gap:20px; }
+  footer a{ text-decoration:none; }
+  footer a:hover{ opacity:0.6; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="back-link" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg>
+    All theories
+  </a>
+  <a class="nav-logo" href="index.html">
+    <span class="dot"></span>
+    <span class="mono">Media Theory Atlas</span>
+  </a>
+  <div class="nav-right">
+    <button class="icon-btn" id="modeToggle" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2 12h2.4M19.6 12H22M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="theory-hero" style="border-bottom:none;">
+  <div class="theory-meta">
+    <span class="mono">1970s to 1980s</span>
+    <span class="theme-tag"><span class="dot"></span>Representation and Power</span>
+  </div>
+  <h1 class="display">Postcolonial Media Theory</h1>
+  <div class="theorist-line">
+    <span class="name">Edward Said</span>
+    <span class="role">Literary and cultural critic, Columbia University</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Historical context</div>
+  <h2 class="section-title display">A pattern of representation, centuries in the making</h2>
+  <div class="context-grid">
+    <div>
+      <p>In 1978, the literary critic Edward Said published <em>Orientalism</em>, a sweeping study of how European, and later American, scholarship, literature, art, and journalism had represented the Middle East, North Africa, and Asia, a vast and varied region flattened for centuries under the single label of "the Orient." Said's argument was not that individual writers or scholars were simply biased or careless. It was that this body of representation, accumulated across generations of travel writing, colonial administration, academic study, and popular culture, formed a coherent, self-reinforcing system of knowledge.</p>
+      <p>Drawing on the philosopher Michel Foucault's ideas about discourse and the relationship between knowledge and power, Said argued this system did not simply describe "the Orient." It helped produce it, constructing a version of these societies as timeless, exotic, irrational, and fundamentally inferior to a supposedly rational, modern West. That construction was never politically neutral. It provided a ready-made intellectual justification for actual colonial and imperial control, a framework in which governing these societies could be presented as a civilizing mission rather than domination.</p>
+      <p>Said extended the argument directly into contemporary media in his 1981 book <em>Covering Islam</em>, analyzing how American and European news coverage of Islam and Muslim-majority societies relied on strikingly similar reductive, threat-focused tropes to the ones he had traced through nineteenth century scholarship. Later scholars pushed the framework further still, examining how film, television, and popular culture continued to draw on the same recurring stock images long after formal colonial rule had ended.</p>
+      <p>The broader field that grew out of Said's work, now generally called postcolonial media theory, asks a consistent question across very different media forms: whose interests does this particular representation of a region or people actually serve, and what older pattern of domination might it be quietly extending.</p>
+    </div>
+    <div class="context-card">
+      <span class="mono">What fed this theory</span>
+      <ul>
+        <li>Said's 1978 book, <em>Orientalism</em></li>
+        <li>Michel Foucault's work on discourse and the relationship between knowledge and power</li>
+        <li>Said's 1981 follow-up, <em>Covering Islam</em>, extending the argument to contemporary news media</li>
+        <li>Decades of decolonization movements prompting a broader reassessment of colonial-era scholarship</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Core concepts</div>
+  <h2 class="section-title display">Three ideas doing the work underneath</h2>
+  <div class="term-grid">
+    <div class="term-card">
+      <span class="mono">Concept 01</span>
+      <h4>Orientalism as discourse</h4>
+      <p>A coherent, historically accumulated system of representation, not just isolated instances of bias, that constructs an entire region as fundamentally different from and inferior to "the West."</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 02</span>
+      <h4>The self and other binary</h4>
+      <p>Western identity is partly built by defining itself against an imagined, inferior "Oriental" other, a contrast that conveniently flatters the West's own self-image as rational and modern.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 03</span>
+      <h4>Knowledge as power</h4>
+      <p>Following Foucault, Said argued that representation and expert knowledge about a region are never neutral, they are entangled with, and help justify, actual political and military domination over it.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Examples in practice</div>
+  <h2 class="section-title display">Where this pattern turned up</h2>
+  <div class="example-grid">
+    <div class="example-card">
+      <span class="mono">19th century Europe</span>
+      <h4>Orientalist scholarship and travel writing</h4>
+      <p>Said's own primary case studies, academic "Oriental studies" departments, colonial administrators' writings, and travel literature that together depicted the Middle East as timeless and exotic, conveniently in need of Western governance.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono"><em>Covering Islam</em>, 1981</span>
+      <h4>Western news coverage of the Middle East</h4>
+      <p>Said's own extension of the framework into contemporary journalism, analyzing how American and European press coverage of Islam relied on the same reductive, threat-focused tropes he had traced through earlier scholarship.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Hollywood film</span>
+      <h4>Recurring stereotypes on screen</h4>
+      <p>Researchers building directly on Said's framework, notably Jack Shaheen's extensive study of Arab representation in American film, documented decades of recurring stereotypes casting Middle Eastern characters as terrorists, exotic villains, or backward figures.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Contemporary parallel</span>
+      <h4>Immigration and terrorism coverage</h4>
+      <p>Contemporary media scholars have applied Said's framework to news coverage of immigration and international conflict, finding a similar civilizational framing that contrasts a rational, modern West against an implicitly threatening or backward other.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">The mechanism, demonstrated</div>
+  <h2 class="section-title display">Two framings, the same underlying event</h2>
+  <div class="stage">
+    <div class="stage-head">
+      <h3>An Orientalist trope beside an alternative approach</h3>
+      <p>Each pair below is an illustrative construction built for this page, not a quotation from any real outlet, showing the pattern Said's framework asks readers to notice.</p>
+    </div>
+    <div class="stage-note mono">Constructed examples, illustrating a pattern rather than quoting any actual publication.</div>
+
+    <div class="pair-tabs" id="pairTabs">
+      <button class="pair-tab active" data-pair="1">Political unrest</button>
+      <button class="pair-tab" data-pair="2">A regional custom</button>
+      <button class="pair-tab" data-pair="3">A public figure</button>
+    </div>
+
+    <div class="pair-grid" id="pairGrid"></div>
+    <div class="pair-caption" id="pairCaption"></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">In one sentence</div>
+  <div class="summary">
+    <div class="big-quote">Centuries of Western scholarship and media have constructed "the East" as an exotic, backward counterpart to a supposedly rational West, a pattern that has helped justify real domination rather than simply describing these societies.</div>
+    <div class="side-note">
+      <p>The theory asks a reader to notice when a story about a region relies on a familiar, ready-made script rather than the specific, complicated reality of the actual people and events involved.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Where the theory ran into trouble</div>
+  <h2 class="section-title display">A powerful lens, applied carefully or not</h2>
+  <div class="challenge">
+    <span class="mono">The pushback</span>
+    <p>Critics, including some scholars working within Middle Eastern studies itself, have argued Said's framework can flatten the West's own internal diversity of opinion, underplaying genuine dissent and critique that existed even within colonial-era Western scholarship. Some have pointed to a risk of a kind of reverse essentialism, where the theory itself treats "the West" as a single, monolithic actor in much the same way it accuses Orientalist scholarship of flattening "the East."</p>
+    <p>The concept has also been extended so widely since 1978, applied to many different regions, media forms, and historical periods, that some scholars argue it now requires careful, case-by-case application rather than serving as a single blanket explanation for any negative or simplified representation of a non-Western society. Used carelessly, the framework risks becoming exactly the kind of totalizing generalization it was originally built to criticize.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="mono">Media Theory Atlas</div>
+  <div class="foot-links mono">
+    <a href="index.html">All theories</a>
+    <a href="index.html#themes">Themes</a>
+    <a href="index.html#chrono-anchor">Chronology</a>
+  </div>
+</footer>
+
+<script>
+  const modeToggle = document.getElementById('modeToggle');
+  modeToggle.addEventListener('click', function(){ document.documentElement.classList.toggle('dark'); });
+
+  const PAIRS = {
+    "1": {
+      trope: "A wave of unrest swept the region today, the latest sign of the chronic instability that has long defined this volatile part of the world.",
+      alt: "Protesters gathered today over a specific set of grievances tied to recent economic policy, joining a wave of similar demonstrations seen recently in several countries worldwide.",
+      caption: "The first framing treats unrest as an inherent, timeless regional trait. The second treats it as a specific, explicable response to specific conditions, the same pattern reporters would apply automatically to unrest in their own country."
+    },
+    "2": {
+      trope: "In this ancient and mysterious culture, ordinary daily rituals remain shrouded in an exotic tradition largely unchanged for centuries.",
+      alt: "Families in this region observe a longstanding practice tied to a specific historical and religious context, one that, like most traditions anywhere, has also visibly adapted over recent generations.",
+      caption: "The first framing exoticizes an ordinary custom into timeless mystery. The second treats it the way reporting would normally treat any tradition, with specific context and acknowledgment of change over time."
+    },
+    "3": {
+      trope: "The leader, product of a culture where authoritarian rule has always been the norm, addressed the nation today.",
+      alt: "The leader, who came to power through a process specific to his country's recent political history, addressed the nation today regarding a specific policy announcement.",
+      caption: "The first framing attributes a leader's style of governance to an entire culture's supposed nature. The second grounds it in specific, explicable political history, the same standard applied without comment to leaders elsewhere."
+    }
+  };
+
+  const pairTabs = document.getElementById('pairTabs');
+  const pairGrid = document.getElementById('pairGrid');
+  const pairCaption = document.getElementById('pairCaption');
+
+  function renderPair(key){
+    const data = PAIRS[key];
+    pairGrid.innerHTML =
+      '<div class="pair-card trope"><span class="mono">A common trope</span><p>"' + data.trope + '"</p></div>' +
+      '<div class="pair-card alt"><span class="mono">An alternative approach</span><p>"' + data.alt + '"</p></div>';
+    pairCaption.textContent = data.caption;
+  }
+
+  pairTabs.addEventListener('click', function(e){
+    const btn = e.target.closest('.pair-tab');
+    if(!btn) return;
+    pairTabs.querySelectorAll('.pair-tab').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    renderPair(btn.dataset.pair);
+  });
+
+  renderPair('1');
+</script>
+</body>
+</html>

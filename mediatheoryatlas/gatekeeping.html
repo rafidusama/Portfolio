@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gatekeeping Theory, Media Theory Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15130f;
+    --paper:#ede7dc;
+    --paper-dim:#ddd5c4;
+    --line:#15130f33;
+
+    --red:#c9391f;
+    --blue:#1f4f8f;
+    --olive:#4c5f2a;
+    --mustard:#c98b12;
+    --violet:#5c3a80;
+
+    --bg: var(--paper);
+    --fg: var(--ink);
+    --bg-dim: var(--paper-dim);
+    --rule: var(--line);
+    --invert-bg: var(--ink);
+    --invert-fg: var(--paper);
+    --theme: var(--olive);
+  }
+
+  html.dark{
+    --bg:#121110;
+    --fg:#ede7dc;
+    --bg-dim:#1c1a17;
+    --rule:#ede7dc2e;
+    --invert-bg: var(--paper);
+    --invert-fg: var(--ink);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--fg);
+    font-family:'Archivo', sans-serif;
+    transition:background .25s ease, color .25s ease;
+    overflow-x:hidden;
+  }
+
+  .display{
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    line-height:0.92;
+  }
+
+  .mono{
+    font-family:'Space Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+
+  a{ color:inherit; }
+
+  :focus-visible{
+    outline: 3px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  header.nav{
+    position:sticky;
+    top:0;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 28px;
+    background:var(--bg);
+    border-bottom:1.5px solid var(--rule);
+  }
+  .nav-logo{
+    font-size:15px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+  }
+  .nav-logo .dot{
+    width:9px; height:9px; border-radius:50%;
+    background: conic-gradient(var(--red) 0 20%, var(--blue) 20% 40%, var(--olive) 40% 60%, var(--mustard) 60% 80%, var(--violet) 80% 100%);
+    flex-shrink:0;
+  }
+  .nav-right{ display:flex; gap:10px; align-items:center; }
+  .icon-btn{
+    background:none;
+    border:1.5px solid var(--fg);
+    color:var(--fg);
+    width:34px; height:34px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .icon-btn svg{ width:16px; height:16px; }
+  .back-link{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Space Mono', monospace;
+    font-size:11.5px;
+    text-decoration:none;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+  }
+
+  .theory-hero{
+    background:var(--theme);
+    color:var(--paper);
+    padding:64px 6vw 70px;
+    border-bottom:1.5px solid var(--rule);
+  }
+  .theory-meta{
+    display:flex;
+    gap:22px;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-bottom:26px;
+  }
+  .theory-meta .mono{ font-size:12px; opacity:0.9; }
+  .theme-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:1.3px solid var(--paper);
+    border-radius:999px;
+    padding:6px 14px;
+    font-size:11px;
+  }
+  .theme-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--paper); }
+  .theory-hero h1{
+    font-size:clamp(40px, 8vw, 108px);
+    margin:0;
+    max-width:22ch;
+  }
+  .theory-hero .aka{
+    font-size:clamp(15px,1.8vw,20px);
+    margin-top:18px;
+    font-style:italic;
+    opacity:0.9;
+    font-weight:500;
+  }
+  .theorist-line{
+    margin-top:34px;
+    display:flex;
+    gap:16px;
+    align-items:baseline;
+    flex-wrap:wrap;
+  }
+  .theorist-line .name{ font-size:18px; font-weight:700; }
+  .theorist-line .role{ font-size:13px; opacity:0.85; }
+
+  section{ padding:80px 6vw; border-bottom:1.5px solid var(--rule); }
+  .section-eyebrow{
+    font-size:12px;
+    opacity:0.6;
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .section-eyebrow::before{
+    content:"";
+    width:30px; height:2px;
+    background:var(--theme);
+  }
+  .section-title{ font-size:clamp(26px,3.4vw,44px); margin:0 0 30px; }
+
+  .context-grid{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:60px;
+    align-items:start;
+  }
+  .context-grid p{
+    font-size:16px;
+    line-height:1.7;
+    margin:0 0 20px;
+  }
+  .context-card{
+    background:var(--bg-dim);
+    border:1.5px solid var(--rule);
+    border-radius:8px;
+    padding:26px;
+  }
+  .context-card .mono{ font-size:11px; opacity:0.6; margin-bottom:14px; display:block; }
+  .context-card ul{ margin:0; padding-left:18px; }
+  .context-card li{ font-size:14px; line-height:1.7; margin-bottom:10px; }
+
+  @media (max-width: 860px){
+    .context-grid{ grid-template-columns:1fr; gap:34px; }
+  }
+
+  .term-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:20px;
+  }
+  .term-card{
+    border:1.5px solid var(--rule);
+    border-radius:8px;
+    padding:24px;
+  }
+  .term-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:10px; display:block; }
+  .term-card h4{
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    font-size:19px;
+    margin:0 0 12px;
+    line-height:1.05;
+  }
+  .term-card p{ font-size:13.5px; line-height:1.6; margin:0; opacity:0.9; }
+
+  @media (max-width: 860px){
+    .term-grid{ grid-template-columns:1fr; }
+  }
+
+  .example-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:22px;
+  }
+  .example-card{
+    background:var(--bg-dim);
+    border-radius:8px;
+    padding:26px 28px;
+    border-top:5px solid var(--theme);
+  }
+  .example-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:12px; display:block; }
+  .example-card h4{
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    font-size:20px;
+    margin:0 0 12px;
+    line-height:1.08;
+  }
+  .example-card p{ font-size:14px; line-height:1.65; margin:0; }
+  .example-card p + p{ margin-top:12px; }
+
+  @media (max-width: 860px){
+    .example-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- WIRE DESK ---------- */
+  .stage{
+    background:var(--invert-bg);
+    color:var(--invert-fg);
+    border-radius:14px;
+    padding:50px 6vw;
+    position:relative;
+    overflow:hidden;
+  }
+  .stage-head{ margin-bottom:16px; }
+  .stage-head h3{
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    font-size:clamp(22px,3vw,34px);
+    margin:0;
+  }
+  .stage-head p{
+    max-width:64ch;
+    font-size:14px;
+    line-height:1.6;
+    opacity:0.75;
+    margin:10px 0 0;
+  }
+  .stage-note{
+    font-size:11.5px;
+    opacity:0.55;
+    margin-bottom:34px;
+    max-width:64ch;
+  }
+
+  .wire-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    max-width:760px;
+    margin:0 auto;
+  }
+  .wire-card{
+    border:1.5px solid var(--rule);
+    border-radius:8px;
+    padding:20px 22px;
+  }
+  .wire-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .wire-top h4{
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    font-size:16px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .wire-top .dek{
+    font-size:12.5px;
+    opacity:0.7;
+    margin:0;
+    max-width:52ch;
+  }
+  .wire-actions{ display:flex; gap:8px; flex-shrink:0; }
+  .wire-btn{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    border:1.3px solid var(--invert-fg);
+    background:none;
+    color:var(--invert-fg);
+    border-radius:999px;
+    padding:8px 16px;
+    cursor:pointer;
+  }
+  .wire-btn.chosen-run{ background:var(--theme); border-color:var(--theme); }
+  .wire-btn.chosen-spike{ background:var(--invert-fg); color:var(--invert-bg); }
+  .wire-reveal{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .3s ease;
+    font-size:12.5px;
+    line-height:1.6;
+    opacity:0.85;
+  }
+  .wire-card.answered .wire-reveal{
+    max-height:120px;
+    margin-top:14px;
+    padding-top:14px;
+    border-top:1px solid var(--rule);
+  }
+  .wire-reveal .tag{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    opacity:0.6;
+    display:block;
+    margin-bottom:6px;
+  }
+
+  .wire-summary{
+    max-width:760px;
+    margin:28px auto 0;
+    text-align:center;
+    font-size:13px;
+    opacity:0.8;
+  }
+
+  /* ---------- SUMMARY ---------- */
+  .summary{
+    display:flex;
+    gap:40px;
+    align-items:flex-start;
+    flex-wrap:wrap;
+  }
+  .summary .big-quote{
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    font-size:clamp(24px,3.6vw,42px);
+    line-height:1.05;
+    max-width:18ch;
+    color:var(--theme);
+  }
+  .summary .side-note{
+    max-width:42ch;
+    font-size:14.5px;
+    line-height:1.7;
+    opacity:0.85;
+    padding-top:8px;
+  }
+
+  .challenge{
+    background:var(--bg-dim);
+    border-left:4px solid var(--theme);
+    border-radius:0 8px 8px 0;
+    padding:26px 30px;
+  }
+  .challenge .mono{ font-size:11px; opacity:0.6; margin-bottom:12px; display:block; }
+  .challenge p{ margin:0 0 16px; font-size:15px; line-height:1.7; }
+  .challenge p:last-child{ margin-bottom:0; }
+
+  .next-teaser{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+    background:var(--blue);
+    color:var(--paper);
+    border-radius:10px;
+    padding:34px 36px;
+  }
+  .next-teaser .mono{ font-size:11px; opacity:0.85; margin-bottom:10px; display:block; }
+  .next-teaser h4{
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    font-size:clamp(20px,2.6vw,30px);
+    margin:0;
+  }
+  .next-teaser a{
+    text-decoration:none;
+    border:1.3px solid var(--paper);
+    border-radius:999px;
+    padding:11px 22px;
+    font-family:'Space Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:0.05em;
+    white-space:nowrap;
+  }
+
+  footer{
+    padding:34px 6vw;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:14px;
+    font-size:11.5px;
+  }
+  footer .foot-links{ display:flex; gap:20px; }
+  footer a{ text-decoration:none; }
+  footer a:hover{ opacity:0.6; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="back-link" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg>
+    All theories
+  </a>
+  <a class="nav-logo" href="index.html">
+    <span class="dot"></span>
+    <span class="mono">Media Theory Atlas</span>
+  </a>
+  <div class="nav-right">
+    <button class="icon-btn" id="modeToggle" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2 12h2.4M19.6 12H22M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="theory-hero" style="border-bottom:none;">
+  <div class="theory-meta">
+    <span class="mono">1940s to 1960s</span>
+    <span class="theme-tag"><span class="dot"></span>Political Economy</span>
+  </div>
+  <h1 class="display">Gatekeeping Theory</h1>
+  <div class="theorist-line">
+    <span class="name">Kurt Lewin and David Manning White</span>
+    <span class="role">Social psychologist, and a journalism researcher who tested the idea on a real wire editor</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Historical context</div>
+  <h2 class="section-title display">A theory about grocery shopping, applied to the newsroom</h2>
+  <div class="context-grid">
+    <div>
+      <p>The idea did not start in a newsroom at all. In 1947, the social psychologist Kurt Lewin was studying how families decided what to eat, part of a wartime effort to get Americans to accept less popular but more available cuts of meat and organ meats during rationing. Lewin described food as moving through a series of "channels," with "gates" at certain points controlled by a "gatekeeper," usually the person in the household who did the shopping and cooking, who decided what actually reached the family table.</p>
+      <p>David Manning White, a journalism researcher, saw the same structure in how news moves from a wire service to a reader. In 1950, he ran what became one of the most cited studies in journalism research. He asked a real wire editor at a small Midwestern newspaper, referred to in the study by the pseudonym Mr. Gates, to save every wire story he rejected over the course of a week, along with a short handwritten note explaining why.</p>
+      <p>The results were striking. The editor rejected roughly nine out of every ten stories that came across his desk. Some rejections followed conventional news judgment, limited space, stories that duplicated something already run, items too far from the paper's local audience. But a considerable number of his notes revealed something more personal: stories he called uninteresting, or dismissed as one-sided, reflecting his own tastes and political leanings as much as any fixed editorial standard.</p>
+      <p>White's conclusion reframed how journalism research thought about news itself. The news that reaches an audience is not simply "what happened." It is what survived a long chain of individual decisions, made by people exercising personal judgment at every gate along the way.</p>
+    </div>
+    <div class="context-card">
+      <span class="mono">What fed this theory</span>
+      <ul>
+        <li>Kurt Lewin's 1947 work on channels and gatekeepers in wartime food behavior research</li>
+        <li>David Manning White's 1950 study of a real wire editor, published as "The Gate Keeper"</li>
+        <li>The growth of wire services feeding far more copy to newspapers than any one paper could run</li>
+        <li>Later research extending gatekeeping beyond one editor to organizational and institutional levels</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Core concepts</div>
+  <h2 class="section-title display">Three ideas doing the work underneath</h2>
+  <div class="term-grid">
+    <div class="term-card">
+      <span class="mono">Concept 01</span>
+      <h4>The gate</h4>
+      <p>Any point in the flow of news where a decision gets made about whether a piece of information continues on toward the public or stops. A newsroom has many gates, not just one.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 02</span>
+      <h4>The gatekeeper</h4>
+      <p>The person, or later the institution or system, controlling a particular gate. White's study made the point sharply: that person's own taste, politics, and mood shape the decision as much as any formal news standard.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 03</span>
+      <h4>Channels</h4>
+      <p>The pathways information travels through before it reaches an audience, echoing Lewin's original picture of food moving from farm to store to kitchen to table, each stage a chance for something to be added, changed, or stopped.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Examples in practice</div>
+  <h2 class="section-title display">Where this pattern turned up</h2>
+  <div class="example-grid">
+    <div class="example-card">
+      <span class="mono">United States, wartime</span>
+      <h4>Lewin's food channel study</h4>
+      <p>Working for the National Research Council during the Second World War, Lewin studied how families accepted or rejected foods like organ meats, finding that the household member who shopped and cooked acted as a gatekeeper deciding what the rest of the family would even have the option to eat.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">1949, Midwestern United States</span>
+      <h4>The "Mr. Gates" wire desk study</h4>
+      <p>Over one week, a wire editor rejected the large majority of the stories available to him. His handwritten reasons ranged from ordinary space and duplication concerns to openly subjective judgments about what he found interesting, credible, or worth his readers' time.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Later scholarship</span>
+      <h4>Gatekeeping beyond one editor</h4>
+      <p>Subsequent researchers, notably Pamela Shoemaker and Stephen Reese, expanded the model well beyond a single individual, showing that gates also operate at the level of a news organization's routines, ownership structure, and broader social and political pressures, not just one person's personal taste.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Contemporary parallel</span>
+      <h4>Platforms and algorithmic feeds</h4>
+      <p>Social platforms now perform a version of the same function at enormous scale, with moderation policies and ranking algorithms acting as gates that decide what content most people ever see, replacing one wire editor's handwritten notes with rules and code few readers can inspect directly.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">The mechanism, demonstrated</div>
+  <h2 class="section-title display">Sit at the wire desk yourself</h2>
+  <div class="stage">
+    <div class="stage-head">
+      <h3>Today's wire copy, eight stories, limited space</h3>
+      <p>Decide whether to run or spike each story below, the way a wire editor like the one in White's study had to. After each decision, see the kind of reasoning editors in that research commonly gave for a call like yours.</p>
+    </div>
+    <div class="stage-note mono">These headlines are illustrative, built to match the period and the kinds of judgment calls White documented, not verbatim entries from his original study.</div>
+
+    <div class="wire-list" id="wireList"></div>
+    <div class="wire-summary" id="wireSummary"></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">In one sentence</div>
+  <div class="summary">
+    <div class="big-quote">At every point news changes hands, someone decides what passes through the gate, and that decision is never purely mechanical.</div>
+    <div class="side-note">
+      <p>The theory does not claim gatekeepers are careless or corrupt. It claims that judgment, personal and institutional both, is baked into news selection at every stage, which means the news an audience receives was never simply "what happened," but what survived the chain of gates in front of it.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Where the theory ran into trouble</div>
+  <h2 class="section-title display">One editor's notebook was never the whole newsroom</h2>
+  <div class="challenge">
+    <span class="mono">The pushback</span>
+    <p>White's original study looked at a single individual's decisions in isolation, which made for a vivid case but a narrow one. Critics pointed out that a wire editor does not operate alone. Ownership pressure, advertiser relationships, professional norms taught in journalism training, and the sheer routines of daily deadline production all shape what reaches a gate in the first place, long before any one editor's personal taste comes into play. Later researchers folded these larger forces back into the model, treating individual judgment as only the most visible layer of a much bigger system.</p>
+    <p>Digital publishing put pressure on the theory from a different direction. When anyone can post directly to an audience without passing through an editor at all, the very idea of a single, identifiable gate becomes harder to locate, even as new, less visible gates, in the form of platform policies and ranking algorithms, quietly took their place.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="mono">Media Theory Atlas</div>
+  <div class="foot-links mono">
+    <a href="index.html">All theories</a>
+    <a href="index.html#themes">Themes</a>
+    <a href="index.html#chrono-anchor">Chronology</a>
+  </div>
+</footer>
+
+<script>
+  const modeToggle = document.getElementById('modeToggle');
+  modeToggle.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+  });
+
+  const WIRE_STORIES = [
+    {
+      headline: "City council delays vote on new water rate schedule",
+      dek: "Routine municipal governance story, no immediate controversy.",
+      runReason: "Editors who ran routine local governance stories usually cited steady reader interest in municipal spending, even without drama.",
+      spikeReason: "Editors who spiked it typically wrote reasons like \"not enough space\" or \"can wait until the vote actually happens.\""
+    },
+    {
+      headline: "Small plane makes emergency landing on rural highway, no injuries",
+      dek: "Dramatic but ultimately low-consequence local incident.",
+      runReason: "Editors who ran it pointed to strong visual and human interest, the kind of story readers remember even without real harm involved.",
+      spikeReason: "Editors who spiked it noted \"nothing actually happened\" as a reason, despite the dramatic setup."
+    },
+    {
+      headline: "Foreign ministry issues statement on trade negotiations",
+      dek: "Dense policy language, distant from the paper's local readership.",
+      runReason: "Editors who ran it cited a sense of obligation to cover national affairs, even at the cost of local relevance.",
+      spikeReason: "Editors who spiked it most often wrote \"too far from our readers\" or \"too much already on this subject.\""
+    },
+    {
+      headline: "Local high school football team wins regional championship",
+      dek: "Strong local interest, clear community relevance.",
+      runReason: "Editors overwhelmingly ran stories like this, citing guaranteed local interest as their top reason.",
+      spikeReason: "The rare editor who spiked a story like this usually did so only for space, never for lack of interest."
+    },
+    {
+      headline: "Advocacy group releases pamphlet critical of a foreign government",
+      dek: "Politically charged material from an unfamiliar source.",
+      runReason: "A minority of editors ran material like this, usually when they judged the source credible enough to stand behind.",
+      spikeReason: "Editors who spiked it frequently used the word \"propaganda\" in their notes, regardless of the material's actual accuracy."
+    },
+    {
+      headline: "Recipe column: five ways to use garden vegetables this week",
+      dek: "Light service content, no news value in the traditional sense.",
+      runReason: "Editors ran service content like this reliably, treating it as part of the paper's regular relationship with readers, not news judgment at all.",
+      spikeReason: "Rejections here were rare, and usually about space rather than interest."
+    },
+    {
+      headline: "State legislature debates minor amendment to a tax code",
+      dek: "Technical, low-drama policy story.",
+      runReason: "A smaller share of editors ran stories like this, usually citing a sense of civic duty to inform readers on governance.",
+      spikeReason: "Most editors spiked stories like this, citing reasons like \"too dry\" or \"readers won't finish it.\""
+    },
+    {
+      headline: "Wire service repeats yesterday's flood update with minor new details",
+      dek: "Follow-up story, largely duplicate of previous coverage.",
+      runReason: "Editors ran genuine updates when the new details changed the story meaningfully for readers who were following it.",
+      spikeReason: "Editors most often spiked near-duplicate copy outright, writing simply \"already ran this\" or \"nothing new here.\""
+    }
+  ];
+
+  const wireList = document.getElementById('wireList');
+  const wireSummary = document.getElementById('wireSummary');
+  let decisions = 0;
+
+  WIRE_STORIES.forEach((story, i) => {
+    const card = document.createElement('div');
+    card.className = 'wire-card';
+    card.innerHTML = `
+      <div class="wire-top">
+        <div>
+          <h4>${story.headline}</h4>
+          <p class="dek">${story.dek}</p>
+        </div>
+        <div class="wire-actions">
+          <button class="wire-btn" data-action="run">Run</button>
+          <button class="wire-btn" data-action="spike">Spike</button>
+        </div>
+      </div>
+      <div class="wire-reveal"></div>
+    `;
+    wireList.appendChild(card);
+
+    card.querySelectorAll('.wire-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if(card.classList.contains('answered')) return;
+        card.classList.add('answered');
+        decisions++;
+
+        const runBtn = card.querySelector('[data-action="run"]');
+        const spikeBtn = card.querySelector('[data-action="spike"]');
+        if(btn.dataset.action === 'run'){
+          runBtn.classList.add('chosen-run');
+        } else {
+          spikeBtn.classList.add('chosen-spike');
+        }
+
+        const reveal = card.querySelector('.wire-reveal');
+        const text = btn.dataset.action === 'run' ? story.runReason : story.spikeReason;
+        reveal.innerHTML = `<span class="tag">What editors like this typically said</span>${text}`;
+
+        if(decisions === WIRE_STORIES.length){
+          wireSummary.textContent = "Real wire editors rejected roughly nine out of every ten stories crossing their desk. Whatever you just did, notice how much of your own judgment, not just space or accuracy, went into each call.";
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>

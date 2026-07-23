@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encoding and Decoding, Media Theory Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15130f; --paper:#ede7dc; --paper-dim:#ddd5c4; --line:#15130f33;
+    --red:#c9391f; --blue:#1f4f8f; --olive:#4c5f2a; --mustard:#c98b12; --violet:#5c3a80;
+    --bg: var(--paper); --fg: var(--ink); --bg-dim: var(--paper-dim); --rule: var(--line);
+    --invert-bg: var(--ink); --invert-fg: var(--paper); --theme: var(--violet);
+  }
+  html.dark{ --bg:#121110; --fg:#ede7dc; --bg-dim:#1c1a17; --rule:#ede7dc2e; --invert-bg: var(--paper); --invert-fg: var(--ink); }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--fg); font-family:'Archivo', sans-serif; transition:background .25s ease, color .25s ease; overflow-x:hidden; }
+  .display{ font-family:'Anton', sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.92; }
+  .mono{ font-family:'Space Mono', monospace; text-transform:uppercase; letter-spacing:0.08em; }
+  a{ color:inherit; }
+  :focus-visible{ outline: 3px solid currentColor; outline-offset: 3px; }
+
+  header.nav{ position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:16px 28px; background:var(--bg); border-bottom:1.5px solid var(--rule); }
+  .nav-logo{ font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .nav-logo .dot{ width:9px; height:9px; border-radius:50%; background: conic-gradient(var(--red) 0 20%, var(--blue) 20% 40%, var(--olive) 40% 60%, var(--mustard) 60% 80%, var(--violet) 80% 100%); flex-shrink:0; }
+  .nav-right{ display:flex; gap:10px; align-items:center; }
+  .icon-btn{ background:none; border:1.5px solid var(--fg); color:var(--fg); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .icon-btn svg{ width:16px; height:16px; }
+  .back-link{ display:flex; align-items:center; gap:8px; font-family:'Space Mono', monospace; font-size:11.5px; text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; }
+
+  .theory-hero{ background:var(--theme); color:var(--paper); padding:64px 6vw 70px; border-bottom:1.5px solid var(--rule); }
+  .theory-meta{ display:flex; gap:22px; align-items:center; flex-wrap:wrap; margin-bottom:26px; }
+  .theory-meta .mono{ font-size:12px; opacity:0.9; }
+  .theme-tag{ display:inline-flex; align-items:center; gap:8px; border:1.3px solid var(--paper); border-radius:999px; padding:6px 14px; font-size:11px; }
+  .theme-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--paper); }
+  .theory-hero h1{ font-size:clamp(38px, 7vw, 96px); margin:0; max-width:22ch; }
+  .theory-hero .aka{ font-size:clamp(15px,1.8vw,20px); margin-top:18px; font-style:italic; opacity:0.9; font-weight:500; }
+  .theorist-line{ margin-top:34px; display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; }
+  .theorist-line .name{ font-size:18px; font-weight:700; }
+  .theorist-line .role{ font-size:13px; opacity:0.85; }
+
+  section{ padding:80px 6vw; border-bottom:1.5px solid var(--rule); }
+  .section-eyebrow{ font-size:12px; opacity:0.6; margin-bottom:16px; display:flex; align-items:center; gap:12px; }
+  .section-eyebrow::before{ content:""; width:30px; height:2px; background:var(--theme); }
+  .section-title{ font-size:clamp(26px,3.4vw,44px); margin:0 0 30px; }
+
+  .context-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap:60px; align-items:start; }
+  .context-grid p{ font-size:16px; line-height:1.7; margin:0 0 20px; }
+  .context-card{ background:var(--bg-dim); border:1.5px solid var(--rule); border-radius:8px; padding:26px; }
+  .context-card .mono{ font-size:11px; opacity:0.6; margin-bottom:14px; display:block; }
+  .context-card ul{ margin:0; padding-left:18px; }
+  .context-card li{ font-size:14px; line-height:1.7; margin-bottom:10px; }
+  @media (max-width: 860px){ .context-grid{ grid-template-columns:1fr; gap:34px; } }
+
+  .term-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; }
+  .term-card{ border:1.5px solid var(--rule); border-radius:8px; padding:24px; }
+  .term-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:10px; display:block; }
+  .term-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:19px; margin:0 0 12px; line-height:1.05; }
+  .term-card p{ font-size:13.5px; line-height:1.6; margin:0; opacity:0.9; }
+  @media (max-width: 860px){ .term-grid{ grid-template-columns:1fr; } }
+
+  .example-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:22px; }
+  .example-card{ background:var(--bg-dim); border-radius:8px; padding:26px 28px; border-top:5px solid var(--theme); }
+  .example-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:12px; display:block; }
+  .example-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:20px; margin:0 0 12px; line-height:1.08; }
+  .example-card p{ font-size:14px; line-height:1.65; margin:0; }
+  .example-card p + p{ margin-top:12px; }
+  @media (max-width: 860px){ .example-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- DECODING POSITIONS ---------- */
+  .stage{ background:var(--invert-bg); color:var(--invert-fg); border-radius:14px; padding:50px 6vw; position:relative; overflow:hidden; }
+  .stage-head{ margin-bottom:16px; }
+  .stage-head h3{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(22px,3vw,34px); margin:0; }
+  .stage-head p{ max-width:64ch; font-size:14px; line-height:1.6; opacity:0.75; margin:10px 0 0; }
+
+  .encoded-box{
+    max-width:600px;
+    margin:26px auto 34px;
+    border:1.3px solid var(--invert-fg);
+    border-radius:10px;
+    padding:20px 24px;
+    text-align:center;
+  }
+  .encoded-box .mono{ font-size:10px; opacity:0.6; display:block; margin-bottom:10px; }
+  .encoded-box p{ margin:0; font-size:15px; line-height:1.6; font-style:italic; }
+
+  .position-tabs{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:26px; }
+  .position-tab{
+    font-family:'Space Mono', monospace;
+    font-size:11.5px;
+    border:1.3px solid var(--invert-fg);
+    background:none;
+    color:var(--invert-fg);
+    border-radius:999px;
+    padding:10px 18px;
+    cursor:pointer;
+  }
+  .position-tab.active{ background:var(--theme); border-color:var(--theme); }
+
+  .position-detail{
+    max-width:640px;
+    margin:0 auto;
+    background:var(--bg-dim);
+    color:var(--fg);
+    border-radius:10px;
+    padding:26px 30px;
+  }
+  html.dark .position-detail{ color:var(--invert-fg); }
+  .position-detail .mono{ font-size:10.5px; opacity:0.6; display:block; margin-bottom:10px; }
+  .position-detail p{ margin:0; font-size:14.5px; line-height:1.7; }
+
+  .summary{ display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap; }
+  .summary .big-quote{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(24px,3.6vw,42px); line-height:1.05; max-width:20ch; color:var(--theme); }
+  .summary .side-note{ max-width:42ch; font-size:14.5px; line-height:1.7; opacity:0.85; padding-top:8px; }
+
+  .challenge{ background:var(--bg-dim); border-left:4px solid var(--theme); border-radius:0 8px 8px 0; padding:26px 30px; }
+  .challenge .mono{ font-size:11px; opacity:0.6; margin-bottom:12px; display:block; }
+  .challenge p{ margin:0 0 16px; font-size:15px; line-height:1.7; }
+  .challenge p:last-child{ margin-bottom:0; }
+
+  .next-teaser{ display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; background:var(--blue); color:var(--paper); border-radius:10px; padding:34px 36px; }
+  .next-teaser .mono{ font-size:11px; opacity:0.85; margin-bottom:10px; display:block; }
+  .next-teaser h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(20px,2.6vw,30px); margin:0; }
+  .next-teaser a{ text-decoration:none; border:1.3px solid var(--paper); border-radius:999px; padding:11px 22px; font-family:'Space Mono', monospace; font-size:11.5px; letter-spacing:0.05em; white-space:nowrap; }
+
+  footer{ padding:34px 6vw; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; font-size:11.5px; }
+  footer .foot-links{ display:flex; gap:20px; }
+  footer a{ text-decoration:none; }
+  footer a:hover{ opacity:0.6; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="back-link" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg>
+    All theories
+  </a>
+  <a class="nav-logo" href="index.html">
+    <span class="dot"></span>
+    <span class="mono">Media Theory Atlas</span>
+  </a>
+  <div class="nav-right">
+    <button class="icon-btn" id="modeToggle" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2 12h2.4M19.6 12H22M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="theory-hero" style="border-bottom:none;">
+  <div class="theory-meta">
+    <span class="mono">1970s to 1980s</span>
+    <span class="theme-tag"><span class="dot"></span>Representation and Power</span>
+  </div>
+  <h1 class="display">Encoding and Decoding</h1>
+  <div class="theorist-line">
+    <span class="name">Stuart Hall</span>
+    <span class="role">Cultural theorist, Centre for Contemporary Cultural Studies, University of Birmingham</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Historical context</div>
+  <h2 class="section-title display">Breaking the idea that a message has only one meaning</h2>
+  <div class="context-grid">
+    <div>
+      <p>By the early 1970s, media research had already moved well past the hypodermic needle, but a quieter assumption still lingered in a lot of the work that followed it, including much of the semiotic analysis covered earlier in this atlas: that a media text carries one meaning, built into it by its producers, waiting to be extracted correctly or incorrectly by an audience. Stuart Hall, director of the influential Centre for Contemporary Cultural Studies at the University of Birmingham, set out to dismantle that assumption directly.</p>
+      <p>In a 1973 paper that circulated for years before its formal 1980 publication, Hall proposed thinking of communication as two distinct, not necessarily matching, processes. Producers encode a message, building in what Hall called a preferred meaning shaped by their own institutional position, professional conventions, and assumptions about their audience. Television news, Hall's own central example, presents itself as neutral and factual, while still encoding a particular, often unstated common-sense framework about what counts as normal, deviant, reasonable, or dangerous.</p>
+      <p>The audience, however, does not simply receive that encoded meaning passively. They decode it, actively, using their own social position, background knowledge, and experience, and Hall argued the decoded meaning does not have to match the encoded one at all. He proposed three broad decoding positions: a dominant-hegemonic reading, where the viewer accepts the preferred meaning as intended, a negotiated reading, where the viewer partly accepts it but adapts or qualifies parts of it based on their own experience, and an oppositional reading, where the viewer understands the intended meaning perfectly well but consciously rejects it, decoding the message through an alternative, often opposing framework.</p>
+      <p>The model gave media researchers a genuinely testable framework for something earlier text-only analysis, including Barthes's semiotics, could describe but not confirm: that real, differently positioned audiences might read the identical broadcast in meaningfully different ways.</p>
+    </div>
+    <div class="context-card">
+      <span class="mono">What fed this theory</span>
+      <ul>
+        <li>Hall's 1973 paper, later published in 1980 as "Encoding/Decoding"</li>
+        <li>The Centre for Contemporary Cultural Studies' broader project on culture, ideology, and power</li>
+        <li>Limitations identified in text-only semiotic analysis, unable to confirm real audience readings</li>
+        <li>British television news as Hall's primary working example of an encoded text</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Core concepts</div>
+  <h2 class="section-title display">Three ideas doing the work underneath</h2>
+  <div class="term-grid">
+    <div class="term-card">
+      <span class="mono">Concept 01</span>
+      <h4>Encoding</h4>
+      <p>Media producers build a preferred meaning into a text, shaped by their own institutional position, professional norms, and assumptions about who is watching and why.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 02</span>
+      <h4>The three decoding positions</h4>
+      <p>Dominant-hegemonic, negotiated, and oppositional readings describe the range of ways an audience member can actually receive an encoded message, from full acceptance to full, conscious rejection.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 03</span>
+      <h4>Polysemy</h4>
+      <p>A single media text can carry multiple potential meanings at once, even though its producers usually intend one preferred reading to dominate over the others.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Examples in practice</div>
+  <h2 class="section-title display">Where this pattern turned up</h2>
+  <div class="example-grid">
+    <div class="example-card">
+      <span class="mono">Hall's own example</span>
+      <h4>Television news as an encoded text</h4>
+      <p>Hall argued news bulletins present themselves as simply neutral and factual, while still quietly encoding an entire common-sense framework about what counts as normal or deviant, an ideological structure most viewers never consciously notice.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">United Kingdom, 1980</span>
+      <h4>David Morley's Nationwide Audience Project</h4>
+      <p>The direct empirical test of Hall's model, showing groups from different occupational and social backgrounds decoded the same BBC current-affairs program in genuinely different ways, some accepting its framing, others negotiating or rejecting it outright, a study explored in more depth later in this atlas.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">The mechanism, demonstrated</div>
+  <h2 class="section-title display">One sentence, three readers</h2>
+  <div class="stage">
+    <div class="stage-head">
+      <h3>The same broadcast, decoded three ways</h3>
+      <p>The encoded message below is fixed. Choose a decoding position to see how three differently positioned viewers might actually receive it.</p>
+    </div>
+
+    <div class="encoded-box">
+      <span class="mono">The encoded message</span>
+      <p>"Police say the protest turned violent after demonstrators refused to disperse."</p>
+    </div>
+
+    <div class="position-tabs" id="positionTabs">
+      <button class="position-tab active" data-pos="dominant">Dominant-hegemonic</button>
+      <button class="position-tab" data-pos="negotiated">Negotiated</button>
+      <button class="position-tab" data-pos="oppositional">Oppositional</button>
+    </div>
+
+    <div class="position-detail" id="positionDetail"></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">In one sentence</div>
+  <div class="summary">
+    <div class="big-quote">A media message is built with a preferred meaning, but audiences can accept it, negotiate it, or reject it outright, depending on who they are.</div>
+    <div class="side-note">
+      <p>The theory shifts the question away from what a text says in isolation, and toward what a real, socially positioned viewer actually does with it, a shift that reshaped how media research studies audiences ever since.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Where the theory ran into trouble</div>
+  <h2 class="section-title display">A powerful sketch, not a finished map</h2>
+  <div class="challenge">
+    <span class="mono">The pushback</span>
+    <p>Hall's model was originally a theoretical framework, not something he tested empirically himself, and critics have noted the three decoding positions, while useful, can feel like a fairly blunt typology for what real audience research later found to be a much messier, more continuous range of readings rather than three clean boxes. Questions also remain about how confidently a critic can identify the "preferred meaning" of a text in the first place, versus treating that too as something audiences help construct rather than something fixed in advance.</p>
+    <p>Participatory digital media has pushed the model further still. Hall's framework assumed a relatively clear line between producers who encode and audiences who decode, but online audiences now routinely re-encode media texts themselves, remixing, captioning, and recirculating them with new attached meanings, turning what was once a one-way broadcast relationship into something far more layered and reciprocal than the original model anticipated.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="mono">Media Theory Atlas</div>
+  <div class="foot-links mono">
+    <a href="index.html">All theories</a>
+    <a href="index.html#themes">Themes</a>
+    <a href="index.html#chrono-anchor">Chronology</a>
+  </div>
+</footer>
+
+<script>
+  const modeToggle = document.getElementById('modeToggle');
+  modeToggle.addEventListener('click', function(){ document.documentElement.classList.toggle('dark'); });
+
+  const POSITIONS = {
+    dominant: {
+      title: "Dominant-hegemonic reading",
+      text: "This viewer accepts the broadcast's framing at face value: the protest turned violent because demonstrators refused a lawful order to disperse. Police action is understood as a justified response to disorder, exactly the reading the encoded sentence was built to produce."
+    },
+    negotiated: {
+      title: "Negotiated reading",
+      text: "This viewer partly accepts the framing, agreeing that some demonstrators may have acted disruptively, but also notices what the sentence leaves out, any account of how police themselves behaved, and privately wonders whether \"violent\" is doing more work than the facts alone would support."
+    },
+    oppositional: {
+      title: "Oppositional reading",
+      text: "This viewer understands exactly what the sentence wants them to think, and rejects it. They read \"refused to disperse\" as a euphemism for suppressing a peaceful assembly, and see the framing itself as evidence of whose side the coverage is really on."
+    }
+  };
+
+  const positionTabs = document.getElementById('positionTabs');
+  const positionDetail = document.getElementById('positionDetail');
+
+  function showPosition(key){
+    const data = POSITIONS[key];
+    positionDetail.innerHTML = '<span class="mono">' + data.title + '</span><p>' + data.text + '</p>';
+  }
+
+  positionTabs.addEventListener('click', function(e){
+    const btn = e.target.closest('.position-tab');
+    if(!btn) return;
+    positionTabs.querySelectorAll('.position-tab').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    showPosition(btn.dataset.pos);
+  });
+
+  showPosition('dominant');
+</script>
+</body>
+</html>

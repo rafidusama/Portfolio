@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Public Sphere Theory, Media Theory Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15130f; --paper:#ede7dc; --paper-dim:#ddd5c4; --line:#15130f33;
+    --red:#c9391f; --blue:#1f4f8f; --olive:#4c5f2a; --mustard:#c98b12; --violet:#5c3a80;
+    --bg: var(--paper); --fg: var(--ink); --bg-dim: var(--paper-dim); --rule: var(--line);
+    --invert-bg: var(--ink); --invert-fg: var(--paper); --theme: var(--olive);
+  }
+  html.dark{ --bg:#121110; --fg:#ede7dc; --bg-dim:#1c1a17; --rule:#ede7dc2e; --invert-bg: var(--paper); --invert-fg: var(--ink); }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--fg); font-family:'Archivo', sans-serif; transition:background .25s ease, color .25s ease; overflow-x:hidden; }
+  .display{ font-family:'Anton', sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.92; }
+  .mono{ font-family:'Space Mono', monospace; text-transform:uppercase; letter-spacing:0.08em; }
+  a{ color:inherit; }
+  :focus-visible{ outline: 3px solid currentColor; outline-offset: 3px; }
+
+  header.nav{ position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:16px 28px; background:var(--bg); border-bottom:1.5px solid var(--rule); }
+  .nav-logo{ font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .nav-logo .dot{ width:9px; height:9px; border-radius:50%; background: conic-gradient(var(--red) 0 20%, var(--blue) 20% 40%, var(--olive) 40% 60%, var(--mustard) 60% 80%, var(--violet) 80% 100%); flex-shrink:0; }
+  .nav-right{ display:flex; gap:10px; align-items:center; }
+  .icon-btn{ background:none; border:1.5px solid var(--fg); color:var(--fg); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .icon-btn svg{ width:16px; height:16px; }
+  .back-link{ display:flex; align-items:center; gap:8px; font-family:'Space Mono', monospace; font-size:11.5px; text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; }
+
+  .theory-hero{ background:var(--theme); color:var(--paper); padding:64px 6vw 70px; border-bottom:1.5px solid var(--rule); }
+  .theory-meta{ display:flex; gap:22px; align-items:center; flex-wrap:wrap; margin-bottom:26px; }
+  .theory-meta .mono{ font-size:12px; opacity:0.9; }
+  .theme-tag{ display:inline-flex; align-items:center; gap:8px; border:1.3px solid var(--paper); border-radius:999px; padding:6px 14px; font-size:11px; }
+  .theme-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--paper); }
+  .theory-hero h1{ font-size:clamp(40px, 8vw, 108px); margin:0; max-width:20ch; }
+  .theory-hero .aka{ font-size:clamp(15px,1.8vw,20px); margin-top:18px; font-style:italic; opacity:0.9; font-weight:500; }
+  .theorist-line{ margin-top:34px; display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; }
+  .theorist-line .name{ font-size:18px; font-weight:700; }
+  .theorist-line .role{ font-size:13px; opacity:0.85; }
+
+  section{ padding:80px 6vw; border-bottom:1.5px solid var(--rule); }
+  .section-eyebrow{ font-size:12px; opacity:0.6; margin-bottom:16px; display:flex; align-items:center; gap:12px; }
+  .section-eyebrow::before{ content:""; width:30px; height:2px; background:var(--theme); }
+  .section-title{ font-size:clamp(26px,3.4vw,44px); margin:0 0 30px; }
+
+  .context-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap:60px; align-items:start; }
+  .context-grid p{ font-size:16px; line-height:1.7; margin:0 0 20px; }
+  .context-card{ background:var(--bg-dim); border:1.5px solid var(--rule); border-radius:8px; padding:26px; }
+  .context-card .mono{ font-size:11px; opacity:0.6; margin-bottom:14px; display:block; }
+  .context-card ul{ margin:0; padding-left:18px; }
+  .context-card li{ font-size:14px; line-height:1.7; margin-bottom:10px; }
+  @media (max-width: 860px){ .context-grid{ grid-template-columns:1fr; gap:34px; } }
+
+  .term-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; }
+  .term-card{ border:1.5px solid var(--rule); border-radius:8px; padding:24px; }
+  .term-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:10px; display:block; }
+  .term-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:19px; margin:0 0 12px; line-height:1.05; }
+  .term-card p{ font-size:13.5px; line-height:1.6; margin:0; opacity:0.9; }
+  @media (max-width: 860px){ .term-grid{ grid-template-columns:1fr; } }
+
+  .example-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:22px; }
+  .example-card{ background:var(--bg-dim); border-radius:8px; padding:26px 28px; border-top:5px solid var(--theme); }
+  .example-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:12px; display:block; }
+  .example-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:20px; margin:0 0 12px; line-height:1.08; }
+  .example-card p{ font-size:14px; line-height:1.65; margin:0; }
+  .example-card p + p{ margin-top:12px; }
+  @media (max-width: 860px){ .example-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- TIMELINE ---------- */
+  .stage{ background:var(--invert-bg); color:var(--invert-fg); border-radius:14px; padding:50px 6vw; position:relative; overflow:hidden; }
+  .stage-head{ margin-bottom:40px; }
+  .stage-head h3{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(22px,3vw,34px); margin:0; }
+  .stage-head p{ max-width:60ch; font-size:14px; line-height:1.6; opacity:0.75; margin:10px 0 0; }
+
+  .timeline{ display:flex; max-width:800px; margin:0 auto; gap:14px; }
+  .tl-node{
+    flex:1;
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:22px 18px;
+    cursor:pointer;
+    text-align:center;
+  }
+  .tl-node:hover{ border-color:var(--theme); }
+  .tl-node .mono{ font-size:10px; opacity:0.6; display:block; margin-bottom:8px; }
+  .tl-node h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:15px; margin:0; line-height:1.15; }
+  .tl-node.active{ background:var(--theme); border-color:var(--theme); }
+
+  .tl-detail{ max-width:800px; margin:20px auto 0; background:var(--bg-dim); border-radius:8px; padding:24px 28px; display:none; color:var(--fg); }
+  html.dark .tl-detail{ color:var(--invert-fg); }
+  .tl-detail.visible{ display:block; }
+  .tl-detail .mono{ font-size:10.5px; opacity:0.6; margin-bottom:10px; display:block; }
+  .tl-detail p{ margin:0; font-size:14px; line-height:1.65; }
+
+  @media (max-width: 700px){ .timeline{ flex-direction:column; } }
+
+  .summary{ display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap; }
+  .summary .big-quote{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(24px,3.6vw,42px); line-height:1.05; max-width:20ch; color:var(--theme); }
+  .summary .side-note{ max-width:42ch; font-size:14.5px; line-height:1.7; opacity:0.85; padding-top:8px; }
+
+  .challenge{ background:var(--bg-dim); border-left:4px solid var(--theme); border-radius:0 8px 8px 0; padding:26px 30px; }
+  .challenge .mono{ font-size:11px; opacity:0.6; margin-bottom:12px; display:block; }
+  .challenge p{ margin:0 0 16px; font-size:15px; line-height:1.7; }
+  .challenge p:last-child{ margin-bottom:0; }
+
+  .next-teaser{ display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; background:var(--violet); color:var(--paper); border-radius:10px; padding:34px 36px; }
+  .next-teaser .mono{ font-size:11px; opacity:0.85; margin-bottom:10px; display:block; }
+  .next-teaser h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(20px,2.6vw,30px); margin:0; }
+  .next-teaser a{ text-decoration:none; border:1.3px solid var(--paper); border-radius:999px; padding:11px 22px; font-family:'Space Mono', monospace; font-size:11.5px; letter-spacing:0.05em; white-space:nowrap; }
+
+  footer{ padding:34px 6vw; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; font-size:11.5px; }
+  footer .foot-links{ display:flex; gap:20px; }
+  footer a{ text-decoration:none; }
+  footer a:hover{ opacity:0.6; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="back-link" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg>
+    All theories
+  </a>
+  <a class="nav-logo" href="index.html">
+    <span class="dot"></span>
+    <span class="mono">Media Theory Atlas</span>
+  </a>
+  <div class="nav-right">
+    <button class="icon-btn" id="modeToggle" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2 12h2.4M19.6 12H22M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="theory-hero" style="border-bottom:none;">
+  <div class="theory-meta">
+    <span class="mono">1960s</span>
+    <span class="theme-tag"><span class="dot"></span>Political Economy</span>
+  </div>
+  <h1 class="display">Public Sphere Theory</h1>
+  <div class="theorist-line">
+    <span class="name">J&uuml;rgen Habermas</span>
+    <span class="role">German philosopher and sociologist</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Historical context</div>
+  <h2 class="section-title display">A coffeehouse argument becomes a theory of democracy</h2>
+  <div class="context-grid">
+    <div>
+      <p>In 1962, J&uuml;rgen Habermas published <em>The Structural Transformation of the Public Sphere</em>, a history and a warning wrapped into one book. The history looked back at eighteenth century England, France, and Germany, where a new kind of social space had opened up between the private household and the machinery of the state: coffeehouses, literary salons, and a growing world of newspapers, journals, and pamphlets, where private citizens could gather and argue about matters of shared concern.</p>
+      <p>Habermas called this the bourgeois public sphere, and he argued something specific happened inside it that mattered enormously for democracy. In principle, at least, the strength of an argument was supposed to matter more than the rank of the person making it. A merchant's son and a minor aristocrat could, in theory, sit at the same coffeehouse table and be judged by their reasoning rather than their birth. Public opinion, formed through this open, rational-critical debate, could then act as a check on state power.</p>
+      <p>The warning came in the second half of the book. Habermas argued that by the twentieth century, this fragile arrangement had been steadily eroded by the very same commercial forces that had helped build it. As newspapers and broadcasting became large, profit-driven industries, and as public relations and advertising grew into sophisticated professions in their own right, genuine debate increasingly gave way to what he called refeudalization: a kind of staged publicity, managed and packaged for an audience of consumers rather than citizens, echoing the way feudal courts had once performed power for a passive public rather than debating it with one.</p>
+      <p>The book was not translated into English until 1989, but once it was, it became one of the most influential single works in media and communication theory, giving later researchers a vocabulary for asking whether any given media system, broadcast or digital, was helping or harming democratic debate.</p>
+    </div>
+    <div class="context-card">
+      <span class="mono">What fed this theory</span>
+      <ul>
+        <li>Historical accounts of eighteenth century English coffeehouses and French salons</li>
+        <li>The rise of periodicals and pamphlets that circulated debate beyond face to face conversation</li>
+        <li>Habermas's own background in critical theory and the Frankfurt School tradition</li>
+        <li>The twentieth century growth of commercial mass media, advertising, and public relations</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Core concepts</div>
+  <h2 class="section-title display">Three ideas doing the work underneath</h2>
+  <div class="term-grid">
+    <div class="term-card">
+      <span class="mono">Concept 01</span>
+      <h4>The public sphere</h4>
+      <p>A discursive space, distinct from both the state and private life, where citizens gather to debate matters of shared concern and form public opinion capable of holding power accountable.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 02</span>
+      <h4>Rational-critical debate</h4>
+      <p>The ideal at the center of the theory: participants set aside social rank and status, so the strength of an argument, not the standing of the person making it, is what wins out.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 03</span>
+      <h4>Refeudalization</h4>
+      <p>Habermas's term for the decline of genuine public debate under commercial mass media, replaced by managed publicity that stages the appearance of public opinion rather than actually forming it through open argument.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Examples in practice</div>
+  <h2 class="section-title display">Where this pattern turned up</h2>
+  <div class="example-grid">
+    <div class="example-card">
+      <span class="mono">London, early 1700s</span>
+      <h4>English coffeehouses</h4>
+      <p>Habermas's central historical example. Patrons debated politics, literature, and commerce over coffee, supported by circulating periodicals like <em>The Spectator</em>, which were often read aloud and discussed on the spot rather than consumed alone.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Paris, 1700s</span>
+      <h4>The Enlightenment salons</h4>
+      <p>Salons hosted by figures like Madame Geoffrin brought philosophers, writers, and members of the aristocracy together on comparatively equal conversational footing, another of Habermas's core examples of the emerging bourgeois public sphere.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Twentieth century United States</span>
+      <h4>The growth of public relations</h4>
+      <p>Habermas pointed to the rapid professionalization of public relations and advertising as direct evidence of refeudalization, arguing that public opinion was increasingly something manufactured and managed for an audience rather than something that audience formed through its own debate.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Contemporary parallel</span>
+      <h4>Social media as a contested public sphere</h4>
+      <p>Online platforms have been proposed by some later scholars as a partial revival of open public debate, and by others as an even more thoroughly commercialized and manipulated version of Habermas's refeudalized sphere. That argument has become its own theory later in this atlas.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">The mechanism, demonstrated</div>
+  <h2 class="section-title display">Follow the public sphere across three eras</h2>
+  <div class="stage">
+    <div class="stage-head">
+      <h3>From the coffeehouse to the feed</h3>
+      <p>Click each era to see how the space for public debate was structured, and what Habermas, or later scholars extending his argument, thought was happening to it.</p>
+    </div>
+
+    <div class="timeline" id="timeline">
+      <div class="tl-node" data-era="coffeehouse"><span class="mono">1700s</span><h4>Coffeehouse era</h4></div>
+      <div class="tl-node" data-era="broadcast"><span class="mono">1900s</span><h4>Mass broadcast era</h4></div>
+      <div class="tl-node" data-era="digital"><span class="mono">Today</span><h4>Networked era</h4></div>
+    </div>
+
+    <div class="tl-detail" id="tlDetail"></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">In one sentence</div>
+  <div class="summary">
+    <div class="big-quote">A healthy public sphere depends on citizens debating on the strength of their arguments, and Habermas argued commercial mass media steadily replaced that debate with managed publicity.</div>
+    <div class="side-note">
+      <p>The theory gives media researchers a standard to measure any media system against: does it open up genuine debate among citizens, or does it mainly perform the appearance of debate for a passive audience.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Where the theory ran into trouble</div>
+  <h2 class="section-title display">The coffeehouse was never open to everyone</h2>
+  <div class="challenge">
+    <span class="mono">The pushback</span>
+    <p>The philosopher Nancy Fraser offered one of the most influential critiques, arguing that Habermas's eighteenth century public sphere was never as universally open as it was described. Women, working class people, and colonized populations were systematically excluded from the coffeehouses and salons Habermas treated as models of rational debate, even as that debate was presented as belonging to everyone. Fraser proposed thinking instead in terms of multiple, competing subaltern counterpublics, each with its own space for debate, rather than one single unified public sphere that only ever really included a narrow slice of society.</p>
+    <p>Other critics have questioned whether Habermas's framework is too nostalgic, measuring every later media system against an idealized coffeehouse debate that may have been smaller and less significant in practice than the theory suggests, and asking whether digital media's fragmentation of the public sphere into countless smaller communities is purely a loss, or also a way for previously excluded groups to finally find a debate of their own.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="mono">Media Theory Atlas</div>
+  <div class="foot-links mono">
+    <a href="index.html">All theories</a>
+    <a href="index.html#themes">Themes</a>
+    <a href="index.html#chrono-anchor">Chronology</a>
+  </div>
+</footer>
+
+<script>
+  const modeToggle = document.getElementById('modeToggle');
+  modeToggle.addEventListener('click', () => { document.documentElement.classList.toggle('dark'); });
+
+  const eraInfo = {
+    'coffeehouse': {
+      title: 'The coffeehouse public sphere',
+      text: 'Private citizens gathered face to face in coffeehouses and salons, supported by circulating periodicals, to debate politics, literature, and commerce. Habermas treated this as the closest historical approximation of genuinely open, rational-critical debate, while noting participation was still limited to a fairly narrow, propertied slice of society.'
+    },
+    'broadcast': {
+      title: 'The mass broadcast era',
+      text: 'Newspapers, radio, and television grew into large commercial industries. Habermas argued this era saw public relations and advertising increasingly manage and stage public opinion, replacing open debate with polished, one-way publicity aimed at a mostly passive audience of consumers.'
+    },
+    'digital': {
+      title: 'The networked era',
+      text: 'Writing after Habermas, later scholars have debated whether online platforms represent a partial return to open, many-to-many debate, or an even more sophisticated form of managed publicity, shaped now by advertising-driven algorithms rather than newspaper owners and broadcasters alone.'
+    }
+  };
+
+  const timeline = document.getElementById('timeline');
+  const tlDetail = document.getElementById('tlDetail');
+
+  timeline.addEventListener('click', e => {
+    const node = e.target.closest('.tl-node');
+    if(!node) return;
+    timeline.querySelectorAll('.tl-node').forEach(n => n.classList.remove('active'));
+    node.classList.add('active');
+    const info = eraInfo[node.dataset.era];
+    tlDetail.innerHTML = `<span class="mono">${info.title}</span><p>${info.text}</p>`;
+    tlDetail.classList.add('visible');
+  });
+</script>
+</body>
+</html>

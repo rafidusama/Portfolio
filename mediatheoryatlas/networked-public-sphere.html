@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Networked Public Sphere, Media Theory Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15130f; --paper:#ede7dc; --paper-dim:#ddd5c4; --line:#15130f33;
+    --red:#c9391f; --blue:#1f4f8f; --olive:#4c5f2a; --mustard:#c98b12; --violet:#5c3a80;
+    --bg: var(--paper); --fg: var(--ink); --bg-dim: var(--paper-dim); --rule: var(--line);
+    --invert-bg: var(--ink); --invert-fg: var(--paper); --theme: var(--olive);
+  }
+  html.dark{ --bg:#121110; --fg:#ede7dc; --bg-dim:#1c1a17; --rule:#ede7dc2e; --invert-bg: var(--paper); --invert-fg: var(--ink); }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--fg); font-family:'Archivo', sans-serif; transition:background .25s ease, color .25s ease; overflow-x:hidden; }
+  .display{ font-family:'Anton', sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.92; }
+  .mono{ font-family:'Space Mono', monospace; text-transform:uppercase; letter-spacing:0.08em; }
+  a{ color:inherit; }
+  :focus-visible{ outline: 3px solid currentColor; outline-offset: 3px; }
+
+  header.nav{ position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:16px 28px; background:var(--bg); border-bottom:1.5px solid var(--rule); }
+  .nav-logo{ font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .nav-logo .dot{ width:9px; height:9px; border-radius:50%; background: conic-gradient(var(--red) 0 20%, var(--blue) 20% 40%, var(--olive) 40% 60%, var(--mustard) 60% 80%, var(--violet) 80% 100%); flex-shrink:0; }
+  .nav-right{ display:flex; gap:10px; align-items:center; }
+  .icon-btn{ background:none; border:1.5px solid var(--fg); color:var(--fg); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .icon-btn svg{ width:16px; height:16px; }
+  .back-link{ display:flex; align-items:center; gap:8px; font-family:'Space Mono', monospace; font-size:11.5px; text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; }
+
+  .theory-hero{ background:var(--theme); color:var(--paper); padding:64px 6vw 70px; border-bottom:1.5px solid var(--rule); }
+  .theory-meta{ display:flex; gap:22px; align-items:center; flex-wrap:wrap; margin-bottom:26px; }
+  .theory-meta .mono{ font-size:12px; opacity:0.9; }
+  .theme-tag{ display:inline-flex; align-items:center; gap:8px; border:1.3px solid var(--paper); border-radius:999px; padding:6px 14px; font-size:11px; }
+  .theme-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--paper); }
+  .theory-hero h1{ font-size:clamp(38px, 7vw, 100px); margin:0; max-width:22ch; }
+  .theory-hero .aka{ font-size:clamp(15px,1.8vw,20px); margin-top:18px; font-style:italic; opacity:0.9; font-weight:500; }
+  .theorist-line{ margin-top:34px; display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; }
+  .theorist-line .name{ font-size:18px; font-weight:700; }
+  .theorist-line .role{ font-size:13px; opacity:0.85; }
+
+  section{ padding:80px 6vw; border-bottom:1.5px solid var(--rule); }
+  .section-eyebrow{ font-size:12px; opacity:0.6; margin-bottom:16px; display:flex; align-items:center; gap:12px; }
+  .section-eyebrow::before{ content:""; width:30px; height:2px; background:var(--theme); }
+  .section-title{ font-size:clamp(26px,3.4vw,44px); margin:0 0 30px; }
+
+  .context-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap:60px; align-items:start; }
+  .context-grid p{ font-size:16px; line-height:1.7; margin:0 0 20px; }
+  .context-card{ background:var(--bg-dim); border:1.5px solid var(--rule); border-radius:8px; padding:26px; }
+  .context-card .mono{ font-size:11px; opacity:0.6; margin-bottom:14px; display:block; }
+  .context-card ul{ margin:0; padding-left:18px; }
+  .context-card li{ font-size:14px; line-height:1.7; margin-bottom:10px; }
+  @media (max-width: 860px){ .context-grid{ grid-template-columns:1fr; gap:34px; } }
+
+  .term-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; }
+  .term-card{ border:1.5px solid var(--rule); border-radius:8px; padding:24px; }
+  .term-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:10px; display:block; }
+  .term-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:19px; margin:0 0 12px; line-height:1.05; }
+  .term-card p{ font-size:13.5px; line-height:1.6; margin:0; opacity:0.9; }
+  @media (max-width: 860px){ .term-grid{ grid-template-columns:1fr; } }
+
+  .example-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:22px; }
+  .example-card{ background:var(--bg-dim); border-radius:8px; padding:26px 28px; border-top:5px solid var(--theme); }
+  .example-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:12px; display:block; }
+  .example-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:20px; margin:0 0 12px; line-height:1.08; }
+  .example-card p{ font-size:14px; line-height:1.65; margin:0; }
+  .example-card p + p{ margin-top:12px; }
+  @media (max-width: 860px){ .example-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- BROADCAST VS DISTRIBUTED ---------- */
+  .stage{ background:var(--invert-bg); color:var(--invert-fg); border-radius:14px; padding:50px 6vw; position:relative; overflow:hidden; }
+  .stage-head{ margin-bottom:16px; }
+  .stage-head h3{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(22px,3vw,34px); margin:0; }
+  .stage-head p{ max-width:64ch; font-size:14px; line-height:1.6; opacity:0.75; margin:10px 0 0; }
+
+  .toggle-row{ display:flex; justify-content:center; margin:30px 0 34px; }
+  .toggle{ display:flex; border:1.5px solid var(--invert-fg); border-radius:999px; overflow:hidden; }
+  .toggle button{
+    background:none; border:none; color:var(--invert-fg);
+    font-family:'Space Mono', monospace; font-size:11.5px;
+    padding:10px 20px; cursor:pointer; letter-spacing:0.05em; text-transform:uppercase;
+  }
+  .toggle button.active{ background:var(--theme); color:var(--paper); }
+
+  .diagram-wrap{ max-width:640px; margin:0 auto 26px; }
+  .diagram-wrap svg{ width:100%; height:auto; display:block; }
+
+  .diagram-caption{ max-width:600px; margin:0 auto; text-align:center; font-size:13.5px; line-height:1.65; opacity:0.85; }
+  .diagram-caption .mono{ font-size:10.5px; opacity:0.6; display:block; margin-bottom:8px; }
+
+  .summary{ display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap; }
+  .summary .big-quote{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(24px,3.6vw,42px); line-height:1.05; max-width:20ch; color:var(--theme); }
+  .summary .side-note{ max-width:42ch; font-size:14.5px; line-height:1.7; opacity:0.85; padding-top:8px; }
+
+  .challenge{ background:var(--bg-dim); border-left:4px solid var(--theme); border-radius:0 8px 8px 0; padding:26px 30px; }
+  .challenge .mono{ font-size:11px; opacity:0.6; margin-bottom:12px; display:block; }
+  .challenge p{ margin:0 0 16px; font-size:15px; line-height:1.7; }
+  .challenge p:last-child{ margin-bottom:0; }
+
+  .next-teaser{ display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; background:var(--blue); color:var(--paper); border-radius:10px; padding:34px 36px; }
+  .next-teaser .mono{ font-size:11px; opacity:0.85; margin-bottom:10px; display:block; }
+  .next-teaser h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(20px,2.6vw,30px); margin:0; }
+  .next-teaser a{ text-decoration:none; border:1.3px solid var(--paper); border-radius:999px; padding:11px 22px; font-family:'Space Mono', monospace; font-size:11.5px; letter-spacing:0.05em; white-space:nowrap; }
+
+  footer{ padding:34px 6vw; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; font-size:11.5px; }
+  footer .foot-links{ display:flex; gap:20px; }
+  footer a{ text-decoration:none; }
+  footer a:hover{ opacity:0.6; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="back-link" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg>
+    All theories
+  </a>
+  <a class="nav-logo" href="index.html">
+    <span class="dot"></span>
+    <span class="mono">Media Theory Atlas</span>
+  </a>
+  <div class="nav-right">
+    <button class="icon-btn" id="modeToggle" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2 12h2.4M19.6 12H22M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="theory-hero" style="border-bottom:none;">
+  <div class="theory-meta">
+    <span class="mono">2000s</span>
+    <span class="theme-tag"><span class="dot"></span>Political Economy</span>
+  </div>
+  <h1 class="display">Networked Public Sphere</h1>
+  <div class="theorist-line">
+    <span class="name">Yochai Benkler</span>
+    <span class="role">Legal scholar, Harvard Law School</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Historical context</div>
+  <h2 class="section-title display">A public sphere without a printing press requirement</h2>
+  <div class="context-grid">
+    <div>
+      <p>Habermas's public sphere, covered earlier in this atlas, had been built around eighteenth century coffeehouses and print culture, then transformed and arguably degraded, in his account, by twentieth century commercial mass broadcasting. Yochai Benkler, a legal scholar, picked up that thread in his 2006 book <em>The Wealth of Networks: How Social Production Transforms Markets and Freedom</em>, arguing that the internet had introduced a genuinely new structural possibility Habermas could not have anticipated.</p>
+      <p>Twentieth century mass media organized the public sphere around a hub-and-spoke broadcast model: a small number of centralized producers, newspapers, radio networks, television studios, speaking outward to a large, comparatively passive audience. Benkler argued digital networks enabled something structurally different, a genuinely distributed, many-to-many architecture where ordinary individuals could produce, publish, and circulate their own contributions to public debate without needing to own a printing press or hold a broadcast license.</p>
+      <p>Benkler connected this shift to a broader concept he called commons-based peer production, large-scale, collaborative, nonmarket production of information and culture, made newly possible by networked communication, that did not require a traditional corporate media gatekeeper at all. Where earlier public participation required either institutional access or considerable capital, the networked public sphere lowered the cost of speaking to nearly the cost of an internet connection.</p>
+      <p>Writing in the mid-2000s, Benkler's tone was genuinely optimistic, treating this shift as a meaningful democratization of who could participate in shaping public discourse, not merely a technical curiosity but a real structural change with significant implications for freedom and self-governance.</p>
+    </div>
+    <div class="context-card">
+      <span class="mono">What fed this theory</span>
+      <ul>
+        <li>Benkler's 2006 book, <em>The Wealth of Networks</em></li>
+        <li>Habermas's earlier public sphere theory, covered earlier in this atlas</li>
+        <li>The rapid growth of blogs, wikis, and peer-produced online content in the early 2000s</li>
+        <li>Open-source software and Wikipedia as working examples of commons-based peer production</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Core concepts</div>
+  <h2 class="section-title display">Three ideas doing the work underneath</h2>
+  <div class="term-grid">
+    <div class="term-card">
+      <span class="mono">Concept 01</span>
+      <h4>Distributed versus centralized architecture</h4>
+      <p>The shift from a hub-and-spoke broadcast public sphere, a few producers speaking to many, to a genuinely many-to-many, distributed network structure.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 02</span>
+      <h4>Commons-based peer production</h4>
+      <p>Large-scale, collaborative, nonmarket production of information and culture, made possible by networked communication, without the need for a traditional corporate media gatekeeper.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 03</span>
+      <h4>Lowered barriers to public voice</h4>
+      <p>Dramatically reduced costs of producing, publishing, and circulating one's own contribution to public debate compared to the broadcast era's institutional and financial requirements.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Examples in practice</div>
+  <h2 class="section-title display">Where this pattern turned up</h2>
+  <div class="example-grid">
+    <div class="example-card">
+      <span class="mono">Wikipedia</span>
+      <h4>An encyclopedia with no single publisher</h4>
+      <p>Benkler's frequently cited example of commons-based peer production at massive scale, an entire encyclopedia built through distributed volunteer collaboration rather than any centralized editorial hierarchy.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Open-source software</span>
+      <h4>Linux and collaborative code</h4>
+      <p>Another of Benkler's core examples, large-scale, nonmarket, peer-produced software output challenging the assumption that valuable, complex information production requires a traditional corporate hierarchy.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Early 2000s blogging</span>
+      <h4>Citizen journalism breaking stories</h4>
+      <p>Benkler discussed how individual bloggers and grassroots online reporting could surface and shape stories the traditional broadcast and print public sphere had ignored or downplayed, a direct working instance of distributed public voice.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Contemporary parallel</span>
+      <h4>Citizen documentation and crowdsourced fact-checking</h4>
+      <p>Viral citizen documentation of events and crowdsourced fact-checking efforts continue the networked public sphere pattern, even as platform algorithms have introduced a new kind of gatekeeping layer Benkler's original optimism did not fully anticipate.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">The mechanism, demonstrated</div>
+  <h2 class="section-title display">Two structures, the same public debate</h2>
+  <div class="stage">
+    <div class="stage-head">
+      <h3>Hub-and-spoke against distributed network</h3>
+      <p>Toggle between the twentieth century broadcast public sphere and the networked public sphere Benkler described, and notice how the number of possible speakers changes the shape of the whole structure.</p>
+    </div>
+
+    <div class="toggle-row">
+      <div class="toggle" id="publicToggle">
+        <button class="active" data-view="broadcast">Broadcast public sphere</button>
+        <button data-view="networked">Networked public sphere</button>
+      </div>
+    </div>
+
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 500 240" id="publicSvg"></svg>
+    </div>
+
+    <div class="diagram-caption" id="publicCaption"></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">In one sentence</div>
+  <div class="summary">
+    <div class="big-quote">The internet replaced a public sphere built around a few centralized broadcasters with a genuinely distributed network where far more people can produce and circulate their own contributions to public debate.</div>
+    <div class="side-note">
+      <p>The theory offers a hopeful update to Habermas's older account, treating digital networks as a structural opportunity to widen genuine participation in public discourse, not simply a new delivery mechanism for the same old broadcast relationship.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Where the theory ran into trouble</div>
+  <h2 class="section-title display">Distributed speech, concentrated platforms</h2>
+  <div class="challenge">
+    <span class="mono">The pushback</span>
+    <p>Benkler's optimistic mid-2000s framing ran into a complication that became increasingly visible over the following decade: the rise of platform-level algorithmic curation and content moderation reintroduced new forms of centralized gatekeeping, different in kind from traditional broadcast media, but genuinely concentrated all the same. The network's technical architecture may be distributed, but a huge share of public discourse now runs through infrastructure owned and controlled by a small number of major technology companies.</p>
+    <p>Critics also pointed out that lowered barriers to speak did not necessarily translate into an equal ability to actually be heard, since publishing a message and having it reach a meaningful audience amid a vastly more crowded, competitive, algorithmically ranked information environment are two very different challenges. Later theorists, covered further ahead in this atlas, developed concepts like platform society and surveillance capitalism partly as a direct response to exactly this complication.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="mono">Media Theory Atlas</div>
+  <div class="foot-links mono">
+    <a href="index.html">All theories</a>
+    <a href="index.html#themes">Themes</a>
+    <a href="index.html#chrono-anchor">Chronology</a>
+  </div>
+</footer>
+
+<script>
+  const modeToggle = document.getElementById('modeToggle');
+  modeToggle.addEventListener('click', function(){ document.documentElement.classList.toggle('dark'); });
+
+  const VIEWS = {
+    broadcast: {
+      caption: "A small number of centralized producers, newspapers, radio networks, television studios, speak outward to a large, comparatively passive audience. Very few people ever have the resources to become one of the speaking hubs.",
+      render: function(svg){
+        let html = '<circle cx="250" cy="60" r="30" fill="var(--theme)" />' +
+          '<text x="250" y="60" text-anchor="middle" dominant-baseline="middle" font-family="Space Mono, monospace" font-size="9" fill="var(--paper)">Broadcaster</text>';
+        const listeners = [
+          {x:80,y:180},{x:160,y:200},{x:250,y:210},{x:340,y:200},{x:420,y:180}
+        ];
+        listeners.forEach(function(l){
+          html += '<line x1="250" y1="90" x2="'+l.x+'" y2="'+(l.y-16)+'" stroke="var(--rule)" stroke-width="1.5" />';
+          html += '<circle cx="'+l.x+'" cy="'+l.y+'" r="16" fill="var(--rule)" />';
+        });
+        svg.innerHTML = html;
+      }
+    },
+    networked: {
+      caption: "Many nodes, each capable of producing and circulating their own contribution, connect to each other directly and unevenly, without needing to pass through a single centralized broadcaster first.",
+      render: function(svg){
+        const nodes = [
+          {x:100,y:60},{x:220,y:40},{x:340,y:70},{x:420,y:140},{x:340,y:200},
+          {x:200,y:210},{x:90,y:180},{x:60,y:110},{x:260,y:130}
+        ];
+        let html = '';
+        const edges = [[0,1],[1,2],[2,8],[8,5],[5,6],[6,7],[7,0],[8,3],[3,4],[4,5],[1,8],[0,7]];
+        edges.forEach(function(e){
+          html += '<line x1="'+nodes[e[0]].x+'" y1="'+nodes[e[0]].y+'" x2="'+nodes[e[1]].x+'" y2="'+nodes[e[1]].y+'" stroke="var(--theme)" stroke-width="1.5" opacity="0.6" />';
+        });
+        nodes.forEach(function(n){
+          html += '<circle cx="'+n.x+'" cy="'+n.y+'" r="14" fill="var(--theme)" />';
+        });
+        svg.innerHTML = html;
+      }
+    }
+  };
+
+  const svg = document.getElementById('publicSvg');
+  const caption = document.getElementById('publicCaption');
+  const publicToggle = document.getElementById('publicToggle');
+
+  function renderView(key){
+    const view = VIEWS[key];
+    view.render(svg);
+    caption.innerHTML = '<span class="mono">What this structure allows</span>' + view.caption;
+  }
+
+  publicToggle.addEventListener('click', function(e){
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    publicToggle.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    renderView(btn.dataset.view);
+  });
+
+  renderView('broadcast');
+</script>
+</body>
+</html>

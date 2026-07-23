@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agenda-Setting, Media Theory Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15130f; --paper:#ede7dc; --paper-dim:#ddd5c4; --line:#15130f33;
+    --red:#c9391f; --blue:#1f4f8f; --olive:#4c5f2a; --mustard:#c98b12; --violet:#5c3a80;
+    --bg: var(--paper); --fg: var(--ink); --bg-dim: var(--paper-dim); --rule: var(--line);
+    --invert-bg: var(--ink); --invert-fg: var(--paper); --theme: var(--red);
+  }
+  html.dark{ --bg:#121110; --fg:#ede7dc; --bg-dim:#1c1a17; --rule:#ede7dc2e; --invert-bg: var(--paper); --invert-fg: var(--ink); }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--fg); font-family:'Archivo', sans-serif; transition:background .25s ease, color .25s ease; overflow-x:hidden; }
+  .display{ font-family:'Anton', sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.92; }
+  .mono{ font-family:'Space Mono', monospace; text-transform:uppercase; letter-spacing:0.08em; }
+  a{ color:inherit; }
+  :focus-visible{ outline: 3px solid currentColor; outline-offset: 3px; }
+
+  header.nav{ position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:16px 28px; background:var(--bg); border-bottom:1.5px solid var(--rule); }
+  .nav-logo{ font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .nav-logo .dot{ width:9px; height:9px; border-radius:50%; background: conic-gradient(var(--red) 0 20%, var(--blue) 20% 40%, var(--olive) 40% 60%, var(--mustard) 60% 80%, var(--violet) 80% 100%); flex-shrink:0; }
+  .nav-right{ display:flex; gap:10px; align-items:center; }
+  .icon-btn{ background:none; border:1.5px solid var(--fg); color:var(--fg); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .icon-btn svg{ width:16px; height:16px; }
+  .back-link{ display:flex; align-items:center; gap:8px; font-family:'Space Mono', monospace; font-size:11.5px; text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; }
+
+  .theory-hero{ background:var(--theme); color:var(--paper); padding:64px 6vw 70px; border-bottom:1.5px solid var(--rule); }
+  .theory-meta{ display:flex; gap:22px; align-items:center; flex-wrap:wrap; margin-bottom:26px; }
+  .theory-meta .mono{ font-size:12px; opacity:0.9; }
+  .theme-tag{ display:inline-flex; align-items:center; gap:8px; border:1.3px solid var(--paper); border-radius:999px; padding:6px 14px; font-size:11px; }
+  .theme-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--paper); }
+  .theory-hero h1{ font-size:clamp(40px, 8vw, 108px); margin:0; max-width:20ch; }
+  .theory-hero .aka{ font-size:clamp(15px,1.8vw,20px); margin-top:18px; font-style:italic; opacity:0.9; font-weight:500; }
+  .theorist-line{ margin-top:34px; display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; }
+  .theorist-line .name{ font-size:18px; font-weight:700; }
+  .theorist-line .role{ font-size:13px; opacity:0.85; }
+
+  section{ padding:80px 6vw; border-bottom:1.5px solid var(--rule); }
+  .section-eyebrow{ font-size:12px; opacity:0.6; margin-bottom:16px; display:flex; align-items:center; gap:12px; }
+  .section-eyebrow::before{ content:""; width:30px; height:2px; background:var(--theme); }
+  .section-title{ font-size:clamp(26px,3.4vw,44px); margin:0 0 30px; }
+
+  .context-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap:60px; align-items:start; }
+  .context-grid p{ font-size:16px; line-height:1.7; margin:0 0 20px; }
+  .context-card{ background:var(--bg-dim); border:1.5px solid var(--rule); border-radius:8px; padding:26px; }
+  .context-card .mono{ font-size:11px; opacity:0.6; margin-bottom:14px; display:block; }
+  .context-card ul{ margin:0; padding-left:18px; }
+  .context-card li{ font-size:14px; line-height:1.7; margin-bottom:10px; }
+  @media (max-width: 860px){ .context-grid{ grid-template-columns:1fr; gap:34px; } }
+
+  .term-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; }
+  .term-card{ border:1.5px solid var(--rule); border-radius:8px; padding:24px; }
+  .term-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:10px; display:block; }
+  .term-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:19px; margin:0 0 12px; line-height:1.05; }
+  .term-card p{ font-size:13.5px; line-height:1.6; margin:0; opacity:0.9; }
+  @media (max-width: 860px){ .term-grid{ grid-template-columns:1fr; } }
+
+  .example-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:22px; }
+  .example-card{ background:var(--bg-dim); border-radius:8px; padding:26px 28px; border-top:5px solid var(--theme); }
+  .example-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:12px; display:block; }
+  .example-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:20px; margin:0 0 12px; line-height:1.08; }
+  .example-card p{ font-size:14px; line-height:1.65; margin:0; }
+  .example-card p + p{ margin-top:12px; }
+  @media (max-width: 860px){ .example-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- AGENDA CHART ---------- */
+  .stage{ background:var(--invert-bg); color:var(--invert-fg); border-radius:14px; padding:50px 6vw; position:relative; overflow:hidden; }
+  .stage-head{ margin-bottom:16px; }
+  .stage-head h3{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(22px,3vw,34px); margin:0; }
+  .stage-head p{ max-width:64ch; font-size:14px; line-height:1.6; opacity:0.75; margin:10px 0 0; }
+  .stage-note{ font-size:11.5px; opacity:0.55; margin-bottom:30px; max-width:64ch; }
+
+  .toggle-row{ display:flex; justify-content:center; margin-bottom:36px; }
+  .toggle{ display:flex; border:1.5px solid var(--invert-fg); border-radius:999px; overflow:hidden; }
+  .toggle button{
+    background:none; border:none; color:var(--invert-fg);
+    font-family:'Space Mono', monospace; font-size:11.5px;
+    padding:10px 22px; cursor:pointer; letter-spacing:0.05em; text-transform:uppercase;
+  }
+  .toggle button.active{ background:var(--theme); color:var(--paper); }
+
+  .chart{ max-width:680px; margin:0 auto; display:flex; flex-direction:column; gap:16px; }
+  .chart-row{ display:grid; grid-template-columns: 150px 1fr 50px; align-items:center; gap:14px; }
+  .chart-label{ font-family:'Space Mono', monospace; font-size:12px; text-align:right; }
+  .chart-track{ height:22px; background:var(--rule); border-radius:4px; overflow:hidden; }
+  .chart-fill{ height:100%; background:var(--theme); border-radius:4px; transition: width .5s ease; }
+  .chart-value{ font-family:'Space Mono', monospace; font-size:11.5px; opacity:0.75; }
+
+  .chart-caption{ max-width:680px; margin:26px auto 0; text-align:center; font-size:13px; opacity:0.8; }
+
+  @media (max-width: 640px){
+    .chart-row{ grid-template-columns: 100px 1fr 40px; }
+    .chart-label{ font-size:10.5px; }
+  }
+
+  .summary{ display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap; }
+  .summary .big-quote{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(24px,3.6vw,42px); line-height:1.05; max-width:20ch; color:var(--theme); }
+  .summary .side-note{ max-width:42ch; font-size:14.5px; line-height:1.7; opacity:0.85; padding-top:8px; }
+
+  .challenge{ background:var(--bg-dim); border-left:4px solid var(--theme); border-radius:0 8px 8px 0; padding:26px 30px; }
+  .challenge .mono{ font-size:11px; opacity:0.6; margin-bottom:12px; display:block; }
+  .challenge p{ margin:0 0 16px; font-size:15px; line-height:1.7; }
+  .challenge p:last-child{ margin-bottom:0; }
+
+  .next-teaser{ display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; background:var(--red); color:var(--paper); border-radius:10px; padding:34px 36px; }
+  .next-teaser .mono{ font-size:11px; opacity:0.85; margin-bottom:10px; display:block; }
+  .next-teaser h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(20px,2.6vw,30px); margin:0; }
+  .next-teaser a{ text-decoration:none; border:1.3px solid var(--paper); border-radius:999px; padding:11px 22px; font-family:'Space Mono', monospace; font-size:11.5px; letter-spacing:0.05em; white-space:nowrap; }
+
+  footer{ padding:34px 6vw; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; font-size:11.5px; }
+  footer .foot-links{ display:flex; gap:20px; }
+  footer a{ text-decoration:none; }
+  footer a:hover{ opacity:0.6; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="back-link" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg>
+    All theories
+  </a>
+  <a class="nav-logo" href="index.html">
+    <span class="dot"></span>
+    <span class="mono">Media Theory Atlas</span>
+  </a>
+  <div class="nav-right">
+    <button class="icon-btn" id="modeToggle" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2 12h2.4M19.6 12H22M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="theory-hero" style="border-bottom:none;">
+  <div class="theory-meta">
+    <span class="mono">1970s</span>
+    <span class="theme-tag"><span class="dot"></span>Effects Tradition</span>
+  </div>
+  <h1 class="display">Agenda-Setting</h1>
+  <div class="theorist-line">
+    <span class="name">Maxwell McCombs and Donald Shaw</span>
+    <span class="role">Communication researchers, University of North Carolina at Chapel Hill</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Historical context</div>
+  <h2 class="section-title display">A small North Carolina town reopens the question of media power</h2>
+  <div class="context-grid">
+    <div>
+      <p>By the late 1960s, the dominant view in communication research, shaped heavily by Klapper's limited effects paradigm, held that mass media had only a modest influence on what people believed. Maxwell McCombs and Donald Shaw suspected that view had been asking the wrong question all along. Rather than testing whether media could change opinions, they set out to test whether media could shape which issues people considered important in the first place.</p>
+      <p>During the 1968 United States presidential campaign, McCombs and Shaw surveyed undecided voters in Chapel Hill, North Carolina, asking them to name the key issues they thought the campaign should address. At the same time, the researchers systematically analyzed the amount of coverage nine major news sources, newspapers, magazines, and television newscasts, gave to each of those same issues.</p>
+      <p>The rank order of issues voters considered important lined up strikingly closely with the rank order of how much coverage those issues had actually received. Voters were not simply adopting whatever opinion the news pushed. They were adopting the news's sense of what mattered most, an idea the political scientist Bernard Cohen had anticipated in 1963 with a phrase McCombs and Shaw's study seemed to confirm empirically: the press may not be successful in telling people what to think, but it is stunningly successful in telling people what to think about.</p>
+      <p>A follow-up panel study in Charlotte, North Carolina in 1972 strengthened the case further, tracking coverage and public concern over time and finding that shifts in media emphasis tended to precede shifts in public concern, lending real weight to the claim that the influence ran from newsroom to public, and not simply the other way around.</p>
+    </div>
+    <div class="context-card">
+      <span class="mono">What fed this theory</span>
+      <ul>
+        <li>The 1968 Chapel Hill study of undecided voters during the presidential campaign</li>
+        <li>Bernard Cohen's 1963 observation about the press shaping what to think about</li>
+        <li>The 1972 Charlotte panel study, which added evidence about the direction of influence</li>
+        <li>Growing dissatisfaction with the limited effects paradigm's narrow focus on persuasion</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Core concepts</div>
+  <h2 class="section-title display">Three ideas doing the work underneath</h2>
+  <div class="term-grid">
+    <div class="term-card">
+      <span class="mono">Concept 01</span>
+      <h4>The media agenda and the public agenda</h4>
+      <p>The media agenda is the relative emphasis and prominence news coverage gives to different issues. The public agenda is how the audience ranks those same issues by importance. The theory claims the first strongly shapes the second.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 02</span>
+      <h4>Salience transfer</h4>
+      <p>The mechanism at the theory's core: the relative weight media places on an issue transfers to the audience's sense of how important that issue is, without necessarily changing what the audience actually thinks about it.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 03</span>
+      <h4>Second-level agenda-setting</h4>
+      <p>Later researchers extended the theory to argue media does not just make an issue salient, it also emphasizes particular attributes of that issue, shaping not only what audiences think about but which aspects of it come to mind first.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Examples in practice</div>
+  <h2 class="section-title display">Where this pattern turned up</h2>
+  <div class="example-grid">
+    <div class="example-card">
+      <span class="mono">North Carolina, 1968</span>
+      <h4>The Chapel Hill study</h4>
+      <p>The founding study behind the theory, comparing undecided voters' issue rankings against nine news sources' coverage volume, and finding the two rank orders lined up closely across categories like foreign policy, law and order, fiscal policy, public welfare, and civil rights.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">North Carolina, 1972</span>
+      <h4>The Charlotte panel study</h4>
+      <p>A more rigorous follow-up tracking the same voters and the same news sources over time, adding real evidence about the direction of influence by showing shifts in coverage tending to come before shifts in public concern, not simply alongside them.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Crime coverage research</span>
+      <h4>Local television news and public fear of crime</h4>
+      <p>A frequently studied case in the agenda-setting literature: heavy local television emphasis on crime stories has repeatedly correlated with the public ranking crime as a top national concern, even in years when measured crime rates were actually falling.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Contemporary parallel</span>
+      <h4>Cable news cycles and trending topics</h4>
+      <p>Twenty four hour cable news and algorithmically generated trending topics function as a constantly updating, highly visible agenda, extending the same basic mechanism McCombs and Shaw described to a far faster and more fragmented news environment.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">The mechanism, demonstrated</div>
+  <h2 class="section-title display">Toggle the two rankings</h2>
+  <div class="stage">
+    <div class="stage-head">
+      <h3>Coverage volume against public concern, Chapel Hill, 1968</h3>
+      <p>Switch between how much coverage each issue received and how important voters ranked it. Watch how closely the order holds, even though the two numbers are measuring completely different things.</p>
+    </div>
+    <div class="stage-note mono">Values are an illustrative approximation of the original study's general rank order, not exact reported figures.</div>
+
+    <div class="toggle-row">
+      <div class="toggle" id="agendaToggle">
+        <button class="active" data-view="media">Media coverage</button>
+        <button data-view="public">Public concern</button>
+      </div>
+    </div>
+
+    <div class="chart" id="agendaChart"></div>
+    <div class="chart-caption" id="agendaCaption"></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">In one sentence</div>
+  <div class="summary">
+    <div class="big-quote">The more coverage an issue gets, the more important the public tends to think it is, whether or not their opinion about it ever changes.</div>
+    <div class="side-note">
+      <p>The theory reframed the question of media power entirely. Instead of asking whether the news could change minds, it asked whether the news could decide what minds spend their time thinking about, a much harder claim to dismiss, and one the Chapel Hill data supported clearly.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Where the theory ran into trouble</div>
+  <h2 class="section-title display">Correlation is not quite the same as proof</h2>
+  <div class="challenge">
+    <span class="mono">The pushback</span>
+    <p>The original Chapel Hill study measured a correlation between two rankings at a single point in time, drawn from a small, non-random sample of undecided voters in one town. Critics immediately raised the obvious question: does news coverage really drive public concern, or does coverage simply track what an audience already cares about, or is the real relationship a two-way feedback loop between newsroom and public rather than a one-way arrow from one to the other.</p>
+    <p>The Charlotte panel study and later experimental work helped address that concern by tracking change over time rather than a single snapshot, and by the 1980s researchers including Shanto Iyengar and Donald Kinder pushed the question further still with controlled experiments, work that became its own theory later in this atlas. The line between second-level agenda-setting and framing theory has also stayed genuinely blurry, with researchers still debating exactly where emphasizing an issue's importance ends and shaping how that issue gets understood begins.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="mono">Media Theory Atlas</div>
+  <div class="foot-links mono">
+    <a href="index.html">All theories</a>
+    <a href="index.html#themes">Themes</a>
+    <a href="index.html#chrono-anchor">Chronology</a>
+  </div>
+</footer>
+
+<script>
+  const modeToggle = document.getElementById('modeToggle');
+  modeToggle.addEventListener('click', () => { document.documentElement.classList.toggle('dark'); });
+
+  const AGENDA_DATA = {
+    media: {
+      caption: "The relative amount of coverage each issue received across the nine news sources studied in Chapel Hill.",
+      rows: [
+        { label: "Foreign policy", value: 32 },
+        { label: "Law and order", value: 24 },
+        { label: "Fiscal policy", value: 18 },
+        { label: "Public welfare", value: 14 },
+        { label: "Civil rights", value: 12 }
+      ]
+    },
+    public: {
+      caption: "How the same undecided voters ranked each issue's importance to the campaign, a few weeks later.",
+      rows: [
+        { label: "Foreign policy", value: 35 },
+        { label: "Law and order", value: 22 },
+        { label: "Fiscal policy", value: 17 },
+        { label: "Public welfare", value: 15 },
+        { label: "Civil rights", value: 11 }
+      ]
+    }
+  };
+
+  const agendaChart = document.getElementById('agendaChart');
+  const agendaCaption = document.getElementById('agendaCaption');
+  const agendaToggle = document.getElementById('agendaToggle');
+
+  function renderAgenda(view){
+    const data = AGENDA_DATA[view];
+    const max = Math.max.apply(null, data.rows.map(function(r){ return r.value; }));
+    agendaChart.innerHTML = data.rows.map(function(row){
+      return '<div class="chart-row">' +
+        '<div class="chart-label">' + row.label + '</div>' +
+        '<div class="chart-track"><div class="chart-fill" style="width:' + (row.value / max * 100).toFixed(0) + '%"></div></div>' +
+        '<div class="chart-value">' + row.value + '%</div>' +
+      '</div>';
+    }).join('');
+    agendaCaption.textContent = data.caption;
+  }
+
+  agendaToggle.addEventListener('click', function(e){
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    agendaToggle.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    renderAgenda(btn.dataset.view);
+  });
+
+  renderAgenda('media');
+</script>
+</body>
+</html>

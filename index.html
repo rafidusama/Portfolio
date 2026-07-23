@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Usama Rafid</title>
+<meta name="description" content="The portfolio of Usama Rafid to academician, journalist, and media researcher based in Dhaka, Bangladesh."/>
+<link rel="stylesheet" href="index.css?v=liquid-dispatch-2030"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { theme: { extend: { colors: {
+  ink:"#1A1A18", inksoft:"#6B6560", cream:"#F9F6F1", cream2:"#EEEAE3",
+  paper:"#FFFFFF", red:"#B5451B", oxblood:"#8B2D10", blue:"#C8A45A" } } } };
+</script>
+</head>
+<body>
+
+<!-- Ambient layers -->
+<div class="aurora" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span></div>
+<div class="dot-veil" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- Scroll progress -->
+<div id="progress" aria-hidden="true"></div>
+
+<!-- Navigation -->
+<nav class="nav" id="top-nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">Usama<span class="dot">.</span>Rafid</a>
+    <div class="nav-links">
+      <a class="active" href="index.html">Home</a>
+      <a href="reportage.html">Reportage</a>
+      <a href="academic.html">Academic</a>
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+    </div>
+    <button id="menu-toggle" class="hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div id="mobile-menu" aria-hidden="true">
+  <a href="index.html"><span class="idx">01</span> Home</a>
+  <a href="reportage.html"><span class="idx">02</span> Reportage</a>
+  <a href="academic.html"><span class="idx">03</span> Academic</a>
+  <a href="projects.html"><span class="idx">04</span> Projects</a>
+  <a href="about.html"><span class="idx">05</span> About</a>
+</div>
+
+<main>
+
+<!-- ===================== HERO ===================== -->
+<header class="relative min-h-[100svh] flex items-center pt-28 pb-16 px-6 md:px-14 overflow-hidden">
+  <div class="w-full max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+
+    <!-- Left: title -->
+    <div class="lg:col-span-7 relative z-10">
+      <div class="flex items-center gap-3 mb-7 reveal">
+        <span class="rule"></span>
+        <span class="eyebrow">Portfolio · Dhaka, Bangladesh</span>
+      </div>
+      <h1 class="display text-[clamp(3.4rem,13vw,11rem)] text-ink reveal" data-mouse="8">
+        Usama<br/><span class="stroke">Rafid</span>
+      </h1>
+      <p class="serif italic text-2xl md:text-4xl text-inksoft mt-7 reveal">Academician and Journalist.</p>
+      <div class="mt-9 flex flex-wrap gap-4 reveal">
+        <a href="academic.html" class="btn btn-primary" data-magnetic="0.3">Academic <span class="material-symbols-outlined text-base">school</span></a>
+        <a href="reportage.html" class="btn btn-ghost" data-magnetic="0.3">Reportage <span class="material-symbols-outlined text-base">article</span></a>
+      </div>
+    </div>
+
+    <!-- Right: portrait + floating chips -->
+    <div class="lg:col-span-5 relative reveal">
+      <div class="relative mx-auto max-w-sm" data-mouse="18">
+        <div class="media glass-strong rounded-[2.2rem] p-2 aspect-[4/5]">
+          <img src="assets/portrait.jpg" alt="Usama Rafid to portrait" class="rounded-[1.8rem]"/>
+        </div>
+        <div class="chip absolute -left-4 top-10" data-mouse="34"><span class="material-symbols-outlined text-sm text-red">school</span> Lecturer · ULAB</div>
+        <div class="chip absolute -right-3 top-1/3" data-mouse="26"><span class="material-symbols-outlined text-sm text-red">draw</span> Feature Journalist</div>
+        <div class="chip absolute left-6 -bottom-4" data-mouse="40"><span class="material-symbols-outlined text-sm text-red">science</span> Media Researcher</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 reveal">
+    <span class="eyebrow text-[.6rem]">Scroll</span>
+    <span class="scroll-cue"></span>
+  </div>
+</header>
+
+<!-- ===================== ROLE MARQUEE ===================== -->
+<section class="marquee glass-ink py-4 border-y border-white/10">
+  <div class="marquee-track mono text-sm uppercase tracking-[.2em]">
+    <span>Journalism Studies</span><span class="text-red">✦</span><span>Media Economics</span><span class="text-red">✦</span><span>Environmental Communication</span><span class="text-red">✦</span><span>Sociology of News</span><span class="text-red">✦</span><span>Local Journalism</span><span class="text-red">✦</span><span>Information Disorder</span><span class="text-red">✦</span>
+    <span>Journalism Studies</span><span class="text-red">✦</span><span>Media Economics</span><span class="text-red">✦</span><span>Environmental Communication</span><span class="text-red">✦</span><span>Sociology of News</span><span class="text-red">✦</span><span>Local Journalism</span><span class="text-red">✦</span><span>Information Disorder</span><span class="text-red">✦</span>
+  </div>
+</section>
+
+<!-- ===================== INTRO STATEMENT ===================== -->
+<section class="px-6 md:px-14 py-24 md:py-36">
+  <div class="max-w-[1100px] mx-auto reveal">
+    <div class="flex items-center gap-3 mb-8"><span class="rule"></span><span class="eyebrow">Profile</span></div>
+    <p class="serif text-3xl md:text-5xl leading-[1.25] text-ink">
+      From the University of Dhaka to newsrooms and research institutions across Dhaka, Usama Rafid has spent a decade at the intersection of
+      <span class="text-red">teaching</span>, <span class="text-red">field reporting</span>, and <span class="text-red">research</span>,
+      asking what it means to practise, study, and teach journalism in Bangladesh.
+    </p>
+    <div class="mt-10">
+      <a href="about.html" class="btn btn-ghost" data-magnetic="0.3">Read the full story <span class="material-symbols-outlined text-base">arrow_forward</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SELECTED CONTRIBUTIONS ===================== -->
+<section class="px-6 md:px-14 pb-24">
+  <div class="max-w-[1440px] mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-end mb-14 reveal">
+      <div class="md:col-span-5">
+        <div class="flex items-center gap-3 mb-4"><span class="rule"></span><span class="eyebrow">Selected Contributions</span></div>
+        <h2 class="display text-5xl md:text-7xl text-ink">Field<br/><span class="stroke">Notes</span></h2>
+      </div>
+      <div class="md:col-span-7">
+        <p class="serif italic text-xl md:text-2xl text-inksoft leading-relaxed">
+          Reporting on the state of journalism, media, and communities across Bangladesh.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal-stagger">
+
+      <!-- Card 1 -->
+      <a href="https://www.tbsnews.net/thoughts/how-local-journalism-survives-debt-pressure-and-press-cards-1329911" target="_blank" rel="noopener" class="group glass rounded-[1.6rem] overflow-hidden spot lift" data-tilt="6">
+        <div class="media aspect-[16/10]"><img src="https://www.tbsnews.net/sites/default/files/styles/social_share/public/images/2025/10/15/pursuit_14.10.2025_copy.png" alt="How Local Journalism Survives on Debt, Pressure and Press Cards"/></div>
+        <div class="p-6 pop">
+          <span class="mono text-[.62rem] uppercase tracking-[.16em] text-red">The Business Standard · Feature</span>
+          <h3 class="sg text-lg font-bold text-ink leading-snug mt-3 group-hover:text-red transition-colors">How Local Journalism Survives on Debt, Pressure and Press Cards</h3>
+          <span class="inline-flex items-center gap-1 mono text-[.62rem] uppercase tracking-[.14em] text-inksoft mt-4">Read feature <span class="material-symbols-outlined text-sm">north_east</span></span>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="https://www.thedailystar.net/opinion/views/news/why-we-need-more-techies-our-newsrooms-4096116" target="_blank" rel="noopener" class="group glass rounded-[1.6rem] overflow-hidden spot lift" data-tilt="6">
+        <div class="media aspect-[16/10]"><img src="https://www.thedailystar.net/sites/default/files/styles/big_1/public/2026-02/ED_2.jpg?h=ed27e282" alt="Why We Need More Techies in Our Newsrooms"/></div>
+        <div class="p-6 pop">
+          <span class="mono text-[.62rem] uppercase tracking-[.16em] text-red">The Daily Star · Op-Ed</span>
+          <h3 class="sg text-lg font-bold text-ink leading-snug mt-3 group-hover:text-red transition-colors">Why We Need More Techies in Our Newsrooms</h3>
+          <span class="inline-flex items-center gap-1 mono text-[.62rem] uppercase tracking-[.14em] text-inksoft mt-4">Read op-ed <span class="material-symbols-outlined text-sm">north_east</span></span>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <a href="https://www.coastalvoicesbd.org/story/living-with-the-river-manta-communities-battle-against-a-changing-climate" target="_blank" rel="noopener" class="group glass rounded-[1.6rem] overflow-hidden spot lift" data-tilt="6">
+        <div class="media aspect-[16/10]"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEHds6Bml5ZZwD_sfAjenRp6-6J2jCtUscdbTo2X_3xiv4mxASj_JYsl53LDN8oiVe_CZtysZ2XNo4p8VkL2L3TGMEKoaruAj8B15BLGlrek8nlXXe2IqgFBL9nrgpWUFZj9CEQsUICWG4LsRsi0rZLWUOXR78gSIIZYIk8PErJ1xfI46TnfhNWlk0YttdB8SpliGHP67rzLmPjSjtadqtUuQm9kP2jUY0ryjb1RuMeuhXPxS725dCKZP80l8yjjy67rb2TL9KpU5e" alt="Living with the River: Manta Communities' Battle Against a Changing Climate"/></div>
+        <div class="p-6 pop">
+          <span class="mono text-[.62rem] uppercase tracking-[.16em] text-red">Coastal Voices · Feature</span>
+          <h3 class="sg text-lg font-bold text-ink leading-snug mt-3 group-hover:text-red transition-colors">Living with the River: Manta Communities' Battle Against a Changing Climate</h3>
+          <span class="inline-flex items-center gap-1 mono text-[.62rem] uppercase tracking-[.14em] text-inksoft mt-4">Read feature <span class="material-symbols-outlined text-sm">north_east</span></span>
+        </div>
+      </a>
+    </div>
+
+    <div class="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 reveal">
+      <p class="serif italic text-inksoft text-lg max-w-xl text-center sm:text-left">The complete body of work, filterable by publication and category, lives in the reportage index.</p>
+      <a href="reportage.html" class="btn btn-primary" data-magnetic="0.3">Browse the reportage feed <span class="material-symbols-outlined text-base">north_east</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROJECTS & MAKING ===================== -->
+<section class="px-6 md:px-14 pb-24">
+  <div class="max-w-[1440px] mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-end mb-14 reveal">
+      <div class="md:col-span-5">
+        <div class="flex items-center gap-3 mb-4"><span class="rule"></span><span class="eyebrow">Beyond the Classroom</span></div>
+        <h2 class="display text-5xl md:text-7xl text-ink">Projects<br/><span class="stroke">&amp; Making</span></h2>
+      </div>
+      <div class="md:col-span-7">
+        <p class="serif italic text-xl md:text-2xl text-inksoft leading-relaxed">
+          Platforms, games, and translations built at the edge of journalism, scholarship, and storytelling.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 reveal-stagger">
+
+      <!-- Project 1: Coastal Voices -->
+      <a href="https://www.coastalvoicesbd.org/" target="_blank" rel="noopener" class="group glass rounded-[1.6rem] overflow-hidden spot lift" data-tilt="6">
+        <div class="media aspect-[16/9] relative flex items-end p-7" style="background:linear-gradient(135deg,#0d4f5c 0%,#1a7a6e 45%,#2aab84 100%)">
+          <svg class="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 400 225" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,80 Q50,60 100,80 T200,80 T300,80 T400,80" stroke="white" stroke-width="1.5" fill="none"/>
+            <path d="M0,110 Q50,90 100,110 T200,110 T300,110 T400,110" stroke="white" stroke-width="1.5" fill="none"/>
+            <path d="M0,140 Q50,120 100,140 T200,140 T300,140 T400,140" stroke="white" stroke-width="1.5" fill="none"/>
+            <path d="M0,170 Q50,150 100,170 T200,170 T300,170 T400,170" stroke="white" stroke-width="1" fill="none"/>
+          </svg>
+          <div class="relative z-10">
+            <p class="mono text-[.62rem] uppercase tracking-[.16em] text-white/60 mb-2">Platform</p>
+            <p class="display text-3xl md:text-4xl text-white">Coastal<br/>Voices</p>
+          </div>
+        </div>
+        <div class="p-6 pop">
+          <span class="mono text-[.62rem] uppercase tracking-[.16em] text-red">Climate Journalism · Bangladesh</span>
+          <h3 class="sg text-lg font-bold text-ink leading-snug mt-3 group-hover:text-red transition-colors">Coastal Voices Bangladesh</h3>
+          <p class="text-sm text-inksoft leading-relaxed mt-2">A climate journalism platform amplifying the stories of communities on the frontlines of climate change along Bangladesh's coast.</p>
+          <span class="inline-flex items-center gap-1 mono text-[.62rem] uppercase tracking-[.14em] text-inksoft mt-4">Visit site <span class="material-symbols-outlined text-sm">north_east</span></span>
+        </div>
+      </a>
+
+      <!-- Project 2: The Newsroom -->
+      <a href="The_Newsroom.html" class="group glass rounded-[1.6rem] overflow-hidden spot lift" data-tilt="6">
+        <div class="media aspect-[16/9] relative flex items-end p-7" style="background:linear-gradient(135deg,#1a1a14 0%,#3b3525 50%,#6b5d3f 100%)">
+          <svg class="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 400 225" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="20" y1="40" x2="200" y2="40" stroke="white" stroke-width="6"/>
+            <line x1="20" y1="60" x2="260" y2="60" stroke="white" stroke-width="2"/>
+            <line x1="20" y1="75" x2="240" y2="75" stroke="white" stroke-width="2"/>
+            <line x1="20" y1="90" x2="220" y2="90" stroke="white" stroke-width="2"/>
+            <line x1="20" y1="115" x2="170" y2="115" stroke="white" stroke-width="4"/>
+            <line x1="20" y1="130" x2="180" y2="130" stroke="white" stroke-width="1.5"/>
+            <line x1="20" y1="143" x2="160" y2="143" stroke="white" stroke-width="1.5"/>
+            <line x1="220" y1="60" x2="380" y2="60" stroke="white" stroke-width="1.5"/>
+            <line x1="220" y1="75" x2="380" y2="75" stroke="white" stroke-width="1.5"/>
+            <line x1="220" y1="90" x2="370" y2="90" stroke="white" stroke-width="1.5"/>
+            <line x1="220" y1="115" x2="370" y2="115" stroke="white" stroke-width="3"/>
+          </svg>
+          <div class="relative z-10">
+            <p class="mono text-[.62rem] uppercase tracking-[.16em] text-white/60 mb-2">Interactive Game</p>
+            <p class="display text-3xl md:text-4xl text-white">The<br/>Newsroom</p>
+          </div>
+        </div>
+        <div class="p-6 pop">
+          <span class="mono text-[.62rem] uppercase tracking-[.16em] text-red">Simulation · Journalism Education</span>
+          <h3 class="sg text-lg font-bold text-ink leading-snug mt-3 group-hover:text-red transition-colors">The Newsroom</h3>
+          <p class="text-sm text-inksoft leading-relaxed mt-2">A web-based decision-making simulation placing you inside a working newsroom, navigating editorial pressures and publishing deadlines.</p>
+          <span class="inline-flex items-center gap-1 mono text-[.62rem] uppercase tracking-[.14em] text-inksoft mt-4">Play now <span class="material-symbols-outlined text-sm">north_east</span></span>
+        </div>
+      </a>
+
+      <!-- Project 3: Media Theory Atlas -->
+      <a href="mediatheoryatlas/index.html" class="group glass rounded-[1.6rem] overflow-hidden spot lift" data-tilt="6">
+        <div class="media aspect-[16/9] relative flex items-end p-7" style="background:linear-gradient(135deg,#15130f 0%,#6b1f14 45%,#c9391f 100%)">
+          <svg class="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 400 225" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="20" y1="112" x2="380" y2="112" stroke="white" stroke-width="1.5"/>
+            <circle cx="20" cy="112" r="6" fill="white"/>
+            <circle cx="93" cy="112" r="6" fill="white"/>
+            <circle cx="166" cy="112" r="6" fill="white"/>
+            <circle cx="239" cy="112" r="6" fill="white"/>
+            <circle cx="312" cy="112" r="6" fill="white"/>
+            <circle cx="380" cy="112" r="6" fill="white"/>
+          </svg>
+          <div class="relative z-10">
+            <p class="mono text-[.62rem] uppercase tracking-[.16em] text-white/60 mb-2">Interactive Atlas</p>
+            <p class="display text-3xl md:text-4xl text-white">Media<br/>Theory Atlas</p>
+          </div>
+        </div>
+        <div class="p-6 pop">
+          <span class="mono text-[.62rem] uppercase tracking-[.16em] text-red">Media Theory · Journalism Education</span>
+          <h3 class="sg text-lg font-bold text-ink leading-snug mt-3 group-hover:text-red transition-colors">Media Theory Atlas</h3>
+          <p class="text-sm text-inksoft leading-relaxed mt-2">An interactive atlas of forty foundational media theories, from the hypodermic needle to the filter bubble, each explored through historical context and a hands-on demonstration.</p>
+          <span class="inline-flex items-center gap-1 mono text-[.62rem] uppercase tracking-[.14em] text-inksoft mt-4">Explore the atlas <span class="material-symbols-outlined text-sm">north_east</span></span>
+        </div>
+      </a>
+    </div>
+
+    <div class="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 reveal">
+      <p class="serif italic text-inksoft text-lg max-w-xl text-center sm:text-left">More builds are on the way. The full list, with details on each, lives in the projects index.</p>
+      <a href="projects.html" class="btn btn-primary" data-magnetic="0.3">See all projects <span class="material-symbols-outlined text-base">north_east</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CREDENTIALS BENTO ===================== -->
+<section class="px-6 md:px-14 py-12">
+  <div class="max-w-[1440px] mx-auto">
+    <div class="flex items-center gap-3 mb-12 reveal"><span class="rule"></span><span class="eyebrow">Professional Credentials</span></div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 reveal-stagger">
+
+      <div class="glass rounded-[1.6rem] p-7 spot lift flex flex-col gap-6" data-tilt="7">
+        <span class="material-symbols-outlined text-4xl text-red pop">school</span>
+        <div class="pop">
+          <h3 class="mono text-[.7rem] font-bold uppercase tracking-[.14em] text-ink mb-2">ULAB Faculty</h3>
+          <p class="text-sm text-inksoft leading-relaxed">Lecturer in Media Studies and Journalism Department. Teaching Basics of Reporting, Journalism and Media History.</p>
+        </div>
+      </div>
+
+      <div class="glass rounded-[1.6rem] p-7 spot lift flex flex-col gap-6" data-tilt="7">
+        <span class="material-symbols-outlined text-4xl text-red pop">workspace_premium</span>
+        <div class="pop">
+          <h3 class="mono text-[.7rem] font-bold uppercase tracking-[.14em] text-ink mb-2">BIGD Fellow</h3>
+          <p class="text-sm text-inksoft leading-relaxed">Young Researchers' Fellow 2024 at BRAC Institute of Governance and Development (BIGD), BRAC University.</p>
+        </div>
+      </div>
+
+      <div class="glass rounded-[1.6rem] p-7 spot lift flex flex-col gap-6" data-tilt="7">
+        <span class="material-symbols-outlined text-4xl text-red pop">history_edu</span>
+        <div class="pop">
+          <h3 class="mono text-[.7rem] font-bold uppercase tracking-[.14em] text-ink mb-2">TBS Feature Writer</h3>
+          <p class="text-sm text-inksoft leading-relaxed">Former Staff Feature Writer, Sub-Editor, and Contributor to the Weekly Magazine 'Easel' at The Business Standard.</p>
+        </div>
+      </div>
+
+      <div class="glass rounded-[1.6rem] p-7 spot lift flex flex-col gap-6" data-tilt="7">
+        <span class="material-symbols-outlined text-4xl text-red pop">diversity_3</span>
+        <div class="pop">
+          <h3 class="mono text-[.7rem] font-bold uppercase tracking-[.14em] text-ink mb-2">US Exchange Alumnus</h3>
+          <p class="text-sm text-inksoft leading-relaxed">Alumnus of the US Department of State Exchange Program: TechCamp Bangladesh 2024.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 text-center reveal">
+      <a href="about.html" class="btn btn-ghost" data-magnetic="0.3">View professional timeline <span class="material-symbols-outlined text-base">north_east</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STATS BAND ===================== -->
+<section class="px-6 md:px-14 py-20">
+  <div class="max-w-[1280px] mx-auto glass-strong rounded-[2rem] p-10 md:p-14 reveal">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-10 text-center">
+      <div>
+        <div class="display text-5xl md:text-7xl text-red count" data-count="110" data-suffix="+">0</div>
+        <p class="mono text-[.64rem] uppercase tracking-[.14em] text-inksoft mt-3">Long-form articles<br/>Roar Bangla</p>
+      </div>
+      <div>
+        <div class="display text-5xl md:text-7xl text-red count" data-count="3" data-suffix="">0</div>
+        <p class="mono text-[.64rem] uppercase tracking-[.14em] text-inksoft mt-3">Journal papers<br/>in progress</p>
+      </div>
+      <div>
+        <div class="display text-5xl md:text-7xl text-red count" data-count="40" data-suffix="+">0</div>
+        <p class="mono text-[.64rem] uppercase tracking-[.14em] text-inksoft mt-3">Articles for<br/>Easel · TBS</p>
+      </div>
+      <div>
+        <div class="display text-5xl md:text-7xl text-red count" data-count="5" data-suffix="+">0</div>
+        <p class="mono text-[.64rem] uppercase tracking-[.14em] text-inksoft mt-3">Years across<br/>newsrooms</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONNECT ===================== -->
+<section class="px-6 md:px-14 py-24">
+  <div class="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 items-center reveal">
+    <div class="md:col-span-5">
+      <div class="flex items-center gap-3 mb-5"><span class="rule"></span><span class="eyebrow">Get in touch</span></div>
+      <h2 class="display text-5xl md:text-7xl text-ink">Collaborate<br/><span class="stroke">&amp; Connect</span></h2>
+    </div>
+    <div class="md:col-span-7">
+      <p class="serif italic text-xl text-inksoft leading-relaxed mb-8">Open to research collaboration on journalism studies, media sociology, and media economics in Bangladesh and South Asia. Academic and press inquiries are welcome at either address below.</p>
+      <div class="space-y-4">
+        <a href="mailto:rafidusama@gmail.com" class="group glass rounded-2xl px-6 py-5 flex items-center justify-between gap-4 spot lift">
+          <span class="sg text-lg md:text-2xl font-bold text-ink group-hover:text-red transition-colors break-all">rafidusama@gmail.com</span>
+          <span class="flex items-center gap-3 shrink-0"><span class="chip hidden sm:inline-flex">Press / Personal</span><span class="material-symbols-outlined text-xl text-red">north_east</span></span>
+        </a>
+        <a href="mailto:usama.rafid@ulab.edu.bd" class="group glass rounded-2xl px-6 py-5 flex items-center justify-between gap-4 spot lift">
+          <span class="sg text-lg md:text-2xl font-bold text-ink group-hover:text-red transition-colors break-all">usama.rafid@ulab.edu.bd</span>
+          <span class="flex items-center gap-3 shrink-0"><span class="chip hidden sm:inline-flex">Academic / ULAB</span><span class="material-symbols-outlined text-xl text-red">north_east</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="px-6 md:px-14 pb-10">
+  <div class="max-w-[1440px] mx-auto glass rounded-[2rem] p-10 flex flex-col md:flex-row justify-between items-center gap-8">
+    <div class="text-center md:text-left">
+      <span class="sg text-lg font-bold text-ink">Usama Rafid</span>
+      <p class="text-[13px] text-inksoft mt-1">© 2026 Usama Rafid. All rights reserved. Dhaka, Bangladesh.</p>
+    </div>
+    <div class="flex flex-wrap gap-x-7 gap-y-2 items-center justify-center mono text-[.66rem] uppercase tracking-[.16em]">
+      <a class="text-inksoft hover:text-red transition-colors" href="https://linkedin.com/in/usama-rafid" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="text-inksoft hover:text-red transition-colors" href="https://web.facebook.com/usama.rafid.7/" target="_blank" rel="noopener">Facebook</a>
+      <a class="text-inksoft hover:text-red transition-colors" href="mailto:rafidusama@gmail.com?cc=usama.rafid@ulab.edu.bd">Email</a>
+      <a class="text-inksoft hover:text-red transition-colors" href="about.html">About</a>
+    </div>
+    <button class="w-11 h-11 rounded-full glass-strong flex items-center justify-center text-ink hover:text-red transition-colors" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+      <span class="material-symbols-outlined text-base">arrow_upward</span>
+    </button>
+  </div>
+</footer>
+
+<script src="app.js?v=liquid-dispatch-2030"></script>
+</body>
+</html>

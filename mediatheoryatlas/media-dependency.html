@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media Dependency Theory, Media Theory Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15130f; --paper:#ede7dc; --paper-dim:#ddd5c4; --line:#15130f33;
+    --red:#c9391f; --blue:#1f4f8f; --olive:#4c5f2a; --mustard:#c98b12; --violet:#5c3a80;
+    --bg: var(--paper); --fg: var(--ink); --bg-dim: var(--paper-dim); --rule: var(--line);
+    --invert-bg: var(--ink); --invert-fg: var(--paper); --theme: var(--blue);
+  }
+  html.dark{ --bg:#121110; --fg:#ede7dc; --bg-dim:#1c1a17; --rule:#ede7dc2e; --invert-bg: var(--paper); --invert-fg: var(--ink); }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--fg); font-family:'Archivo', sans-serif; transition:background .25s ease, color .25s ease; overflow-x:hidden; }
+  .display{ font-family:'Anton', sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.92; }
+  .mono{ font-family:'Space Mono', monospace; text-transform:uppercase; letter-spacing:0.08em; }
+  a{ color:inherit; }
+  :focus-visible{ outline: 3px solid currentColor; outline-offset: 3px; }
+
+  header.nav{ position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:16px 28px; background:var(--bg); border-bottom:1.5px solid var(--rule); }
+  .nav-logo{ font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .nav-logo .dot{ width:9px; height:9px; border-radius:50%; background: conic-gradient(var(--red) 0 20%, var(--blue) 20% 40%, var(--olive) 40% 60%, var(--mustard) 60% 80%, var(--violet) 80% 100%); flex-shrink:0; }
+  .nav-right{ display:flex; gap:10px; align-items:center; }
+  .icon-btn{ background:none; border:1.5px solid var(--fg); color:var(--fg); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .icon-btn svg{ width:16px; height:16px; }
+  .back-link{ display:flex; align-items:center; gap:8px; font-family:'Space Mono', monospace; font-size:11.5px; text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; }
+
+  .theory-hero{ background:var(--theme); color:var(--paper); padding:64px 6vw 70px; border-bottom:1.5px solid var(--rule); }
+  .theory-meta{ display:flex; gap:22px; align-items:center; flex-wrap:wrap; margin-bottom:26px; }
+  .theory-meta .mono{ font-size:12px; opacity:0.9; }
+  .theme-tag{ display:inline-flex; align-items:center; gap:8px; border:1.3px solid var(--paper); border-radius:999px; padding:6px 14px; font-size:11px; }
+  .theme-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--paper); }
+  .theory-hero h1{ font-size:clamp(38px, 7vw, 96px); margin:0; max-width:22ch; }
+  .theory-hero .aka{ font-size:clamp(15px,1.8vw,20px); margin-top:18px; font-style:italic; opacity:0.9; font-weight:500; }
+  .theorist-line{ margin-top:34px; display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; }
+  .theorist-line .name{ font-size:18px; font-weight:700; }
+  .theorist-line .role{ font-size:13px; opacity:0.85; }
+
+  section{ padding:80px 6vw; border-bottom:1.5px solid var(--rule); }
+  .section-eyebrow{ font-size:12px; opacity:0.6; margin-bottom:16px; display:flex; align-items:center; gap:12px; }
+  .section-eyebrow::before{ content:""; width:30px; height:2px; background:var(--theme); }
+  .section-title{ font-size:clamp(26px,3.4vw,44px); margin:0 0 30px; }
+
+  .context-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap:60px; align-items:start; }
+  .context-grid p{ font-size:16px; line-height:1.7; margin:0 0 20px; }
+  .context-card{ background:var(--bg-dim); border:1.5px solid var(--rule); border-radius:8px; padding:26px; }
+  .context-card .mono{ font-size:11px; opacity:0.6; margin-bottom:14px; display:block; }
+  .context-card ul{ margin:0; padding-left:18px; }
+  .context-card li{ font-size:14px; line-height:1.7; margin-bottom:10px; }
+  @media (max-width: 860px){ .context-grid{ grid-template-columns:1fr; gap:34px; } }
+
+  .term-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; }
+  .term-card{ border:1.5px solid var(--rule); border-radius:8px; padding:24px; }
+  .term-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:10px; display:block; }
+  .term-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:19px; margin:0 0 12px; line-height:1.05; }
+  .term-card p{ font-size:13.5px; line-height:1.6; margin:0; opacity:0.9; }
+  @media (max-width: 860px){ .term-grid{ grid-template-columns:1fr; } }
+
+  .example-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:22px; }
+  .example-card{ background:var(--bg-dim); border-radius:8px; padding:26px 28px; border-top:5px solid var(--theme); }
+  .example-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:12px; display:block; }
+  .example-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:20px; margin:0 0 12px; line-height:1.08; }
+  .example-card p{ font-size:14px; line-height:1.65; margin:0; }
+  .example-card p + p{ margin-top:12px; }
+  @media (max-width: 860px){ .example-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- TRIANGLE DIAGRAM ---------- */
+  .stage{ background:var(--invert-bg); color:var(--invert-fg); border-radius:14px; padding:50px 6vw; position:relative; overflow:hidden; }
+  .stage-head{ margin-bottom:16px; }
+  .stage-head h3{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(22px,3vw,34px); margin:0; }
+  .stage-head p{ max-width:64ch; font-size:14px; line-height:1.6; opacity:0.75; margin:10px 0 0; }
+
+  .toggle-row{ display:flex; justify-content:center; margin:30px 0 34px; }
+  .toggle{ display:flex; border:1.5px solid var(--invert-fg); border-radius:999px; overflow:hidden; }
+  .toggle button{
+    background:none; border:none; color:var(--invert-fg);
+    font-family:'Space Mono', monospace; font-size:11.5px;
+    padding:10px 20px; cursor:pointer; letter-spacing:0.05em; text-transform:uppercase;
+  }
+  .toggle button.active{ background:var(--theme); color:var(--paper); }
+
+  .triangle-wrap{ max-width:520px; margin:0 auto 30px; }
+  .triangle-wrap svg{ width:100%; height:auto; display:block; }
+
+  .triangle-caption{ max-width:600px; margin:0 auto; text-align:center; font-size:13.5px; line-height:1.65; opacity:0.85; }
+  .triangle-caption .mono{ font-size:10.5px; opacity:0.6; display:block; margin-bottom:8px; }
+
+  .summary{ display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap; }
+  .summary .big-quote{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(24px,3.6vw,42px); line-height:1.05; max-width:20ch; color:var(--theme); }
+  .summary .side-note{ max-width:42ch; font-size:14.5px; line-height:1.7; opacity:0.85; padding-top:8px; }
+
+  .challenge{ background:var(--bg-dim); border-left:4px solid var(--theme); border-radius:0 8px 8px 0; padding:26px 30px; }
+  .challenge .mono{ font-size:11px; opacity:0.6; margin-bottom:12px; display:block; }
+  .challenge p{ margin:0 0 16px; font-size:15px; line-height:1.7; }
+  .challenge p:last-child{ margin-bottom:0; }
+
+  .next-teaser{ display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; background:var(--blue); color:var(--paper); border-radius:10px; padding:34px 36px; }
+  .next-teaser .mono{ font-size:11px; opacity:0.85; margin-bottom:10px; display:block; }
+  .next-teaser h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(20px,2.6vw,30px); margin:0; }
+  .next-teaser a{ text-decoration:none; border:1.3px solid var(--paper); border-radius:999px; padding:11px 22px; font-family:'Space Mono', monospace; font-size:11.5px; letter-spacing:0.05em; white-space:nowrap; }
+
+  footer{ padding:34px 6vw; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; font-size:11.5px; }
+  footer .foot-links{ display:flex; gap:20px; }
+  footer a{ text-decoration:none; }
+  footer a:hover{ opacity:0.6; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="back-link" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg>
+    All theories
+  </a>
+  <a class="nav-logo" href="index.html">
+    <span class="dot"></span>
+    <span class="mono">Media Theory Atlas</span>
+  </a>
+  <div class="nav-right">
+    <button class="icon-btn" id="modeToggle" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2 12h2.4M19.6 12H22M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="theory-hero" style="border-bottom:none;">
+  <div class="theory-meta">
+    <span class="mono">1970s</span>
+    <span class="theme-tag"><span class="dot"></span>Audience and Reception</span>
+  </div>
+  <h1 class="display">Media Dependency Theory</h1>
+  <div class="theorist-line">
+    <span class="name">Sandra Ball-Rokeach and Melvin DeFleur</span>
+    <span class="role">Communication researchers</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Historical context</div>
+  <h2 class="section-title display">Why the same broadcast doesn't always carry the same weight</h2>
+  <div class="context-grid">
+    <div>
+      <p>By the mid-1970s, communication research had produced a genuinely confusing pile of findings. Some studies found media effects were minimal, others found them powerful, and researchers were increasingly aware the honest answer to "how much power does media have" was probably "it depends." Sandra Ball-Rokeach and Melvin DeFleur set out to explain exactly what it depended on.</p>
+      <p>In a 1976 article, they proposed a systems-level model built around a three-way relationship between the media system, the broader social system, and the audience. Their central claim was that people and societies become more dependent on media for making sense of their world as that world becomes more complex, unstable, or conflict-ridden, and as media comes to serve information functions no other source can easily replace.</p>
+      <p>Crucially, dependency in their model was not a fixed constant. It was a variable condition that could rise or fall depending on circumstances. During ordinary, stable periods, people rely on media for some things but have other trusted sources, personal experience, family, community, institutions, to check against or fall back on. During periods of genuine social disruption, war, natural disaster, rapid political change, those alternative sources become less available or less reliable, and dependency on media spikes correspondingly.</p>
+      <p>The theory's most important implication followed directly from that structure: media's potential to actually shape beliefs, feelings, and behavior rises and falls along with dependency itself. The same broadcast can carry dramatically different influence depending on how essential it has become to its audience at that particular moment.</p>
+    </div>
+    <div class="context-card">
+      <span class="mono">What fed this theory</span>
+      <ul>
+        <li>Ball-Rokeach and DeFleur's 1976 article, "A Dependency Model of Mass-Media Effects"</li>
+        <li>Decades of inconsistent findings across the effects tradition, some strong, some weak</li>
+        <li>Systems theory's influence on social science more broadly during this period</li>
+        <li>Real-world cases where media influence visibly spiked during moments of crisis</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Core concepts</div>
+  <h2 class="section-title display">Three ideas doing the work underneath</h2>
+  <div class="term-grid">
+    <div class="term-card">
+      <span class="mono">Concept 01</span>
+      <h4>The dependency relationship</h4>
+      <p>A three-way relationship between the media system, the broader social system, and the audience, where reliance on media grows as the surrounding society becomes more complex or unstable.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 02</span>
+      <h4>Structural conditions</h4>
+      <p>Social conflict, rapid change, and crisis increase overall dependency on media, because they weaken or remove the alternative sources people would otherwise use to make sense of an uncertain situation.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 03</span>
+      <h4>Cognitive, affective, and behavioral effects</h4>
+      <p>As dependency deepens, media's potential effects deepen along with it, extending beyond simple beliefs into emotional response and actual behavior, not just what people think but how they feel and act.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Examples in practice</div>
+  <h2 class="section-title display">Where this pattern turned up</h2>
+  <div class="example-grid">
+    <div class="example-card">
+      <span class="mono">Natural disasters</span>
+      <h4>Emergency broadcasts and evacuation decisions</h4>
+      <p>During hurricanes, earthquakes, and other emergencies, public dependency on media for critical safety information spikes sharply, and so does media's measurable influence over real behavior like evacuation timing, a frequently cited case in the dependency literature.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Wartime and international crisis</span>
+      <h4>When firsthand information disappears</h4>
+      <p>Ball-Rokeach and DeFleur pointed to periods of social conflict and international crisis as classic conditions for spiking dependency, since ordinary firsthand channels of information become unavailable and audiences turn to media almost entirely to understand what is happening.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Contested elections</span>
+      <h4>Limited personal familiarity with candidates</h4>
+      <p>Voters with little direct, personal knowledge of competing candidates depend heavily on media coverage to form an impression, increasing media's potential influence over their eventual vote compared to more familiar, lower-stakes decisions.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Contemporary parallel</span>
+      <h4>The COVID-19 pandemic</h4>
+      <p>A widely studied recent case where dependency on news and public health broadcasts spiked dramatically during a period of genuine social uncertainty, with corresponding spikes in media's measurable influence on public health beliefs and behavior.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">The mechanism, demonstrated</div>
+  <h2 class="section-title display">Toggle the social conditions</h2>
+  <div class="stage">
+    <div class="stage-head">
+      <h3>The same triangle, under different conditions</h3>
+      <p>Switch between a stable society and one in crisis, and watch how the strength of dependency between the audience and the media system changes, even though the underlying three-way structure never does.</p>
+    </div>
+
+    <div class="toggle-row">
+      <div class="toggle" id="depToggle">
+        <button class="active" data-state="stable">Stable society</button>
+        <button data-state="crisis">Society in crisis</button>
+      </div>
+    </div>
+
+    <div class="triangle-wrap">
+      <svg viewBox="0 0 400 320" id="triangleSvg"></svg>
+    </div>
+
+    <div class="triangle-caption" id="triangleCaption"></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">In one sentence</div>
+  <div class="summary">
+    <div class="big-quote">The more essential media becomes for making sense of an unstable world, the greater its power to actually shape what people think, feel, and do.</div>
+    <div class="side-note">
+      <p>The theory explains why the same broadcast can seem to carry very different weight from one moment to the next. It is not that media power is fixed, it rises and falls with how badly an audience needs it.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Where the theory ran into trouble</div>
+  <h2 class="section-title display">A hard variable to pin down precisely</h2>
+  <div class="challenge">
+    <span class="mono">The pushback</span>
+    <p>The theory is genuinely useful for explaining why media effects research had found such inconsistent results, but critics noted that dependency itself is difficult to measure cleanly as a variable, making the model harder to test with the same precision as more narrowly defined theories like priming or agenda-setting. It is also hard to fully separate rising dependency from the many other things changing simultaneously during a crisis, which complicates any confident claim about cause and effect.</p>
+    <p>The model was also built around a relatively centralized media system, one where a society could plausibly be said to depend on media as a whole. Today's fragmented, highly personalized media environment complicates that picture, since different audiences may depend on entirely different sources even during the same crisis, weakening the assumption of one shared media system feeding one shared audience.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="mono">Media Theory Atlas</div>
+  <div class="foot-links mono">
+    <a href="index.html">All theories</a>
+    <a href="index.html#themes">Themes</a>
+    <a href="index.html#chrono-anchor">Chronology</a>
+  </div>
+</footer>
+
+<script>
+  const modeToggle = document.getElementById('modeToggle');
+  modeToggle.addEventListener('click', function(){ document.documentElement.classList.toggle('dark'); });
+
+  const NODE_MEDIA = { x: 200, y: 40 };
+  const NODE_SOCIAL = { x: 50, y: 280 };
+  const NODE_AUDIENCE = { x: 350, y: 280 };
+
+  const STATES = {
+    stable: {
+      widths: { ms: 2, sa: 2, ma: 2 },
+      caption: "In a stable society, the audience has other trusted sources beyond media, personal experience, family, community, so the dependency line between media and audience stays comparatively thin."
+    },
+    crisis: {
+      widths: { ms: 6, sa: 3, ma: 8 },
+      caption: "In a society under crisis, alternative sources of information weaken or disappear, and the line between media and audience thickens sharply, exactly the condition under which media's influence grows strongest."
+    }
+  };
+
+  function nodeCircle(node, label){
+    return '<circle cx="' + node.x + '" cy="' + node.y + '" r="34" fill="var(--theme)" />' +
+      '<text x="' + node.x + '" y="' + node.y + '" text-anchor="middle" dominant-baseline="middle" font-family="Space Mono, monospace" font-size="10" fill="var(--paper)">' + label + '</text>';
+  }
+
+  function renderTriangle(state){
+    const s = STATES[state];
+    const svg = document.getElementById('triangleSvg');
+    svg.innerHTML =
+      '<line x1="' + NODE_MEDIA.x + '" y1="' + NODE_MEDIA.y + '" x2="' + NODE_SOCIAL.x + '" y2="' + NODE_SOCIAL.y + '" stroke="var(--rule)" stroke-width="' + s.widths.ms + '"/>' +
+      '<line x1="' + NODE_SOCIAL.x + '" y1="' + NODE_SOCIAL.y + '" x2="' + NODE_AUDIENCE.x + '" y2="' + NODE_AUDIENCE.y + '" stroke="var(--rule)" stroke-width="' + s.widths.sa + '"/>' +
+      '<line x1="' + NODE_MEDIA.x + '" y1="' + NODE_MEDIA.y + '" x2="' + NODE_AUDIENCE.x + '" y2="' + NODE_AUDIENCE.y + '" stroke="var(--theme)" stroke-width="' + s.widths.ma + '"/>' +
+      nodeCircle(NODE_MEDIA, "Media system") +
+      nodeCircle(NODE_SOCIAL, "Social system") +
+      nodeCircle(NODE_AUDIENCE, "Audience");
+
+    document.getElementById('triangleCaption').innerHTML =
+      '<span class="mono">Media to audience dependency</span>' + s.caption;
+  }
+
+  const depToggle = document.getElementById('depToggle');
+  depToggle.addEventListener('click', function(e){
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    depToggle.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    renderTriangle(btn.dataset.state);
+  });
+
+  renderTriangle('stable');
+</script>
+</body>
+</html>
