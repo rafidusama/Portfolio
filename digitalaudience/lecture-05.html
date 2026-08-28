@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>L05: The Attention Mind &middot; Digital Audience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:ital,opsz,wght@0,14..32,400..600;1,14..32,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05071a;--surface:#0a0f2e;--surface2:#0e1640;--cyan:#3fe0ff;--blue:#5b8cff;--violet:#a06bff;--magenta:#ff5db1;--amber:#ffb25e;--ink:#eef2ff;--ink-soft:#9aa9d6;--ink-faint:#6c7aa8;--line:rgba(150,170,255,.14);--line-b:rgba(150,170,255,.22);--good:#54e3a8;--bad:#ff6b8a;--grad:linear-gradient(90deg,var(--cyan),var(--violet),var(--magenta));--display:"Sora",system-ui,sans-serif;--body:"Inter",system-ui,sans-serif;--ui:"Space Grotesk",system-ui,sans-serif;--r:14px;--r-sm:8px;}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased;line-height:1.6}
+#net{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.38}
+/* NAV */
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(14px);background:rgba(5,7,26,.82);border-bottom:1px solid var(--line);height:54px;display:flex;align-items:center;padding:0 24px;gap:18px}
+.back-link{font-family:var(--ui);font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);text-decoration:none;display:flex;align-items:center;gap:.4em;transition:color .2s;flex:none}
+.back-link:hover{color:var(--cyan)}.back-link::before{content:"\2190";font-size:1rem}
+.tnav-div{width:1px;height:22px;background:var(--line-b);flex:none}
+.tnav-crumb{font-family:var(--ui);font-size:.76rem;color:var(--ink-faint);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tnav-crumb b{color:var(--ink-soft)}
+.tnav-pill{background:rgba(63,224,255,.12);border:1px solid rgba(63,224,255,.35);color:var(--cyan);font-family:var(--ui);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.28em .72em;border-radius:999px;flex:none}
+/* PROGRESS */
+#prog{position:fixed;top:54px;left:0;right:0;height:3px;background:rgba(255,255,255,.05);z-index:99}
+#prog-fill{height:100%;background:var(--grad);width:0;transition:width .2s}
+/* LAYOUT */
+.page{max-width:860px;margin:0 auto;padding:96px 24px 80px;position:relative;z-index:1}
+/* HERO */
+.lec-hero{padding-bottom:52px}
+.lec-eyebrow{font-family:var(--ui);font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+.lec-eyebrow::before{content:"";width:24px;height:2px;background:var(--grad)}
+.lec-num{font-family:var(--display);font-weight:800;font-size:clamp(3.5rem,12vw,7.5rem);line-height:.88;letter-spacing:-.04em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:block;margin-bottom:.4rem}
+.lec-hero h1{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,4.5vw,3.2rem);line-height:1;letter-spacing:-.025em;margin-bottom:.9rem}
+.lec-hero-sub{font-family:var(--body);font-size:clamp(.95rem,1.9vw,1.2rem);color:var(--ink-soft);line-height:1.55;max-width:58ch;margin-bottom:1.3rem}
+.lec-unit{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--ui);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);border:1px solid var(--line-b);border-radius:999px;padding:.38em .85em;margin-bottom:1.8rem}
+.lec-unit .dot{width:6px;height:6px;border-radius:50%;background:var(--violet)}
+.hero-line{height:1px;background:linear-gradient(90deg,var(--violet),transparent);opacity:.45;margin-bottom:0}
+/* SECTIONS */
+.sec{border-radius:var(--r);padding:36px 40px;margin-bottom:24px;border:1px solid var(--line);background:rgba(255,255,255,.022);position:relative}
+.sec.glass-sec{background:radial-gradient(120% 90% at 10% 0%,rgba(91,140,255,.15),transparent 60%),linear-gradient(160deg,rgba(14,22,64,.72),rgba(10,15,46,.72));border-color:rgba(150,170,255,.2)}
+.sec.outro-sec{background:radial-gradient(120% 90% at 5% 0%,rgba(63,224,255,.11),transparent 60%),linear-gradient(160deg,rgba(14,22,64,.85),rgba(10,15,46,.85));border-color:rgba(63,224,255,.22);text-align:center;padding:56px 40px}
+.sec-eyebrow{font-family:var(--ui);font-weight:600;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);margin-bottom:.85rem;display:flex;align-items:center;gap:.55rem}
+.sec-eyebrow::before{content:"";width:20px;height:2px;background:var(--grad)}
+.sec-eyebrow:empty{display:none}
+.sec h2{font-family:var(--display);font-weight:700;font-size:clamp(1.35rem,2.8vw,2.1rem);line-height:1.04;letter-spacing:-.02em;margin-bottom:.7rem}
+.big-q{font-family:var(--display);font-weight:600;font-style:italic;font-size:clamp(1.25rem,2.8vw,2rem);line-height:1.2;max-width:30ch;margin-bottom:1rem;letter-spacing:-.01em}
+.big-q .h{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:normal}
+.lede{font-family:var(--body);font-size:clamp(.95rem,1.8vw,1.12rem);line-height:1.55;color:var(--ink-soft);max-width:64ch;margin-bottom:.9rem}
+.kicker{font-family:var(--body);font-size:clamp(.92rem,1.7vw,1.08rem);line-height:1.5;color:var(--ink-soft);max-width:64ch}
+.kicker b,.lede b{color:var(--ink)}
+.points{list-style:none;display:flex;flex-direction:column;gap:.8rem;margin:.7rem 0}
+.points li{font-family:var(--body);font-size:clamp(.92rem,1.7vw,1.06rem);line-height:1.43;padding-left:1.4rem;position:relative;color:var(--ink-soft)}
+.points li::before{content:"";position:absolute;left:0;top:.52em;width:.52rem;height:.52rem;background:var(--violet);transform:rotate(45deg);box-shadow:0 0 7px var(--violet)}
+.points li b{font-weight:600;color:var(--cyan)}
+.example-tag{margin-top:.9rem;font-family:var(--ui);font-size:.83rem;letter-spacing:.03em;color:var(--ink-soft);line-height:1.45;padding:.65rem .95rem;border-left:3px solid var(--amber);background:rgba(255,178,94,.055);border-radius:0 var(--r-sm) var(--r-sm) 0}
+.example-tag b{color:var(--amber);font-weight:600}
+.reading-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-top:.6rem}
+.reading-list li{display:flex;gap:.7rem;align-items:baseline;padding:.65rem .9rem;border:1px solid var(--line-b);border-radius:9px;background:rgba(255,255,255,.02)}
+.rl-tag{font-family:var(--ui);font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);flex:none;white-space:nowrap;padding-top:.15em}
+.rl-tag.supp{color:var(--ink-faint)}
+.rl-tag.note{color:var(--amber)}
+.rl-text{font-family:var(--body);font-size:.87rem;color:var(--ink-soft);line-height:1.42}
+.rl-text b{color:var(--ink);font-weight:600}
+.rl-text i{font-style:italic}
+/* OUTRO */
+.outro-title{font-family:var(--display);font-weight:800;font-size:clamp(2rem,5vw,3.6rem);line-height:.92;letter-spacing:-.03em;margin:.4rem 0}
+.outro-title .accent{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* REVEAL CARDS */
+.cards{display:grid;gap:.8rem;margin-top:.9rem}
+.cards.c2{grid-template-columns:repeat(2,1fr)}.cards.c3{grid-template-columns:repeat(3,1fr)}
+.card{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:.9rem 1.05rem;cursor:pointer;transition:.22s}
+.card:hover{border-color:var(--cyan);background:rgba(63,224,255,.048)}
+.card.open{border-color:var(--violet);background:rgba(160,107,255,.065)}
+.card .num{font-family:var(--ui);font-weight:700;color:var(--amber);font-size:.78rem;letter-spacing:.1em;margin-bottom:.28rem}
+.card h5{font-family:var(--display);font-weight:600;font-size:.95rem;line-height:1.1;margin-bottom:.25rem}
+.card .reveal{font-family:var(--body);font-size:.87rem;line-height:1.43;color:var(--ink-soft);max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .35s ease,margin .3s}
+.card .reveal i{color:var(--magenta);font-style:italic}
+.card.open .reveal{max-height:20rem;opacity:1;margin-top:.38rem}
+.card .more{font-family:var(--ui);font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-top:.45rem;display:flex;align-items:center;gap:.3em}
+.card.open .more{color:var(--ink-faint)}.card .more::after{content:"+";font-size:.95rem;line-height:0}.card.open .more::after{content:"–"}
+/* INT TAG */
+.int-tag{display:inline-flex;align-items:center;gap:.4em;background:rgba(160,107,255,.14);border:1px solid rgba(160,107,255,.48);color:var(--violet);font-family:var(--ui);font-weight:700;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;padding:.32em .75em;border-radius:5px;margin-bottom:.8rem}
+.int-tag.game{background:rgba(63,224,255,.11);border-color:rgba(63,224,255,.48);color:var(--cyan)}
+.int-tag .dot{width:7px;height:7px;border-radius:50%;background:currentColor;animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.2}}
+/* MCQ */
+.mcq-options{display:flex;flex-direction:column;gap:.65rem;margin:.75rem 0}
+.opt{display:flex;gap:.85rem;align-items:flex-start;text-align:left;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:9px;padding:.8rem .95rem;cursor:pointer;font-family:var(--body);font-size:clamp(.88rem,1.65vw,1.02rem);line-height:1.35;transition:.2s;color:var(--ink);width:100%}
+.opt .key{font-family:var(--ui);font-weight:700;color:var(--cyan);flex:none;width:1.4em}
+.opt:hover{border-color:var(--cyan);background:rgba(63,224,255,.048)}
+.opt.correct{border-color:var(--good);background:rgba(84,227,168,.1)}.opt.correct .key{color:var(--good)}
+.opt.wrong{border-color:var(--bad);background:rgba(255,107,138,.07)}.opt.wrong .key{color:var(--bad)}
+.opt:disabled{cursor:default}
+.feedback{margin-top:.85rem;font-family:var(--body);font-size:.92rem;line-height:1.5;padding:.85rem .95rem;border-radius:9px;background:rgba(255,255,255,.04);border-left:4px solid var(--amber);display:none}
+.feedback.show{display:block}.feedback b{color:var(--good)}
+/* T/F */
+.tf-list{display:flex;flex-direction:column;gap:.75rem;margin:.75rem 0}
+.tf-row{display:flex;gap:.75rem;align-items:center;justify-content:space-between;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:9px;padding:.8rem .95rem;flex-wrap:wrap;transition:.2s}
+.tf-row .stmt{font-family:var(--body);font-size:clamp(.86rem,1.62vw,.99rem);line-height:1.35;flex:1;min-width:56%}
+.tf-btns{display:flex;gap:.38rem;flex:none}
+.tf-btns button{font-family:var(--ui);font-weight:700;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink-soft);border-radius:7px;padding:.42em 1em;cursor:pointer;font-size:.9rem;transition:.2s}
+.tf-btns button:hover{border-color:var(--cyan);color:var(--ink)}
+.tf-row.right{border-color:var(--good)}.tf-row.wrong{border-color:var(--bad)}
+.tf-row.right .tf-btns button.chosen{background:var(--good);color:#04140d;border-color:var(--good)}
+.tf-row.wrong .tf-btns button.chosen{background:var(--bad);color:#1a0307;border-color:var(--bad)}
+.tf-row.done .tf-btns button:not(.chosen){opacity:.4}
+.tf-fb{font-family:var(--body);font-size:.86rem;line-height:1.4;color:var(--ink-soft);margin-top:.48rem;width:100%;display:none}
+.tf-row.done .tf-fb{display:block}.tf-fb b{color:var(--cyan)}
+/* SORT */
+.sort-wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.75rem 0}
+.sort-bank-lbl{font-family:var(--ui);font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.48rem}
+.sort-bank{display:flex;flex-wrap:wrap;gap:.42rem;min-height:2rem}
+.sort-chip{background:rgba(255,255,255,.05);border:1px solid var(--line-b);border-radius:7px;padding:.42em .75em;font-family:var(--body);font-size:.83rem;color:var(--ink);cursor:pointer;transition:.18s;text-align:left}
+.sort-chip:hover{border-color:var(--cyan)}.sort-chip.sel{border-color:var(--violet);box-shadow:0 0 0 2px rgba(160,107,255,.22)}
+.sort-chip.picked{opacity:.3;pointer-events:none;border-style:dashed}
+.sort-cols{display:flex;flex-direction:column;gap:.55rem}
+.sort-col{border:1.5px dashed var(--line);border-radius:9px;padding:.55rem .75rem;min-height:3.2rem;transition:.2s;cursor:pointer}
+.sort-col:hover{border-color:rgba(160,107,255,.48)}
+.col-lbl{font-family:var(--ui);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.38rem}.col-lbl b{color:var(--ink-soft)}
+.placed-items{display:flex;flex-wrap:wrap;gap:.32rem;min-height:1.3rem}
+.placed-tag{background:rgba(160,107,255,.13);border:1px solid rgba(160,107,255,.42);border-radius:6px;padding:.2em .55em;font-family:var(--body);font-size:.8rem;color:var(--ink);cursor:pointer;transition:.15s}
+.placed-tag:hover{background:rgba(255,93,177,.13);border-color:var(--magenta)}
+/* BRANCHING */
+.branch-scene,.scene{background:rgba(255,255,255,.04);border:1px solid var(--line-b);border-radius:9px;padding:.95rem 1.1rem;font-family:var(--body);font-size:.93rem;line-height:1.5;color:var(--ink-soft);margin-bottom:.95rem}
+.branch-scene b,.scene b{color:var(--ink)}
+.branch-choices,.choices{display:flex;flex-direction:column;gap:.55rem}
+.branch-btn,.choice{display:flex;gap:.75rem;align-items:flex-start;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:9px;padding:.8rem .95rem;cursor:pointer;font-family:var(--body);font-size:.9rem;line-height:1.35;color:var(--ink);transition:.2s;text-align:left;width:100%}
+.branch-btn:hover,.choice:hover{border-color:var(--violet);background:rgba(160,107,255,.058)}
+.bkey{font-family:var(--ui);font-weight:700;color:var(--violet);flex:none;width:1.35em}
+.outcome,.branch-result{margin-top:.95rem;padding:.95rem 1.1rem;border-radius:9px;border-left:4px solid var(--amber);background:rgba(255,255,255,.04);display:none;font-family:var(--body);font-size:.92rem;line-height:1.5}
+.outcome.show,.branch-result.show{display:block}.outcome b{color:var(--ink)}
+.outcome.good{border-color:var(--good)}.outcome.bad{border-color:var(--bad)}.outcome.mixed{border-color:var(--amber)}
+.reset-lnk,.branch-reset{display:none;margin-top:.65rem;background:none;border:1px solid var(--line-b);color:var(--ink-faint);font-family:var(--ui);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.42em .95em;border-radius:6px;cursor:pointer;transition:.2s}
+.reset-lnk:hover,.branch-reset:hover{border-color:var(--cyan);color:var(--cyan)}
+/* TIMELINE */
+.tl{margin:.75rem 0}
+.tl-track{height:4px;background:rgba(255,255,255,.07);border-radius:4px;position:relative;margin-bottom:.45rem;overflow:hidden}
+.tl-fill{position:absolute;left:0;top:0;bottom:0;background:var(--grad);transition:width .3s}
+.tl input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:4px;background:transparent;cursor:pointer;margin-bottom:.65rem}
+.tl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--violet);border:2px solid var(--bg);box-shadow:0 0 8px var(--violet);cursor:pointer}
+.tl-ticks{display:flex;justify-content:space-between;margin-bottom:.9rem;gap:4px}
+.tl-tick{background:none;border:1px solid var(--line-b);color:var(--ink-faint);font-family:var(--ui);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:.32em .65em;border-radius:5px;cursor:pointer;transition:.2s;flex:1;text-align:center}
+.tl-tick:hover,.tl-tick.on{border-color:var(--violet);color:var(--violet);background:rgba(160,107,255,.09)}
+.tl-panel{background:rgba(255,255,255,.04);border:1px solid var(--line);border-left:4px solid var(--cyan);border-radius:0 10px 10px 0;padding:1rem 1.2rem;min-height:6.5rem;transition:border-color .3s}
+.tl-era{font-family:var(--ui);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:.28rem}
+.tl-panel h3{font-family:var(--display);font-weight:700;font-size:1.15rem;margin-bottom:.38rem}
+.tl-def{font-family:var(--body);font-size:.9rem;line-height:1.43;color:var(--ink-soft);margin-bottom:.38rem}
+.tl-ex{font-family:var(--body);font-size:.83rem;line-height:1.4;color:var(--ink-faint)}
+/* SPLIT */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.75rem 0}
+.sside-head{font-family:var(--ui);font-size:.66rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--violet);margin-bottom:.38rem}
+.sside h3{font-family:var(--display);font-weight:600;font-size:1rem;margin-bottom:.42rem}
+.sside p{font-family:var(--body);font-size:.88rem;line-height:1.43;color:var(--ink-soft);margin-bottom:.55rem}
+.sside ul{list-style:none;display:flex;flex-direction:column;gap:.38rem;padding-left:.75rem}
+.sside ul li{font-family:var(--body);font-size:.83rem;line-height:1.38;color:var(--ink-faint);position:relative;padding-left:.8rem}
+.sside ul li::before{content:"";position:absolute;left:0;top:.58em;width:4px;height:4px;border-radius:50%;background:var(--violet)}
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:.75rem 0}
+.step{background:rgba(255,255,255,.038);border:1px solid var(--line);border-top:3px solid var(--cyan);border-radius:10px;padding:.9rem 1rem}
+.step:nth-child(2){border-top-color:var(--violet)}.step:nth-child(3){border-top-color:var(--magenta)}.step:nth-child(4){border-top-color:var(--amber)}
+.step .sn{font-family:var(--ui);font-weight:700;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:.28rem}
+.step h4{font-family:var(--display);font-weight:600;font-size:.93rem;margin:.18rem 0 .38rem;line-height:1.1}
+.step p{font-family:var(--body);font-size:.83rem;line-height:1.4;color:var(--ink-soft)}
+.activity-note{margin-top:.75rem;font-family:var(--ui);font-size:.72rem;letter-spacing:.08em;color:var(--ink-faint);line-height:1.4}
+.activity-note b{color:var(--violet)}
+/* RECAP */
+.recap{display:flex;flex-direction:column;gap:.8rem;margin:.75rem 0}
+.recap .r{display:flex;gap:.95rem;align-items:flex-start;font-family:var(--body);font-size:clamp(.92rem,1.65vw,1.02rem);line-height:1.43;color:var(--ink-soft)}
+.recap .r .k{font-family:var(--ui);font-weight:700;color:var(--cyan);flex:none;font-size:.82rem;margin-top:.14em}
+.bridge{margin-top:1.1rem;font-family:var(--body);font-size:.92rem;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:.95rem;line-height:1.5}
+.bridge b{color:var(--magenta)}
+/* PICARD SPLIT */
+.picard-split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.75rem 0}
+.pside{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem}
+.pside.left{border-color:rgba(63,224,255,.28)}.pside.right{border-color:rgba(255,93,177,.28)}
+.pside-head{font-family:var(--ui);font-size:.63rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.28rem}
+.pside.left .pside-head{color:var(--cyan)}.pside.right .pside-head{color:var(--magenta)}
+.pside h3{font-family:var(--display);font-weight:600;font-size:.95rem;margin-bottom:.38rem}
+.pside p{font-family:var(--body);font-size:.83rem;line-height:1.43;color:var(--ink-soft);margin-bottom:.48rem}
+.pside ul{list-style:none;display:flex;flex-direction:column;gap:.28rem}
+.pside ul li{font-family:var(--body);font-size:.8rem;line-height:1.33;color:var(--ink-faint);padding-left:.75rem;position:relative}
+.pside ul li::before{content:"";position:absolute;left:0;top:.52em;width:4px;height:4px;border-radius:50%;background:var(--violet)}
+/* THREE AUDIENCES */
+.three-aud{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:.75rem 0}
+.taud-card{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:10px;padding:1rem;text-align:center}
+.ta-pred{border-color:rgba(63,224,255,.28)}.ta-meas{border-color:rgba(160,107,255,.28)}.ta-del{border-color:rgba(255,93,177,.28)}
+.ta-icon{font-size:1.5rem;display:block;margin-bottom:.38rem}
+.taud-card h4{font-family:var(--display);font-weight:700;font-size:.92rem;margin-bottom:.32rem}
+.taud-card p{font-family:var(--body);font-size:.8rem;line-height:1.38;color:var(--ink-soft)}
+.taud-card p i{color:var(--cyan);font-style:italic}
+/* FANDOM RING */
+.fanring-wrap{display:grid;grid-template-columns:200px 1fr;gap:22px;align-items:start;margin:.75rem 0}
+.fanring-svg{width:200px;height:200px}
+.ring-info{display:flex;flex-direction:column;gap:.55rem}
+.ring-row{display:flex;gap:.65rem;align-items:flex-start;padding:.65rem;border-radius:8px;border:1px solid transparent;transition:.2s;cursor:pointer}
+.ring-row.active,.ring-row:hover{background:rgba(255,255,255,.038);border-color:var(--line)}
+.ring-dot{width:9px;height:9px;border-radius:50%;flex:none;margin-top:.28rem}
+.ring-text h5{font-family:var(--display);font-weight:600;font-size:.92rem;margin-bottom:.18rem}
+.ring-text p{font-family:var(--body);font-size:.8rem;line-height:1.38;color:var(--ink-soft)}
+/* TRANSCULTURAL MAP */
+.tmap{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin:.75rem 0}
+.tmap-card{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:9px;padding:.8rem;cursor:pointer;transition:.2s}
+.tmap-card:hover,.tmap-card.open{border-color:var(--violet);background:rgba(160,107,255,.055)}
+.flag{font-size:1.3rem;display:block;margin-bottom:.28rem}
+.tmap-card h5{font-family:var(--display);font-weight:600;font-size:.88rem;margin-bottom:.18rem}
+.treveal{font-family:var(--body);font-size:.78rem;line-height:1.38;color:var(--ink-soft);max-height:0;overflow:hidden;opacity:0;transition:max-height .4s,opacity .35s}
+.tmap-card.open .treveal{max-height:12rem;opacity:1;margin-top:.38rem}
+.tmore{font-family:var(--ui);font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);display:block;margin-top:.32rem}
+.tmap-card.open .tmore{color:var(--ink-faint)}
+/* ORDER DRAG */
+.order-wrap{margin:.75rem 0}
+.order-list{display:flex;flex-direction:column;gap:.38rem;margin-bottom:.65rem}
+.order-item{display:flex;gap:.65rem;align-items:center;background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:8px;padding:.6rem .85rem;cursor:grab;transition:.2s;font-family:var(--body);font-size:.86rem;color:var(--ink-soft)}
+.order-item:hover{border-color:var(--cyan)}.order-item .oi-num{font-family:var(--ui);font-weight:700;color:var(--violet);flex:none;width:1.4em}
+.order-item.correct{border-color:var(--good)}.order-item.incorrect{border-color:var(--bad)}
+.order-btns{display:flex;gap:.45rem;margin-bottom:.45rem}
+.order-btn{font-family:var(--ui);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.038);border:1px solid var(--line-b);color:var(--ink-soft);border-radius:7px;padding:.48em .95em;cursor:pointer;transition:.2s}
+.order-btn:hover{border-color:var(--cyan);color:var(--ink)}
+.order-result{font-family:var(--body);font-size:.86rem;line-height:1.43;color:var(--ink-soft);min-height:1rem}
+/* QUAD DRAG */
+.quad-wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.75rem 0;align-items:start;overflow:visible}
+.quad{position:relative;width:100%;padding-bottom:100%;border:1px solid var(--line-b);border-radius:10px;background:rgba(255,255,255,.028);overflow:visible}
+.quad .axis{position:absolute;background:rgba(150,170,255,.22)}
+.quad .axis.v{top:0;bottom:0;left:50%;width:1px}.quad .axis.h{left:0;right:0;top:50%;height:1px}
+.ql{position:absolute;font-family:var(--ui);font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint)}
+.ql.left{top:50%;transform:translateY(-50%) rotate(-90deg);left:2px}.ql.right{top:50%;transform:translateY(-50%) rotate(90deg);right:2px}
+.ql.top{top:6px;left:50%;transform:translateX(-50%)}.ql.bottom{bottom:6px;left:50%;transform:translateX(-50%)}
+.qbank{display:flex;flex-wrap:wrap;gap:.38rem;margin-bottom:.65rem}
+.qchip{background:rgba(255,255,255,.055);border:1px solid var(--line-b);border-radius:7px;padding:.38em .7em;font-family:var(--body);font-size:.78rem;color:var(--ink);cursor:grab;transition:.18s;user-select:none}
+.qchip:hover{border-color:var(--violet)}
+.qhint{font-family:var(--body);font-size:.78rem;line-height:1.4;color:var(--ink-faint);margin-bottom:.55rem}
+.qbtn{font-family:var(--ui);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(160,107,255,.11);border:1px solid rgba(160,107,255,.38);color:var(--violet);border-radius:7px;padding:.48em .95em;cursor:pointer;transition:.2s}
+.qbtn:hover{background:rgba(160,107,255,.18)}
+.ghost{position:absolute;background:rgba(160,107,255,.17);border:1px solid var(--violet);border-radius:6px;padding:.18em .48em;font-family:var(--body);font-size:.72rem;color:var(--violet);transform:translate(-50%,-50%);white-space:nowrap;cursor:default}
+.ghost.placed-ghost{background:rgba(63,224,255,.18);border-color:var(--cyan);color:var(--cyan);cursor:pointer}
+.ghost.suggested-ghost{background:rgba(255,178,94,.18);border-color:var(--amber);color:var(--amber);pointer-events:none}
+/* MATCH GAME */
+.match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.75rem 0}
+.bank-title,.slots-title{font-family:var(--ui);font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.48rem}
+.bank,.slots{display:flex;flex-direction:column;gap:.38rem}
+.match-chip{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:8px;padding:.52em .82em;cursor:pointer;font-family:var(--body);font-size:.86rem;line-height:1.3;transition:.18s;text-align:left;color:var(--ink)}
+.match-chip:hover{border-color:var(--cyan)}.match-chip.picked{opacity:.3;pointer-events:none;border-style:dashed}.match-chip.sel{border-color:var(--violet);box-shadow:0 0 0 2px rgba(160,107,255,.2)}
+.match-slot{border:1.5px dashed var(--line);border-radius:8px;padding:.48rem .68rem;min-height:2.5rem;transition:.2s;cursor:pointer}
+.match-slot:hover{border-color:rgba(160,107,255,.48)}
+.slot-lbl{font-family:var(--body);font-size:.78rem;color:var(--ink-faint);line-height:1.33}
+.placed-match{background:rgba(160,107,255,.13);border:1px solid rgba(160,107,255,.42);border-radius:5px;padding:.18em .55em;font-family:var(--body);font-size:.8rem;color:var(--ink);cursor:pointer;display:inline-block;transition:.15s;margin-top:.18rem}
+.placed-match.right{background:rgba(84,227,168,.13);border-color:var(--good)}.placed-match.wrong{background:rgba(255,107,138,.13);border-color:var(--bad)}
+/* STANCE SPECTRUM */
+.stance-wrap{margin:.75rem 0;max-width:580px}
+.stance-poles{display:flex;justify-content:space-between;font-family:var(--ui);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.45rem}
+.stance-track{position:relative;height:5px;background:rgba(255,255,255,.07);border-radius:5px;margin-bottom:.65rem;cursor:pointer}
+.stance-thumb{position:absolute;top:50%;transform:translate(-50%,-50%);width:16px;height:16px;border-radius:50%;background:var(--violet);border:2px solid var(--bg);box-shadow:0 0 9px var(--violet);left:50%;pointer-events:none}
+.stance-label{font-family:var(--display);font-weight:600;font-size:1rem;color:var(--ink);margin-bottom:.28rem;min-height:1.3rem}
+.stance-sub{font-family:var(--body);font-size:.88rem;line-height:1.43;color:var(--ink-soft);min-height:2.8rem}
+/* SPECTRUM (L02) */
+.spectrum-wrap{margin:.75rem 0}
+.spec-labels{display:flex;justify-content:space-between;font-family:var(--ui);font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.38rem}
+.spec-track{position:relative;height:5px;background:rgba(255,255,255,.07);border-radius:5px;cursor:pointer;margin-bottom:.55rem}
+.spec-fill{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--grad);border-radius:5px;pointer-events:none}
+.spec-thumb{position:absolute;top:50%;transform:translate(-50%,-50%);width:16px;height:16px;border-radius:50%;background:var(--violet);border:2px solid var(--bg);box-shadow:0 0 9px var(--violet);left:50%;pointer-events:none}
+.spec-value{font-family:var(--display);font-weight:600;font-size:.98rem;color:var(--ink);margin-bottom:.45rem;min-height:1.3rem}
+.spec-zones{display:flex;flex-direction:column;gap:.45rem;margin-top:.45rem}
+.spec-zone{padding:.6rem .8rem;border-radius:8px;border:1px solid var(--line);font-family:var(--body);font-size:.83rem;line-height:1.38;color:var(--ink-soft);transition:.2s}
+.spec-zone.active{border-color:var(--violet);background:rgba(160,107,255,.075);color:var(--ink)}.spec-zone b{color:var(--ink);font-family:var(--display)}
+/* STORY WALK */
+.story-scene{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem;min-height:4.5rem;font-family:var(--body);font-size:.92rem;line-height:1.5;color:var(--ink-soft);margin-bottom:.75rem;transition:.3s}
+.story-hook{display:inline-block;margin-top:.45rem;font-family:var(--ui);font-size:.67rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.22em .6em;border-radius:999px}
+.story-nav{display:flex;gap:.45rem;align-items:center}
+.story-btn{font-family:var(--ui);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.038);border:1px solid var(--line-b);color:var(--ink-soft);border-radius:7px;padding:.48em .95em;cursor:pointer;transition:.2s}
+.story-btn:hover:not(:disabled){border-color:var(--cyan);color:var(--ink)}.story-btn:disabled{opacity:.3;cursor:default}
+.story-progress{font-family:var(--ui);font-size:.68rem;color:var(--ink-faint);margin-left:auto}
+/* HOTSPOT */
+.hotspot-wrap{margin:.75rem 0}
+.hs-screen{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:11px}
+.hs-item{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:9px;padding:.8rem;cursor:pointer;transition:.2s}
+.hs-item:hover{border-color:var(--cyan);background:rgba(63,224,255,.048)}
+.hs-item.dark-hl{border-color:var(--bad);background:rgba(255,107,138,.065)}
+.hs-item.good-hl{border-color:var(--good);background:rgba(84,227,168,.065)}
+.hs-item h6{font-family:var(--display);font-weight:600;font-size:.87rem;margin-bottom:.28rem}
+.hs-item p{font-family:var(--body);font-size:.78rem;line-height:1.33;color:var(--ink-soft)}
+.hs-explain{background:rgba(255,255,255,.038);border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:0 9px 9px 0;padding:.8rem .95rem;min-height:2.3rem;font-family:var(--body);font-size:.88rem;line-height:1.5;color:var(--ink-soft);display:none}
+.hs-explain.show{display:block}
+.hs-badge{display:inline-flex;align-items:center;gap:.38em;font-family:var(--ui);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.18em .55em;border-radius:999px;margin-bottom:.32rem}
+.hs-badge.dark{background:rgba(255,107,138,.18);color:var(--bad);border:1px solid rgba(255,107,138,.38)}
+.hs-badge.good{background:rgba(84,227,168,.18);color:var(--good);border:1px solid rgba(84,227,168,.38)}
+/* JOURNEY MAP */
+.journey-rail{display:flex;gap:0;margin:.75rem 0;position:relative}
+.journey-rail::before{content:"";position:absolute;left:20px;right:20px;top:19px;height:2px;background:var(--line-b)}
+.jstage{display:flex;flex-direction:column;align-items:center;gap:.38rem;flex:1;cursor:pointer;z-index:1}
+.jdot{width:38px;height:38px;border-radius:50%;background:var(--surface2);border:2px solid var(--line-b);display:grid;place-items:center;transition:.2s;font-size:.85rem}
+.jstage:hover .jdot,.jstage.active .jdot{border-color:var(--cyan);background:rgba(63,224,255,.11)}
+.jlabel{font-family:var(--ui);font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);text-align:center;transition:.2s}
+.jstage:hover .jlabel,.jstage.active .jlabel{color:var(--cyan)}
+.jpanel{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:10px;padding:.95rem 1.1rem;min-height:4.5rem;margin-top:.75rem}
+.jstage-title{font-family:var(--display);font-weight:700;font-size:1.05rem;margin-bottom:.28rem}
+.jstage-body{font-family:var(--body);font-size:.88rem;line-height:1.43;color:var(--ink-soft)}
+.jstage-ex{font-family:var(--body);font-size:.82rem;color:var(--ink-faint);margin-top:.38rem;padding-top:.38rem;border-top:1px solid var(--line)}
+/* PYRAMID */
+.pyramid-wrap{display:grid;grid-template-columns:260px 1fr;gap:18px;align-items:start;margin:.75rem 0}
+.pk-row{display:flex;gap:.65rem;align-items:flex-start;padding:.65rem;border-radius:8px;border:1px solid transparent;transition:.2s;cursor:pointer}
+.pk-row:hover,.pk-row.active{background:rgba(255,255,255,.038);border-color:var(--line)}
+.pk-dot{width:9px;height:9px;border-radius:50%;flex:none;margin-top:.28rem}
+.pk-text h5{font-family:var(--display);font-weight:600;font-size:.9rem;margin-bottom:.15rem}
+.pk-text p{font-family:var(--body);font-size:.8rem;line-height:1.38;color:var(--ink-soft)}
+/* CHARTBEAT DASH */
+.dash-wrap{margin:.75rem 0}
+.dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:11px}
+.dash-tile{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:9px;padding:.8rem;cursor:pointer;transition:.2s;text-align:center}
+.dash-tile:hover,.dash-tile.lit{border-color:var(--cyan);background:rgba(63,224,255,.055)}
+.m-lbl{font-family:var(--ui);font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.28rem}
+.m-val{font-family:var(--display);font-weight:700;font-size:1.4rem;color:var(--ink);line-height:1}
+.m-sub{font-family:var(--body);font-size:.7rem;color:var(--ink-faint);margin-top:.18rem}
+.dash-detail{background:rgba(255,255,255,.038);border:1px solid var(--line);border-left-width:4px;border-radius:0 9px 9px 0;padding:.8rem .95rem;min-height:2.3rem;font-family:var(--body);font-size:.88rem;line-height:1.5;color:var(--ink-soft);display:none}
+.dash-detail.show{display:block}.dash-detail b{color:var(--ink)}
+/* CHART CARDS */
+.chart-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:.75rem 0}
+.chart-card{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:10px;padding:.85rem;cursor:pointer;transition:.2s}
+.chart-card:hover,.chart-card.active{border-color:var(--violet)}
+.chart-title{font-family:var(--ui);font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.55rem}
+.chart-bar-wrap{display:flex;gap:3px;align-items:flex-end;height:56px;margin-bottom:.45rem}
+.chart-bar{flex:1;border-radius:3px 3px 0 0;transition:opacity .2s}
+.chart-card:hover .chart-bar,.chart-card.active .chart-bar{opacity:.82}
+.chart-verdict{font-family:var(--body);font-size:.78rem;line-height:1.33;color:var(--ink-faint);min-height:1.8rem;display:none}
+.chart-card.active .chart-verdict{display:block}
+/* PHASE PANELS */
+.phase-wrap{display:flex;flex-direction:column;gap:.65rem;margin:.75rem 0}
+.phase{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:10px;padding:.95rem 1.1rem;cursor:pointer;transition:.2s}
+.phase.open{border-color:var(--violet);background:rgba(160,107,255,.065)}
+.ph-era{font-family:var(--ui);font-size:.63rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.28rem}
+.phase h4{font-family:var(--display);font-weight:600;font-size:.97rem;margin-bottom:.28rem}
+.phase p{font-family:var(--body);font-size:.86rem;line-height:1.4;color:var(--ink-soft);max-height:0;overflow:hidden;transition:max-height .4s,opacity .35s;opacity:0}
+.phase.open p{max-height:12rem;opacity:1}
+.ph-tag{font-family:var(--ui);font-size:.66rem;letter-spacing:.1em;margin-top:.38rem;opacity:.6}
+/* FLOW DIAGRAM */
+.flow-wrap{margin:.75rem 0}
+.flow-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:11px}
+.flow-node{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:10px;padding:.8rem .95rem;cursor:pointer;transition:.2s;text-align:center;flex:1;min-width:100px}
+.flow-node:hover,.flow-node.lit{border-color:var(--cyan);background:rgba(63,224,255,.065)}
+.fn-icon{font-size:1.3rem;display:block;margin-bottom:.28rem}
+.flow-node h4{font-family:var(--display);font-weight:600;font-size:.8rem;line-height:1.2}
+.flow-arrow{color:var(--violet);font-size:1.05rem;flex:none}
+.flow-detail{background:rgba(255,255,255,.038);border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:0 9px 9px 0;padding:.8rem .95rem;min-height:2.3rem;font-family:var(--body);font-size:.88rem;line-height:1.5;color:var(--ink-soft);display:none}
+.flow-detail.show{display:block}.flow-detail b{color:var(--ink)}
+/* SANDBOX */
+.sandbox-wrap{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:.75rem 0}
+.signal-grid{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+.sig-toggle{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:8px;padding:.6rem .75rem;cursor:pointer;transition:.2s;user-select:none}
+.sig-toggle.on{border-color:var(--cyan);background:rgba(63,224,255,.075)}
+.sig-lbl{font-family:var(--ui);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.18rem}
+.sig-toggle.on .sig-lbl{color:var(--cyan)}
+.sig-val{font-family:var(--display);font-weight:700;font-size:.92rem}
+.feed-preview{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:8px;padding:.8rem}
+.feed-lbl{font-family:var(--ui);font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.45rem}
+.feed-item{display:flex;gap:.45rem;align-items:center;padding:.38rem .45rem;border-radius:6px;font-family:var(--body);font-size:.8rem;color:var(--ink-soft);border:1px solid transparent;transition:.2s}
+.feed-item .fi-rank{font-family:var(--ui);font-weight:700;font-size:.72rem;color:var(--violet);flex:none;width:1.2em}
+.feed-item .fi-score{margin-left:auto;font-family:var(--ui);font-size:.68rem;color:var(--ink-faint)}
+.feed-item.top{border-color:rgba(63,224,255,.22);background:rgba(63,224,255,.038);color:var(--ink)}
+/* GROWTH LOOP */
+.loop-diagram{margin:.75rem 0}
+.loop-nodes{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:11px}
+.loop-node{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:10px;padding:.9rem;cursor:pointer;transition:.2s;text-align:center}
+.loop-node:hover,.loop-node.active{border-color:var(--cyan);background:rgba(63,224,255,.055)}
+.loop-node .ln-icon{font-size:1.25rem;display:block;margin-bottom:.28rem}
+.loop-node .ln-num{font-family:var(--ui);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.18rem}
+.loop-node .ln-title{font-family:var(--display);font-weight:700;font-size:.87rem}
+.loop-node .ln-sub{font-family:var(--body);font-size:.72rem;color:var(--ink-faint);margin-top:.13rem}
+.loop-detail{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:9px;padding:.85rem 1rem;min-height:3.5rem;font-family:var(--body);font-size:.88rem;line-height:1.5;color:var(--ink-soft);margin-top:.45rem;display:none}
+.loop-detail.show{display:block}.loop-detail b{color:var(--ink)}
+.loop-detail .ld-tag{font-family:var(--ui);font-size:.63rem;letter-spacing:.1em;padding:.18em .55em;border-radius:20px;border:1px solid var(--line);color:var(--ink-soft);display:inline-block;margin-bottom:.32rem}
+.loop-hint{font-family:var(--ui);font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);text-align:center;margin-top:.65rem}
+/* SLIDERS */
+.slider-wrap{margin:.75rem 0}
+.slider-row{display:flex;align-items:center;gap:.85rem;margin-bottom:.65rem}
+.sr-label,.slider-lbl{font-family:var(--ui);font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);flex:1;min-width:0}
+.slider-row input[type=range]{flex:1.5;min-width:0;-webkit-appearance:none;appearance:none;height:4px;background:rgba(255,255,255,.09);border-radius:4px;cursor:pointer}
+.slider-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--violet);border:2px solid var(--bg);cursor:pointer}
+.sr-val,.slider-val{font-family:var(--ui);font-weight:700;font-size:.83rem;color:var(--violet);flex:none;width:58px;text-align:right}
+.slider-output,.value-display{background:rgba(255,255,255,.038);border:1px solid var(--line-b);border-radius:9px;padding:.95rem 1.1rem;margin-top:.38rem}
+.metric{text-align:center;flex:1}
+.mv{font-family:var(--display);font-weight:800;font-size:1.35rem;display:block}
+.mk{font-family:var(--ui);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+.metric.good .mv{color:var(--good)}.metric.warn .mv{color:var(--amber)}.metric.bad .mv{color:var(--bad)}
+.vd-lbl{font-family:var(--ui);font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.28rem}
+.vd-num{font-family:var(--display);font-weight:800;font-size:1.7rem;color:var(--cyan);margin-bottom:.18rem}
+.vd-sub{font-family:var(--body);font-size:.78rem;color:var(--ink-faint)}
+/* BOTTOM NAV */
+.lec-nav{display:flex;justify-content:space-between;align-items:stretch;gap:11px;margin-top:56px;padding-top:36px;border-top:1px solid var(--line)}
+.nav-lec{display:flex;align-items:center;gap:.65rem;text-decoration:none;background:rgba(255,255,255,.028);border:1px solid var(--line-b);border-radius:var(--r);padding:13px 16px;transition:.2s;flex:1;max-width:47%}
+.nav-lec:hover{border-color:var(--violet);background:rgba(160,107,255,.055)}
+.nav-lec.disabled{opacity:.22;pointer-events:none}
+.nav-lec.next-lec{justify-content:flex-end;text-align:right}
+.nl-arrow{font-size:1.2rem;color:var(--violet)}
+.nl-dir{font-family:var(--ui);font-size:.63rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:.18rem}
+.nl-name{font-family:var(--display);font-weight:700;font-size:.9rem;color:var(--ink);line-height:1.2}
+.back-top{text-align:center;margin-top:28px}
+.back-top a{font-family:var(--ui);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);text-decoration:none;transition:color .2s}
+.back-top a:hover{color:var(--cyan)}
+/* DF MAP (L03) */
+.df-map{margin:.75rem 0}
+.df-nodes{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:.9rem}
+.dfnode{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:9px;padding:.65rem .85rem;cursor:pointer;transition:.2s;text-align:center;min-width:110px;flex:1}
+.dfnode:hover,.dfnode.lit{border-color:var(--cyan);background:rgba(63,224,255,.065)}
+.dfnode .icon{font-size:1.2rem;display:block;margin-bottom:.18rem}
+.dfnode h4{font-family:var(--display);font-weight:600;font-size:.78rem;line-height:1.2}
+.dfnode p{font-family:var(--body);font-size:.72rem;line-height:1.3;color:var(--ink-faint)}
+.dfarrow{color:var(--violet);font-size:1.05rem;flex:none;align-self:center}
+.df-detail{background:rgba(255,255,255,.038);border:1px solid var(--line);border-radius:9px;border-left:4px solid var(--amber);padding:.85rem;min-height:3rem;font-family:var(--body);font-size:.88rem;line-height:1.5;color:var(--ink-soft);display:none}
+.df-detail.show{display:block}.df-detail b{color:var(--ink)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media(max-width:700px){
+  .page{padding:86px 16px 56px}
+  .sec{padding:26px 18px}
+  .cards.c2,.cards.c3,.split,.picard-split,.three-aud,.steps,.fanring-wrap,.pyramid-wrap,.sandbox-wrap,.tmap{grid-template-columns:1fr!important}
+  .sort-wrap,.match-wrap,.quad-wrap{grid-template-columns:1fr!important}
+  .hs-screen,.dash-grid,.chart-wrap{grid-template-columns:1fr 1fr!important}
+  .loop-nodes{grid-template-columns:1fr 1fr!important}
+  .journey-rail{overflow-x:auto;padding-bottom:.45rem}
+  .nav-lec{min-width:0}.nl-name{font-size:.8rem}
+  .lec-num{font-size:clamp(3rem,14vw,5rem)}
+  .lec-num-badge{font-size:clamp(3rem,14vw,5rem)}
+}
+@media(max-width:420px){
+  .hs-screen,.dash-grid,.chart-wrap{grid-template-columns:1fr!important}
+  .quad-wrap{grid-template-columns:1fr!important}
+}
+</style>
+</head>
+<body>
+<canvas id="net"></canvas>
+<div class="top-nav">
+  <a href="index.html" class="back-link">Course</a>
+  <div class="tnav-div"></div>
+  <div class="tnav-crumb"><b>L05</b> &middot; The Attention Mind</div>
+  <span class="tnav-pill">Unit B</span>
+</div>
+<div id="prog"><span id="prog-fill"></span></div>
+
+<div class="page">
+  <div class="lec-hero">
+    <div class="lec-eyebrow">Digital Audience &middot; MSJ2252</div>
+    <span class="lec-num">05</span>
+    <h1>The Attention Mind</h1>
+    <p class="lec-hero-sub">Why audiences <b>click, scroll, stay,</b> and leave. The psychology behind engagement, and the designs that exploit it.</p>
+    <div class="lec-unit"><span class="dot"></span>Unit B: How do they behave?</div>
+    <div class="hero-line"></div>
+  </div>
+
+  <section class="sec glass-sec"><p class="big-q">The previous four lectures explained <span class="h">who</span> the audience is. Today we ask <span class="h">why</span> it does what it does, and who is <span class="h">designing</span> those behaviours.</p>
+    <p class="kicker" style="margin-top:1rem">Engagement is <b>rarely accidental.</b> It is produced by well-understood psychological mechanisms, some of which are harnessed ethically and some that are not.</p></section>
+<section class="sec"><div class="sec-eyebrow">By the end of today</div><h2>What you will walk out knowing</h2>
+    <div class="cards c2" data-reveal>
+      <div class="card"><span class="num">01</span><h5>Apply uses and gratifications</h5><div class="reveal">Explain why audiences choose specific media and genres using the U&G framework, and name its five core assumptions.</div><span class="more">Reveal</span></div>
+      <div class="card"><span class="num">02</span><h5>Explain parasocial bonds</h5><div class="reveal">Describe how audiences form one-sided relationships with media figures, why these feel real, and how platforms engineer and exploit them.</div><span class="more">Reveal</span></div>
+      <div class="card"><span class="num">03</span><h5>Identify habit and variable reward</h5><div class="reveal">Map the habit loop and explain how variable reward schedules keep audiences returning, using examples from games, OTT, and social media.</div><span class="more">Reveal</span></div>
+      <div class="card"><span class="num">04</span><h5>Spot dark patterns</h5><div class="reveal">Distinguish ethical engagement design from manipulative design, and evaluate where the line falls.</div><span class="more">Reveal</span></div>
+    </div></section>
+<section class="sec"><div class="sec-eyebrow">Katz, Blumler &amp; Gurevitch &middot; 1974</div><h2>Uses and gratifications</h2>
+    <p class="lede">People do not just passively receive media. They actively choose it to fulfil specific needs. The key question shifts: not "what does media do to audiences?" but <i>what do audiences do with media?</i></p>
+    <ul class="points">
+      <li><b>Audiences use media with purpose.</b> They have needs and choose media they expect to satisfy those needs.</li>
+      <li><b>Media must satisfy social or psychological needs.</b> Information, entertainment, escape, social connection, and identity are the classic gratification categories.</li>
+      <li><b>Audiences are rational actors.</b> They select among competing media options based on expected gratification.</li>
+      <li><b>Media compete with each other.</b> A specific medium or genre can only fulfil some needs; audiences move between options.</li>
+      <li><b>Gratifications sustain habits.</b> If media stops delivering the gratification, the behaviour stops.</li>
+    </ul>
+    <p class="example-tag">In Bangladesh: <b>Bongo</b> satisfies nostalgia and language-specific entertainment needs that global platforms cannot. That is a gratification advantage no algorithm can easily copy.</p></section>
+<section class="sec"><div class="sec-eyebrow">Horton &amp; Wohl &middot; 1956</div><h2>Parasocial relationships</h2>
+    <p class="lede">Audiences form one-sided relationships with media figures. The presenter, the streamer, the creator speaks to you directly. You feel you know them. They have no idea you exist.</p>
+    <ul class="points">
+      <li><b>It feels real.</b> Brain response to a parasocial companion activates similar regions to real-world social bonds. The emotional stakes are genuine even though the relationship is one-directional.</li>
+      <li><b>Presence intensifies it.</b> Reality TV and live streaming exploit "presence": the illusion that you are watching a non-mediated, real encounter.</li>
+      <li><b>Trust transfers.</b> Parasocial trust is why influencer marketing works. You trust the recommendation of someone you feel you know, even if you have never met them.</li>
+      <li><b>Loss is genuinely painful.</b> When a parasocial figure dies, retires, or betrays their audience's values, the grief and anger are proportional to the depth of the relationship built.</li>
+    </ul>
+    <p class="example-tag">A Bangladeshi YouTube creator with 500,000 subscribers has hundreds of thousands of people who feel they <b>know</b> them personally. That is the asset being monetised.</p></section>
+<section class="sec"><div class="sec-eyebrow">Habit and variable reward</div><h2>The habit loop and variable reward</h2>
+    <div class="cards c3" data-reveal>
+      <div class="card"><span class="num">01</span><h5>The cue</h5><div class="reveal">A notification, a time of day, a moment of boredom. Platforms design cues that fire at psychologically vulnerable moments: the first thing you reach for in the morning, the gap before sleep.</div><span class="more">Reveal</span></div>
+      <div class="card"><span class="num">02</span><h5>The routine</h5><div class="reveal">The behaviour itself: opening the app, scrolling the feed, watching the next episode. The smoother and lower-friction the routine, the more likely the habit forms.</div><span class="more">Reveal</span></div>
+      <div class="card"><span class="num">03</span><h5>The reward</h5><div class="reveal">The payoff: a funny video, a friend's post, a like on your own content. Crucially, the reward is <i>variable</i>. Skinner showed that unpredictable rewards build stronger habits than fixed ones.</div><span class="more">Reveal</span></div>
+      <div class="card"><span class="num">04</span><h5>Variable reward in practice</h5><div class="reveal">You do not know if the next scroll will be dull or delightful. That uncertainty is the hook. Slot machines use the same mechanism. Natasha Schull called this the "machine zone."</div><span class="more">Reveal</span></div>
+      <div class="card"><span class="num">05</span><h5>Boredom as driver</h5><div class="reveal">Paasonen shows boredom is not the opposite of engagement: it is often the engine. The low-engagement scroll looking for something interesting is itself a habit that platforms have colonised.</div><span class="more">Reveal</span></div>
+      <div class="card"><span class="num">06</span><h5>Habit vs dark pattern</h5><div class="reveal">A habit the user consciously chose and can exit is not inherently a dark pattern. A habit engineered to be difficult to break, invisible to the user, or addictive by design crosses the line.</div><span class="more">Reveal</span></div>
+    </div></section>
+<section class="sec"><div class="sec-eyebrow">Interactive story</div><div class="int-tag game"><span class="dot"></span>Interactive story</div>
+    <h2>Follow Rumi through an evening scroll</h2>
+    <p class="lede" style="margin-bottom:.8rem">Read each moment of Rumi's scroll. Click "Next" to advance. A hook label will appear when a pattern fires.</p>
+    <div class="story-wrap" data-story>
+      <div class="story-scene" data-story-scene></div>
+      <div class="story-nav">
+        <button class="story-btn" data-story-prev disabled>&#8592; Prev</button>
+        <button class="story-btn" data-story-next>Next &#8594;</button>
+        <span class="story-progress" data-story-prog></span>
+      </div>
+    </div></section>
+<section class="sec"><div class="sec-eyebrow">Two more drivers</div><h2>FOMO and social proof</h2>
+    <div class="cards c2" data-reveal>
+      <div class="card"><span class="num">01</span><h5>Fear of missing out (FOMO)</h5><div class="reveal">FOMO is anxiety about being excluded from events, conversations, and experiences others are having. Social platforms are engineered around it: the unread notification count, the story that expires in 24 hours, the trending topic that everyone else seems to know about.</div><span class="more">Reveal</span></div>
+      <div class="card"><span class="num">02</span><h5>Social proof</h5><div class="reveal">Humans use others' behaviour as a signal of correct action. Visible like counts, share numbers, trending labels, and "X others are watching this" cues all trigger social proof. Platforms amplify these signals to drive the behaviour they want to measure.</div><span class="more">Reveal</span></div>
+      <div class="card"><span class="num">03</span><h5>How they combine</h5><div class="reveal">FOMO and social proof reinforce each other: the trending topic triggers FOMO, the view count provides social proof, the combination makes engagement feel obligatory rather than chosen.</div><span class="more">Reveal</span></div>
+      <div class="card"><span class="num">04</span><h5>The gratification overlap</h5><div class="reveal">Uses and gratifications theory frames these as genuine needs: social integration, surveillance, and identity affirmation. Platforms did not invent these needs. They learned to activate them more efficiently and at greater scale than any prior medium.</div><span class="more">Reveal</span></div>
+    </div></section>
+<section class="sec"><div class="sec-eyebrow">Hotspot</div><div class="int-tag game"><span class="dot"></span>Hotspot</div>
+    <h2>Spot the dark pattern</h2>
+    <p class="lede" style="margin-bottom:.8rem">Click each feature of this mock app screen. Is it ethical engagement design or a dark pattern?</p>
+    <div class="hotspot-wrap">
+      <div class="hs-screen" data-hotspot>
+        <div class="hs-item" data-hs="0" data-dark="true"><h6>Autoplay countdown</h6><p>The next episode starts in 5 seconds unless you actively cancel. Requires deliberate effort to stop. Designed to continue viewing beyond conscious intent.</p></div>
+        <div class="hs-item" data-hs="1" data-dark="false"><h6>Personalised recommendations</h6><p>Showing content matched to your past viewing. Based on declared or inferred preferences. Raises relevance for genuinely interested users.</p></div>
+        <div class="hs-item" data-hs="2" data-dark="true"><h6>Hidden cancel button</h6><p>The unsubscribe option is buried inside three nested menus, uses small grey text, and requires re-confirmation. Makes stopping harder than starting.</p></div>
+        <div class="hs-item" data-hs="3" data-dark="true"><h6>Unread notification badge</h6><p>A red badge showing "99+" alerts that are mostly algorithmic content pushes, not personal messages. Triggers FOMO and compulsive checking.</p></div>
+        <div class="hs-item" data-hs="4" data-dark="false"><h6>Content warnings</h6><p>Upfront labels on content that may be disturbing or inappropriate. Gives the user genuine choice about what to engage with.</p></div>
+        <div class="hs-item" data-hs="5" data-dark="true"><h6>Infinite scroll</h6><p>No natural stopping point in the feed. No page end, no "you're up to date" message. Removes the environmental cue that would naturally end a session.</p></div>
+      </div>
+      <div class="hs-explain" data-hs-explain></div>
+    </div></section>
+<section class="sec"><div class="sec-eyebrow">Drawing the line</div><h2>Ethical engagement vs exploitation</h2>
+    <ul class="points">
+      <li><b>Ethical design.</b> Uses psychological knowledge to help users achieve their own purposes: find content they genuinely enjoy, build skills, stay informed, connect with people they care about.</li>
+      <li><b>Dark patterns.</b> Use psychological knowledge to keep users in a platform or behaviour longer than they would consciously choose, to extract more data, more attention, or more spending.</li>
+      <li><b>The test.</b> Would the user endorse this design if they understood it fully? If the answer is no, that is the dividing line.</li>
+      <li><b>The structural problem.</b> Engagement metrics are what platforms optimise. Maximising engagement maximises revenue. Dark patterns are a feature of the business model, not a bug in the code.</li>
+    </ul>
+    <p class="example-tag">Mobile games in Bangladesh: <b>Candy Crush-style games</b> use variable rewards ethically for casual entertainment. <b>Pay-to-win mechanics</b> targeting spending propensity data to extract real money cross the line.</p></section>
+<section class="sec"><div class="sec-eyebrow">Five sectors, same psychology</div><h2>Engagement mechanics across the board</h2>
+    <div class="cards c3" data-reveal>
+      <div class="card"><span class="num">01</span><h5>News</h5><div class="reveal">Chartbeat shows editors a live dashboard of clicks and dwell time. The gratification of being informed competes with the dark pattern of outrage-as-engagement. Headline A/B testing exploits curiosity gaps.</div><span class="more">Reveal</span></div>
+      <div class="card"><span class="num">02</span><h5>OTT</h5><div class="reveal">Autoplay, personalised rows, and completion-rate optimisation exploit habit loops. Netflix does not tell you what episode you left on: the app opens at the right moment as a cue.</div><span class="more">Reveal</span></div>
+      <div class="card"><span class="num">03</span><h5>Games</h5><div class="reveal">Battle passes exploit loss aversion. Daily login rewards are variable reward schedules. Limited-time events trigger FOMO at scale.</div><span class="more">Reveal</span></div>
+      <div class="card"><span class="num">04</span><h5>Music</h5><div class="reveal">Spotify's Discover Weekly uses variable reward: you never know if this week's playlist will be revelatory or flat. That uncertainty is why it has a weekly open rate far higher than most marketing emails.</div><span class="more">Reveal</span></div>
+      <div class="card"><span class="num">05</span><h5>Creators</h5><div class="reveal">The notification bell is a deliberate FOMO trigger. Super-chat and membership systems exploit parasocial loyalty. Comment-heart replies from creators are a variable-reward schedule.</div><span class="more">Reveal</span></div>
+      <div class="card"><span class="num">06</span><h5>Platforms</h5><div class="reveal">All of the above. Plus: the invisible feed algorithm as the slot machine lever. Every scroll is a pull with an unpredictable payoff.</div><span class="more">Reveal</span></div>
+    </div></section>
+<section class="sec"><div class="sec-eyebrow">Knowledge check</div><div class="int-tag game"><span class="dot"></span>Knowledge check</div>
+    <p class="lede" style="font-weight:600;color:var(--ink)">A mobile game gives players a reward every time they log in, but the reward is randomly either a common item or a rare one. Which psychological mechanism does this exploit?</p>
+    <div class="mcq-options" data-mcq data-correct="1">
+      <button class="opt"><span class="key">A</span><span>Uses and gratifications: the player gets the specific entertainment they chose</span></button>
+      <button class="opt"><span class="key">B</span><span>Variable reward schedule: unpredictable rewards build stronger, more compulsive return habits than fixed ones</span></button>
+      <button class="opt"><span class="key">C</span><span>Social proof: the player sees others receiving rewards and is encouraged to engage</span></button>
+      <button class="opt"><span class="key">D</span><span>Parasocial relationship: the player feels a personal bond with the game character</span></button>
+    </div>
+    <div class="feedback" data-feedback><b>B.</b> Variable reward schedules, identified by Skinner and applied directly by game designers, produce more persistent behaviour than fixed rewards precisely because the uncertainty keeps the loop active.</div>
+    <div class="tf-list" data-tf style="margin-top:1rem">
+      <div class="tf-row" data-answer="true"><span class="stmt">Uses and gratifications theory frames audiences as active choosers who select media to fulfil specific needs, not as passive receivers of whatever is transmitted.</span><span class="tf-btns"><button data-v="true">True</button><button data-v="false">False</button></span><span class="tf-fb"><b>True.</b> This is the core reversal U&G makes: instead of asking what media does to people, it asks what people do with media.</span></div>
+      <div class="tf-row" data-answer="false"><span class="stmt">A parasocial relationship is mutual: the media figure and the audience member each know and respond to the other personally.</span><span class="tf-btns"><button data-v="true">True</button><button data-v="false">False</button></span><span class="tf-fb"><b>False.</b> By definition, parasocial relationships are one-sided. The audience member feels they know the figure personally; the figure has no knowledge of the individual audience member.</span></div>
+    </div></section>
+<section class="sec"><div class="sec-eyebrow">Your turn &middot; 15&ndash;20 min</div><div class="int-tag"><span class="dot"></span>Worksheet activity</div>
+    <h2>Hook Teardown</h2>
+    <div class="steps">
+      <div class="step"><span class="sn">Step 1</span><h4>Pick one app</h4><p>Choose one app you opened at least three times yesterday. List four specific design features or moments you noticed: a notification, an autoplay, a recommendation, a reward.</p></div>
+      <div class="step"><span class="sn">Step 2</span><h4>Label the mechanism</h4><p>For each feature, identify the psychological mechanism it activates: U&G gratification, habit loop component, variable reward, FOMO, social proof, or parasocial bond.</p></div>
+      <div class="step"><span class="sn">Step 3</span><h4>Ethical or dark?</h4><p>Rate each feature: ethical design, borderline, or dark pattern. Apply the test: would you endorse this design if you fully understood it? Then suggest one humane redesign for the darkest feature.</p></div>
+    </div></section>
+<section class="sec"><div class="sec-eyebrow">Today in five lines</div><h2>Recap</h2>
+    <div class="recap">
+      <div class="r"><span class="k">01</span><span>U&G: audiences <b style="color:var(--ink)">choose media purposefully</b> to fulfil specific social and psychological needs.</span></div>
+      <div class="r"><span class="k">02</span><span>Parasocial relationships feel real, transfer <b style="color:var(--ink)">trust to platforms and creators</b>, and can cause genuine grief when broken.</span></div>
+      <div class="r"><span class="k">03</span><span>Habit loops and <b style="color:var(--ink)">variable reward schedules</b> are the engine of compulsive return behaviour across all sectors.</span></div>
+      <div class="r"><span class="k">04</span><span>FOMO and social proof are not bugs but <b style="color:var(--ink)">deliberate architectural features</b> of platform design.</span></div>
+      <div class="r"><span class="k">05</span><span>The line between ethical engagement and <b style="color:var(--ink)">dark pattern</b> is whether the design serves the user's own goals or subverts them.</span></div>
+    </div>
+    <p class="bridge">Next class: <b>Participation and Produsage.</b> We move from how audiences are engaged to what happens when they start producing.</p></section>
+<section class="sec glass-sec outro-sec"><div class="sec-eyebrow">Digital Audience &middot; Lecture 05</div>
+    <h1 class="outro-title">You are<br><span class="accent">being designed.</span></h1></section>
+
+  <section class="sec"><div class="sec-eyebrow">This week&rsquo;s reading</div>
+    <h2>Reading list</h2>
+    <ul class="reading-list">
+      <li><span class="rl-tag note">Note</span><span class="rl-text">None of the course texts cover parasocial bonds, habit loops, or dark patterns directly &mdash; this lecture runs on original synthesis.</span></li>
+      <li><span class="rl-tag supp">Supplementary</span><span class="rl-text">Jeffres, <i>Audience Genre Expectations in the Age of Digital Media</i> &mdash; Ch. 3, Uses and Gratifications Theory section</span></li>
+    </ul>
+  </section>
+  <div class="lec-nav">
+    <a href="lecture-04.html" class="nav-lec prev-lec"><span class="nl-arrow">&#8592;</span><span class="nl-info"><span class="nl-dir">Previous</span><span class="nl-name">L04: Audience Identities</span></span></a>
+    <a href="lecture-06.html" class="nav-lec next-lec"><span class="nl-info"><span class="nl-dir">Next</span><span class="nl-name">L06: Participation &amp; Produsage</span></span><span class="nl-arrow">&#8594;</span></a>
+  </div>
+  <div class="back-top"><a href="#">Back to top &uarr;</a></div>
+</div>
+
+<script>
+
+/* === PROGRESS BAR === */
+(function(){
+  const f=document.getElementById('prog-fill');
+  if(!f)return;
+  function u(){const s=document.documentElement;const h=s.scrollHeight-s.clientHeight;f.style.width=(h>0?Math.min(100,(s.scrollTop||document.body.scrollTop)/h*100):0)+'%';}
+  window.addEventListener('scroll',u,{passive:true});u();
+})();
+
+/* === CANVAS === */
+(function(){
+  const cv=document.getElementById('net');if(!cv)return;
+  const ctx=cv.getContext('2d');
+  const pal=['#3fe0ff','#5b8cff','#a06bff','#ff5db1','#ffb25e'];
+  let W,H,nodes,raf;
+  const reduced=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function init(){const N=Math.min(40,Math.floor(W*H/28000));nodes=[];for(let i=0;i<N;i++)nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15,c:pal[i%pal.length]});}
+  function resize(){W=cv.width=innerWidth;H=cv.height=innerHeight;init();if(reduced)frame();}
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    for(const n of nodes){n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;}
+    for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
+      const a=nodes[i],b=nodes[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<130){ctx.globalAlpha=(1-d/130)*.08;ctx.strokeStyle=a.c;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}
+    for(const n of nodes){ctx.globalAlpha=.45;ctx.fillStyle=n.c;ctx.beginPath();ctx.arc(n.x,n.y,1.3,0,7);ctx.fill();}
+    ctx.globalAlpha=1;if(!reduced)raf=requestAnimationFrame(frame);
+  }
+  addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();if(!reduced)frame();});
+  resize();if(!reduced)frame();
+})();
+
+/* === REVEAL CARDS === */
+document.addEventListener('click',function(e){
+  const card=e.target.closest('[data-reveal] .card');
+  if(card){card.classList.toggle('open');return;}
+  const tmap=e.target.closest('.tmap-card');
+  if(tmap){tmap.classList.toggle('open');return;}
+});
+
+/* === MCQ === */
+document.querySelectorAll('[data-mcq]').forEach(function(m){
+  const correct=+m.dataset.correct;
+  const fb=m.parentElement.querySelector('[data-feedback]');
+  m.querySelectorAll('.opt').forEach(function(o,idx){
+    o.addEventListener('click',function(){
+      if(m.dataset.answered)return;
+      m.dataset.answered='1';
+      m.querySelectorAll('.opt').forEach(function(x,j){
+        x.disabled=true;
+        if(j===correct)x.classList.add('correct');
+        else if(j===idx)x.classList.add('wrong');
+      });
+      if(fb)fb.classList.add('show');
+    });
+  });
+});
+
+/* === TRUE/FALSE === */
+document.querySelectorAll('[data-tf] .tf-row').forEach(function(row){
+  const ans=row.dataset.answer;
+  row.querySelectorAll('.tf-btns button').forEach(function(b){
+    b.addEventListener('click',function(){
+      if(row.classList.contains('done'))return;
+      row.classList.add('done',b.dataset.v===ans?'right':'wrong');
+      b.classList.add('chosen');
+    });
+  });
+});
+
+/* === SORT / MSORT GAMES === */
+document.querySelectorAll('[data-sort],[data-msort]').forEach(function(root){
+  const isMsort=root.hasAttribute('data-msort');
+  const rawItems=root.dataset.items||root.dataset.sort;
+  if(!rawItems)return;
+  const items=JSON.parse(rawItems);
+  const cols=JSON.parse(root.dataset.cols||'[]');
+  const correct=JSON.parse(root.dataset.correct||'[]');
+  const bankEl=root.querySelector('[data-sort-bank],[data-msort-bank]');
+  const colsEl=root.querySelector('[data-sort-cols],[data-msort-cols]');
+  if(!bankEl||!colsEl)return;
+  let sel=null;
+  items.forEach(function(item,i){
+    const c=document.createElement('button');
+    c.className='sort-chip';c.textContent=item;c.dataset.idx=i;
+    c.addEventListener('click',function(){
+      if(c.classList.contains('picked'))return;
+      bankEl.querySelectorAll('.sort-chip').forEach(function(x){x.classList.remove('sel');});
+      if(sel===c){sel=null;c.classList.remove('sel');}else{sel=c;c.classList.add('sel');}
+    });
+    bankEl.appendChild(c);
+  });
+  cols.forEach(function(col,ci){
+    const d=document.createElement('div');
+    d.className='sort-col';
+    d.innerHTML='<div class="col-lbl"><b>'+col+'</b></div><div class="placed-items"></div>';
+    d.addEventListener('click',function(){
+      if(!sel)return;
+      const idx=+sel.dataset.idx;
+      const placed=d.querySelector('.placed-items');
+      const tag=document.createElement('span');
+      tag.className='placed-tag';tag.textContent=items[idx];tag.dataset.idx=idx;
+      const isCorrect=correct[idx]===ci;
+      tag.style.borderColor=isCorrect?'var(--good)':'var(--bad)';
+      tag.style.background=isCorrect?'rgba(84,227,168,.14)':'rgba(255,107,138,.12)';
+      tag.addEventListener('click',function(e){
+        e.stopPropagation();
+        const orig=bankEl.querySelector('[data-idx="'+idx+'"]');
+        if(orig){orig.classList.remove('picked','sel');}
+        tag.remove();sel=null;
+      });
+      placed.appendChild(tag);
+      sel.classList.add('picked');sel.classList.remove('sel');sel=null;
+    });
+    colsEl.appendChild(d);
+  });
+});
+
+/* === MATCH GAME === */
+document.querySelectorAll('[data-match]').forEach(function(root){
+  const pairs=JSON.parse(root.dataset.pairs);
+  const bank=root.querySelector('[data-mbank]');
+  const slots=root.querySelector('[data-mslots]');
+  if(!bank||!slots)return;
+  let sel=null;
+  // Shuffle pairs for display
+  const shuffled=[...pairs].sort(function(){return Math.random()-.5;});
+  shuffled.forEach(function(pair,i){
+    const c=document.createElement('button');
+    c.className='match-chip';c.textContent=pair[0];
+    c.dataset.orig=pairs.indexOf(pair);
+    c.addEventListener('click',function(){
+      bank.querySelectorAll('.match-chip').forEach(function(x){x.classList.remove('sel');});
+      if(sel===c){sel=null;}else{sel=c;c.classList.add('sel');}
+    });
+    bank.appendChild(c);
+  });
+  // Shuffle slot order too
+  const slotPairs=[...pairs].sort(function(){return Math.random()-.5;});
+  slotPairs.forEach(function(pair){
+    const origIdx=pairs.indexOf(pair);
+    const d=document.createElement('div');
+    d.className='match-slot';d.dataset.idx=origIdx;
+    d.innerHTML='<div class="slot-lbl">'+pair[1]+'</div>';
+    d.addEventListener('click',function(){
+      if(!sel)return;
+      const fromIdx=+sel.dataset.orig;
+      const toIdx=+d.dataset.idx;
+      const placed=document.createElement('span');
+      placed.className='placed-match';placed.textContent=pairs[fromIdx][0];
+      placed.classList.add(fromIdx===toIdx?'right':'wrong');
+      placed.addEventListener('click',function(e){
+        e.stopPropagation();
+        bank.querySelector('[data-orig="'+fromIdx+'"]').classList.remove('picked','sel');
+        placed.remove();sel=null;
+      });
+      d.appendChild(placed);
+      sel.classList.add('picked');sel.classList.remove('sel');sel=null;
+    });
+    slots.appendChild(d);
+  });
+});
+
+/* === BRANCHING (data-branch on wrapper, data-choices inside) === */
+document.querySelectorAll('[data-branch]').forEach(function(root){
+  const choices=root.querySelector('[data-choices]');
+  if(!choices)return;
+  root.querySelectorAll('[data-c]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      choices.style.display='none';
+      root.querySelectorAll('[data-out]').forEach(function(o){o.classList.remove('show');});
+      const out=root.querySelector('[data-out="'+btn.dataset.c+'"]');
+      if(out)out.classList.add('show');
+      const rst=root.querySelector('[data-reset]');
+      if(rst)rst.style.display='block';
+    });
+  });
+  const rst=root.querySelector('[data-reset]');
+  if(rst){
+    rst.addEventListener('click',function(){
+      choices.style.display='flex';rst.style.display='none';
+      root.querySelectorAll('[data-out]').forEach(function(o){o.classList.remove('show');});
+    });
+  }
+});
+
+/* === BRANCH-BTN pattern (L02 style with badge+text result) === */
+document.querySelectorAll('.branch-choices').forEach(function(ch){
+  ch.querySelectorAll('.branch-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      const sec=btn.closest('.sec');if(!sec)return;
+      ch.style.display='none';
+      const res=sec.querySelector('.branch-result');
+      if(res){
+        const readings={
+          '0':{reading:'Preferred reading',col:'var(--cyan)',text:'The viewer accepts the encoded meaning broadly as intended. The frame is taken as given.'},
+          '1':{reading:'Negotiated reading',col:'var(--violet)',text:'Partly accepting the frame, but noting where it falls short or misrepresents the full picture.'},
+          '2':{reading:'Oppositional reading',col:'var(--magenta)',text:'Fully decoding then rejecting the preferred meaning and substituting a counter-frame.'}
+        };
+        const r=readings[btn.dataset.choice];
+        if(r){
+          const badge=res.querySelector('[data-badge]');
+          if(badge){
+            badge.textContent=r.reading;
+            badge.style.cssText='display:inline-block;margin-bottom:.4rem;padding:.22em .7em;border-radius:999px;font-family:var(--ui);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:'+r.col+'22;color:'+r.col+';border:1px solid '+r.col+'55';
+          }
+          const txt=res.querySelector('[data-result-text]');
+          if(txt)txt.textContent=r.text;
+          res.style.display='block';
+        }
+      }
+      const rst=sec.querySelector('.branch-reset');
+      if(rst)rst.style.display='block';
+    });
+  });
+});
+document.querySelectorAll('.branch-reset').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    const sec=btn.closest('.sec');if(!sec)return;
+    const ch=sec.querySelector('.branch-choices');
+    const res=sec.querySelector('.branch-result');
+    if(ch)ch.style.display='flex';
+    if(res)res.style.display='none';
+    btn.style.display='none';
+  });
+});
+
+/* === TIMELINE SCRUBBER === */
+document.querySelectorAll('[data-timeline]').forEach(function(tl){
+  const raw=tl.dataset.eras;if(!raw)return;
+  let eras;
+  try{eras=JSON.parse(raw);}catch(e){console.error('Timeline JSON error',e);return;}
+  const range=tl.querySelector('[data-tl-range]');
+  const fill=tl.querySelector('[data-tl-fill]');
+  const ticks=tl.querySelectorAll('[data-tl-tick]');
+  const panel=tl.querySelector('[data-tl-panel]');
+  const eraEl=tl.querySelector('[data-tl-era]');
+  const titleEl=tl.querySelector('[data-tl-title]');
+  const defEl=tl.querySelector('[data-tl-def]');
+  const exEl=tl.querySelector('[data-tl-ex]');
+  function show(idx){
+    const e=eras[Math.max(0,Math.min(eras.length-1,idx))];
+    if(!e)return;
+    if(panel)panel.style.borderLeftColor=e.accent||'var(--cyan)';
+    if(eraEl)eraEl.textContent=e.name||'';
+    if(titleEl)titleEl.textContent=e.title||'';
+    if(defEl)defEl.textContent=e.def||'';
+    if(exEl)exEl.innerHTML=e.ex||'';
+    ticks.forEach(function(t,ti){t.classList.toggle('on',ti===idx);});
+    if(fill)fill.style.width=(eras.length>1?idx/(eras.length-1)*100:0)+'%';
+    if(range)range.value=eras.length>1?Math.round(idx/(eras.length-1)*(+range.max)):0;
+  }
+  if(range){
+    range.addEventListener('input',function(){
+      const idx=Math.round(+range.value/+range.max*(eras.length-1));show(idx);
+    });
+  }
+  ticks.forEach(function(t,ti){t.addEventListener('click',function(){show(ti);});});
+  show(0);
+});
+
+/* === PHASE PANELS === */
+document.querySelectorAll('[data-phases] .phase').forEach(function(ph){
+  ph.addEventListener('click',function(){ph.classList.toggle('open');});
+});
+
+/* === STANCE SPECTRUM === */
+document.querySelectorAll('[data-stance]').forEach(function(wrap){
+  const track=wrap.querySelector('[data-track]');
+  const thumb=wrap.querySelector('[data-thumb]');
+  const label=wrap.querySelector('[data-slabel]');
+  const sub=wrap.querySelector('[data-ssub]');
+  if(!track||!thumb)return;
+  const positions=[
+    {pct:12,lbl:'Strong agreement',text:'Engagement and serving the audience are aligned. What people engage with is what they genuinely want and need.'},
+    {pct:30,lbl:'Mostly agree',text:'Engagement is generally a useful proxy for audience interest, with some exceptions where commercial pressures distort it.'},
+    {pct:50,lbl:'Mixed position',text:'It depends on how engagement is designed. Ethical design serves users; dark patterns exploit them. The metric itself is neutral; the intent is not.'},
+    {pct:68,lbl:'Mostly disagree',text:'Engagement optimisation creates structural incentives that regularly diverge from audience wellbeing, regardless of individual intent.'},
+    {pct:87,lbl:'Strong disagreement',text:'Platforms optimise for revenue, not for the audience. Engagement is the extraction mechanism, not a genuine measure of service.'}
+  ];
+  let dragging=false;
+  function setPct(pct){
+    pct=Math.max(0,Math.min(100,pct));
+    thumb.style.left=pct+'%';
+    const z=positions.reduce(function(a,b){return Math.abs(b.pct-pct)<Math.abs(a.pct-pct)?b:a;});
+    if(label)label.textContent=z.lbl;
+    if(sub)sub.textContent=z.text;
+  }
+  function fromEv(e){
+    const r=track.getBoundingClientRect();
+    return((e.touches?e.touches[0].clientX:e.clientX)-r.left)/r.width*100;
+  }
+  track.addEventListener('mousedown',function(e){dragging=true;setPct(fromEv(e));e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(dragging)setPct(fromEv(e));});
+  document.addEventListener('mouseup',function(){dragging=false;});
+  track.addEventListener('touchstart',function(e){dragging=true;setPct(fromEv(e));},{passive:true});
+  document.addEventListener('touchmove',function(e){if(dragging)setPct(fromEv(e));},{passive:true});
+  document.addEventListener('touchend',function(){dragging=false;});
+  setPct(50);
+});
+
+/* === SPECTRUM (L02) === */
+document.querySelectorAll('[data-spectrum]').forEach(function(wrap){
+  const track=wrap.querySelector('[data-spec-track]');
+  const fill=wrap.querySelector('[data-spec-fill]');
+  const thumb=wrap.querySelector('[data-spec-thumb]');
+  const val=wrap.querySelector('[data-spec-value]');
+  const zones=wrap.querySelectorAll('[data-zone]');
+  const positions=[{pct:15,v:"Complete polysemy",z:0},{pct:50,v:"Hall's position",z:1},{pct:85,v:"Media power view",z:2}];
+  let drag=false;
+  function set(pct){
+    pct=Math.max(0,Math.min(100,pct));
+    if(fill)fill.style.width=pct+'%';
+    if(thumb)thumb.style.left=pct+'%';
+    const z=positions.reduce(function(a,b){return Math.abs(b.pct-pct)<Math.abs(a.pct-pct)?b:a;});
+    if(val)val.textContent=z.v;
+    zones.forEach(function(zo,zi){zo.classList.toggle('active',zi===z.z);});
+  }
+  function fromEv(e){const r=track.getBoundingClientRect();return((e.touches?e.touches[0].clientX:e.clientX)-r.left)/r.width*100;}
+  if(!track)return;
+  track.addEventListener('mousedown',function(e){drag=true;set(fromEv(e));e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(drag)set(fromEv(e));});
+  document.addEventListener('mouseup',function(){drag=false;});
+  track.addEventListener('touchstart',function(e){drag=true;set(fromEv(e));},{passive:true});
+  document.addEventListener('touchmove',function(e){if(drag)set(fromEv(e));},{passive:true});
+  document.addEventListener('touchend',function(){drag=false;});
+  set(50);
+});
+
+/* === FANDOM RING === */
+document.querySelectorAll('.fanring-svg').forEach(function(svg){
+  const rows=document.querySelectorAll('[data-ring-row]');
+  svg.querySelectorAll('[data-ring]').forEach(function(r){
+    r.addEventListener('click',function(){
+      const idx=+r.dataset.ring;
+      rows.forEach(function(row,ri){row.classList.toggle('active',ri===idx);});
+    });
+  });
+  rows.forEach(function(row,ri){
+    row.addEventListener('click',function(){
+      rows.forEach(function(r2,j){r2.classList.toggle('active',j===ri);});
+    });
+  });
+});
+
+/* === DATA FLOW MAP (L03) === */
+document.querySelectorAll('[data-dfmap]').forEach(function(map){
+  const detail=map.parentElement.querySelector('[data-df-detail]');
+  let info;
+  try{info=JSON.parse(map.dataset.dfmap);}catch(e){return;}
+  map.querySelectorAll('[data-df]').forEach(function(node){
+    node.addEventListener('click',function(){
+      const i=+node.dataset.df;
+      map.querySelectorAll('[data-df]').forEach(function(n){n.classList.toggle('lit',+n.dataset.df===i);});
+      if(detail&&info[i]){
+        detail.style.borderLeftColor=info[i].col||'var(--cyan)';
+        detail.innerHTML=info[i].text||'';
+        detail.classList.add('show');
+      }
+    });
+  });
+});
+
+/* === FLOW DIAGRAM (L13) === */
+(function(){
+  const flowInfo=[
+    {col:'var(--cyan)',text:'<b>Content creation.</b> The organisation invests in content: journalism, drama, music, games. This is Product 1 in Picard\'s dual product market. The content serves the audience, who consumes it. The audience becomes the measurable output of that consumption.'},
+    {col:'var(--blue)',text:'<b>Audience consumption.</b> People watch, read, listen, or play. From their perspective, this is the transaction: they give attention in exchange for content. But this is also when the second market is being populated.'},
+    {col:'var(--violet)',text:'<b>Audience is measured.</b> The measurement apparatus (ratings, dashboards, analytics) translates consumption behaviour into the data that advertisers can buy. Monitoring is not surveillance for its own sake; it is the production process for Product 2.'},
+    {col:'var(--magenta)',text:'<b>Audience sold to the advertiser.</b> The measured audience, packaged as a demographic profile or a behavioural segment, is sold to an advertiser who wants to reach it. This is Product 2. The audience never consents to being this product and receives no share of this transaction.'}
+  ];
+  document.querySelectorAll('[data-flow]').forEach(function(fw){
+    const detail=fw.querySelector('[data-flow-detail]');
+    fw.querySelectorAll('[data-fn]').forEach(function(node){
+      node.addEventListener('click',function(){
+        const i=+node.dataset.fn;
+        fw.querySelectorAll('[data-fn]').forEach(function(n){n.classList.toggle('lit',+n.dataset.fn===i);});
+        if(detail&&flowInfo[i]){
+          detail.style.borderLeftColor=flowInfo[i].col;
+          detail.innerHTML=flowInfo[i].text;
+          detail.classList.add('show');
+        }
+      });
+    });
+  });
+})();
+
+/* === JOURNEY MAP (L08) === */
+(function(){
+  var stages=[
+    {title:'Discovery',body:'The first encounter. The audience does not yet know it is your audience. Most people who discover content at this stage will never return. The strategic priority: make the first encounter good enough to earn a second visit.',ex:'Bangladesh: a WhatsApp forward of a Chorki clip; a Facebook post from a friend; a YouTube recommendation.'},
+    {title:'First engagement',body:'The audience gives a first session. Session length and content completion in the first visit strongly predict return behaviour. A poor first experience rarely gets a second chance.',ex:'Bangladesh: watching one full drama episode; reading three articles in a single visit to The Daily Star.'},
+    {title:'Habit',body:'The audience has returned enough times for it to become automatic. A cue, a routine, and a reward have formed. The audience no longer decides to visit; it just does. This is the most valuable state because it is self-sustaining.',ex:'Bangladesh: opening Prothom Alo with morning tea; checking Chorki on Friday evenings.'},
+    {title:'Participation',body:'The audience moves from passive consumption to active contribution: comments, shares, reactions, reviews. This deepens the audience investment and increases the cost of leaving.',ex:'Bangladesh: commenting on Daily Star articles; sharing clips to family WhatsApp groups.'},
+    {title:'Advocacy',body:'The audience recommends unprompted. A shared recommendation carries the personal endorsement of the sharer, which no advertising can replicate. Advocates are the discovery mechanism for the next generation of audiences.',ex:'Bangladesh: forwarding an investigation to a group; convincing a family member to subscribe to Hoichoi.'},
+    {title:'Churn',body:'The audience stops engaging and eventually leaves. Halving churn doubles lifetime value without acquiring a single new subscriber. Early warning signals appear 2-3 weeks before cancellation and can be acted on.',ex:'Bangladesh: a Hoichoi subscriber who has not watched in 14 days and has not shared anything is at high churn risk.'}
+  ];
+  document.querySelectorAll('[data-journey]').forEach(function(jw){
+    var titleEl=jw.querySelector('[data-jt]');
+    var bodyEl=jw.querySelector('[data-jb]');
+    var exEl=jw.querySelector('[data-je]');
+    jw.querySelectorAll('[data-jstage]').forEach(function(s,i){
+      s.addEventListener('click',function(){
+        jw.querySelectorAll('[data-jstage]').forEach(function(x){x.classList.remove('active');});
+        s.classList.add('active');
+        if(titleEl)titleEl.textContent=stages[i].title;
+        if(bodyEl)bodyEl.textContent=stages[i].body;
+        if(exEl)exEl.textContent=stages[i].ex;
+      });
+    });
+  });
+})();
+
+/* === PYRAMID (L08) === */
+document.querySelectorAll('[data-pyramid]').forEach(function(pw){
+  var rows=pw.querySelectorAll('[data-pk]');
+  pw.querySelectorAll('[data-player]').forEach(function(p){
+    p.addEventListener('click',function(){
+      var idx=+p.dataset.player;
+      rows.forEach(function(r,ri){r.classList.toggle('active',ri===idx);});
+    });
+  });
+  rows.forEach(function(row,ri){
+    row.addEventListener('click',function(){
+      rows.forEach(function(r2,j){r2.classList.toggle('active',j===ri);});
+    });
+  });
+});
+
+/* === STORY WALK (L05) === */
+(function(){
+  var stories=[
+    {text:'7:48 PM. Rumi has finished dinner. She picks up her phone and opens Instagram out of habit.',hook:'Habit cue: time of day + physical routine',c:'var(--violet)'},
+    {text:'The first thing she sees is a story from a creator she follows. He is counting down to a product drop. 22 minutes left.',hook:'FOMO trigger: urgency + scarcity',c:'var(--magenta)'},
+    {text:'She scrolls. A funny reel. A sponsored post. A meme from a friend. Each one slightly different from the last. She is not looking for anything specific.',hook:'Variable reward schedule: unpredictable payoff',c:'var(--amber)'},
+    {text:'A video starts. It is a Dhaka street food creator she has seen before. She almost feels like she knows him personally.',hook:'Parasocial relationship: one-sided familiarity',c:'var(--cyan)'},
+    {text:'He replies to a comment below the video, thanking someone by name. Rumi wonders if he has ever seen her comments.',hook:'Perceived reciprocity: the illusion of personal connection',c:'var(--blue)'},
+    {text:'She puts the phone down. Picks it up again six minutes later. Checks for new comments on the video. There are 43 new ones.',hook:'Variable reward: social checking loop',c:'var(--amber)'},
+    {text:'It has been 34 minutes. She did not decide to spend 34 minutes here. She just did.',hook:'Habit completion: no conscious intent, just behaviour',c:'var(--bad)'}
+  ];
+  document.querySelectorAll('[data-story]').forEach(function(sw){
+    var scene=sw.querySelector('[data-story-scene]');
+    var prev=sw.querySelector('[data-story-prev]');
+    var next=sw.querySelector('[data-story-next]');
+    var prog=sw.querySelector('[data-story-prog]');
+    var idx=0;
+    function show(){
+      var s=stories[idx];
+      if(scene)scene.innerHTML='<p style="margin-bottom:.55rem">'+s.text+'</p><span class="story-hook" style="background:'+s.c+'22;color:'+s.c+';border:1px solid '+s.c+'55;border-radius:999px;padding:.22em .65em;font-family:var(--ui);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase">'+s.hook+'</span>';
+      if(prev)prev.disabled=idx===0;
+      if(next)next.disabled=idx===stories.length-1;
+      if(prog)prog.textContent=(idx+1)+' / '+stories.length;
+    }
+    if(prev)prev.addEventListener('click',function(){if(idx>0){idx--;show();}});
+    if(next)next.addEventListener('click',function(){if(idx<stories.length-1){idx++;show();}});
+    show();
+  });
+})();
+
+/* === HOTSPOT (L05) === */
+document.querySelectorAll('[data-hotspot]').forEach(function(hs){
+  var explain=hs.parentElement.querySelector('[data-hs-explain]');
+  hs.querySelectorAll('[data-hs]').forEach(function(item){
+    item.addEventListener('click',function(){
+      hs.querySelectorAll('[data-hs]').forEach(function(x){x.classList.remove('dark-hl','good-hl');});
+      var isDark=item.dataset.dark==='true';
+      item.classList.add(isDark?'dark-hl':'good-hl');
+      if(explain){
+        explain.innerHTML='<span class="hs-badge '+(isDark?'dark':'good')+'">'+(isDark?'Dark pattern':'Ethical design')+'</span><br>'+item.querySelector('p').textContent;
+        explain.classList.add('show');
+      }
+    });
+  });
+});
+
+/* === CHARTBEAT DASHBOARD (L10) === */
+(function(){
+  var dtData=[
+    {col:'var(--cyan)',text:'<b>Concurrent visitors:</b> the number of people on the site right now. Exciting but noisy. A spike means a story went viral or Facebook pushed it. This number tells you nothing about why people came or whether they stayed.'},
+    {col:'var(--blue)',text:'<b>Engaged Time:</b> how long someone is actively interacting with the page. A story with 4 minutes engaged time is being read closely. But it only counts people who showed up at all.'},
+    {col:'var(--violet)',text:'<b>Recirculation:</b> the share of readers who visit at least one additional page. At 18%, 82% leave after one article. High recirculation can signal editorial connection.'},
+    {col:'var(--amber)',text:'<b>Bounce Rate:</b> 67% leave without clicking anything else. Often misread as failure. For a breaking news story read in full, a bounce can mean the reader got what they came for.'},
+    {col:'var(--magenta)',text:'<b>Referral: Facebook (58%).</b> More than half of all visitors arrived via Facebook. One algorithm change can halve traffic overnight. The organisation does not own this audience relationship.'},
+    {col:'var(--good)',text:'<b>Loyal readers (9%).</b> Only 9% visit five or more days per week. Growing this number is the strategic priority that chasing traffic often undermines.'}
+  ];
+  document.querySelectorAll('[data-dash]').forEach(function(dash){
+    var detail=dash.querySelector('[data-dash-detail]');
+    dash.querySelectorAll('[data-dt]').forEach(function(tile){
+      tile.addEventListener('click',function(){
+        var i=+tile.dataset.dt;
+        dash.querySelectorAll('[data-dt]').forEach(function(t){t.classList.toggle('lit',+t.dataset.dt===i);});
+        if(detail&&dtData[i]){
+          detail.style.borderLeftColor=dtData[i].col;
+          detail.innerHTML=dtData[i].text;
+          detail.classList.add('show');
+        }
+      });
+    });
+  });
+})();
+
+/* === CHART CARDS (L09) === */
+(function(){
+  var verdicts=[
+    {text:'Pageviews spiked in months 4 and 5 due to two viral articles. Strip those out and the trend is flat. The total is misleading without context.'},
+    {text:'Unique visitors rose less than 10% over five months: flat but honest. The audience is not shrinking. Growth is slow. This is what an advertiser wants to see.'},
+    {text:'Average engaged time fell steadily for five months. The people who arrive are spending less time reading. This is the most important number for a public-interest editor.'}
+  ];
+  document.querySelectorAll('[data-charts]').forEach(function(wrap){
+    wrap.querySelectorAll('[data-chart]').forEach(function(card){
+      card.addEventListener('click',function(){
+        var i=+card.dataset.chart;
+        wrap.querySelectorAll('[data-chart]').forEach(function(c){c.classList.remove('active');});
+        card.classList.add('active');
+        var v=card.querySelector('.chart-verdict');
+        if(v)v.textContent=verdicts[i].text;
+      });
+    });
+  });
+})();
+
+/* === ALGORITHM SANDBOX (L12) === */
+(function(){
+  var feedData=[
+    {title:'Halim seller, Puran Dhaka',scores:{watch:5,share:1,comment:3,early:4,save:1,skip:4}},
+    {title:'Street food tour: Old Dhaka',scores:{watch:4,share:3,comment:2,early:3,save:2,skip:3}},
+    {title:'Best biryani in Dhaka ranked',scores:{watch:3,share:5,comment:4,early:2,save:3,skip:2}},
+    {title:'Cooking tutorial: daal makhani',scores:{watch:4,share:2,comment:2,early:2,save:4,skip:3}},
+    {title:'Restaurant review: new opening',scores:{watch:2,share:4,comment:1,early:1,save:1,skip:1}},
+    {title:'Food history: kacchi biriyani',scores:{watch:5,share:2,comment:3,early:1,save:5,skip:4}}
+  ];
+  document.querySelectorAll('[data-sandbox]').forEach(function(sb){
+    var toggles=sb.querySelectorAll('[data-sig]');
+    var countEl=document.getElementById('sand-active');
+    var feedEl=document.getElementById('sand-feed');
+    if(!feedEl)return;
+    function update(){
+      var active=[];
+      toggles.forEach(function(t){if(t.classList.contains('on'))active.push(t.dataset.sig);});
+      if(countEl)countEl.textContent=active.length+' signal'+(active.length===1?'':'s')+' active';
+      var scored=feedData.map(function(item){
+        var score=0;active.forEach(function(sig){score+=(item.scores[sig]||0);});
+        return{title:item.title,score:score};
+      }).sort(function(a,b){return b.score-a.score;});
+      feedEl.innerHTML='';
+      scored.forEach(function(item,rank){
+        var el=document.createElement('div');
+        el.className='feed-item'+(rank===0?' top':'');
+        el.innerHTML='<span class="fi-rank">'+(rank+1)+'</span><span>'+item.title+'</span><span class="fi-score">'+item.score+'</span>';
+        feedEl.appendChild(el);
+      });
+    }
+    toggles.forEach(function(t){t.addEventListener('click',function(){t.classList.toggle('on');update();});});
+    update();
+  });
+})();
+
+/* === GROWTH LOOP (L14) === */
+(function(){
+  var loopData=[
+    {tag:'Stage 1',title:'Discovery',text:'The audience encounters you for the first time. They did not choose you; the algorithm, a friend, or a search brought them here. The strategic priority: make this first encounter good enough to earn a second visit.'},
+    {tag:'Stage 2',title:'Return',text:'The audience came back. Not yet a habit, but the relationship has survived the first session. The strategic priority: create a cue that will bring them back a third time. Notifications, newsletters, and scheduled content all serve this function.'},
+    {tag:'Stage 3',title:'Active engagement',text:'The audience is now commenting, sharing, or responding. They have moved from passive to active. Their participation is both a signal of loyalty and a contribution to the community. The strategic priority: reward this participation with recognition and response.'},
+    {tag:'Stage 4',title:'Loyalty',text:'The audience comes back by default. They recommend unprompted. They tolerate imperfect weeks because they trust the long-term relationship. The strategic priority: maintain the quality that earned their trust in the first place.'}
+  ];
+  document.querySelectorAll('[data-loop]').forEach(function(lw){
+    var detail=lw.querySelector('[data-loop-detail]');
+    var hint=lw.querySelector('.loop-hint');
+    lw.querySelectorAll('[data-ln]').forEach(function(node,i){
+      node.addEventListener('click',function(){
+        lw.querySelectorAll('[data-ln]').forEach(function(n){n.classList.remove('active');});
+        node.classList.add('active');
+        if(detail&&loopData[i]){
+          detail.innerHTML='<span class="ld-tag">'+loopData[i].tag+'</span> <b style="color:var(--ink)">'+loopData[i].title+'</b><br>'+loopData[i].text;
+          detail.classList.add('show');
+        }
+        if(hint)hint.style.display='none';
+      });
+    });
+  });
+})();
+
+/* === WHAT-IF SLIDERS === */
+(function(){
+  var cs=document.querySelector('[data-s="churn"]');
+  var as=document.querySelector('[data-s="arpu"]');
+  if(cs&&as){
+    function update(){
+      var churn=+cs.value/100;
+      var arpu=+as.value;
+      var svChurn=document.querySelector('[data-sv="churn"]');
+      var svArpu=document.querySelector('[data-sv="arpu"]');
+      if(svChurn)svChurn.textContent=cs.value+'%';
+      if(svArpu)svArpu.textContent=arpu;
+      var life=Math.round(1/churn);
+      var ltv=Math.round(arpu*life);
+      var lost=Math.round(1000*churn);
+      var mLtv=document.querySelector('[data-m="ltv"]');
+      var mLife=document.querySelector('[data-m="life"]');
+      var mLost=document.querySelector('[data-m="lost"]');
+      if(mLtv)mLtv.textContent=ltv.toLocaleString();
+      if(mLife)mLife.textContent=life;
+      if(mLost)mLost.textContent=lost;
+      var ins=document.querySelector('[data-s-insight]');
+      if(ins)ins.textContent=churn<=.03?'Low churn: strong retention. Focus on acquisition.':churn<=.08?'Moderate churn: retention should be a primary strategic focus.':'High churn: the subscriber base is leaking faster than most growth strategies can compensate.';
+    }
+    cs.addEventListener('input',update);as.addEventListener('input',update);update();
+  }
+  var sz=document.getElementById('sl-size');
+  var eng=document.getElementById('sl-eng');
+  var cpm=document.getElementById('sl-cpm');
+  if(sz&&eng&&cpm){
+    function upd2(){
+      var s=+sz.value,e=+eng.value/100,c=+cpm.value;
+      var svSz=document.getElementById('sv-size');
+      var svEng=document.getElementById('sv-eng');
+      var svCpm=document.getElementById('sv-cpm');
+      if(svSz)svSz.textContent=s+'k';
+      if(svEng)svEng.textContent=eng.value+'%';
+      if(svCpm)svCpm.textContent=cpm.value+' TK';
+      var res=document.getElementById('vd-result');
+      if(res)res.textContent=Math.round(s*1000*(e*1.5)*c/1000).toLocaleString()+' TK';
+    }
+    sz.addEventListener('input',upd2);eng.addEventListener('input',upd2);cpm.addEventListener('input',upd2);upd2();
+  }
+})();
+
+/* === ORDER DRAG (L04) === */
+document.querySelectorAll('[data-order]').forEach(function(ow){
+  var rawItems=ow.dataset.items;if(!rawItems)return;
+  var items=JSON.parse(rawItems);
+  var correct=JSON.parse(ow.dataset.correct||'[]');
+  var listEl=ow.querySelector('[data-order-list]');
+  var resultEl=ow.querySelector('[data-order-result]');
+  if(!listEl)return;
+  // Shuffle initial display order
+  var order=items.map(function(_,i){return i;});
+  for(var i=order.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=order[i];order[i]=order[j];order[j]=tmp;}
+  var dragFrom=null;
+  function render(){
+    listEl.innerHTML='';
+    order.forEach(function(origIdx,pos){
+      var el=document.createElement('div');
+      el.className='order-item';el.draggable=true;el.dataset.pos=pos;
+      el.innerHTML='<span class="oi-num">'+(pos+1)+'</span>'+items[origIdx];
+      el.addEventListener('dragstart',function(){dragFrom=pos;el.style.opacity='.5';});
+      el.addEventListener('dragend',function(){el.style.opacity='';});
+      el.addEventListener('dragover',function(e){e.preventDefault();});
+      el.addEventListener('drop',function(e){
+        e.preventDefault();
+        if(dragFrom===null||dragFrom===pos)return;
+        var tmp2=order[dragFrom];order[dragFrom]=order[pos];order[pos]=tmp2;
+        dragFrom=null;render();
+      });
+      listEl.appendChild(el);
+    });
+  }
+  var checkBtn=ow.querySelector('[data-order-check]');
+  var resetBtn=ow.querySelector('[data-order-reset]');
+  if(checkBtn)checkBtn.addEventListener('click',function(){
+    var allRight=true;
+    listEl.querySelectorAll('.order-item').forEach(function(el,pos){
+      var isRight=correct[pos]===order[pos];
+      el.classList.toggle('correct',isRight);el.classList.toggle('incorrect',!isRight);
+      if(!isRight)allRight=false;
+    });
+    if(resultEl)resultEl.textContent=allRight?'Perfect order!':'Some stages are out of order. Try again.';
+  });
+  if(resetBtn)resetBtn.addEventListener('click',function(){
+    for(var i=order.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=order[i];order[i]=order[j];order[j]=tmp;}
+    listEl.querySelectorAll('.order-item').forEach(function(el){el.classList.remove('correct','incorrect');});
+    if(resultEl)resultEl.textContent='';render();
+  });
+  render();
+});
+
+/* === QUADRANT DRAG === */
+document.querySelectorAll('[data-quad]').forEach(function(qw){
+  var quad=qw.querySelector('.quad');
+  var bank=qw.querySelector('.qbank');
+  var btn=qw.querySelector('[data-reveal-zones]');
+  var ghostsEl=qw.querySelector('.ghosts');
+  if(!quad)return;
+  var placed={};
+  bank.querySelectorAll('.qchip').forEach(function(chip){
+    chip.addEventListener('dragstart',function(e){e.dataTransfer.setData('text',chip.textContent);chip.style.opacity='.4';});
+    chip.addEventListener('dragend',function(){chip.style.opacity='';});
+  });
+  quad.addEventListener('dragover',function(e){e.preventDefault();});
+  quad.addEventListener('drop',function(e){
+    e.preventDefault();
+    var text=e.dataTransfer.getData('text');
+    var rect=quad.getBoundingClientRect();
+    placed[text]={x:(e.clientX-rect.left)/rect.width,y:(e.clientY-rect.top)/rect.height};
+    renderPlaced();
+    bank.querySelectorAll('.qchip').forEach(function(c){if(c.textContent===text)c.style.opacity='.3';});
+  });
+  function renderPlaced(){
+    quad.querySelectorAll('.placed-ghost').forEach(function(g){g.remove();});
+    Object.keys(placed).forEach(function(text){
+      var pos=placed[text];
+      var g=document.createElement('div');
+      g.className='ghost placed-ghost';
+      g.style.left=(pos.x*100)+'%';g.style.top=(pos.y*100)+'%';
+      g.textContent=text;
+      g.style.cursor='grab';
+      g.addEventListener('click',function(){
+        delete placed[text];
+        bank.querySelectorAll('.qchip').forEach(function(c){if(c.textContent===text)c.style.opacity='';});
+        g.remove();
+      });
+      quad.appendChild(g);
+    });
+  }
+  if(btn&&ghostsEl){
+    var showing=false;
+    btn.addEventListener('click',function(){
+      showing=!showing;
+      if(showing){
+        var zonesStr=qw.dataset.zones;
+        if(zonesStr){
+          var zones=JSON.parse(zonesStr);
+          ghostsEl.innerHTML='';
+          zones.forEach(function(z){
+            var g=document.createElement('div');g.className='ghost suggested-ghost';
+            g.style.left=((z.x+1)/2*100)+'%';g.style.top=((1-z.y)/2*100)+'%';
+            g.textContent=z.label;
+            // Suggested zones use a distinct style
+            g.style.background='rgba(255,178,94,.22)';
+            g.style.borderColor='var(--amber)';
+            g.style.color='var(--amber)';
+            ghostsEl.appendChild(g);
+          });
+        }
+        ghostsEl.removeAttribute('hidden');
+        btn.textContent='Hide suggested zones';
+      } else {
+        ghostsEl.setAttribute('hidden','');
+        btn.textContent='Show suggested zones';
+      }
+    });
+  }
+});
+
+/* === TMAP (Transcultural map) === */
+document.querySelectorAll('.tmap-card').forEach(function(card){
+  card.addEventListener('click',function(){card.classList.toggle('open');});
+});
+
+</script>
+</body>
+</html>
