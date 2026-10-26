@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Digital Audience &middot; MSJ2252</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:ital,opsz,wght@0,14..32,400..600;1,14..32,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05071a;--surface:#0a0f2e;--surface2:#0e1640;--cyan:#3fe0ff;--blue:#5b8cff;--violet:#a06bff;--magenta:#ff5db1;--amber:#ffb25e;--ink:#eef2ff;--ink-soft:#9aa9d6;--ink-faint:#6c7aa8;--line:rgba(150,170,255,.14);--line-b:rgba(150,170,255,.22);--grad:linear-gradient(90deg,var(--cyan),var(--violet),var(--magenta));--display:"Sora",system-ui,sans-serif;--body:"Inter",system-ui,sans-serif;--ui:"Space Grotesk",system-ui,sans-serif;--r:14px;}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased;line-height:1.6}
+#net{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35}
+.page{max-width:900px;margin:0 auto;padding:72px 24px 96px;position:relative;z-index:1}
+
+/* HERO */
+.hero{text-align:center;padding:80px 0 72px}
+.hero-eyebrow{font-family:var(--ui);font-size:.72rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--cyan);margin-bottom:1.2rem;display:flex;align-items:center;justify-content:center;gap:.7rem}
+.hero-eyebrow::before,.hero-eyebrow::after{content:"";width:28px;height:2px;background:var(--grad)}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,7vw,5rem);line-height:.92;letter-spacing:-.04em;margin-bottom:.9rem}
+.hero h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{font-family:var(--body);font-size:clamp(1rem,2.2vw,1.25rem);color:var(--ink-soft);line-height:1.55;max-width:52ch;margin:0 auto 2rem}
+.hero-meta{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap}
+.meta-pill{font-family:var(--ui);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.38em .9em;border-radius:999px;border:1px solid var(--line-b);color:var(--ink-faint)}
+.hero-divider{height:1px;background:linear-gradient(90deg,transparent,var(--violet),transparent);opacity:.5;margin-bottom:0}
+
+/* UNIT BLOCKS */
+.unit-block{margin-bottom:60px}
+.unit-header{display:flex;align-items:center;gap:1rem;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.unit-pill{font-family:var(--ui);font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:.32em .75em;border-radius:999px;border:1px solid;flex:none}
+.unit-topic{font-family:var(--display);font-weight:700;font-size:clamp(1.1rem,2.5vw,1.55rem);color:var(--ink-soft)}
+
+/* LECTURE GRID */
+.lec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.lec-card{display:flex;align-items:center;gap:1rem;text-decoration:none;background:rgba(255,255,255,.025);border:1px solid var(--line);border-radius:12px;padding:18px 20px;transition:.22s}
+.lec-card:hover{border-color:var(--violet);background:rgba(160,107,255,.06);transform:translateY(-1px)}
+.lc-num{font-family:var(--display);font-weight:800;font-size:1.55rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;flex:none;width:2.4rem;line-height:1}
+.lc-body{flex:1;min-width:0}
+.lc-title{font-family:var(--display);font-weight:700;font-size:.95rem;line-height:1.1;margin-bottom:.22rem;color:var(--ink)}
+.lc-sub{font-family:var(--body);font-size:.78rem;line-height:1.38;color:var(--ink-faint);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.lc-arrow{font-size:1rem;color:var(--violet);flex:none;opacity:.6}
+.lec-card:hover .lc-arrow{opacity:1}
+
+/* READINGS */
+.readings-section{border-top:1px solid var(--line);padding-top:48px;margin-top:16px}
+.readings-head{font-family:var(--ui);font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+.readings-head::before{content:"";width:22px;height:2px;background:var(--grad)}
+.readings-section h2{font-family:var(--display);font-weight:700;font-size:clamp(1.2rem,2.5vw,1.7rem);margin-bottom:1.2rem}
+.bib-list{list-style:none;display:flex;flex-direction:column;gap:.7rem}
+.bib-item{display:flex;gap:.85rem;align-items:baseline;padding:.65rem .85rem;border:1px solid var(--line);border-radius:9px;background:rgba(255,255,255,.022)}
+.bib-author{font-family:var(--ui);font-size:.78rem;font-weight:600;color:var(--amber);flex:none;white-space:nowrap}
+.bib-title{font-family:var(--body);font-size:.88rem;color:var(--ink-soft);line-height:1.38}
+
+/* FOOTER */
+.site-footer{text-align:center;padding:40px 0 20px;font-family:var(--ui);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);border-top:1px solid var(--line);margin-top:48px}
+
+@media(max-width:660px){
+  .lec-grid{grid-template-columns:1fr}
+  .hero{padding:56px 0 52px}
+  .lc-num{font-size:1.2rem;width:2rem}
+  .unit-header{flex-direction:column;align-items:flex-start;gap:.5rem}
+}
+</style>
+</head>
+<body>
+<canvas id="net"></canvas>
+<div class="page">
+  <header class="hero">
+    <div class="hero-eyebrow">Undergraduate Journalism &middot; MSJ2252</div>
+    <h1>Digital<br><span>Audience</span></h1>
+    <p class="hero-sub">A 15-lecture undergraduate course tracing how audiences are constructed, studied, commodified, and served across news, OTT, games, music, and the creator economy.</p>
+    <div class="hero-meta">
+      <span class="meta-pill">4 units</span>
+      <span class="meta-pill">15 lectures</span>
+      <span class="meta-pill">Bangladesh context</span>
+      <span class="meta-pill">Interactive</span>
+    </div>
+    <div class="hero-divider" style="margin-top:2.5rem"></div>
+  </header>
+
+  
+    <section class="unit-block">
+      <div class="unit-header">
+        <span class="unit-pill" style="border-color:var(--cyan);color:var(--cyan)">Unit A</span>
+        <h2 class="unit-topic">Who is the digital audience?</h2>
+      </div>
+      <div class="lec-grid">
+        
+        <a href="lecture-01.html" class="lec-card">
+          <div class="lc-num">01</div>
+          <div class="lc-body">
+            <h3 class="lc-title">From Mass to Networked</h3>
+            <p class="lc-sub">What the word 'audience' even means now, and where you sit inside it.</p>
+          </div>
+          <div class="lc-arrow">&#8594;</div>
+        </a>
+        <a href="lecture-02.html" class="lec-card">
+          <div class="lc-num">02</div>
+          <div class="lc-body">
+            <h3 class="lc-title">The Active Audience</h3>
+            <p class="lc-sub">Audiences decode, negotiate, resist, and re-tell what they receive.</p>
+          </div>
+          <div class="lc-arrow">&#8594;</div>
+        </a>
+        <a href="lecture-03.html" class="lec-card">
+          <div class="lc-num">03</div>
+          <div class="lc-body">
+            <h3 class="lc-title">The Datafied Audience</h3>
+            <p class="lc-sub">You are the content. You are the product. And you are working every time you scroll.</p>
+          </div>
+          <div class="lc-arrow">&#8594;</div>
+        </a>
+        <a href="lecture-04.html" class="lec-card">
+          <div class="lc-num">04</div>
+          <div class="lc-body">
+            <h3 class="lc-title">Audience Identities</h3>
+            <p class="lc-sub">Communities, fandoms, and subcultures. Aggregate versus community.</p>
+          </div>
+          <div class="lc-arrow">&#8594;</div>
+        </a>
+      </div>
+    </section>
+    <section class="unit-block">
+      <div class="unit-header">
+        <span class="unit-pill" style="border-color:var(--violet);color:var(--violet)">Unit B</span>
+        <h2 class="unit-topic">How do they behave?</h2>
+      </div>
+      <div class="lec-grid">
+        
+        <a href="lecture-05.html" class="lec-card">
+          <div class="lc-num">05</div>
+          <div class="lc-body">
+            <h3 class="lc-title">The Attention Mind</h3>
+            <p class="lc-sub">Why audiences click, scroll, stay, and leave. The psychology behind engagement.</p>
+          </div>
+          <div class="lc-arrow">&#8594;</div>
+        </a>
+        <a href="lecture-06.html" class="lec-card">
+          <div class="lc-num">06</div>
+          <div class="lc-body">
+            <h3 class="lc-title">Participation &amp; Produsage</h3>
+            <p class="lc-sub">When the audience stops consuming and starts making. Who benefits?</p>
+          </div>
+          <div class="lc-arrow">&#8594;</div>
+        </a>
+        <a href="lecture-07.html" class="lec-card">
+          <div class="lc-num">07</div>
+          <div class="lc-body">
+            <h3 class="lc-title">Taste, Genre &amp; Expectation</h3>
+            <p class="lc-sub">How audiences navigate abundance using the genre contract.</p>
+          </div>
+          <div class="lc-arrow">&#8594;</div>
+        </a>
+        <a href="lecture-08.html" class="lec-card">
+          <div class="lc-num">08</div>
+          <div class="lc-body">
+            <h3 class="lc-title">Audience Journeys</h3>
+            <p class="lc-sub">How audiences discover, form habits, binge, lurk, share, and leave.</p>
+          </div>
+          <div class="lc-arrow">&#8594;</div>
+        </a>
+      </div>
+    </section>
+    <section class="unit-block">
+      <div class="unit-header">
+        <span class="unit-pill" style="border-color:var(--magenta);color:var(--magenta)">Unit C</span>
+        <h2 class="unit-topic">How do we research and monitor?</h2>
+      </div>
+      <div class="lec-grid">
+        
+        <a href="lecture-09.html" class="lec-card">
+          <div class="lc-num">09</div>
+          <div class="lc-body">
+            <h3 class="lc-title">Counting the Audience</h3>
+            <p class="lc-sub">From radio diaries to Chartbeat dashboards. The method shapes the count.</p>
+          </div>
+          <div class="lc-arrow">&#8594;</div>
+        </a>
+        <a href="lecture-10.html" class="lec-card">
+          <div class="lc-num">10</div>
+          <div class="lc-body">
+            <h3 class="lc-title">Listening to the Audience</h3>
+            <p class="lc-sub">Analytics tell you what. Social listening tells you why.</p>
+          </div>
+          <div class="lc-arrow">&#8594;</div>
+        </a>
+        <a href="lecture-11.html" class="lec-card">
+          <div class="lc-num">11</div>
+          <div class="lc-body">
+            <h3 class="lc-title">Knowing the Audience</h3>
+            <p class="lc-sub">Numbers tell you how many. Research tells you who.</p>
+          </div>
+          <div class="lc-arrow">&#8594;</div>
+        </a>
+        <a href="lecture-12.html" class="lec-card">
+          <div class="lc-num">12</div>
+          <div class="lc-body">
+            <h3 class="lc-title">The Algorithmic Audience</h3>
+            <p class="lc-sub">The algorithm does not find your audience. It builds one.</p>
+          </div>
+          <div class="lc-arrow">&#8594;</div>
+        </a>
+      </div>
+    </section>
+    <section class="unit-block">
+      <div class="unit-header">
+        <span class="unit-pill" style="border-color:var(--amber);color:var(--amber)">Unit D</span>
+        <h2 class="unit-topic">Why does it matter?</h2>
+      </div>
+      <div class="lec-grid">
+        
+        <a href="lecture-13.html" class="lec-card">
+          <div class="lc-num">13</div>
+          <div class="lc-body">
+            <h3 class="lc-title">Why Monitor at All?</h3>
+            <p class="lc-sub">Audience value, the attention economy, and the economics of knowing.</p>
+          </div>
+          <div class="lc-arrow">&#8594;</div>
+        </a>
+        <a href="lecture-14.html" class="lec-card">
+          <div class="lc-num">14</div>
+          <div class="lc-body">
+            <h3 class="lc-title">Engaging &amp; Growing</h3>
+            <p class="lc-sub">Knowing the audience is step one. Building a durable relationship is the goal.</p>
+          </div>
+          <div class="lc-arrow">&#8594;</div>
+        </a>
+        <a href="lecture-15.html" class="lec-card">
+          <div class="lc-num">15</div>
+          <div class="lc-body">
+            <h3 class="lc-title">The Ethical Audience</h3>
+            <p class="lc-sub">The costs of the attention machine. Know your audience. Serve them.</p>
+          </div>
+          <div class="lc-arrow">&#8594;</div>
+        </a>
+      </div>
+    </section>
+
+  <section class="readings-section">
+    <div class="readings-head">Reading materials</div>
+    <h2>Core texts</h2>
+    <ul class="bib-list"><li class="bib-item"><span class="bib-author">Karen Buzzard</span><span class="bib-title">Tracking the Audience: The Ratings Industry from Analog to Digital</span></li><li class="bib-item"><span class="bib-author">Matt Carlson (ed.)</span><span class="bib-title">Measurable Journalism: Digital Platforms, News Metrics and the Quantified Audience</span></li><li class="bib-item"><span class="bib-author">Lee McGuigan &amp; Vincent Manzerolle (eds.)</span><span class="bib-title">The Audience Commodity in a Digital Age: Revisiting a Critical Theory of Commercial Media</span></li><li class="bib-item"><span class="bib-author">Annette Hill &amp; Peter Lunt (eds.)</span><span class="bib-title">The Routledge Companion to Media Audiences</span></li><li class="bib-item"><span class="bib-author">Virginia Nightingale (ed.)</span><span class="bib-title">The Handbook of Media Audiences</span></li><li class="bib-item"><span class="bib-author">Leo W. Jeffres</span><span class="bib-title">Audience Genre Expectations in the Age of Digital Media</span></li><li class="bib-item"><span class="bib-author">Sandra M. Falero</span><span class="bib-title">Digital Participatory Culture and the TV Audience: Everyone&rsquo;s a Critic</span></li></ul>
+  </section>
+
+  <footer class="site-footer">Digital Audience &middot; MSJ2252 &middot; Undergraduate Journalism Course</footer>
+</div>
+
+<script>
+(function(){const cv=document.getElementById('net');const ctx=cv.getContext('2d');const pal=['#3fe0ff','#5b8cff','#a06bff','#ff5db1','#ffb25e'];let W,H,nodes,raf;const reduced=window.matchMedia('(prefers-reduced-motion:reduce)').matches;function init(){const N=Math.min(45,Math.floor(W*H/24000));nodes=[];for(let i=0;i<N;i++)nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.16,vy:(Math.random()-.5)*.16,c:pal[i%pal.length]});}function resize(){W=cv.width=innerWidth;H=cv.height=innerHeight;init();if(reduced)frame();}function frame(){ctx.clearRect(0,0,W,H);for(const n of nodes){n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;}for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){const a=nodes[i],b=nodes[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<135){ctx.globalAlpha=(1-d/135)*.09;ctx.strokeStyle=a.c;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}for(const n of nodes){ctx.globalAlpha=.5;ctx.fillStyle=n.c;ctx.beginPath();ctx.arc(n.x,n.y,1.4,0,7);ctx.fill();}ctx.globalAlpha=1;if(!reduced)raf=requestAnimationFrame(frame);}addEventListener('resize',()=>{cancelAnimationFrame(raf);resize();if(!reduced)frame();});resize();if(!reduced)frame();})();
+</script>
+</body>
+</html>
