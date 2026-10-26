@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ROLESCAN — A Diagnostic Console for Journalistic Roles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F5FB;
+    --glass:rgba(255,255,255,0.55);
+    --glass-strong:rgba(255,255,255,0.74);
+    --glass-border:rgba(255,255,255,0.85);
+    --line:rgba(35,45,80,0.10);
+    --line-strong:rgba(35,45,80,0.20);
+    --ink:#1D2436;
+    --ink-soft:#525C74;
+    --muted:#848DA3;
+
+    --violet:#8C7AE6;
+    --cyan:#38BDF8;
+    --indigo:#6366F1;
+    --silver:#9AA6BC;
+
+    --f-info:#38BDF8;
+    --f-anal:#22B8A8;
+    --f-crit:#EC5FA4;
+    --f-advo:#9B7CF0;
+    --f-deve:#2FC08E;
+    --f-coll:#6B7690;
+
+    --a-cons:#7FB4F2;
+    --a-iden:#B29CF2;
+    --a-emot:#F08FBD;
+
+    --display:"Bodoni Moda",Georgia,serif;
+    --body:"Raleway",-apple-system,BlinkMacSystemFont,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--body);font-size:17.5px;line-height:1.62;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    position:relative;
+  }
+  ::selection{background:var(--violet);color:#fff;}
+  a{color:inherit;}
+
+  /* ---------------- AMBIENT BACKDROP ---------------- */
+  .ambient{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+  .orb{position:absolute;border-radius:50%;filter:blur(76px);}
+  .o1{width:520px;height:520px;top:-170px;left:-130px;background:var(--violet);opacity:.40;animation:drift1 27s ease-in-out infinite;}
+  .o2{width:480px;height:480px;top:-150px;right:-150px;background:var(--cyan);opacity:.36;animation:drift2 31s ease-in-out infinite;}
+  .o3{width:520px;height:520px;bottom:-190px;left:-150px;background:var(--f-deve);opacity:.26;animation:drift3 35s ease-in-out infinite;}
+  .o4{width:420px;height:420px;bottom:-160px;right:-120px;background:var(--f-crit);opacity:.20;animation:drift1 29s ease-in-out infinite reverse;}
+  @keyframes drift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(40px,30px) scale(1.08);}}
+  @keyframes drift2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-30px,40px) scale(1.05);}}
+  @keyframes drift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(25px,-35px) scale(1.1);}}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.25;}}
+
+  .wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:112px 22px 100px;}
+  h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.08;margin:0;letter-spacing:.002em;color:var(--ink);}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+
+  .view{animation:fade .5s ease;}
+  .qfade{animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+  @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;}}
+  .hide{display:none !important;}
+
+  /* ---------------- NAV ---------------- */
+  .topnav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:var(--glass-strong);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
+    border-bottom:1px solid var(--glass-border);
+    box-shadow:0 4px 24px rgba(30,40,70,.05);
+  }
+  .topnav-inner{position:relative;z-index:1;max-width:880px;margin:0 auto;width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 22px;}
+  .brand{display:flex;align-items:center;gap:10px;background:none;border:none;cursor:pointer;color:var(--ink);padding:2px;}
+  .brand svg{display:block;}
+  .brand .wordmark{font-family:var(--display);font-size:17px;font-weight:600;letter-spacing:.01em;display:block;}
+  .brand .wordsub{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;color:var(--muted);text-transform:uppercase;margin-top:1px;}
+  .navlinks{display:flex;gap:5px;align-items:center;}
+  .navlink{
+    font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+    background:none;border:1px solid transparent;color:var(--ink-soft);cursor:pointer;
+    padding:8px 14px;border-radius:999px;transition:all .15s ease;
+  }
+  .navlink:hover{color:var(--ink);border-color:var(--line-strong);background:rgba(255,255,255,.5);}
+  .navlink.active{color:var(--indigo);border-color:rgba(99,102,241,.35);background:rgba(99,102,241,.10);}
+  .navlink:disabled{opacity:.32;cursor:not-allowed;}
+  .navlink:disabled:hover{color:var(--ink-soft);border-color:transparent;background:none;}
+  @media (max-width:600px){.brand .wordmark{font-size:14px;} .navlink{padding:7px 10px;font-size:10.5px;}}
+
+  /* ---------------- INTRO ---------------- */
+  .hero{padding-top:6px;}
+  .hero h1{font-size:clamp(38px,7.6vw,62px);}
+  .hero .sub{font-family:var(--display);font-style:italic;font-weight:400;font-size:clamp(18px,3vw,22px);color:var(--ink-soft);margin-top:10px;max-width:34ch;}
+  .lede{font-size:17.5px;color:var(--ink-soft);margin:26px 0 0;max-width:60ch;}
+  .lede b{color:var(--ink);font-weight:600;}
+
+  .frame{background:var(--glass);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border:1px solid var(--glass-border);border-radius:22px;box-shadow:0 10px 40px rgba(30,40,70,.08), inset 0 1px 0 rgba(255,255,255,.7);padding:28px 26px;margin-top:34px;}
+  .frame h3{font-size:21px;}
+  .frame .hint{font-size:13.5px;color:var(--muted);font-family:var(--mono);letter-spacing:.01em;margin:5px 0 20px;}
+
+  .fields{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field.full{grid-column:1 / -1;}
+  .field label{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);}
+  .field input,.field select{
+    font-family:var(--body);font-size:15.5px;color:var(--ink);background:rgba(255,255,255,.6);
+    border:1px solid var(--line-strong);border-radius:10px;padding:10px 13px;
+  }
+  .field input:focus,.field select:focus{outline:2px solid var(--indigo);outline-offset:1px;border-color:var(--indigo);}
+  @media (max-width:560px){.fields{grid-template-columns:1fr;}}
+
+  .consent{font-size:12.5px;color:var(--muted);font-family:var(--mono);line-height:1.6;margin-top:18px;padding-top:16px;border-top:1px dashed var(--line-strong);}
+
+  .btn{font-family:var(--body);font-weight:600;font-size:14.5px;letter-spacing:.01em;border:none;border-radius:999px;cursor:pointer;padding:13px 24px;transition:all .18s ease;}
+  .btn:focus-visible{outline:2px solid var(--indigo);outline-offset:2px;}
+  .btn-primary{background:linear-gradient(135deg,var(--violet),var(--cyan));color:#fff;box-shadow:0 6px 20px rgba(99,102,241,.32);}
+  .btn-primary:hover{filter:brightness(1.06);box-shadow:0 8px 26px rgba(99,102,241,.42);transform:translateY(-1px);}
+  .btn-primary:active{transform:translateY(0);}
+  .btn-ghost{background:rgba(255,255,255,.5);backdrop-filter:blur(12px);color:var(--ink);border:1px solid var(--line-strong);}
+  .btn-ghost:hover{border-color:var(--violet);color:var(--violet);background:rgba(255,255,255,.75);}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:26px;}
+
+  .meta-strip{display:flex;gap:30px;flex-wrap:wrap;margin-top:32px;padding-top:22px;border-top:1px solid var(--line-strong);}
+  .meta-strip .m .n{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--indigo);display:block;line-height:1;}
+  .meta-strip .m .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+
+  .foot{margin-top:60px;padding-top:18px;border-top:1px solid var(--line-strong);font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.7;}
+
+  /* ---------------- QUIZ ---------------- */
+  .qtop{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+  .qcount{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+  .bar{height:3px;background:var(--line-strong);border-radius:2px;overflow:hidden;margin-bottom:46px;}
+  .bar span{display:block;height:100%;background:linear-gradient(90deg,var(--violet),var(--cyan));width:0;transition:width .4s ease;}
+
+  .qstem{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+  .qtext{font-family:var(--display);font-size:clamp(25px,4.6vw,36px);font-weight:500;line-height:1.16;margin-bottom:38px;max-width:23ch;}
+
+  .scale{display:flex;flex-direction:column;gap:9px;}
+  .opt{display:flex;align-items:center;gap:16px;width:100%;text-align:left;background:var(--glass);backdrop-filter:blur(14px);border:1px solid var(--glass-border);border-radius:14px;padding:14px 17px;cursor:pointer;font-family:var(--body);font-size:16px;color:var(--ink);transition:all .14s ease;}
+  .opt:hover{border-color:var(--violet);background:rgba(255,255,255,.72);}
+  .opt:focus-visible{outline:2px solid var(--indigo);outline-offset:2px;}
+  .opt.sel{border-color:var(--indigo);background:rgba(99,102,241,.10);box-shadow:0 4px 18px rgba(99,102,241,.18);}
+  .opt .k{font-family:var(--mono);font-weight:600;font-size:13px;width:24px;height:24px;flex:0 0 24px;border:1px solid var(--line-strong);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);}
+  .opt.sel .k{background:linear-gradient(135deg,var(--violet),var(--cyan));color:#fff;border-color:transparent;}
+  .qnav{display:flex;justify-content:space-between;margin-top:30px;}
+  .link-btn{background:none;border:none;font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);cursor:pointer;padding:8px 4px;}
+  .link-btn:hover{color:var(--indigo);}
+  .link-btn:disabled{opacity:.3;cursor:default;}
+  .kbdhint{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:22px;letter-spacing:.03em;}
+  .kbdhint kbd{border:1px solid var(--line-strong);border-radius:4px;padding:1px 5px;font-family:var(--mono);background:rgba(255,255,255,.5);}
+
+  /* ---------------- RESULTS ---------------- */
+  .primary-card{position:relative;margin-top:26px;background:var(--glass);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border:1px solid var(--glass-border);border-radius:22px;box-shadow:0 12px 40px rgba(30,40,70,.10), inset 0 1px 0 rgba(255,255,255,.7);padding:30px 28px;display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;overflow:hidden;}
+  .primary-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--violet),var(--cyan));}
+  .primary-card .txt{flex:1;min-width:220px;}
+  .primary-card .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+  .primary-card h2{font-size:clamp(30px,6vw,46px);margin:8px 0 6px;}
+  .primary-card .domain{font-family:var(--mono);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--indigo);font-weight:600;}
+  .primary-card p{font-size:17px;color:var(--ink-soft);margin:16px 0 0;max-width:58ch;}
+
+  .sec-title{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:52px 0 4px;}
+  .sec-note{font-size:14.5px;color:var(--muted);margin:0 0 22px;}
+
+  .wheel-holder{display:flex;justify-content:center;margin:8px 0 4px;background:var(--glass);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border:1px solid var(--glass-border);border-radius:26px;padding:30px 12px;box-shadow:0 12px 40px rgba(30,40,70,.08), inset 0 1px 0 rgba(255,255,255,.7);}
+  svg.wheel{width:100%;max-width:480px;height:auto;}
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;margin-top:16px;}
+  @media (max-width:560px){.legend{grid-template-columns:1fr;}}
+  .legend .fn{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:8px;margin:8px 0 2px;}
+  .legend .fn .sw{width:11px;height:11px;border-radius:3px;flex:0 0 11px;}
+  .legend .rn{display:block;font-family:var(--mono);font-size:12px;color:var(--ink-soft);margin-left:19px;cursor:pointer;background:none;border:none;padding:2px 0;text-align:left;width:100%;}
+  .legend .rn:hover{color:var(--indigo);}
+
+  .rolebar-row{display:grid;grid-template-columns:150px 1fr 40px;align-items:center;gap:12px;margin:8px 0;background:none;border:none;width:100%;cursor:pointer;padding:5px 6px;font-family:inherit;border-radius:10px;transition:background .12s ease;}
+  .rolebar-row:hover{background:rgba(255,255,255,.5);}
+  .rolebar-row:hover .rn2{color:var(--indigo);}
+  .rn2{display:block;font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);text-align:left;transition:color .12s ease;}
+  .track{height:8px;background:rgba(35,45,80,.08);border-radius:5px;overflow:hidden;}
+  .track i{display:block;height:100%;border-radius:5px;transition:width .6s ease;}
+  .rv{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-align:right;}
+  @media (max-width:520px){.rolebar-row{grid-template-columns:118px 1fr 36px;}}
+
+  .area-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:4px;}
+  @media (max-width:640px){.area-grid{grid-template-columns:1fr;}}
+  .area-col{background:var(--glass);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border:1px solid var(--glass-border);border-radius:18px;padding:16px 15px 8px;box-shadow:0 8px 26px rgba(30,40,70,.06);}
+  .area-col h4{font-family:var(--mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase;margin:0 0 12px;display:flex;align-items:center;gap:8px;color:var(--ink);}
+  .area-col h4 .sw{width:11px;height:11px;border-radius:3px;}
+
+  .glosslist{display:flex;flex-direction:column;gap:12px;}
+  details.gloss{background:var(--glass);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border:1px solid var(--glass-border);border-radius:16px;padding:16px 18px;box-shadow:0 6px 22px rgba(30,40,70,.06);}
+  details.gloss summary{font-family:var(--display);font-size:19px;font-weight:500;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--ink);}
+  details.gloss summary::-webkit-details-marker{display:none;}
+  details.gloss summary .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#fff;padding:3px 9px;border-radius:999px;font-weight:600;white-space:nowrap;}
+  details.gloss p{font-size:15.5px;color:var(--ink-soft);margin:12px 0 4px;}
+  .viewinguide{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--indigo);background:none;border:none;cursor:pointer;padding:0;margin-top:8px;text-decoration:underline;text-underline-offset:3px;}
+
+  .export-card{margin-top:46px;background:var(--glass);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px dashed var(--line-strong);border-radius:20px;padding:24px;}
+  .export-card h3{font-size:20px;}
+  .export-card p{font-size:14px;color:var(--ink-soft);margin:8px 0 0;max-width:60ch;}
+  .saved-note{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:12px;}
+
+  /* ---------------- FIELD GUIDE / ARCHIVE ---------------- */
+  .guide-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;}
+  .explored{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right;}
+  .explored b{color:var(--indigo);}
+  .explored-bar{width:160px;height:4px;background:rgba(35,45,80,.10);border-radius:2px;overflow:hidden;margin-top:6px;margin-left:auto;}
+  .explored-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--violet),var(--cyan));transition:width .4s ease;}
+
+  .guide-controls{display:flex;flex-direction:column;gap:14px;margin:28px 0 8px;}
+  .segrow{display:flex;gap:6px;flex-wrap:wrap;}
+  .seg{font-family:var(--body);font-weight:600;font-size:12.5px;letter-spacing:.01em;background:rgba(255,255,255,.5);backdrop-filter:blur(10px);color:var(--ink-soft);border:1px solid var(--line-strong);padding:8px 15px;border-radius:999px;cursor:pointer;transition:all .15s ease;}
+  .seg:hover{border-color:var(--violet);color:var(--violet);}
+  .seg.active{background:linear-gradient(135deg,var(--violet),var(--cyan));color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(99,102,241,.3);}
+  .pillrow{display:flex;gap:7px;flex-wrap:wrap;}
+  .pill{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;background:rgba(255,255,255,.45);backdrop-filter:blur(10px);border:1px solid var(--line-strong);color:var(--ink-soft);padding:6px 12px 6px 9px;border-radius:999px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s ease;}
+  .pill .sw{width:8px;height:8px;border-radius:50%;flex:0 0 8px;}
+  .pill:hover{border-color:var(--line-strong);background:rgba(255,255,255,.7);}
+  .pill.active{background:rgba(255,255,255,.85);border-color:currentColor;box-shadow:0 0 0 1px currentColor inset;}
+  .search-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+  .search-row input{flex:1;min-width:180px;font-family:var(--body);font-size:14.5px;color:var(--ink);background:rgba(255,255,255,.55);backdrop-filter:blur(12px);border:1px solid var(--line-strong);border-radius:999px;padding:11px 18px;}
+  .search-row input:focus{outline:2px solid var(--indigo);outline-offset:1px;border-color:var(--indigo);}
+  .surprise{white-space:nowrap;}
+
+  .guide-empty{font-family:var(--mono);font-size:13px;color:var(--muted);padding:40px 0;text-align:center;}
+
+  .guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;}
+  @media (max-width:680px){.guide-grid{grid-template-columns:1fr;}}
+
+  .card{position:relative;background:var(--glass);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid var(--glass-border);border-radius:18px;box-shadow:0 8px 26px rgba(30,40,70,.07), inset 0 1px 0 rgba(255,255,255,.6);overflow:hidden;transition:box-shadow .2s ease, transform .2s ease;}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent,#8C7AE6),transparent 88%);}
+  .card:hover{box-shadow:0 14px 36px rgba(30,40,70,.13);transform:translateY(-2px);}
+  .card-head{display:flex;align-items:flex-start;gap:14px;padding:18px 18px 16px;cursor:pointer;background:none;border:none;width:100%;text-align:left;font-family:inherit;color:inherit;line-height:1.4;}
+  .card-head:focus-visible{outline:2px solid var(--indigo);outline-offset:-2px;border-radius:14px;}
+  .stampwrap{position:relative;display:inline-flex;flex:0 0 auto;}
+  .stampwrap::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px dashed currentColor;opacity:.4;animation:spin 16s linear infinite;}
+  .card-meta{flex:1;min-width:0;}
+  .card-cat{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;}
+  .card-name{display:block;font-family:var(--display);font-size:21px;font-weight:600;margin-top:4px;color:var(--ink);}
+  .card-tag{display:block;font-family:var(--display);font-style:italic;font-weight:400;font-size:14.5px;color:var(--ink-soft);margin-top:4px;}
+  .card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+  .card-tags span{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:2px 9px;border-radius:999px;color:#fff;font-weight:600;}
+  .chev{flex:0 0 16px;color:var(--muted);transition:transform .2s ease;margin-top:6px;}
+  .card.open .chev{transform:rotate(180deg);}
+  .card-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .card.open .card-body{max-height:600px;}
+  .card-body-inner{padding:0 18px 20px 18px;border-top:1px solid var(--line);margin-top:2px;padding-top:14px;}
+  .card-body-inner p{font-size:15.5px;color:var(--ink-soft);margin:0;}
+  .card-related{margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.7;}
+  .card-related b{color:var(--ink-soft);font-weight:600;}
+
+  .about-guide{font-size:15px;color:var(--ink-soft);max-width:66ch;margin-top:14px;}
+
+  /* ---------------- REGISTRY VISUALS (wheel + venn) ---------------- */
+  .viz-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0 8px;}
+  @media (max-width:760px){.viz-grid{grid-template-columns:1fr;}}
+  .viz-panel{background:var(--glass);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border:1px solid var(--glass-border);border-radius:22px;padding:18px 14px 16px;box-shadow:0 10px 34px rgba(30,40,70,.08), inset 0 1px 0 rgba(255,255,255,.7);text-align:center;}
+  .viz-panel h4{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;font-weight:600;}
+  .viz-panel .cap{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:8px;}
+  .viz-panel svg{width:100%;max-width:400px;height:auto;}
+  .venn-node{cursor:pointer;}
+  .venn-node rect{transition:filter .15s ease, stroke-width .15s ease;}
+  .venn-node:hover rect{filter:brightness(1.1);}
+  .venn-node:hover text.vname{fill:var(--indigo) !important;}
+
+  /* ---------------- FRAMEWORK TAB ---------------- */
+  .fw-section{margin-top:44px;}
+  .fw-section h2{font-size:clamp(22px,4vw,28px);margin-bottom:14px;}
+  .fw-section p{font-size:16px;color:var(--ink-soft);margin:0 0 14px;max-width:68ch;}
+  .fw-section p b{color:var(--ink);font-weight:600;}
+  .fw-diagram{background:var(--glass);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border:1px solid var(--glass-border);border-radius:22px;padding:20px 14px;box-shadow:0 10px 34px rgba(30,40,70,.08), inset 0 1px 0 rgba(255,255,255,.7);margin:20px 0;}
+  .fw-diagram svg{width:100%;max-width:520px;display:block;margin:0 auto;}
+  .fw-diagram .cap{text-align:center;font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:10px;}
+  .fw-terms{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+  .refs p{font-size:13.5px;color:var(--ink-soft);margin:0 0 14px;padding-left:1.7em;text-indent:-1.7em;line-height:1.65;font-family:var(--body);}
+  .refs p i{font-style:italic;}
+</style>
+</head>
+<body>
+
+<div class="ambient" aria-hidden="true">
+  <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span><span class="orb o4"></span>
+</div>
+
+<nav class="topnav"><div class="topnav-inner">
+  <button class="brand" onclick="showView('intro')" aria-label="ROLESCAN, go to console">
+    <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+      <circle cx="15" cy="15" r="13" fill="none" stroke="#8C7AE6" stroke-width="1.2" opacity=".85"/>
+      <circle cx="15" cy="15" r="8.6" fill="none" stroke="#38BDF8" stroke-width="1" opacity=".55"/>
+      <line x1="15" y1="1" x2="15" y2="5" stroke="#38BDF8" stroke-width="1.3"/>
+      <line x1="15" y1="25" x2="15" y2="29" stroke="#38BDF8" stroke-width="1.3"/>
+      <line x1="1" y1="15" x2="5" y2="15" stroke="#38BDF8" stroke-width="1.3"/>
+      <line x1="25" y1="15" x2="29" y2="15" stroke="#38BDF8" stroke-width="1.3"/>
+      <circle cx="15" cy="15" r="2.4" fill="#6366F1"/>
+      <circle cx="15" cy="6.4" r="1.5" fill="#38BDF8" style="animation:pulse 2.2s ease-in-out infinite;"/>
+    </svg>
+    <span><span class="wordmark">ROLESCAN</span><span class="wordsub">Journalism Role Diagnostic</span></span>
+  </button>
+  <div class="navlinks">
+    <button class="navlink active" data-view="intro" onclick="showView('intro')">Console</button>
+    <button class="navlink" data-view="guide" onclick="showView('guide')">Registry</button>
+    <button class="navlink" data-view="framework" onclick="showView('framework')">Framework</button>
+    <button class="navlink" id="navResults" data-view="results" onclick="showView('results')" disabled>My Scan</button>
+  </div>
+</div></nav>
+
+<div class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section id="view-intro" class="view">
+    <span class="eyebrow">A diagnostic console &amp; role archive</span>
+    <div class="hero">
+      <h1>Your Journalistic<br>Identity</h1>
+      <p class="sub">A live read on the roles you play.</p>
+    </div>
+    <p class="lede">You'll rate <b>50 short signals</b> about your work on a five-point scale. The console decodes your answers against the full taxonomy of journalistic roles across two domains, <b>political life</b> and <b>everyday life</b>, then returns a full readout and your primary role. Every role is also browsable on its own, in the <b>Registry</b>, whether or not you run the scan. For the theory behind the taxonomy, see the <b>Framework</b> tab.</p>
+
+    <div class="meta-strip">
+      <div class="m"><span class="n">25</span><span class="l">Roles decoded</span></div>
+      <div class="m"><span class="n">09</span><span class="l">Functions &amp; areas</span></div>
+      <div class="m"><span class="n">50</span><span class="l">Signals rated</span></div>
+    </div>
+
+    <div class="frame">
+      <h3>Respondent details</h3>
+      <p class="hint">Optional. Useful if the results are being collected for research. Leave blank to stay anonymous.</p>
+      <div class="fields">
+        <div class="field"><label for="f-id">Name or pseudonym</label><input id="f-id" type="text" autocomplete="off" placeholder="e.g. R-042"></div>
+        <div class="field"><label for="f-country">Country</label><input id="f-country" type="text" autocomplete="off" placeholder="e.g. Bangladesh"></div>
+        <div class="field"><label for="f-exp">Years in journalism</label><input id="f-exp" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 8"></div>
+        <div class="field"><label for="f-beat">Main beat</label><input id="f-beat" type="text" autocomplete="off" placeholder="e.g. politics, lifestyle"></div>
+        <div class="field full"><label for="f-outlet">Outlet type</label>
+          <select id="f-outlet">
+            <option value="">Prefer not to say</option>
+            <option>Legacy newspaper</option>
+            <option>Broadcast / TV / radio</option>
+            <option>Digital-native outlet</option>
+            <option>Wire / agency</option>
+            <option>Magazine</option>
+            <option>Public / state broadcaster</option>
+            <option>Independent / freelance</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <p class="consent">Your answers are processed entirely in your browser. Nothing is sent to a server. If you choose to export or save, a file or a local record is created on this device only.</p>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="startQuiz()">Run the scan</button>
+        <button class="btn btn-ghost" onclick="showView('guide')">Browse the Registry</button>
+      </div>
+      <p class="saved-note" id="savedCount"></p>
+    </div>
+
+    <div class="foot"></div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section id="view-quiz" class="view hide">
+    <div class="qtop">
+      <span class="qcount" id="qcount">Question 1 of 50</span>
+      <span class="qcount" id="qpct">0%</span>
+    </div>
+    <div class="bar"><span id="barFill"></span></div>
+
+    <div id="qbody">
+      <p class="qstem">In my work, it is important to&hellip;</p>
+      <h2 class="qtext" id="qtext"></h2>
+      <div class="scale" id="scale"></div>
+    </div>
+
+    <div class="qnav">
+      <button class="link-btn" id="backBtn" onclick="prevQ()">&larr; Back</button>
+      <button class="link-btn" id="skipBtn" onclick="nextQ()">Skip &rarr;</button>
+    </div>
+    <p class="kbdhint">Use <kbd>1</kbd>&ndash;<kbd>5</kbd> to answer, <kbd>&larr;</kbd> <kbd>&rarr;</kbd> to move.</p>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section id="view-results" class="view hide">
+    <span class="eyebrow">Your role readout</span>
+
+    <div class="primary-card">
+      <div class="stampwrap" id="primaryStamp"></div>
+      <div class="txt">
+        <span class="lab">Primary role</span>
+        <h2 id="primaryName"></h2>
+        <span class="domain" id="primaryDomain"></span>
+        <p id="primaryDesc"></p>
+      </div>
+    </div>
+
+    <h3 class="sec-title">The political-life wheel</h3>
+    <p class="sec-note">Eighteen roles across six functions. Longer spokes mean stronger orientation. Click a name below the wheel to open it in the Registry.</p>
+    <div class="wheel-holder"><div id="wheel"></div></div>
+    <div class="legend" id="wheelLegend"></div>
+
+    <h3 class="sec-title">Ranked political roles</h3>
+    <p class="sec-note">All eighteen, ordered by your score. Click any row to read its full entry.</p>
+    <div id="politicalBars"></div>
+
+    <h3 class="sec-title">The everyday-life roles</h3>
+    <p class="sec-note">Seven roles across consumption, identity, and emotion.</p>
+    <div class="area-grid" id="areaGrid"></div>
+
+    <h3 class="sec-title">What your top five roles mean</h3>
+    <p class="sec-note">Your strongest orientations, with definitions from the framework.</p>
+    <div class="glosslist" id="glossary"></div>
+
+    <div class="export-card" style="margin-top:46px;">
+      <h3>Share your result</h3>
+      <p>A 1080&times;1080 image with your primary role and top 5, sized for Instagram, X, or LinkedIn.</p>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="downloadShareImage('png')">Download share card (PNG)</button>
+        <button class="btn btn-ghost" onclick="downloadShareImage('jpg')">Download share card (JPG)</button>
+      </div>
+    </div>
+
+    <div class="export-card">
+      <h3>Keep or share your results</h3>
+      <p>Export this response for research collection, or save it to build a local dataset on this device. Files stay on your machine.</p>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="exportOne('csv')">Export this response (CSV)</button>
+        <button class="btn btn-ghost" onclick="exportOne('json')">Export as JSON</button>
+        <button class="btn btn-ghost" onclick="exportAll()">Export all saved (CSV)</button>
+      </div>
+      <p class="saved-note" id="savedCount2"></p>
+      <div class="btn-row" style="margin-top:14px;">
+        <button class="btn btn-ghost" onclick="restart()">Take it again</button>
+        <button class="link-btn" onclick="clearSaved()">Clear saved responses on this device</button>
+      </div>
+    </div>
+
+    <div class="foot">
+      This diagnostic is a self-report snapshot of role orientations, not role performance. As the framework notes, what journalists say they value correlates with, but does not equal, what they do in practice.
+    </div>
+  </section>
+
+  <!-- ============ ARCHIVE / FIELD GUIDE ============ -->
+  <section id="view-guide" class="view hide">
+    <div class="guide-head">
+      <div>
+        <span class="eyebrow">Browse the taxonomy</span>
+        <h1 style="font-size:clamp(32px,6vw,48px);margin-top:8px;">Registry</h1>
+        <p class="about-guide">Twenty-five roles journalists occupy across political and everyday life, drawn from the Hanitzsch &amp; Vos framework. Filter by domain or function, search by name, or open a card to read the full entry.</p>
+      </div>
+      <div class="explored">
+        Roles decoded: <b id="exploredN">0</b> / 25
+        <div class="explored-bar"><i id="exploredBar" style="width:0%"></i></div>
+      </div>
+    </div>
+
+    <h3 class="sec-title">Navigate visually</h3>
+    <p class="sec-note">Click any role in either diagram to jump straight to its entry.</p>
+    <div class="viz-grid">
+      <div class="viz-panel">
+        <h4>The Political-Life Wheel</h4>
+        <div id="wheelGuide"></div>
+        <p class="cap">18 roles &middot; 6 functions</p>
+      </div>
+      <div class="viz-panel">
+        <h4>The Everyday-Life Venn</h4>
+        <div id="vennGuide"></div>
+        <p class="cap">7 roles &middot; 3 areas</p>
+      </div>
+    </div>
+
+    <h3 class="sec-title">Browse or filter the full list</h3>
+    <div class="guide-controls">
+      <div class="segrow" id="domainSeg"></div>
+      <div class="pillrow" id="tagPills"></div>
+      <div class="search-row">
+        <input type="text" id="guideSearch" placeholder="Search roles, e.g. &ldquo;watchdog&rdquo; or &ldquo;identity&rdquo;&hellip;" oninput="renderGuide()">
+        <button class="btn btn-ghost surprise" onclick="surpriseMe()">Surprise me</button>
+      </div>
+    </div>
+
+    <div id="guideGrid" class="guide-grid"></div>
+    <p class="guide-empty hide" id="guideEmpty">No roles match that search. Try a different term or clear the filters.</p>
+
+    <div class="foot">
+      Definitions are paraphrased summaries of the roles described in Hanitzsch &amp; Vos (2018) and Hanitzsch &amp; &Ouml;rnebring (2020); consult the original texts for full citations and supporting literature.
+    </div>
+  </section>
+
+  <!-- ============ FRAMEWORK ============ -->
+  <section id="view-framework" class="view hide">
+    <span class="eyebrow">The theoretical foundation</span>
+    <h1 style="font-size:clamp(32px,6vw,48px);margin-top:8px;">The Framework</h1>
+    <p class="about-guide">ROLESCAN's taxonomy is not an arbitrary checklist. It operationalizes a specific theory of what a journalistic role even is. This page summarizes that theory, largely as developed by Thomas Hanitzsch and Tim P. Vos, so the readout you get elsewhere on this site can be read with its assumptions in view.</p>
+
+    <div class="fw-section">
+      <h2>Journalism as a Discursive Institution</h2>
+      <p>Hanitzsch and Vos (2017) argue that journalistic roles have no fixed essence sitting outside of language. A role exists because journalists, sources, audiences, and critics keep talking about it, arguing over it, and acting it out. This is the core claim of <b>discursive institutionalism</b>: institutions are real constraints on behavior, but they are also constantly reproduced, reinterpreted, and contested through discourse (Schmidt, as cited in Hanitzsch &amp; Vos, 2017).</p>
+      <p>Journalism, in this view, is a <b>discursive institution</b>: a set of shared norms and informal rules, learned through socialization rather than written down as law, that tell journalists what counts as legitimate practice (Cook, 1998, as cited in Hanitzsch &amp; Vos, 2017). Those norms only hold together because they are continually rearticulated. Nothing about "the watchdog role" or "the disseminator role" is permanent; each is a <b>discursive construction</b> of journalism's identity that could, in principle, be renegotiated.</p>
+      <p>Roles are also positioned relative to one another in what Hanitzsch and Vos (2017), drawing on Bourdieu, call the <b>discursive field</b>: a space of competing positions where journalists, outlets, and institutions struggle over the authority to define what journalism is for. A newsroom that valorizes detachment and a newsroom that valorizes advocacy are not simply doing journalism differently; they are staking out different, competing claims within the same field.</p>
+    </div>
+
+    <div class="fw-section">
+      <h2>The Process Model of Journalistic Roles</h2>
+      <p>Because roles are discursive, Hanitzsch and Vos (2017) argue they need to be studied on two levels, split into four analytically distinct categories. Confusing these categories, they note, is one of the main reasons role research has stayed "thin on theory."</p>
+      <p><b>Role orientations</b> are attitudinal. <i>Normative roles</i> describe what journalists believe society expects of them; <i>cognitive roles</i> describe what individual journalists personally want to do, internalized through training and newsroom socialization. <b>Role performance</b> is behavioral. <i>Practiced roles</i> are what journalists actually do, visible in their output; <i>narrated roles</i> are the story journalists tell about what they did, which is not always the same thing.</p>
+
+      <div class="fw-diagram">
+        <svg viewBox="0 0 460 300" role="img" aria-label="Diagram showing normative, cognitive, narrated, and practiced roles connected by internalization, enactment, reflection, normalization, and negotiation">
+          <defs>
+            <marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#6B7690"/>
+            </marker>
+          </defs>
+          <rect x="20" y="28" width="420" height="102" rx="16" fill="rgba(155,124,240,0.06)" stroke="rgba(155,124,240,0.28)" stroke-dasharray="3 4"/>
+          <text x="30" y="20" font-family="JetBrains Mono" font-size="10" letter-spacing="2" fill="#848DA3">ROLE ORIENTATIONS</text>
+          <rect x="20" y="172" width="420" height="102" rx="16" fill="rgba(236,95,164,0.06)" stroke="rgba(236,95,164,0.28)" stroke-dasharray="3 4"/>
+          <text x="30" y="288" font-family="JetBrains Mono" font-size="10" letter-spacing="2" fill="#848DA3">ROLE PERFORMANCE</text>
+
+          <g><rect x="40" y="50" width="160" height="60" rx="12" fill="#9B7CF0" fill-opacity="0.16" stroke="#9B7CF0" stroke-width="1.4"/>
+            <text x="120" y="76" text-anchor="middle" font-family="Bodoni Moda" font-style="italic" font-size="16" fill="#1D2436">Normative</text>
+            <text x="120" y="94" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#525C74">what journalists should do</text>
+            <title>Normative roles: generalized expectations society deems desirable (Hanitzsch &amp; Vos, 2017).</title></g>
+
+          <g><rect x="260" y="50" width="160" height="60" rx="12" fill="#38BDF8" fill-opacity="0.16" stroke="#38BDF8" stroke-width="1.4"/>
+            <text x="340" y="76" text-anchor="middle" font-family="Bodoni Moda" font-style="italic" font-size="16" fill="#1D2436">Cognitive</text>
+            <text x="340" y="94" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#525C74">what journalists want to do</text>
+            <title>Cognitive roles: individual aspirations internalized through socialization (Hanitzsch &amp; Vos, 2017).</title></g>
+
+          <g><rect x="40" y="192" width="160" height="60" rx="12" fill="#EC5FA4" fill-opacity="0.16" stroke="#EC5FA4" stroke-width="1.4"/>
+            <text x="120" y="218" text-anchor="middle" font-family="Bodoni Moda" font-style="italic" font-size="16" fill="#1D2436">Narrated</text>
+            <text x="120" y="236" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#525C74">what journalists say they do</text>
+            <title>Narrated roles: journalists' own reflections and accounts of their practice (Hanitzsch &amp; Vos, 2017).</title></g>
+
+          <g><rect x="260" y="192" width="160" height="60" rx="12" fill="#2FC08E" fill-opacity="0.16" stroke="#2FC08E" stroke-width="1.4"/>
+            <text x="340" y="218" text-anchor="middle" font-family="Bodoni Moda" font-style="italic" font-size="16" fill="#1D2436">Practiced</text>
+            <text x="340" y="236" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#525C74">what journalists really do</text>
+            <title>Practiced roles: roles as enacted in real journalistic work (Hanitzsch &amp; Vos, 2017).</title></g>
+
+          <line x1="200" y1="72" x2="258" y2="72" stroke="#6B7690" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+          <text x="229" y="62" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" fill="#525C74">Internalization</text>
+
+          <line x1="340" y1="112" x2="340" y2="190" stroke="#6B7690" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+          <text x="392" y="153" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" fill="#525C74" transform="rotate(90 392 153)">Enactment</text>
+
+          <line x1="258" y1="222" x2="200" y2="222" stroke="#6B7690" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+          <text x="229" y="247" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" fill="#525C74">Reflection</text>
+
+          <line x1="120" y1="190" x2="120" y2="112" stroke="#6B7690" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+          <text x="68" y="153" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" fill="#525C74" transform="rotate(-90 68 153)">Normalization</text>
+
+          <line x1="152" y1="196" x2="288" y2="118" stroke="#9AA6BC" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arrowhead)"/>
+          <text x="248" y="172" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" fill="#8891A6">Negotiation</text>
+        </svg>
+        <p class="cap">The process model of journalistic roles &middot; after Hanitzsch &amp; Vos (2017, Figure 1)</p>
+      </div>
+
+      <p>The four categories connect in a loop rather than a line. Normative expectations are <i>internalized</i> into cognitive aspirations; cognitive roles are <i>enacted</i> into practice; practice is <i>reflected</i> on and turned into narrated accounts; and those narrated accounts feed back in two directions, either <i>normalizing</i> into revised normative expectations, or <i>negotiating</i> a shift in what individual journalists cognitively aspire to. A journalist who discovers, in practice, that the "detached bystander" ideal does not survive contact with an unfolding crisis may renegotiate their own cognitive role well before the norm itself changes.</p>
+    </div>
+
+    <div class="fw-section">
+      <h2>From Theory to Taxonomy</h2>
+      <p>The 25-role catalogue used throughout this site is the empirical extension of this theory, developed in Hanitzsch and Vos (2018) and revisited in Hanitzsch and &Ouml;rnebring (2020). Roles that had accumulated in the literature as a "cacophony of partly overlapping and often very disparate catalogues" (Hanitzsch &amp; &Ouml;rnebring, 2020) are organized into two domains: <b>political life</b>, where journalism addresses audiences as citizens, and <b>everyday life</b>, where journalism addresses audiences as consumers, selves, and feeling subjects. Political life maps onto six functions &mdash; informational-instructive, analytical-deliberative, critical-monitorial, advocative-radical, developmental-educative, and collaborative-facilitative &mdash; each holding three roles. Everyday life maps onto three areas &mdash; consumption, identity, and emotion &mdash; whose overlaps generate seven roles.</p>
+      <p><b>A methodological note.</b> The 50-item questionnaire in this tool asks how important each behavior feels to you personally. That is a measure of <i>cognitive role orientation</i> only, one of the four categories above. It says nothing directly about what society expects of you (normative), what you actually publish (practiced), or how you would characterize your own past work if asked (narrated). Treat your readout as a snapshot of aspiration, not a verdict on performance.</p>
+    </div>
+
+    <div class="fw-section">
+      <h2>Key Terms</h2>
+      <div class="fw-terms">
+        <details class="gloss"><summary><span>Discursive institution</span></summary><p>An institution whose norms and rules are not fixed by law but are learned, reproduced, and revised through ongoing talk, practice, and socialization among its members (Cook, 1998; Sparrow, 1999, as cited in Hanitzsch &amp; Vos, 2017).</p></details>
+        <details class="gloss"><summary><span>Discursive field</span></summary><p>A relational space of competing positions in which journalists, outlets, and institutions struggle over the authority to define journalism's meaning and place in society (Hanitzsch &amp; Vos, 2017, drawing on Bourdieu, 1999).</p></details>
+        <details class="gloss"><summary><span>Role orientations</span></summary><p>The attitudinal layer of a role: normative expectations plus the cognitive aspirations individual journalists internalize from them (Hanitzsch &amp; Vos, 2017).</p></details>
+        <details class="gloss"><summary><span>Role performance</span></summary><p>The behavioral layer of a role: what is actually practiced, and how that practice is subsequently narrated by the journalist (Hanitzsch &amp; Vos, 2017).</p></details>
+        <details class="gloss"><summary><span>Injunctive vs. descriptive norms</span></summary><p>Injunctive norms are beliefs about what journalists should do in a given context; descriptive norms are beliefs about what most other journalists actually do (Lapinski &amp; Rimal, 2005, as cited in Hanitzsch &amp; Vos, 2017).</p></details>
+      </div>
+    </div>
+
+    <div class="fw-section">
+      <h2>References</h2>
+      <div class="refs">
+        <p>Hanitzsch, T., &amp; &Ouml;rnebring, H. (2020). Professionalism, professional identity, and journalistic roles. In K. Wahl-Jorgensen &amp; T. Hanitzsch (Eds.), <i>The handbook of journalism studies</i> (2nd ed., pp. 105&ndash;122). Routledge.</p>
+        <p>Hanitzsch, T., &amp; Vos, T. P. (2017). Journalistic roles and the struggle over institutional identity: The discursive constitution of journalism. <i>Communication Theory, 27</i>(2), 115&ndash;135. https://doi.org/10.1111/comt.12112</p>
+        <p>Hanitzsch, T., &amp; Vos, T. P. (2018). Journalism beyond democracy: A new look into journalistic roles in political and everyday life. <i>Journalism, 19</i>(2), 146&ndash;164. https://doi.org/10.1177/1464884916673386</p>
+      </div>
+    </div>
+
+    <div class="foot">
+      This page summarizes theory; it does not reproduce the source texts. Consult the original articles for the full argument, evidence, and citation trail.
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ============================================================
+   ROLE DATA  ( grounded in Hanitzsch & Vos 2018 / Handbook ch.7 )
+   ============================================================ */
+const FUNCTIONS = {
+  info: {label:"Informational-instructive", hex:"#38BDF8"},
+  anal: {label:"Analytical-deliberative",   hex:"#22B8A8"},
+  crit: {label:"Critical-monitorial",       hex:"#EC5FA4"},
+  advo: {label:"Advocative-radical",        hex:"#9B7CF0"},
+  deve: {label:"Developmental-educative",   hex:"#2FC08E"},
+  coll: {label:"Collaborative-facilitative",hex:"#6B7690"}
+};
+const AREAS = {
+  cons:{label:"Consumption", hex:"#7FB4F2"},
+  iden:{label:"Identity",    hex:"#B29CF2"},
+  emot:{label:"Emotion",     hex:"#F08FBD"}
+};
+
+const POLITICAL = [
+  {id:"disseminator", name:"Disseminator", fn:"info", tagline:"The neutral bystander who reports things as they are.",
+    desc:"You report things as they are, staying neutral and detached. You value speed and accuracy, see yourself as a bystander rather than a participant, and rely on official sources to serve as a faithful register of events.",
+    q:["Report things as they are, staying neutral and detached from what I cover",
+       "Convey information to the public as quickly and accurately as possible"]},
+  {id:"curator", name:"Curator", fn:"info", tagline:"Sorts the flood of information into what matters.",
+    desc:"In an age of information overload, you find, organize, contextualize, and repackage the most relevant material on a topic, sorting the flood of content into deliverable packages for your audience.",
+    q:["Find, organize, and repackage the most relevant existing content on a topic",
+       "Sort through the flood of available information and share what matters most"]},
+  {id:"storyteller", name:"Storyteller", fn:"info", tagline:"Places today's news inside a larger narrative.",
+    desc:"You put the world in perspective through explanation, background, and context, placing the news of the day into larger narratives that stretch across past, present, and future.",
+    q:["Provide background and context that place events within a larger narrative",
+       "Explain the meaning of events over time, connecting past, present, and future"]},
+
+  {id:"analyst", name:"Analyst", fn:"anal", tagline:"Interprets causes and forecasts consequences.",
+    desc:"You offer explicit interpretation and analysis, tracing causes and predicting consequences. You place a strong, open emphasis on opinion and judgment, going further than the storyteller.",
+    q:["Offer my own interpretation and analysis of complex issues",
+       "Trace the causes of events and anticipate their likely consequences"]},
+  {id:"access", name:"Access Provider", fn:"anal", tagline:"Opens a platform for public voices.",
+    desc:"You give people a platform and a forum to express their views, engaging audiences in public conversation and letting a diversity of stakeholders articulate their interests.",
+    q:["Give ordinary people a platform to express their views in the news",
+       "Let a diversity of voices and stakeholders be heard in public debate"]},
+  {id:"mobilizer", name:"Mobilizer", fn:"anal", tagline:"Encourages citizens into civic action.",
+    desc:"You proactively encourage audiences into civic activity, framing the news to invite people into political conversation and acting as an agent of empowerment.",
+    q:["Encourage people to take an active part in civic and political life",
+       "Motivate audiences to get involved and participate in public affairs"]},
+
+  {id:"monitor", name:"Monitor", fn:"crit", tagline:"Watches political conduct and flags what surfaces.",
+    desc:"The most passive of the critical roles: you watch political conduct and respond to misconduct as you become aware of it, rather than actively hunting for it.",
+    q:["Keep an eye on political conduct and report wrongdoing when I encounter it",
+       "Observe those in power and flag misconduct that comes to my attention"]},
+  {id:"detective", name:"Detective", fn:"crit", tagline:"Digs for what power would rather hide.",
+    desc:"The prototypical investigative journalist. You scrutinize claims of the powerful, dig for what is hidden, and treat verification and investigation as the heart of your identity.",
+    q:["Investigate claims and dig up information that the powerful would prefer hidden",
+       "Verify facts through rigorous investigation before publishing"]},
+  {id:"watchdog", name:"Watchdog", fn:"crit", tagline:"Actively holds leaders and institutions to account.",
+    desc:"The active, assertive fourth-estate role. You proactively scrutinize political and business leaders and provide an independent critique of society and its institutions.",
+    q:["Proactively scrutinize political and business leaders",
+       "Provide an independent, critical check on society's institutions"]},
+
+  {id:"adversary", name:"Adversary", fn:"advo", tagline:"Positions the press as a counterforce to authority.",
+    desc:"You posture as a countervailing force to authority, often as a mouthpiece of the people, bringing an element of hostility to your positioning toward government.",
+    q:["Position myself as a counterforce against those who hold power",
+       "Challenge government and give the people a voice against authority"]},
+  {id:"advocate", name:"Advocate", fn:"advo", tagline:"Speaks for the disadvantaged and their causes.",
+    desc:"You act as a spokesperson for specific groups or the socially disadvantaged, identifying with a cause and speaking as a lobbyist or a voice for the overlooked.",
+    q:["Speak on behalf of specific groups or the socially disadvantaged",
+       "Champion the causes of communities whose interests are overlooked"]},
+  {id:"missionary", name:"Missionary", fn:"advo", tagline:"Campaigns for personally held values and ideals.",
+    desc:"Driven by personal conviction rather than others' interests, you promote particular ideals, values, or ideologies, whether political, cultural, spiritual, or moral.",
+    q:["Promote particular values, ideals, or ideologies I personally believe in",
+       "Advance a moral, cultural, or political cause through my reporting"]},
+
+  {id:"changeagent", name:"Change Agent", fn:"deve", tagline:"Drives social and political reform.",
+    desc:"Pertinent to transitional and developing societies: you advocate for social change and drive reform, foregrounding quality of life, social equity, and human development.",
+    q:["Advocate for social change and drive political or social reform",
+       "Push for real improvements in people's quality of life and social equity"]},
+  {id:"educator", name:"Educator", fn:"deve", tagline:"Teaches the public what it needs to know.",
+    desc:"You embrace the pedagogic function of journalism, acting as a teacher who raises public awareness and knowledge about problems.",
+    q:["Act as a teacher, raising public awareness and knowledge about problems",
+       "Help audiences understand issues so they can learn from the coverage"]},
+  {id:"mediator", name:"Mediator", fn:"deve", tagline:"Builds common ground and eases social tension.",
+    desc:"Concerned with social integration, you reduce tension and reinforce harmony, forging common values and contributing to conflict resolution, as in peace journalism.",
+    q:["Reduce social tension and strengthen social harmony through my work",
+       "Help resolve conflict and build common ground in a divided society"]},
+
+  {id:"facilitator", name:"Facilitator", fn:"coll", tagline:"Assists government in advancing development.",
+    desc:"You feel a responsibility to assist the government in advancing the country's development, often emphasizing nation-building and the preservation of national unity.",
+    q:["Support the government's efforts to advance national development",
+       "Contribute to nation-building and the preservation of national unity"]},
+  {id:"collaborator", name:"Collaborator", fn:"coll", tagline:"Acts as part of the state's own apparatus.",
+    desc:"You see journalists as part of the state apparatus, expected to defend the government and its policy, accepting that press freedom may bend to national priorities.",
+    q:["See myself as part of the state's effort to communicate with the public",
+       "Defend official policy and the interests of the government I report on"]},
+  {id:"mouthpiece", name:"Mouthpiece", fn:"coll", tagline:"Relays official decisions to the people.",
+    desc:"Close to the disseminator but oriented to officialdom: you relay official information, explain political decisions, and try to improve communication between officials and citizens.",
+    q:["Relay official information and explain government decisions to the people",
+       "Help improve communication between officials and citizens"]}
+];
+
+const EVERYDAY = [
+  {id:"marketer", name:"Marketer", area:["cons"], tagline:"Promotes lifestyles and purchasable goods.",
+    desc:"Tied most closely to consumption, you promote lifestyles and purchasable products of various kinds, sometimes serving advertising clients.",
+    q:["Introduce audiences to appealing products, brands, and lifestyles",
+       "Feature purchasable goods and leisure options people might enjoy"]},
+  {id:"service", name:"Service Provider", area:["cons","iden"], tagline:"Gives practical advice on everyday choices.",
+    desc:"You cater to a hybrid audience, part citizen, part consumer, part client, offering practical, independent advice on services and products on behalf of your audience.",
+    q:["Offer practical, useful advice on products and services people rely on",
+       "Help my audience make everyday decisions as informed consumers"]},
+  {id:"friend", name:"Friend", area:["iden"], tagline:"A companion for the work of identity.",
+    desc:"A companion and sometimes therapist, you help audiences navigate the difficult work of identity and the complex world of social relationships.",
+    q:["Act as a companion who helps people navigate personal and social life",
+       "Offer guidance on relationships and the work of figuring out who one is"]},
+  {id:"connector", name:"Connector", area:["iden","emot"], tagline:"Builds a shared sense of belonging.",
+    desc:"At the intersection of identity and emotion, you connect audiences to their communities and to society, providing a sense of belonging and shared consciousness.",
+    q:["Give people a sense of belonging to their community and society",
+       "Foster shared identity and a feeling of connection among my audience"]},
+  {id:"moodmanager", name:"Mood Manager", area:["emot"], tagline:"Regulates the audience's emotional wellbeing.",
+    desc:"Placed most genuinely in the realm of emotion, you manage and regulate emotional wellbeing, acting as entertainer and provider of positive experience.",
+    q:["Help people relax, unwind, and feel good through the content I produce",
+       "Entertain audiences and lift their mood"]},
+  {id:"inspirator", name:"Inspirator", area:["emot","cons"], tagline:"Ties new lifestyles to a hopeful outlook.",
+    desc:"Spanning consumption and emotion, you provide inspiration for new lifestyles and products, tying them to a positive attitude toward life.",
+    q:["Inspire people with new ideas, lifestyles, and a positive outlook",
+       "Spark enthusiasm and optimism about the possibilities in everyday life"]},
+  {id:"guide", name:"Guide", area:["cons","iden","emot"], tagline:"Offers orientation across a world of options.",
+    desc:"The most generic everyday role, touching all three areas. As a navigator you provide orientation in a multi-optional world, including through exemplars such as celebrity news.",
+    q:["Help people find their way in a world full of choices and options",
+       "Offer orientation for everyday living, including through examples to follow"]}
+];
+
+const SCALE = [
+  {v:1,label:"Not important at all"},
+  {v:2,label:"Slightly important"},
+  {v:3,label:"Moderately important"},
+  {v:4,label:"Very important"},
+  {v:5,label:"Extremely important"}
+];
+
+// Broader (~20-25 word) descriptions used on the shareable social image,
+// between the short card tagline and the full Field Guide entry.
+const BROAD_DESC = {
+  disseminator: "Reports events as they are, staying neutral and detached, valuing speed and accuracy while relying on official sources as a faithful factual record.",
+  curator: "Finds, organizes, and contextualizes the most relevant material on a topic, sorting an overwhelming flood of information into clear, deliverable packages for audiences.",
+  storyteller: "Places today's news inside a larger narrative, offering background, explanation, and context that connects the past, the present, and the unfolding future.",
+  analyst: "Offers open interpretation and analysis of complex issues, tracing the causes behind events and anticipating the consequences that are likely to follow.",
+  access: "Gives ordinary people a platform to express their views, letting a diversity of voices and stakeholders be heard in public debate and deliberation.",
+  mobilizer: "Proactively encourages audiences into civic activity, framing the news in ways that invite people into political conversation and active public participation.",
+  monitor: "Watches political conduct from a distance, responding to misconduct as it becomes apparent rather than actively hunting for wrongdoing behind the scenes.",
+  detective: "Investigates claims and digs for information the powerful would rather keep hidden, treating rigorous verification as the very heart of the craft.",
+  watchdog: "Actively and assertively scrutinizes political and business leaders, providing an independent, critical check on society's most powerful institutions and decision-makers.",
+  adversary: "Positions the press as a deliberate counterforce to authority, often as mouthpiece of the people, bringing open hostility toward those in power.",
+  advocate: "Acts as spokesperson for specific groups or the socially disadvantaged, identifying closely with a cause and championing it as lobbyist and voice.",
+  missionary: "Promotes personally held values, ideals, or ideologies out of individual conviction rather than on others' behalf, often advancing moral or cultural causes.",
+  changeagent: "Advocates for social change and drives political or social reform, foregrounding quality of life, social equity, and human development in transitional societies.",
+  educator: "Embraces journalism's pedagogic function, acting as teacher to raise public awareness and knowledge about problems the audience might otherwise overlook entirely.",
+  mediator: "Reduces social tension and reinforces harmony, forging common ground and shared values while contributing to conflict resolution, as in peace journalism.",
+  facilitator: "Assists government in advancing the country's development, working closely alongside officials as a constructive partner emphasizing nation-building and national unity.",
+  collaborator: "Sees journalists as part of the state's own apparatus, expected to defend official policy while press freedom bends to national priorities.",
+  mouthpiece: "Relays official information and explains government decisions to the people, trying to improve communication and trust between officials and the citizens they serve.",
+  marketer: "Promotes lifestyles and purchasable products of every kind, introducing audiences to appealing brands, trends, and leisure options, sometimes serving advertising clients directly.",
+  service: "Offers practical, independent advice on products and services, helping audiences make informed everyday decisions as part citizen, part consumer, and part client.",
+  friend: "Acts as companion and sometimes therapist, helping audiences navigate the difficult, ongoing work of identity, relationships, and the complexities of social life.",
+  connector: "Connects audiences to their communities and to society at large, fostering a sense of belonging, shared consciousness, and collective identity across differences.",
+  moodmanager: "Manages and regulates emotional wellbeing, acting as entertainer and provider of positive experience, helping people relax, unwind, and simply feel better.",
+  inspirator: "Provides inspiration for new lifestyles, products, and ideas, tying consumption and enthusiasm to a broader, hopeful, and forward-looking attitude toward life.",
+  guide: "Offers orientation across consumption, identity, and emotion at once, helping people navigate a multi-optional world through relatable exemplars and everyday examples."
+};
+
+/* ============================================================
+   BUILD ITEM LIST + STATE
+   ============================================================ */
+const ALL_ROLES = {};
+let cat = 1;
+POLITICAL.forEach(r=>{ALL_ROLES[r.id]={...r,domain:"political",catalog:cat++};});
+EVERYDAY.forEach(r=>{ALL_ROLES[r.id]={...r,domain:"everyday",catalog:cat++};});
+
+function colorOf(r){ return r.domain==="political" ? FUNCTIONS[r.fn].hex : AREAS[r.area[0]].hex; }
+function tagLabels(r){
+  if(r.domain==="political") return [FUNCTIONS[r.fn].label];
+  return r.area.map(a=>AREAS[a].label);
+}
+
+let ITEMS = [];
+POLITICAL.concat(EVERYDAY).forEach(r=>{
+  r.q.forEach((text,i)=>ITEMS.push({roleId:r.id, itemNo:i, text}));
+});
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+let responses = {};
+let current = 0;
+
+/* ============================================================
+   NAV / VIEW SWITCHING
+   ============================================================ */
+function showView(name){
+  ["intro","quiz","results","guide","framework"].forEach(v=>{
+    document.getElementById("view-"+v).classList.toggle("hide", v!==name);
+  });
+  document.querySelectorAll(".navlink").forEach(b=>b.classList.toggle("active", b.dataset.view===name));
+  window.scrollTo({top:0,behavior:"auto"});
+  if(name==="guide" && !guideBuilt){ buildGuide(); buildGuideVisuals(); }
+}
+
+/* ============================================================
+   QUIZ FLOW
+   ============================================================ */
+function startQuiz(){
+  ITEMS = shuffle(ITEMS.slice());
+  responses = {};
+  current = 0;
+  showView("quiz");
+  renderQ();
+}
+
+function renderQ(){
+  const item = ITEMS[current];
+  const body = document.getElementById("qbody");
+  body.classList.remove("qfade"); void body.offsetWidth; body.classList.add("qfade");
+
+  document.getElementById("qtext").textContent = item.text;
+  document.getElementById("qcount").textContent = `Question ${current+1} of ${ITEMS.length}`;
+  const pct = Math.round((current)/ITEMS.length*100);
+  document.getElementById("qpct").textContent = pct+"%";
+  document.getElementById("barFill").style.width = pct+"%";
+
+  const scale = document.getElementById("scale");
+  scale.innerHTML = "";
+  SCALE.forEach(s=>{
+    const b = document.createElement("button");
+    b.className = "opt" + (responses[current]===s.v ? " sel":"");
+    b.innerHTML = `<span class="k">${s.v}</span><span>${s.label}</span>`;
+    b.onclick = ()=>choose(s.v);
+    scale.appendChild(b);
+  });
+  document.getElementById("backBtn").disabled = current===0;
+}
+
+function choose(v){
+  responses[current] = v;
+  document.querySelectorAll("#scale .opt").forEach((o,i)=>o.classList.toggle("sel", SCALE[i].v===v));
+  setTimeout(nextQ, 180);
+}
+function nextQ(){ if(current < ITEMS.length-1){ current++; renderQ(); } else finish(); }
+function prevQ(){ if(current>0){ current--; renderQ(); } }
+
+document.addEventListener("keydown",e=>{
+  if(document.getElementById("view-quiz").classList.contains("hide")) return;
+  if(["1","2","3","4","5"].includes(e.key)) choose(parseInt(e.key));
+  else if(e.key==="ArrowLeft") prevQ();
+  else if(e.key==="ArrowRight"||e.key==="Enter") nextQ();
+});
+
+/* ============================================================
+   SCORING
+   ============================================================ */
+function computeScores(){
+  const roleSum={}, roleCnt={};
+  Object.keys(ALL_ROLES).forEach(id=>{roleSum[id]=0;roleCnt[id]=0;});
+  ITEMS.forEach((it,idx)=>{ if(responses[idx]!=null){ roleSum[it.roleId]+=responses[idx]; roleCnt[it.roleId]++; } });
+  const roleScore={};
+  Object.keys(ALL_ROLES).forEach(id=>{ roleScore[id] = roleCnt[id] ? roleSum[id]/roleCnt[id] : 0; });
+  return roleScore;
+}
+const pct100 = s => Math.round(Math.max(0,(s-1))/4*100);
+
+function finish(){
+  document.getElementById("barFill").style.width="100%";
+  document.getElementById("qpct").textContent="100%";
+  const scores = computeScores();
+  renderResults(scores);
+  lastRecord = buildRecord(scores);
+  saveResponse(lastRecord);
+  document.getElementById("navResults").disabled=false;
+  showView("results");
+}
+
+/* ============================================================
+   STAMP GENERATOR  ( shared signature element )
+   ============================================================ */
+function makeStamp(catalogNo, hex, size, filled){
+  size = size||46;
+  const c = size/2, rO = c-2.5, rI = c-9;
+  let ticks="";
+  for(let i=0;i<12;i++){
+    const a=i*30*Math.PI/180;
+    const x1=c+ (rO-1)*Math.sin(a), y1=c-(rO-1)*Math.cos(a);
+    const x2=c+ (rO-4)*Math.sin(a), y2=c-(rO-4)*Math.cos(a);
+    ticks += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${hex}" stroke-width="1" opacity="${i%3===0?0.9:0.35}"/>`;
+  }
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true">
+    <circle cx="${c}" cy="${c}" r="${rO}" fill="${filled?hex:'none'}" fill-opacity="${filled?0.14:1}" stroke="${hex}" stroke-width="1.3"/>
+    <circle cx="${c}" cy="${c}" r="${rI}" fill="none" stroke="${hex}" stroke-width="0.8" opacity="0.6"/>
+    ${ticks}
+    <text x="${c}" y="${c+3.5}" text-anchor="middle" font-family="JetBrains Mono" font-size="${size*0.24}" fill="${hex}" font-weight="700">${String(catalogNo).padStart(2,"0")}</text>
+  </svg>`;
+}
+function stampWrap(catalogNo, hex, size, filled){
+  return `<span class="stampwrap" style="color:${hex}">${makeStamp(catalogNo,hex,size,filled)}</span>`;
+}
+
+/* ============================================================
+   RESULTS RENDER
+   ============================================================ */
+function renderResults(scores){
+  const ranked = Object.keys(ALL_ROLES).map(id=>({id,score:scores[id]})).sort((a,b)=>b.score-a.score);
+  const top = ranked[0];
+  const topRole = ALL_ROLES[top.id];
+  const stampEl = document.getElementById("primaryStamp");
+  stampEl.style.color = colorOf(topRole);
+  stampEl.innerHTML = makeStamp(topRole.catalog, colorOf(topRole), 64, true);
+  document.getElementById("primaryName").textContent = topRole.name;
+  const domLabel = topRole.domain==="political"
+     ? "Political life &middot; "+FUNCTIONS[topRole.fn].label
+     : "Everyday life &middot; "+topRole.area.map(a=>AREAS[a].label).join(" / ");
+  document.getElementById("primaryDomain").innerHTML = domLabel;
+  document.getElementById("primaryDesc").textContent = topRole.desc;
+
+  drawWheel(scores);
+  buildWheelLegend();
+  buildPoliticalBars(scores);
+  buildAreaGrid(scores);
+  buildGlossary(ranked.slice(0,5));
+  refreshSavedCount();
+}
+
+function drawWheel(scores, containerId, neutral){
+  containerId = containerId || "wheel";
+  const size=460, cx=size/2, cy=size/2;
+  const rInner=54, rOuter=176, rLabel=200, rFn=214;
+  const n=POLITICAL.length, step=360/n;
+  const NS="http://www.w3.org/2000/svg";
+  const svg=document.createElementNS(NS,"svg");
+  svg.setAttribute("viewBox",`0 0 ${size} ${size}`);
+  svg.setAttribute("class","wheel");
+  svg.setAttribute("role","img");
+  svg.setAttribute("aria-label", neutral ? "Map of the eighteen political-life roles, click any spoke to open it" : "Radial chart of your eighteen political-life role scores");
+
+  const toXY=(ang,r)=>{const a=(ang-90)*Math.PI/180;return [cx+r*Math.cos(a), cy+r*Math.sin(a)];};
+
+  [0.25,0.5,0.75,1].forEach(f=>{
+    const c=document.createElementNS(NS,"circle");
+    c.setAttribute("cx",cx);c.setAttribute("cy",cy);
+    c.setAttribute("r",rInner+(rOuter-rInner)*f);
+    c.setAttribute("fill","none");c.setAttribute("stroke","rgba(35,45,80,.12)");c.setAttribute("stroke-width","1");
+    svg.appendChild(c);
+  });
+
+  const funcOrder=["info","anal","crit","advo","deve","coll"];
+  funcOrder.forEach((fk,i)=>{
+    const a0=i*60, a1=(i+1)*60;
+    const [x0,y0]=toXY(a0+0.6,rFn),[x1,y1]=toXY(a1-0.6,rFn);
+    const path=document.createElementNS(NS,"path");
+    path.setAttribute("d",`M ${x0} ${y0} A ${rFn} ${rFn} 0 0 1 ${x1} ${y1}`);
+    path.setAttribute("fill","none");
+    path.setAttribute("stroke",FUNCTIONS[fk].hex);
+    path.setAttribute("stroke-width","4");
+    path.setAttribute("opacity","0.85");
+    svg.appendChild(path);
+  });
+
+  POLITICAL.forEach((r,i)=>{
+    const ang=i*step + step/2;
+    const s=scores[r.id];
+    const frac=Math.max(0.02,(s-1)/4);
+    const rr=rInner + (rOuter-rInner)*frac;
+    const [bx,by]=toXY(ang,rInner);
+    const [ex,ey]=toXY(ang,rr);
+    const line=document.createElementNS(NS,"line");
+    line.setAttribute("x1",bx);line.setAttribute("y1",by);
+    line.setAttribute("x2",ex);line.setAttribute("y2",ey);
+    line.setAttribute("stroke",FUNCTIONS[r.fn].hex);
+    line.setAttribute("stroke-width","11");
+    line.setAttribute("stroke-linecap","round");
+    line.setAttribute("opacity","0.94");
+    line.style.cursor="pointer";
+    line.addEventListener("click",()=>openInGuide(r.id));
+    const t=document.createElementNS(NS,"title");
+    t.textContent = neutral ? `${r.name} — click to open` : `${r.name}: ${s.toFixed(2)} / 5`;
+    line.appendChild(t);
+    svg.appendChild(line);
+
+    const dot=document.createElementNS(NS,"circle");
+    dot.setAttribute("cx",ex);dot.setAttribute("cy",ey);dot.setAttribute("r","3.2");
+    dot.setAttribute("fill",FUNCTIONS[r.fn].hex);
+    svg.appendChild(dot);
+
+    const [lx,ly]=toXY(ang,rLabel);
+    const lab=document.createElementNS(NS,"text");
+    lab.setAttribute("x",lx);lab.setAttribute("y",ly);
+    lab.setAttribute("text-anchor","middle");
+    lab.setAttribute("dominant-baseline","middle");
+    lab.setAttribute("font-size","10.5");
+    lab.setAttribute("font-family","JetBrains Mono");
+    lab.setAttribute("font-weight","600");
+    lab.setAttribute("fill","#525C74");
+    lab.textContent=i+1;
+    svg.appendChild(lab);
+  });
+
+  const inner=document.createElementNS(NS,"circle");
+  inner.setAttribute("cx",cx);inner.setAttribute("cy",cy);inner.setAttribute("r",rInner-6);
+  inner.setAttribute("fill","rgba(255,255,255,.7)");inner.setAttribute("stroke","rgba(35,45,80,.16)");
+  svg.appendChild(inner);
+  [["POLITICAL",-4],["LIFE",10]].forEach(([t,dy])=>{
+    const el=document.createElementNS(NS,"text");
+    el.setAttribute("x",cx);el.setAttribute("y",cy+dy);
+    el.setAttribute("text-anchor","middle");el.setAttribute("font-size","9.5");
+    el.setAttribute("font-family","JetBrains Mono");el.setAttribute("letter-spacing","1.5");
+    el.setAttribute("fill","#848DA3");
+    el.textContent=t;
+    svg.appendChild(el);
+  });
+
+  const holder=document.getElementById(containerId);
+  holder.innerHTML="";
+  holder.appendChild(svg);
+}
+
+function buildWheelLegend(){
+  const funcOrder=["info","anal","crit","advo","deve","coll"];
+  let idx=1, html="";
+  funcOrder.forEach(fk=>{
+    html+=`<div><div class="fn"><span class="sw" style="background:${FUNCTIONS[fk].hex}"></span>${FUNCTIONS[fk].label}</div>`;
+    POLITICAL.filter(r=>r.fn===fk).forEach(r=>{
+      html+=`<button class="rn" onclick="openInGuide('${r.id}')">${idx}. ${r.name}</button>`;
+      idx++;
+    });
+    html+=`</div>`;
+  });
+  document.getElementById("wheelLegend").innerHTML=html;
+}
+
+function buildPoliticalBars(scores){
+  const rows=POLITICAL.map(r=>({r,s:scores[r.id]})).sort((a,b)=>b.s-a.s);
+  let html="";
+  rows.forEach(({r,s})=>{
+    const p=pct100(s);
+    html+=`<button class="rolebar-row" onclick="openInGuide('${r.id}')">
+      <span class="rn2">${r.name}</span>
+      <span class="track"><i style="width:${p}%;background:${FUNCTIONS[r.fn].hex}"></i></span>
+      <span class="rv">${s.toFixed(1)}</span>
+    </button>`;
+  });
+  document.getElementById("politicalBars").innerHTML=html;
+}
+
+function buildAreaGrid(scores){
+  const areaKeys=["cons","iden","emot"];
+  let html="";
+  areaKeys.forEach(ak=>{
+    const roles=EVERYDAY.filter(r=>r.area.includes(ak)).map(r=>({r,s:scores[r.id]})).sort((a,b)=>b.s-a.s);
+    html+=`<div class="area-col"><h4><span class="sw" style="background:${AREAS[ak].hex}"></span>${AREAS[ak].label}</h4>`;
+    roles.forEach(({r,s})=>{
+      const p=pct100(s);
+      html+=`<button class="rolebar-row" style="grid-template-columns:1fr;gap:4px;margin:0 0 12px;" onclick="openInGuide('${r.id}')">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;width:100%;">
+          <span class="rn2">${r.name}</span><span class="rv">${s.toFixed(1)}</span>
+        </div>
+        <span class="track"><i style="width:${p}%;background:${AREAS[ak].hex}"></i></span>
+      </button>`;
+    });
+    html+=`</div>`;
+  });
+  document.getElementById("areaGrid").innerHTML=html;
+}
+
+function buildGlossary(top5){
+  let html="";
+  top5.forEach(({id,score})=>{
+    const r=ALL_ROLES[id];
+    const color = colorOf(r);
+    const tag = r.domain==="political"?FUNCTIONS[r.fn].label:"Everyday life";
+    html+=`<details class="gloss">
+      <summary><span>${r.name} &mdash; <span style="color:var(--muted);font-family:var(--mono);font-size:13px;">${score.toFixed(1)}/5</span></span>
+      <span class="tag" style="background:${color}">${tag}</span></summary>
+      <p>${r.desc}</p>
+      <button class="viewinguide" onclick="openInGuide('${id}')">View full entry in the Registry &rarr;</button>
+    </details>`;
+  });
+  document.getElementById("glossary").innerHTML=html;
+}
+
+/* ============================================================
+   FIELD GUIDE / ARCHIVE
+   ============================================================ */
+let guideBuilt=false;
+let guideVisualsBuilt=false;
+let guideDomain="all";       // all | political | everyday
+let guideTags=new Set();     // active function/area keys
+let exploredRoles=new Set();
+
+function buildGuideVisuals(){
+  if(guideVisualsBuilt) return;
+  guideVisualsBuilt=true;
+  const neutralScores={};
+  POLITICAL.forEach(r=>neutralScores[r.id]=3.5);
+  drawWheel(neutralScores, "wheelGuide", true);
+  drawVenn("vennGuide");
+}
+
+function drawVenn(containerId){
+  const NS="http://www.w3.org/2000/svg";
+  const svg=document.createElementNS(NS,"svg");
+  svg.setAttribute("viewBox","0 0 460 440");
+  svg.setAttribute("role","img");
+  svg.setAttribute("aria-label","Venn diagram of the seven everyday-life roles across consumption, identity, and emotion");
+
+  const E={x:170,y:160}, C={x:290,y:160}, I={x:230,y:260}, r=120;
+  [
+    {c:E, hex:AREAS.emot.hex},
+    {c:C, hex:AREAS.cons.hex},
+    {c:I, hex:AREAS.iden.hex}
+  ].forEach(({c,hex})=>{
+    const circ=document.createElementNS(NS,"circle");
+    circ.setAttribute("cx",c.x);circ.setAttribute("cy",c.y);circ.setAttribute("r",r);
+    circ.setAttribute("fill",hex);circ.setAttribute("fill-opacity","0.28");
+    circ.setAttribute("stroke",hex);circ.setAttribute("stroke-width","1.4");
+    svg.appendChild(circ);
+  });
+
+  // set titles
+  [
+    [120,45,AREAS.emot.label,AREAS.emot.hex],
+    [340,45,AREAS.cons.label,AREAS.cons.hex],
+    [230,412,AREAS.iden.label,AREAS.iden.hex]
+  ].forEach(([x,y,label,hex])=>{
+    const t=document.createElementNS(NS,"text");
+    t.setAttribute("x",x);t.setAttribute("y",y);t.setAttribute("text-anchor","middle");
+    t.setAttribute("font-family","JetBrains Mono");t.setAttribute("font-size","11");
+    t.setAttribute("font-weight","700");t.setAttribute("letter-spacing","1.5");
+    t.setAttribute("fill",hex);
+    t.textContent=label.toUpperCase();
+    svg.appendChild(t);
+  });
+
+  const nodes=[
+    {id:"moodmanager", x:120, y:100},
+    {id:"marketer",     x:340, y:100},
+    {id:"friend",       x:230, y:350},
+    {id:"inspirator",   x:230, y:120},
+    {id:"connector",    x:165, y:230},
+    {id:"service",      x:295, y:230},
+    {id:"guide",        x:230, y:190}
+  ];
+  nodes.forEach(n=>{
+    const role=ALL_ROLES[n.id];
+    const hex=colorOf(role);
+    const words = role.name.length>9 ? role.name.split(" ") : [role.name];
+    const lineH=13;
+    const maxLen=Math.max(...words.map(w=>w.length));
+    const w=Math.max(58, maxLen*6.6+18);
+    const h=words.length*lineH+14;
+
+    const g=document.createElementNS(NS,"g");
+    g.setAttribute("class","venn-node");
+    g.style.cursor="pointer";
+    g.addEventListener("click",()=>openInGuide(n.id));
+
+    const rect=document.createElementNS(NS,"rect");
+    rect.setAttribute("x",n.x-w/2);rect.setAttribute("y",n.y-h/2);
+    rect.setAttribute("width",w);rect.setAttribute("height",h);
+    rect.setAttribute("rx",h/2);
+    rect.setAttribute("fill","rgba(255,255,255,.86)");
+    rect.setAttribute("stroke",hex);rect.setAttribute("stroke-width","1.3");
+    g.appendChild(rect);
+
+    words.forEach((word,i)=>{
+      const ty = n.y - ((words.length-1)*lineH)/2 + i*lineH + 4;
+      const txt=document.createElementNS(NS,"text");
+      txt.setAttribute("x",n.x);txt.setAttribute("y",ty);
+      txt.setAttribute("text-anchor","middle");
+      txt.setAttribute("class","vname");
+      txt.setAttribute("font-family","Raleway");txt.setAttribute("font-weight","600");
+      txt.setAttribute("font-size","11.5");txt.setAttribute("fill","#1D2436");
+      txt.textContent=word;
+      g.appendChild(txt);
+    });
+
+    const title=document.createElementNS(NS,"title");
+    title.textContent=`${role.name} — click to open`;
+    g.appendChild(title);
+
+    svg.appendChild(g);
+  });
+
+  const holder=document.getElementById(containerId);
+  holder.innerHTML="";
+  holder.appendChild(svg);
+}
+
+function buildGuide(){
+  guideBuilt=true;
+
+  const segrow=document.getElementById("domainSeg");
+  segrow.innerHTML="";
+  [["all","All 25"],["political","Political life (18)"],["everyday","Everyday life (7)"]].forEach(([k,l])=>{
+    const b=document.createElement("button");
+    b.className="seg"+(guideDomain===k?" active":"");
+    b.textContent=l;
+    b.onclick=()=>{guideDomain=k; buildGuide(); };
+    segrow.appendChild(b);
+  });
+
+  const pillrow=document.getElementById("tagPills");
+  pillrow.innerHTML="";
+  const tagSet = guideDomain==="everyday" ? AREAS : (guideDomain==="political" ? FUNCTIONS : {...FUNCTIONS,...AREAS});
+  Object.keys(tagSet).forEach(k=>{
+    const active=guideTags.has(k);
+    const b=document.createElement("button");
+    b.className="pill"+(active?" active":"");
+    b.style.color = active ? tagSet[k].hex : "";
+    b.innerHTML=`<span class="sw" style="background:${tagSet[k].hex}"></span>${tagSet[k].label}`;
+    b.onclick=()=>{ active?guideTags.delete(k):guideTags.add(k); buildGuide(); };
+    pillrow.appendChild(b);
+  });
+
+  renderGuide();
+}
+
+function renderGuide(){
+  const q=(document.getElementById("guideSearch").value||"").toLowerCase().trim();
+  let roles = Object.values(ALL_ROLES);
+
+  if(guideDomain!=="all") roles = roles.filter(r=>r.domain===guideDomain);
+  if(guideTags.size){
+    roles = roles.filter(r=>{
+      const keys = r.domain==="political" ? [r.fn] : r.area;
+      return keys.some(k=>guideTags.has(k));
+    });
+  }
+  if(q){
+    roles = roles.filter(r=>
+      r.name.toLowerCase().includes(q) ||
+      r.tagline.toLowerCase().includes(q) ||
+      r.desc.toLowerCase().includes(q) ||
+      tagLabels(r).some(t=>t.toLowerCase().includes(q))
+    );
+  }
+  roles.sort((a,b)=>a.catalog-b.catalog);
+
+  const grid=document.getElementById("guideGrid");
+  const empty=document.getElementById("guideEmpty");
+  if(!roles.length){ grid.innerHTML=""; empty.classList.remove("hide"); return; }
+  empty.classList.add("hide");
+
+  grid.innerHTML = roles.map(r=>{
+    const color=colorOf(r);
+    const tagsHtml = tagLabels(r).map(t=>`<span style="background:${color}">${t}</span>`).join("");
+    return `<article class="card" id="card-${r.id}" style="--accent:${color}">
+      <button class="card-head" onclick="toggleCard('${r.id}')" aria-expanded="false">
+        ${stampWrap(r.catalog, color, 44, false)}
+        <span class="card-meta">
+          <span class="card-cat">No. ${String(r.catalog).padStart(2,"0")} &middot; ${r.domain==="political"?"Political life":"Everyday life"}</span>
+          <span class="card-name">${r.name}</span>
+          <span class="card-tag">${r.tagline}</span>
+          <span class="card-tags">${tagsHtml}</span>
+        </span>
+        <svg class="chev" width="16" height="16" viewBox="0 0 16 16"><path d="M3 5.5 L8 10.5 L13 5.5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="card-body"><div class="card-body-inner">
+        <p>${r.desc}</p>
+        <div class="card-related">Assessment item: &ldquo;${r.q[0]}&rdquo;</div>
+      </div></div>
+    </article>`;
+  }).join("");
+}
+
+function toggleCard(id){
+  const card=document.getElementById("card-"+id);
+  const willOpen=!card.classList.contains("open");
+  document.querySelectorAll(".card.open").forEach(c=>{ if(c!==card){ c.classList.remove("open"); c.querySelector(".card-head").setAttribute("aria-expanded","false"); }});
+  card.classList.toggle("open", willOpen);
+  card.querySelector(".card-head").setAttribute("aria-expanded", willOpen?"true":"false");
+  if(willOpen){ exploredRoles.add(id); updateExplored(); }
+}
+
+function updateExplored(){
+  document.getElementById("exploredN").textContent = exploredRoles.size;
+  document.getElementById("exploredBar").style.width = (exploredRoles.size/25*100)+"%";
+}
+
+function surpriseMe(){
+  const ids=Object.keys(ALL_ROLES);
+  const pick=ids[Math.floor(Math.random()*ids.length)];
+  openInGuide(pick);
+}
+
+function openInGuide(id){
+  guideDomain="all"; guideTags=new Set();
+  document.getElementById("guideSearch").value="";
+  showView("guide");
+  buildGuide();
+  requestAnimationFrame(()=>{
+    const card=document.getElementById("card-"+id);
+    if(!card) return;
+    card.classList.add("open");
+    card.querySelector(".card-head").setAttribute("aria-expanded","true");
+    exploredRoles.add(id); updateExplored();
+    card.scrollIntoView({behavior:"smooth", block:"center"});
+  });
+}
+
+/* ============================================================
+   SHARE CARD  ( 1:1 canvas render, PNG / JPG )
+   ============================================================ */
+function getRankedFromRecord(){
+  if(!lastRecord) return [];
+  return Object.keys(lastRecord.role_scores)
+    .map(id=>({id,score:lastRecord.role_scores[id]}))
+    .sort((a,b)=>b.score-a.score);
+}
+
+function roundRectPath(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+
+function wrapLines(ctx,text,maxWidth){
+  const words=text.split(" ");
+  const lines=[]; let line="";
+  words.forEach(w=>{
+    const test=line?line+" "+w:w;
+    if(ctx.measureText(test).width>maxWidth && line){ lines.push(line); line=w; }
+    else line=test;
+  });
+  if(line) lines.push(line);
+  return lines;
+}
+
+function fitFontSize(ctx,text,family,weight,maxWidth,startSize,minSize){
+  let size=startSize;
+  while(size>minSize){
+    ctx.font=`${weight} ${size}px "${family}"`;
+    if(ctx.measureText(text).width<=maxWidth) break;
+    size-=2;
+  }
+  return size;
+}
+
+function drawStampCanvas(ctx,cx,cy,r,hex,catalogNo,alpha){
+  ctx.save();
+  ctx.globalAlpha=alpha;
+  ctx.strokeStyle=hex;
+  ctx.lineWidth=Math.max(1,r*0.028);
+  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();
+  ctx.globalAlpha=alpha*0.7;
+  ctx.lineWidth=Math.max(1,r*0.018);
+  ctx.beginPath();ctx.arc(cx,cy,r*0.66,0,Math.PI*2);ctx.stroke();
+  ctx.globalAlpha=alpha;
+  for(let i=0;i<12;i++){
+    const a=i*30*Math.PI/180;
+    const x1=cx+Math.sin(a)*(r-r*0.03), y1=cy-Math.cos(a)*(r-r*0.03);
+    const x2=cx+Math.sin(a)*(r-r*0.16), y2=cy-Math.cos(a)*(r-r*0.16);
+    ctx.globalAlpha = alpha * (i%3===0?1:0.4);
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  }
+  if(catalogNo!=null){
+    ctx.globalAlpha=alpha;
+    ctx.fillStyle=hex;
+    ctx.font=`700 ${Math.round(r*0.42)}px "JetBrains Mono"`;
+    ctx.textAlign="center";ctx.textBaseline="middle";
+    ctx.fillText(String(catalogNo).padStart(2,"0"),cx,cy+r*0.03);
+  }
+  ctx.restore();
+}
+
+function drawBrandMarkCanvas(ctx,cx,cy,r){
+  ctx.save();
+  ctx.strokeStyle="#8C7AE6";ctx.lineWidth=r*0.09;
+  ctx.globalAlpha=0.9;
+  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();
+  ctx.strokeStyle="#38BDF8";ctx.lineWidth=r*0.07;ctx.globalAlpha=0.55;
+  ctx.beginPath();ctx.arc(cx,cy,r*0.6,0,Math.PI*2);ctx.stroke();
+  ctx.strokeStyle="#38BDF8";ctx.lineWidth=r*0.09;ctx.globalAlpha=0.95;
+  const tick=r*0.28;
+  [[0,-r-tick*0.1,0,-r+tick*0.55],[0,r-tick*0.55,0,r+tick*0.1],[-r-tick*0.1,0,-r+tick*0.55,0],[r-tick*0.55,0,r+tick*0.1,0]]
+    .forEach(([x1,y1,x2,y2])=>{ ctx.beginPath();ctx.moveTo(cx+x1,cy+y1);ctx.lineTo(cx+x2,cy+y2);ctx.stroke(); });
+  ctx.fillStyle="#6366F1";ctx.globalAlpha=1;
+  ctx.beginPath();ctx.arc(cx,cy,r*0.17,0,Math.PI*2);ctx.fill();
+  ctx.restore();
+}
+
+async function buildShareCanvas(){
+  const ranked=getRankedFromRecord();
+  if(!ranked.length) return null;
+  const topRole=ALL_ROLES[ranked[0].id];
+  const top5=ranked.slice(0,5).map(x=>ALL_ROLES[x.id]);
+  const primaryHex=colorOf(topRole);
+
+  try{
+    await Promise.all([
+      document.fonts.load('700 84px "Bodoni Moda"'),
+      document.fonts.load('italic 400 32px "Bodoni Moda"'),
+      document.fonts.load('700 30px "Raleway"'),
+      document.fonts.load('600 30px "Raleway"'),
+      document.fonts.load('700 20px "JetBrains Mono"'),
+      document.fonts.load('600 18px "JetBrains Mono"')
+    ]);
+    await document.fonts.ready;
+  }catch(e){ /* fonts API unavailable; proceed with fallback rendering */ }
+
+  const SIZE=1080;
+  const canvas=document.createElement("canvas");
+  canvas.width=SIZE; canvas.height=SIZE;
+  const ctx=canvas.getContext("2d");
+
+  ctx.fillStyle="#F2F5FB";
+  ctx.fillRect(0,0,SIZE,SIZE);
+
+  function orb(x,y,r,hex,alpha){
+    ctx.save();
+    try{ ctx.filter="blur(90px)"; }catch(e){}
+    ctx.globalAlpha=alpha;
+    ctx.fillStyle=hex;
+    ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+  }
+  orb(140,140,320,"#8C7AE6",0.42);
+  orb(960,160,290,"#38BDF8",0.38);
+  orb(90,970,300,"#2FC08E",0.26);
+  orb(990,940,270,"#EC5FA4",0.22);
+
+  const pad=56, cardX=pad, cardY=pad, cardW=SIZE-2*pad, cardH=SIZE-2*pad, cardR=44;
+
+  ctx.save();
+  roundRectPath(ctx,cardX,cardY,cardW,cardH,cardR);
+  ctx.clip();
+  ctx.fillStyle="rgba(255,255,255,0.64)";
+  ctx.fillRect(cardX,cardY,cardW,cardH);
+
+  const topGrad=ctx.createLinearGradient(cardX,0,cardX+cardW,0);
+  topGrad.addColorStop(0,"#8C7AE6"); topGrad.addColorStop(1,"#38BDF8");
+  ctx.fillStyle=topGrad;
+  ctx.fillRect(cardX,cardY,cardW,10);
+
+  drawStampCanvas(ctx, cardX+cardW*0.5, cardY+cardH*0.56, 300, primaryHex, null, 0.05);
+  ctx.restore();
+
+  roundRectPath(ctx,cardX,cardY,cardW,cardH,cardR);
+  ctx.strokeStyle="rgba(255,255,255,0.9)";
+  ctx.lineWidth=2;
+  ctx.stroke();
+
+  const cx=SIZE/2;
+  let y=cardY+80;
+
+  drawBrandMarkCanvas(ctx, cardX+70, y, 22);
+  ctx.textAlign="left";ctx.textBaseline="middle";
+  ctx.fillStyle="#1D2436";
+  ctx.font='700 22px "Bodoni Moda"';
+  ctx.fillText("ROLESCAN", cardX+104, y-4);
+  ctx.font='600 12px "JetBrains Mono"';
+  ctx.fillStyle="#848DA3";
+  ctx.fillText("JOURNALISM ROLE DIAGNOSTIC", cardX+104, y+16);
+
+  y+=88;
+  ctx.textAlign="center";
+  ctx.font='700 13px "JetBrains Mono"';
+  ctx.fillStyle="#848DA3";
+  ctx.fillText("MY PRIMARY ROLE", cx, y);
+
+  y+=70;
+  const maxNameWidth=cardW-160;
+  const nameSize=fitFontSize(ctx, topRole.name, "Bodoni Moda", 700, maxNameWidth, 88, 44);
+  ctx.font=`700 ${nameSize}px "Bodoni Moda"`;
+  ctx.fillStyle="#1D2436";
+  ctx.fillText(topRole.name, cx, y);
+
+  y+=46;
+  const domLabel = topRole.domain==="political"
+    ? `POLITICAL LIFE · ${FUNCTIONS[topRole.fn].label.toUpperCase()}`
+    : `EVERYDAY LIFE · ${topRole.area.map(a=>AREAS[a].label).join(" / ").toUpperCase()}`;
+  ctx.font='700 15px "JetBrains Mono"';
+  ctx.fillStyle=primaryHex;
+  ctx.fillText(domLabel, cx, y);
+
+  y+=44;
+  ctx.font='italic 400 23px "Bodoni Moda"';
+  ctx.fillStyle="#525C74";
+  const broadText = BROAD_DESC[topRole.id] || topRole.desc;
+  const taglineLines=wrapLines(ctx, broadText, cardW-220).slice(0,3);
+  taglineLines.forEach(line=>{ ctx.fillText(line, cx, y); y+=29; });
+
+  y+=26;
+  ctx.strokeStyle="rgba(35,45,80,0.14)";
+  ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(cardX+90,y);ctx.lineTo(cardX+cardW-90,y);ctx.stroke();
+
+  y+=42;
+  ctx.textAlign="left";
+  ctx.font='700 13px "JetBrains Mono"';
+  ctx.fillStyle="#848DA3";
+  ctx.fillText("TOP 5 ROLES", cardX+90, y);
+
+  y+=16;
+  top5.forEach((role,i)=>{
+    y+=50;
+    const hex=colorOf(role);
+    ctx.beginPath();ctx.arc(cardX+104, y, 15.5, 0, Math.PI*2);
+    ctx.fillStyle=hex; ctx.globalAlpha=0.16; ctx.fill();
+    ctx.globalAlpha=1; ctx.strokeStyle=hex; ctx.lineWidth=1.4; ctx.stroke();
+    ctx.fillStyle=hex;
+    ctx.font='700 14px "JetBrains Mono"';
+    ctx.textAlign="center";ctx.textBaseline="middle";
+    ctx.fillText(String(i+1), cardX+104, y+1);
+
+    ctx.textAlign="left";
+    ctx.fillStyle="#1D2436";
+    ctx.font='600 27px "Raleway"';
+    ctx.fillText(role.name, cardX+134, y+1);
+
+    const tag = role.domain==="political" ? FUNCTIONS[role.fn].label : tagLabels(role).join(" / ");
+    ctx.font='600 12px "JetBrains Mono"';
+    ctx.fillStyle="#848DA3";
+    ctx.textAlign="right";
+    ctx.fillText(tag.toUpperCase(), cardX+cardW-90, y+1);
+  });
+
+  ctx.textAlign="center";
+  ctx.font='700 13px "JetBrains Mono"';
+  ctx.fillStyle="#9AA6BC";
+  ctx.fillText("ROLESCAN", cx, cardY+cardH-46);
+
+  return canvas;
+}
+
+async function downloadShareImage(format){
+  if(!lastRecord){ alert("Complete the scan first to generate a share card."); return; }
+  const canvas=await buildShareCanvas();
+  if(!canvas) return;
+  const mime = format==="jpg" ? "image/jpeg" : "image/png";
+  const ext = format==="jpg" ? "jpg" : "png";
+  const quality = format==="jpg" ? 0.92 : undefined;
+  canvas.toBlob(blob=>{
+    if(!blob){ alert("Could not generate the image. Try again."); return; }
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a");
+    a.href=url; a.download=`rolescan_${lastRecord.timestamp.slice(0,10)}.${ext}`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, mime, quality);
+}
+
+/* ============================================================
+   RECORD + EXPORT + STORAGE
+   ============================================================ */
+let lastRecord=null;
+const STORE_KEY="jrt:responses";
+
+function getField(id){return (document.getElementById(id).value||"").trim();}
+
+function buildRecord(scores){
+  const items={};
+  ITEMS.forEach((it,idx)=>{ items[`${it.roleId}_${it.itemNo+1}`]=responses[idx]??""; });
+  const ranked=Object.keys(ALL_ROLES).map(id=>({id,score:scores[id]})).sort((a,b)=>b.score-a.score);
+  const roleScores={};
+  Object.keys(ALL_ROLES).forEach(id=>roleScores[id]=+scores[id].toFixed(3));
+  return {
+    uid: Date.now().toString(36)+Math.random().toString(36).slice(2,7),
+    timestamp: new Date().toISOString(),
+    respondent_id:getField("f-id"),
+    country:getField("f-country"),
+    years_experience:getField("f-exp"),
+    beat:getField("f-beat"),
+    outlet_type:getField("f-outlet"),
+    primary_role: ALL_ROLES[ranked[0].id].name,
+    primary_domain: ALL_ROLES[ranked[0].id].domain,
+    role_scores: roleScores,
+    item_responses: items
+  };
+}
+
+function download(filename, text, type){
+  const blob=new Blob([text],{type});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;a.download=filename;document.body.appendChild(a);a.click();
+  document.body.removeChild(a);URL.revokeObjectURL(url);
+}
+
+function recordsToCSV(records){
+  const roleIds=Object.keys(ALL_ROLES);
+  const itemKeys=[];
+  POLITICAL.concat(EVERYDAY).forEach(r=>{itemKeys.push(`${r.id}_1`,`${r.id}_2`);});
+  const head=["uid","timestamp","respondent_id","country","years_experience","beat","outlet_type","primary_role","primary_domain"]
+    .concat(roleIds.map(id=>"score_"+id))
+    .concat(itemKeys.map(k=>"item_"+k));
+  const esc=v=>{v=(v==null?"":String(v));return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
+  const lines=[head.join(",")];
+  records.forEach(r=>{
+    const row=[r.uid,r.timestamp,r.respondent_id,r.country,r.years_experience,r.beat,r.outlet_type,r.primary_role,r.primary_domain]
+      .concat(roleIds.map(id=>r.role_scores[id]))
+      .concat(itemKeys.map(k=>r.item_responses[k]));
+    lines.push(row.map(esc).join(","));
+  });
+  return lines.join("\n");
+}
+
+function exportOne(kind){
+  if(!lastRecord) return;
+  const stamp=lastRecord.timestamp.slice(0,10);
+  if(kind==="csv") download(`journalism-role_${stamp}.csv`, recordsToCSV([lastRecord]),"text/csv");
+  else download(`journalism-role_${stamp}.json`, JSON.stringify(lastRecord,null,2),"application/json");
+}
+
+let sessionStore=[];
+async function loadSaved(){
+  try{ const r=await window.storage.get(STORE_KEY); return r?JSON.parse(r.value):[]; }
+  catch(e){ return sessionStore.slice(); }
+}
+async function saveResponse(rec){
+  sessionStore.push(rec);
+  try{
+    let arr=[];
+    try{ const r=await window.storage.get(STORE_KEY); arr=r?JSON.parse(r.value):[]; }catch(e){arr=[];}
+    arr.push(rec);
+    await window.storage.set(STORE_KEY, JSON.stringify(arr));
+  }catch(e){ /* storage unavailable; sessionStore holds it */ }
+  refreshSavedCount();
+}
+async function exportAll(){
+  const arr=await loadSaved();
+  const merged=[...arr];
+  sessionStore.forEach(s=>{ if(!merged.some(m=>m.uid===s.uid)) merged.push(s); });
+  if(!merged.length){ alert("No saved responses on this device yet. Complete the questionnaire first."); return; }
+  download(`journalism-roles_all_${new Date().toISOString().slice(0,10)}.csv`, recordsToCSV(merged),"text/csv");
+}
+async function clearSaved(){
+  if(!confirm("Delete all responses saved on this device? This cannot be undone.")) return;
+  try{ await window.storage.delete(STORE_KEY); }catch(e){}
+  sessionStore=[];
+  refreshSavedCount();
+}
+async function refreshSavedCount(){
+  const arr=await loadSaved();
+  const merged=new Set(arr.map(r=>r.uid));
+  sessionStore.forEach(s=>merged.add(s.uid));
+  const n=merged.size;
+  const txt = n ? `${n} response${n===1?"":"s"} saved on this device.` : "No responses saved on this device yet.";
+  const a=document.getElementById("savedCount"); if(a)a.textContent=txt;
+  const b=document.getElementById("savedCount2"); if(b)b.textContent=txt;
+}
+
+function restart(){
+  document.getElementById("f-id").value="";
+  showView("intro");
+  refreshSavedCount();
+}
+
+refreshSavedCount();
+</script>
+</body>
+</html>

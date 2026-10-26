@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reportage | Usama Rafid</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&amp;family=Source+Sans+3:wght@400;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-secondary-fixed-variant": "#394857",
+                "on-secondary-container": "#556474",
+                "on-primary-container": "#777eea",
+                "inverse-surface": "#313030",
+                "inverse-primary": "#bfc2ff",
+                "on-surface": "#1c1b1b",
+                "tertiary": "#60603e",
+                "surface-variant": "#e5e2e1",
+                "secondary-fixed": "#d4e4f6",
+                "secondary": "#50606f",
+                "surface-container-low": "#f6f3f2",
+                "on-background": "#1c1b1b",
+                "tertiary-fixed": "#e6e5b9",
+                "on-secondary": "#ffffff",
+                "error-container": "#ffdad6",
+                "error": "#ba1a1a",
+                "outline": "#767684",
+                "on-primary": "#ffffff",
+                "surface-container": "#f0eded",
+                "outline-variant": "#c6c5d5",
+                "primary": "#00003c",
+                "on-tertiary": "#ffffff",
+                "background": "#fcf9f8",
+                "on-surface-variant": "#464653",
+                "secondary-container": "#d1e1f4",
+                "on-tertiary-container": "#414122",
+                "primary-fixed-dim": "#bfc2ff",
+                "on-primary-fixed": "#00006e",
+                "tertiary-container": "#aead85",
+                "on-primary-fixed-variant": "#3239a3",
+                "on-error": "#ffffff",
+                "tertiary-fixed-dim": "#cac99f",
+                "inverse-on-surface": "#f3f0ef",
+                "primary-container": "#000080",
+                "on-error-container": "#93000a",
+                "on-tertiary-fixed-variant": "#484828",
+                "surface-bright": "#fcf9f8",
+                "surface-container-lowest": "#ffffff",
+                "surface": "#fcf9f8",
+                "secondary-fixed-dim": "#b8c8da",
+                "surface-container-high": "#eae7e7",
+                "on-secondary-fixed": "#0d1d2a",
+                "surface-container-highest": "#e5e2e1",
+                "surface-tint": "#4b53bc",
+                "surface-dim": "#dcd9d9",
+                "primary-fixed": "#e0e0ff",
+                "on-tertiary-fixed": "#1d1d03"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "gutter": "32px",
+                "stack-sm": "8px",
+                "stack-md": "24px",
+                "margin-desktop": "80px",
+                "margin-mobile": "24px",
+                "max-width": "1280px",
+                "stack-lg": "48px",
+                "stack-xl": "80px"
+            },
+            "fontFamily": {
+                "headline-lg-mobile": ["Merriweather"],
+                "body-md": ["Source Sans 3"],
+                "label-md": ["Source Sans 3"],
+                "display-lg": ["Merriweather"],
+                "label-lg": ["Source Sans 3"],
+                "headline-sm": ["Merriweather"],
+                "headline-md": ["Merriweather"],
+                "body-lg": ["Source Sans 3"],
+                "headline-lg": ["Merriweather"]
+            },
+            "fontSize": {
+                "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "label-md": ["12px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "label-lg": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "400"}],
+                "body-lg": ["20px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 32px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md transition-colors duration-300">
+<!-- TopNavBar -->
+<nav class="bg-background dark:bg-inverse-surface w-full top-0 border-b border-outline-variant dark:border-on-surface-variant z-50 sticky">
+<div class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop flex justify-between items-center h-20">
+<a class="font-headline-md text-headline-md text-primary dark:text-inverse-primary tracking-tight" href="#">Usama Rafid</a>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-label-lg text-label-lg text-on-secondary-fixed-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Home</a>
+<a class="font-label-lg text-label-lg text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary pb-1" href="#">Reportage</a>
+<a class="font-label-lg text-label-lg text-on-secondary-fixed-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Academic</a>
+<a class="font-label-lg text-label-lg text-on-secondary-fixed-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">About</a>
+</div>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<main class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop py-stack-xl">
+<!-- Header Section -->
+<header class="mb-stack-xl border-b border-outline-variant pb-stack-md">
+<h1 class="font-headline-lg text-headline-lg md:text-display-lg text-primary mb-stack-sm">Reportage</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                Long-form journalism exploring the intersections of culture, economy, and social transformation in South Asia.
+            </p>
+</header>
+<!-- Publication Filter / Logos -->
+<section class="flex flex-wrap items-center gap-stack-lg mb-stack-xl opacity-80">
+<div class="flex items-center gap-3">
+<span class="font-label-md text-label-md uppercase tracking-widest text-outline">Featured Publications:</span>
+</div>
+<div class="flex items-center gap-stack-lg grayscale hover:grayscale-0 transition-all">
+<!-- TBS Logo Placeholder -->
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">TBS</span>
+<span class="font-label-md text-label-md text-on-surface-variant">The Business Standard</span>
+</div>
+<!-- Roar Bangladesh Logo Placeholder -->
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm italic text-secondary">Roar</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Bangladesh</span>
+</div>
+</div>
+</section>
+<!-- Editorial Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-16">
+<!-- Featured Article (Span 8) -->
+<article class="md:col-span-8 group cursor-pointer">
+<div class="mb-stack-md overflow-hidden bg-surface-container">
+<img alt="Editorial feature" class="w-full h-[450px] object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A cinematic, low-angle photograph of a bustling Dhaka street market at dusk. The scene is bathed in warm, golden artificial light from hanging bulbs, contrasting with the deep navy blue of the twilight sky. People move in blurred motion, conveying the energy of urban commerce. The composition is structured and academic, reflecting a high-end editorial aesthetic with rich textures and deep shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATA16Qp4iFKZpU8Acy-w58hN19pyLR6OBMlDHyqpkC2U9vt3uTYGv2U-ITkg5dLvAJgYwZ_9RqRJaD8FRjyZryO1OmmVYBHyoDHR-iHyZmZsveKJk3bfIt6T3HsRzqcgpNSWbJENtF6XprMQqvYE2oj33DtZrUmi9onCPU_94W7lT0-oiAGR50uaG6Hb_DtGVtye46_MVi7hPds5DQ2SA1yYjfwcfjPU9OBjOUpFHIonD_BqazlY_Zey3K8ZLFmUFDqOBs0CzRcnKK"/>
+</div>
+<div class="space-y-stack-sm">
+<div class="flex items-center gap-4">
+<span class="font-label-lg text-label-lg text-primary uppercase">The Business Standard</span>
+<span class="text-outline">•</span>
+<time class="font-label-lg text-label-lg text-on-surface-variant">October 14, 2023</time>
+</div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface group-hover:text-primary transition-colors">
+                        The Silent Architecture of Digital Labor: Outsourcing in the Delta
+                    </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant line-clamp-3">
+                        As high-speed internet reaches the furthest corners of Bangladesh, a new class of digital artisans is emerging. This reportage explores how the global platform economy is reshaping rural socio-economic structures and creating invisible links between village tea-stalls and Silicon Valley boardrooms.
+                    </p>
+<a class="inline-block pt-stack-sm border-b border-primary font-label-lg text-label-lg text-primary uppercase tracking-wider hover:text-secondary hover:border-secondary transition-colors" href="#">Read Full Article</a>
+</div>
+</article>
+<!-- Sidebar / Recent (Span 4) -->
+<aside class="md:col-span-4 space-y-stack-lg">
+<h3 class="font-label-lg text-label-lg uppercase tracking-widest border-b border-outline pb-2 mb-stack-md">Recent Briefs</h3>
+<div class="space-y-stack-md group cursor-pointer">
+<span class="font-label-md text-label-md text-secondary uppercase">Roar Bangladesh</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">The Lost Libraries of Purana Dhaka</h4>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Tracing the lineage of forgotten private collections in the winding alleys of the old city.</p>
+<time class="block font-label-md text-label-md text-outline">Sept 28, 2023</time>
+<hr class="border-outline-variant"/>
+</div>
+<div class="space-y-stack-md group cursor-pointer">
+<span class="font-label-md text-label-md text-secondary uppercase">The Business Standard</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Micro-Industrial Hubs: A New Vision</h4>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Why decentralized manufacturing clusters are the next frontier for garment exports.</p>
+<time class="block font-label-md text-label-md text-outline">August 12, 2023</time>
+<hr class="border-outline-variant"/>
+</div>
+<div class="bg-surface-container-low p-stack-md border-l-4 border-primary italic">
+<p class="font-body-md text-body-md text-on-surface">"Rafid's reportage captures the granular reality of developmental shifts with the precision of a scholar and the heart of a storyteller."</p>
+<cite class="block mt-stack-sm font-label-lg text-label-lg text-primary not-italic">— Editorial Review, 2023</cite>
+</div>
+</aside>
+<!-- Regular Grid Items (Span 4 Each) -->
+<article class="md:col-span-4 group cursor-pointer">
+<div class="mb-stack-md overflow-hidden aspect-[4/3] bg-surface-container">
+<img alt="Traditional Craft" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="A focused close-up of skilled hands weaving intricate Muslin fabric on a traditional wooden loom. The lighting is soft and directional, highlighting the fine threads and the weathered texture of the wood. The color palette is composed of soft creams, bone whites, and deep navy shadows, evoking a sense of timeless craftsmanship and intellectual preservation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO8dF7UpvXvrG0bj6Ap9hCdFJ76qoKeI04pejSJWpfQQv4xugeGQdjxHfvNpCuGsIXasf56sXLQxcwo-3vWfWbk8-jRtcM-PuZlwSiRMmR9o2A2MTeti1s7SEsxW7mo4slf103mkKnBpxI7cX1Z5H7olOZfpTag6ycM3Ygb8BLbO_WWxkJEqVFodChStXOP1CO5ui4PAhFwsvdaklrv3rSXYbnSA069noyTZeXtJ4S4IhH1CUAcSBr--K5MUyqhUhK1JvVo6hxGLi1"/>
+</div>
+<div class="space-y-2">
+<span class="font-label-md text-label-md text-secondary uppercase">Roar Bangladesh</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Reviving the Ghost of Muslin</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">A decade-long scientific and artisanal journey to recreate the world's finest fabric.</p>
+<time class="font-label-md text-label-md text-outline">July 05, 2023</time>
+</div>
+</article>
+<article class="md:col-span-4 group cursor-pointer">
+<div class="mb-stack-md overflow-hidden aspect-[4/3] bg-surface-container">
+<img alt="Modern Office" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="A minimalist, modern co-working space in Dhaka with high ceilings and large industrial windows. The space is filled with clean lines, wooden desks, and lush green plants. Soft natural light pours in, creating a professional and calm atmosphere. The aesthetic is clean and high-end, using a palette of slate grays, warm wood tones, and crisp whites to represent the modern intellectual work environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvHtaaHkX7cbUk4UejJPXcrzyZmEhiu3QYqpOOIihCwuxzd3ejryS9ZjElxgk5attjbtN_qZVz6AMsqqB3eSKGh23lf7os5K8edZ2YHQQx80R04ixpcjBKQAy1GAO5E62VGiTYoivqIj3seSwTBbkAEh3HYR0So1IER2Q2N0z6H0oznix6SgH1xSto9yMNh191dykMKy5feo2Ahc4LWY-wGpqEirtHJySovf3cxqSfAi1z02iO_7C1k5kz-PFc7rlUUY99XLQGkTyU"/>
+</div>
+<div class="space-y-2">
+<span class="font-label-md text-label-md text-secondary uppercase">The Business Standard</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Startups and the 'Unicorn' Mirage</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Analyzing the sustainable growth metrics of Dhaka's tech ecosystem versus global hype.</p>
+<time class="font-label-md text-label-md text-outline">June 22, 2023</time>
+</div>
+</article>
+<article class="md:col-span-4 group cursor-pointer">
+<div class="mb-stack-md overflow-hidden aspect-[4/3] bg-surface-container">
+<img alt="River landscape" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="A serene landscape of the Padma River at sunrise, with traditional wooden boats anchored near a sandy bank. The atmosphere is misty and ethereal, with soft pastel colors reflecting off the water's surface. The composition is wide and balanced, evoking the tranquil yet powerful presence of nature in Bangladesh. The visual style is refined and editorial, focusing on natural beauty and contemplative silence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEHds6Bml5ZZwD_sfAjenRp6-6J2jCtUscdbTo2X_3xiv4mxASj_JYsl53LDN8oiVe_CZtysZ2XNo4p8VkL2L3TGMEKoaruAj8B15BLGlrek8nlXXe2IqgFBL9nrgpWUFZj9CEQsUICWG4LsRsi0rZLWUOXR78gSIIZYIk8PErJ1xfI46TnfhNWlk0YttdB8SpliGHP67rzLmPjSjtadqtUuQm9kP2jUY0ryjb1RuMeuhXPxS725dCKZP80l8yjjy67rb2TL9KpU5e"/>
+</div>
+<div class="space-y-2">
+<span class="font-label-md text-label-md text-secondary uppercase">Roar Bangladesh</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">The River's Memory</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">How changing river courses have dictated the migration patterns of communities for centuries.</p>
+<time class="font-label-md text-label-md text-outline">May 15, 2023</time>
+</div>
+</article>
+</div>
+<!-- Newsletter / CTA -->
+<section class="mt-stack-xl p-stack-xl bg-surface-container-highest flex flex-col items-center text-center">
+<h2 class="font-headline-md text-headline-md text-primary mb-stack-sm">The Monthly Dispatch</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-lg mb-stack-md">
+                In-depth analysis and curated stories from the frontlines of Bangladeshi culture and economy. Delivered directly to your inbox.
+            </p>
+<form class="flex flex-col md:flex-row w-full max-w-md gap-0">
+<input class="flex-1 bg-background border-none border-b border-outline-variant focus:ring-0 focus:border-primary font-label-lg text-label-lg px-4 py-3" placeholder="Email Address" type="email"/>
+<button class="bg-primary text-on-primary px-8 py-3 font-label-lg text-label-lg uppercase tracking-widest hover:bg-on-secondary-fixed-variant transition-colors">Subscribe</button>
+</form>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-inverse-surface w-full mt-stack-xl border-t border-outline-variant dark:border-on-surface-variant">
+<div class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop py-stack-md flex flex-col md:flex-row justify-between items-center gap-stack-md">
+<div class="flex flex-col items-center md:items-start">
+<span class="font-headline-sm text-headline-sm text-primary dark:text-inverse-primary mb-2">Usama Rafid</span>
+<span class="font-body-md text-body-md text-on-surface dark:text-inverse-on-surface opacity-80">© 2024 Usama Rafid. All rights reserved.</span>
+</div>
+<div class="flex gap-stack-lg">
+<a class="font-label-md text-label-md text-on-secondary-container dark:text-surface-variant hover:underline decoration-on-secondary-fixed-variant underline-offset-4 transition-all opacity-80 hover:opacity-100" href="#">Contact</a>
+<a class="font-label-md text-label-md text-on-secondary-container dark:text-surface-variant hover:underline decoration-on-secondary-fixed-variant underline-offset-4 transition-all opacity-80 hover:opacity-100" href="#">Newsletter</a>
+<a class="font-label-md text-label-md text-on-secondary-container dark:text-surface-variant hover:underline decoration-on-secondary-fixed-variant underline-offset-4 transition-all opacity-80 hover:opacity-100" href="#">Archive</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for mobile menu toggle
+        const menuBtn = document.querySelector('nav button');
+        menuBtn?.addEventListener('click', () => {
+            console.log('Mobile menu toggled');
+            // This would normally open a mobile overlay
+        });
+
+        // Hover effect for image cards to reveal full color
+        const cards = document.querySelectorAll('article');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const img = card.querySelector('img');
+                if (img) img.style.filter = 'grayscale(0%)';
+            });
+            card.addEventListener('mouseleave', () => {
+                const img = card.querySelector('img');
+                if (img && !img.closest('.md\\:col-span-8')) { // Keep featured colored
+                     img.style.filter = 'grayscale(100%)';
+                }
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Usama Rafid | Academic &amp; Investigative Journalist</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&amp;family=Merriweather:italic,wght@300;400;700&amp;family=Source+Sans+3:wght@400;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#b8c8da",
+                        "on-secondary-fixed": "#1b1c1b",
+                        "surface-container-high": "#ebe7e6",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#474746",
+                        "inverse-surface": "#313030",
+                        "surface-variant": "#e5e2e1",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#1c1b1b",
+                        "inverse-primary": "#c8c6c5",
+                        "background": "#fcf9f8",
+                        "on-tertiary-fixed-variant": "#394857",
+                        "on-primary-container": "#858383",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#000000",
+                        "secondary-container": "#e4e2e1",
+                        "primary": "#000000",
+                        "surface-tint": "#5f5e5e",
+                        "inverse-on-surface": "#f3f0ef",
+                        "surface-container-highest": "#e5e2e1",
+                        "tertiary-fixed": "#d4e4f6",
+                        "surface-dim": "#dcd9d8",
+                        "surface": "#fcf9f8",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "on-surface": "#1c1b1b",
+                        "on-surface-variant": "#444748",
+                        "tertiary-container": "#0d1d2a",
+                        "outline-variant": "#c4c7c7",
+                        "primary-fixed": "#e5e2e1",
+                        "on-tertiary-container": "#768696",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#1c1b1b",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-primary-fixed": "#1c1b1b",
+                        "surface-bright": "#fcf9f8",
+                        "secondary-fixed": "#e4e2e1",
+                        "error": "#ba1a1a",
+                        "secondary": "#5f5e5e",
+                        "surface-container": "#f0edec",
+                        "on-tertiary-fixed": "#0d1d2a",
+                        "on-secondary-container": "#656464",
+                        "outline": "#747878"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "24px",
+                        "stack-sm": "16px",
+                        "margin-desktop": "80px",
+                        "stack-xl": "120px",
+                        "stack-md": "32px",
+                        "gutter": "24px",
+                        "margin-tablet": "40px",
+                        "stack-lg": "64px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "subhead-serif": ["Merriweather"],
+                        "display-hero": ["Montserrat"],
+                        "display-hero-mobile": ["Montserrat"],
+                        "body-lg": ["Source Sans 3"],
+                        "body-sm": ["Source Sans 3"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "headline-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "38px", "fontWeight": "700"}],
+                        "subhead-serif": ["24px", {"lineHeight": "36px", "fontWeight": "400"}],
+                        "display-hero": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                        "display-hero-mobile": ["56px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-sm": ["15px", {"lineHeight": "22px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .text-outline {
+            -webkit-text-stroke: 1px #000000;
+            color: transparent;
+        }
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        body {
+            cursor: default;
+        }
+        .custom-cursor {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out;
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .custom-cursor { display: block; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary selection:text-white">
+<div class="custom-cursor" id="cursor"></div>
+<nav class="fixed top-0 left-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant" id="top-nav">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-stack-sm max-w-[1440px] mx-auto">
+<a class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg tracking-tighter text-primary" href="#">Usama Rafid</a>
+<div class="hidden md:flex gap-gutter items-center">
+<a class="font-label-caps text-label-caps text-primary border-b-2 border-primary pb-1" href="#">Home</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="#">Reportage</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="#">Academic</a>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors" href="#">About</a>
+<button class="bg-primary text-white px-6 py-2 font-label-caps text-label-caps hover:opacity-70 transition-opacity">Get in touch</button>
+</div>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<main>
+<section class="min-h-screen pt-[120px] md:pt-0 flex flex-col items-center justify-center relative overflow-hidden px-margin-mobile md:px-margin-desktop">
+<div class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 40px 40px;"></div>
+<div class="relative z-10 w-full max-w-[1440px] flex flex-col items-center text-center">
+<div class="mb-stack-sm flex items-center gap-2">
+<span class="font-label-caps text-label-caps tracking-widest text-secondary">ESTABLISHED 1994</span>
+</div>
+<h1 class="font-display-hero-mobile md:font-display-hero text-display-hero-mobile md:text-display-hero uppercase leading-none mb-4">
+                    Usama <br class="md:hidden"/> <span class="text-outline">Rafid</span>
+</h1>
+<p class="font-subhead-serif text-subhead-serif italic text-secondary-fixed-dim max-w-2xl mt-4">
+                    Academic &amp; Investigative Journalist uncovering truth through rigorous fieldwork and historical analysis.
+                </p>
+<div class="mt-stack-lg relative w-full max-w-3xl aspect-[3/4] md:aspect-[16/9] overflow-hidden bg-surface-container">
+<img alt="Professional portrait of Usama Rafid" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-in-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCGdeTCy-pSQ35kj7UX6km-At_wahXycnd9VSLik3bl1CeoY1N_Ro9aJpRIsDXC2cwCIo_sXxd66M7HSGxkoIsDbcPHRlxQIzpYbqS8C94-FM6T_qQU2Y-o6e3xxrk4eViE9LDfbliP-ODQSuwCAMMIBnfaJgp_punEn2di1ULmXI10VG3IGcHfMBw7Jkeme4CLglaYQT1rObeZQUcXLWMaG0yzM6A7fJSZCU1fyPuwP834R88yXhtwYJf6jhxI2atMTn00ixgxUv8"/>
+</div>
+<div class="absolute right-0 bottom-0 hidden md:block w-48 text-left">
+<span class="font-label-caps text-[10px] text-secondary-fixed-dim block mb-2">SCROLL TO DISCOVER</span>
+<div class="w-[1px] h-32 bg-primary animate-pulse"></div>
+</div>
+</div>
+</section>
+<section class="py-stack-xl px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto reveal-on-scroll">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter border-t border-primary pt-stack-sm">
+<div class="md:col-span-4">
+<h2 class="font-label-caps text-label-caps uppercase text-primary">Selected Contributions</h2>
+</div>
+<div class="md:col-span-8">
+<p class="font-body-lg text-body-lg text-secondary max-w-xl">
+                        Documenting the intersections of geopolitical shifts, climate resilience, and forgotten histories across South Asia and the Middle East.
+                    </p>
+</div>
+</div>
+<div class="mt-stack-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-stack-lg gap-x-gutter">
+<div class="group cursor-pointer">
+<div class="aspect-[4/5] bg-surface-container overflow-hidden mb-stack-sm relative">
+<img class="w-full h-full object-cover grayscale transition-transform duration-500 group-hover:scale-105" data-alt="A moody black and white cinematic photograph of a dusty urban street at dawn, captured with high editorial contrast. The light filters through ancient structures, creating long dramatic shadows on the ground. The atmosphere is quiet, intellectual, and evocative of deep investigative journalism and historical inquiry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPRAEKBTJaomwztCz6Df-PRs9INzllOOWKl66-n0AJJzrIepv2ze2rdJqXUKqoUqiW04IylbWaX4aUy32rQkj9wzuvWFTCnJnvdyvQQNOf-5fjoMiVkLRU8Zj9Rm5oS8Taeu2ELL1LBf7vITbJqYMC57xZw6I2IvIOfBhJ57dUcxKN2QqlUK0QWQ3UQZaaa1Wq3he4S2mb2YaG6vwgm3ZAxs7GMmueyUdJjsYj-polGrV9qev8JtDPvuOut60euSvKmoqwXc31qWL0"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="bg-white text-primary px-4 py-2 font-label-caps text-label-caps">Read Article</span>
+</div>
+</div>
+<span class="font-label-caps text-label-caps text-secondary block mb-1">INVESTIGATIVE / 2023</span>
+<h3 class="font-subhead-serif text-subhead-serif text-primary group-hover:underline">The Silent Delta: Climate Displacement in Bengal</h3>
+</div>
+<div class="group cursor-pointer lg:mt-stack-md">
+<div class="aspect-[4/5] bg-surface-container overflow-hidden mb-stack-sm relative">
+<img class="w-full h-full object-cover grayscale transition-transform duration-500 group-hover:scale-105" data-alt="Close up of an old typewriter with weathered keys on a minimalist dark desk. The lighting is soft and atmospheric, highlighting the textures of the metal and the quiet mood of a scholar's study. The image is strictly monochromatic, embodying a sophisticated, intellectual, and traditional journalistic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATO8ITN6I61Rd3-t6SmU6XfZvNf5VJzjOwl1-v3lUPDlf017YHzvxglaASEKx9Aa42C4x6F9eGdns6a4mZ5C0LI8CuaIhc_FO5TkDZgHEnRVpccJhHZjJWtE5IKxLy6pRLo1KafnvyFpFwLp6pUyWetjwcv7rLacz0vZYEUgABsDwGIxr75DvpbxvNxYYEu2sEktoA8wpaC5bAIYCvDO-liGngdcu9G71a43ooQTBOIMWHX6lirxM3ZdrcNqxgcBDLyhHuY7lEgSDi"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="bg-white text-primary px-4 py-2 font-label-caps text-label-caps">View Paper</span>
+</div>
+</div>
+<span class="font-label-caps text-label-caps text-secondary block mb-1">ACADEMIC / 2023</span>
+<h3 class="font-subhead-serif text-subhead-serif text-primary group-hover:underline">Post-Colonial Echoes in Modern Border Governance</h3>
+</div>
+<div class="group cursor-pointer">
+<div class="aspect-[4/5] bg-surface-container overflow-hidden mb-stack-sm relative">
+<img class="w-full h-full object-cover grayscale transition-transform duration-500 group-hover:scale-105" data-alt="A minimalist overhead view of a neatly organized desk with a journal, a fountain pen, and a pair of spectacles. The surface is a textured off-white paper, and the lighting is bright and clear, creating a clean light-mode luxury aesthetic. The composition emphasizes white space and the tools of a writer and researcher." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5QqYkgL_CMepnMbeJjaHhDqYhm1KsX-nzzbDZCVY9C1-uy73Q4XoEFUrBsniwVub4tCPSDeJEVPIDJI9TAHWitGp3kgfdXyLcT8I0D71nDox5WM4oP-1xMgIqFT4HcpOp0v9kty-443zHnewckYI5O4J7ECalp92zWmrHVDEi4QggefhTc3PPWkaYjnGYouqTm8y9ydEa7LImnTmuMWdaZw4K-X8iv5mYJpWPZtuSar8BSJxguLZUIU_Es-KamkpHC-nlypr37kn0"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="bg-white text-primary px-4 py-2 font-label-caps text-label-caps">Full Report</span>
+</div>
+</div>
+<span class="font-label-caps text-label-caps text-secondary block mb-1">REPORTAGE / 2022</span>
+<h3 class="font-subhead-serif text-subhead-serif text-primary group-hover:underline">Tracing the Silk Road's Digital Transformation</h3>
+</div>
+</div>
+</section>
+<section class="py-stack-xl bg-surface-container-low reveal-on-scroll">
+<div class="px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto text-center">
+<blockquote class="max-w-4xl mx-auto">
+<p class="font-subhead-serif text-[32px] md:text-[48px] leading-tight italic text-primary mb-stack-md">
+                        "The role of the journalist is not merely to record history, but to question the silence that often surrounds it."
+                    </p>
+<cite class="font-label-caps text-label-caps uppercase tracking-widest text-secondary">— USAMA RAFID</cite>
+</blockquote>
+</div>
+</section>
+<section class="py-stack-xl px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto reveal-on-scroll">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-end">
+<div class="md:col-span-6 mb-stack-lg md:mb-0">
+<h2 class="font-display-hero-mobile md:text-[72px] uppercase leading-[0.9] text-primary">Collaborate &amp; <br/> Connect</h2>
+</div>
+<div class="md:col-span-6 border-l border-outline-variant pl-gutter">
+<p class="font-body-lg text-body-lg text-secondary mb-stack-md">
+                        Currently accepting commissions for investigative deep-dives and academic consulting on political economy and social change.
+                    </p>
+<a class="group flex items-center gap-4 text-primary" href="mailto:hello@usamarafid.com">
+<span class="font-headline-lg-mobile md:font-headline-lg border-b-2 border-primary">hello@usamarafid.com</span>
+<span class="material-symbols-outlined text-4xl group-hover:translate-x-2 transition-transform">north_east</span>
+</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-surface-container-low border-t border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-stack-lg max-w-[1440px] mx-auto gap-gutter">
+<div class="flex flex-col items-center md:items-start gap-2">
+<span class="font-label-caps text-label-caps font-bold">Usama Rafid</span>
+<p class="font-body-sm text-body-sm text-secondary">© 2024 Usama Rafid. All rights reserved.</p>
+</div>
+<div class="flex gap-gutter items-center">
+<a class="font-body-sm text-body-sm text-secondary hover:text-primary transition-colors" href="#">Email</a>
+<a class="font-body-sm text-body-sm text-secondary hover:text-primary transition-colors" href="#">LinkedIn</a>
+<a class="font-body-sm text-body-sm text-secondary hover:text-primary transition-colors" href="#">Archive</a>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-[10px] text-secondary">BACK TO TOP</span>
+<button class="w-10 h-10 border border-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+<span class="material-symbols-outlined">arrow_upward</span>
+</button>
+</div>
+</div>
+</footer>
+<script>
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 20 + 'px';
+            cursor.style.top = e.clientY - 20 + 'px';
+        });
+
+        document.querySelectorAll('a, button, img').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(1.5)';
+                cursor.style.backgroundColor = 'rgba(0,0,0,0.05)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.backgroundColor = 'transparent';
+            });
+        });
+
+        // Reveal on Scroll Logic
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header Background on Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('top-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-white/95');
+                nav.classList.remove('bg-background/80');
+            } else {
+                nav.classList.remove('bg-white/95');
+                nav.classList.add('bg-background/80');
+            }
+        });
+    </script>
+</body></html>
