@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media Monopoly and Concentration, Media Theory Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15130f; --paper:#ede7dc; --paper-dim:#ddd5c4; --line:#15130f33;
+    --red:#c9391f; --blue:#1f4f8f; --olive:#4c5f2a; --mustard:#c98b12; --violet:#5c3a80;
+    --bg: var(--paper); --fg: var(--ink); --bg-dim: var(--paper-dim); --rule: var(--line);
+    --invert-bg: var(--ink); --invert-fg: var(--paper); --theme: var(--olive);
+  }
+  html.dark{ --bg:#121110; --fg:#ede7dc; --bg-dim:#1c1a17; --rule:#ede7dc2e; --invert-bg: var(--paper); --invert-fg: var(--ink); }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--fg); font-family:'Archivo', sans-serif; transition:background .25s ease, color .25s ease; overflow-x:hidden; }
+  .display{ font-family:'Anton', sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.92; }
+  .mono{ font-family:'Space Mono', monospace; text-transform:uppercase; letter-spacing:0.08em; }
+  a{ color:inherit; }
+  :focus-visible{ outline: 3px solid currentColor; outline-offset: 3px; }
+
+  header.nav{ position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:16px 28px; background:var(--bg); border-bottom:1.5px solid var(--rule); }
+  .nav-logo{ font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .nav-logo .dot{ width:9px; height:9px; border-radius:50%; background: conic-gradient(var(--red) 0 20%, var(--blue) 20% 40%, var(--olive) 40% 60%, var(--mustard) 60% 80%, var(--violet) 80% 100%); flex-shrink:0; }
+  .nav-right{ display:flex; gap:10px; align-items:center; }
+  .icon-btn{ background:none; border:1.5px solid var(--fg); color:var(--fg); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .icon-btn svg{ width:16px; height:16px; }
+  .back-link{ display:flex; align-items:center; gap:8px; font-family:'Space Mono', monospace; font-size:11.5px; text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; }
+
+  .theory-hero{ background:var(--theme); color:var(--paper); padding:64px 6vw 70px; border-bottom:1.5px solid var(--rule); }
+  .theory-meta{ display:flex; gap:22px; align-items:center; flex-wrap:wrap; margin-bottom:26px; }
+  .theory-meta .mono{ font-size:12px; opacity:0.9; }
+  .theme-tag{ display:inline-flex; align-items:center; gap:8px; border:1.3px solid var(--paper); border-radius:999px; padding:6px 14px; font-size:11px; }
+  .theme-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--paper); }
+  .theory-hero h1{ font-size:clamp(36px, 6.8vw, 96px); margin:0; max-width:22ch; }
+  .theory-hero .aka{ font-size:clamp(15px,1.8vw,20px); margin-top:18px; font-style:italic; opacity:0.9; font-weight:500; }
+  .theorist-line{ margin-top:34px; display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; }
+  .theorist-line .name{ font-size:18px; font-weight:700; }
+  .theorist-line .role{ font-size:13px; opacity:0.85; }
+
+  section{ padding:80px 6vw; border-bottom:1.5px solid var(--rule); }
+  .section-eyebrow{ font-size:12px; opacity:0.6; margin-bottom:16px; display:flex; align-items:center; gap:12px; }
+  .section-eyebrow::before{ content:""; width:30px; height:2px; background:var(--theme); }
+  .section-title{ font-size:clamp(26px,3.4vw,44px); margin:0 0 30px; }
+
+  .context-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap:60px; align-items:start; }
+  .context-grid p{ font-size:16px; line-height:1.7; margin:0 0 20px; }
+  .context-card{ background:var(--bg-dim); border:1.5px solid var(--rule); border-radius:8px; padding:26px; }
+  .context-card .mono{ font-size:11px; opacity:0.6; margin-bottom:14px; display:block; }
+  .context-card ul{ margin:0; padding-left:18px; }
+  .context-card li{ font-size:14px; line-height:1.7; margin-bottom:10px; }
+  @media (max-width: 860px){ .context-grid{ grid-template-columns:1fr; gap:34px; } }
+
+  .term-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; }
+  .term-card{ border:1.5px solid var(--rule); border-radius:8px; padding:24px; }
+  .term-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:10px; display:block; }
+  .term-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:19px; margin:0 0 12px; line-height:1.05; }
+  .term-card p{ font-size:13.5px; line-height:1.6; margin:0; opacity:0.9; }
+  @media (max-width: 860px){ .term-grid{ grid-template-columns:1fr; } }
+
+  .example-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:22px; }
+  .example-card{ background:var(--bg-dim); border-radius:8px; padding:26px 28px; border-top:5px solid var(--theme); }
+  .example-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:12px; display:block; }
+  .example-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:20px; margin:0 0 12px; line-height:1.08; }
+  .example-card p{ font-size:14px; line-height:1.65; margin:0; }
+  .example-card p + p{ margin-top:12px; }
+  @media (max-width: 860px){ .example-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- OWNERSHIP EXPLORER ---------- */
+  .stage{ background:var(--invert-bg); color:var(--invert-fg); border-radius:14px; padding:50px 6vw; position:relative; overflow:hidden; }
+  .stage-head{ margin-bottom:16px; }
+  .stage-head h3{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(22px,3vw,34px); margin:0; }
+  .stage-head p{ max-width:64ch; font-size:14px; line-height:1.6; opacity:0.75; margin:10px 0 0; }
+  .stage-note{ font-size:11.5px; opacity:0.55; margin-bottom:30px; max-width:64ch; }
+
+  .year-toggle{ display:flex; justify-content:center; margin-bottom:30px; }
+  .toggle{ display:flex; border:1.5px solid var(--invert-fg); border-radius:999px; overflow:hidden; }
+  .toggle button{
+    background:none; border:none; color:var(--invert-fg);
+    font-family:'Space Mono', monospace; font-size:11.5px;
+    padding:10px 20px; cursor:pointer; letter-spacing:0.05em; text-transform:uppercase;
+  }
+  .toggle button.active{ background:var(--theme); color:var(--paper); }
+
+  .count-wrap{ text-align:center; margin-bottom:40px; }
+  .count-number{ font-family:'Anton', sans-serif; font-size:clamp(60px,10vw,100px); color:var(--theme); line-height:1; }
+  .count-label{ font-family:'Space Mono', monospace; font-size:11.5px; opacity:0.7; margin-top:6px; }
+
+  .tree-wrap{ max-width:640px; margin:0 auto 20px; text-align:center; }
+  .hub-node{
+    display:inline-block;
+    border:1.5px solid var(--theme);
+    border-radius:10px;
+    padding:16px 26px;
+    cursor:pointer;
+    margin-bottom:24px;
+  }
+  .hub-node h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:15px; margin:0; }
+  .hub-node .mono{ font-size:10px; opacity:0.6; display:block; margin-top:4px; }
+
+  .branch-grid{
+    display:grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap:10px;
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .4s ease;
+  }
+  .branch-grid.open{ max-height:200px; }
+  .branch-grid .branch{
+    border:1.3px solid var(--rule);
+    border-radius:8px;
+    padding:12px 10px;
+    font-size:11px;
+    line-height:1.4;
+  }
+
+  @media (max-width: 700px){ .branch-grid{ grid-template-columns: repeat(2, 1fr); } }
+
+  .tree-caption{ max-width:600px; margin:20px auto 0; text-align:center; font-size:13px; opacity:0.75; }
+
+  .summary{ display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap; }
+  .summary .big-quote{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(24px,3.6vw,42px); line-height:1.05; max-width:20ch; color:var(--theme); }
+  .summary .side-note{ max-width:42ch; font-size:14.5px; line-height:1.7; opacity:0.85; padding-top:8px; }
+
+  .challenge{ background:var(--bg-dim); border-left:4px solid var(--theme); border-radius:0 8px 8px 0; padding:26px 30px; }
+  .challenge .mono{ font-size:11px; opacity:0.6; margin-bottom:12px; display:block; }
+  .challenge p{ margin:0 0 16px; font-size:15px; line-height:1.7; }
+  .challenge p:last-child{ margin-bottom:0; }
+
+  .next-teaser{ display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; background:var(--blue); color:var(--paper); border-radius:10px; padding:34px 36px; }
+  .next-teaser .mono{ font-size:11px; opacity:0.85; margin-bottom:10px; display:block; }
+  .next-teaser h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(20px,2.6vw,30px); margin:0; }
+  .next-teaser a{ text-decoration:none; border:1.3px solid var(--paper); border-radius:999px; padding:11px 22px; font-family:'Space Mono', monospace; font-size:11.5px; letter-spacing:0.05em; white-space:nowrap; }
+
+  footer{ padding:34px 6vw; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; font-size:11.5px; }
+  footer .foot-links{ display:flex; gap:20px; }
+  footer a{ text-decoration:none; }
+  footer a:hover{ opacity:0.6; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="back-link" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg>
+    All theories
+  </a>
+  <a class="nav-logo" href="index.html">
+    <span class="dot"></span>
+    <span class="mono">Media Theory Atlas</span>
+  </a>
+  <div class="nav-right">
+    <button class="icon-btn" id="modeToggle" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2 12h2.4M19.6 12H22M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="theory-hero" style="border-bottom:none;">
+  <div class="theory-meta">
+    <span class="mono">1980s</span>
+    <span class="theme-tag"><span class="dot"></span>Political Economy</span>
+  </div>
+  <h1 class="display">Media Monopoly and Concentration</h1>
+  <div class="theorist-line">
+    <span class="name">Ben Bagdikian</span>
+    <span class="role">Journalist and dean, UC Berkeley Graduate School of Journalism</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Historical context</div>
+  <h2 class="section-title display">Counting the owners, edition after edition</h2>
+  <div class="context-grid">
+    <div>
+      <p>Ben Bagdikian spent much of his career as a working journalist before turning his attention to a question that seemed almost too simple: exactly how many companies actually owned America's newspapers, magazines, television and radio stations, book publishers, and film studios. In 1983, he published the first edition of <em>The Media Monopoly</em>, reporting that roughly fifty corporations controlled the majority of American media output across every major category.</p>
+      <p>Bagdikian did not stop there. He revised and republished the book across several subsequent editions over the following two decades, tracking that number as it shrank through wave after wave of mergers and acquisitions. By the late 1990s, the figure he reported had fallen to roughly ten corporations. By his final edition in 2004, retitled <em>The New Media Monopoly</em>, he put the number at around five major conglomerates controlling the majority of American media.</p>
+      <p>Bagdikian's central argument was not simply that fewer companies owned more outlets, though that alone concerned him. It was that this concentration mattered because it concentrated real political and cultural power in fewer hands, even as the total volume of available channels, magazines, and websites appeared to be expanding. Many seemingly distinct media brands, he argued, shared the same small set of ultimate corporate owners, whose broader business interests shaped editorial priorities in ways audiences rarely saw directly.</p>
+      <p>The book's central number, dropping from roughly fifty owners to roughly five across just two decades, became one of the most frequently cited statistics in media reform and media literacy discussions, a stark, easily grasped measure of a much larger structural shift.</p>
+    </div>
+    <div class="context-card">
+      <span class="mono">What fed this theory</span>
+      <ul>
+        <li>Bagdikian's original 1983 edition of <em>The Media Monopoly</em></li>
+        <li>Successive revised editions tracking ownership consolidation through the 1990s and 2000s</li>
+        <li>Waves of media mergers and acquisitions across those same decades</li>
+        <li>Growing concern about the political implications of concentrated media power</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Core concepts</div>
+  <h2 class="section-title display">Three ideas doing the work underneath</h2>
+  <div class="term-grid">
+    <div class="term-card">
+      <span class="mono">Concept 01</span>
+      <h4>Ownership concentration</h4>
+      <p>The steady trend of media ownership consolidating into a shrinking number of very large conglomerates across successive decades of mergers and acquisitions.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 02</span>
+      <h4>The illusion of choice</h4>
+      <p>Many distinct-seeming media brands and outlets can share the same small set of parent companies, creating an appearance of diversity that does not necessarily reflect genuine editorial or viewpoint diversity.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 03</span>
+      <h4>Cross-media and cross-industry ownership</h4>
+      <p>Media conglomerates increasingly own non-media businesses as well, creating potential conflicts of interest whenever news coverage happens to touch on the parent company's other business interests.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Examples in practice</div>
+  <h2 class="section-title display">Where this pattern turned up</h2>
+  <div class="example-grid">
+    <div class="example-card">
+      <span class="mono">1983 to 2004</span>
+      <h4>Bagdikian's own tracked numbers</h4>
+      <p>The book's signature statistic, roughly fifty corporations controlling most American media in 1983, narrowing to roughly five by the final 2004 edition, is Bagdikian's own most cited and most reproduced finding.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Cross-ownership case studies</span>
+      <h4>Coverage softened by conflicts of interest</h4>
+      <p>Bagdikian and later media reform researchers documented specific instances where news coverage was altered or softened because it touched on a parent company's other business interests, direct illustrations of the cross-ownership concern.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Contemporary media reform research</span>
+      <h4>Continuing the ownership mapping tradition</h4>
+      <p>Media reform organizations continue Bagdikian's practice of mapping which conglomerates own which outlets, regularly finding a small number of companies still controlling the large majority of media most people actually consume.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Contemporary parallel</span>
+      <h4>Concentrated digital platform ownership</h4>
+      <p>Scholars extending Bagdikian's framework point to the concentrated ownership of digital distribution and advertising infrastructure itself, a small number of major technology companies, as a new, additional layer of concentration beyond the traditional media ownership he originally tracked.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">The mechanism, demonstrated</div>
+  <h2 class="section-title display">Watch the number shrink, then open one conglomerate</h2>
+  <div class="stage">
+    <div class="stage-head">
+      <h3>From roughly fifty owners to roughly five</h3>
+      <p>Toggle between Bagdikian's first edition and his final one, then click the conglomerate below to see the kind of cross-media holdings a single owner in this pattern typically controls.</p>
+    </div>
+    <div class="stage-note mono">The conglomerate below is a generic illustration of the holding pattern Bagdikian documented, not a chart of any specific real company's current ownership.</div>
+
+    <div class="year-toggle">
+      <div class="toggle" id="yearToggle">
+        <button class="active" data-year="1983">1983 edition</button>
+        <button data-year="2004">2004 edition</button>
+      </div>
+    </div>
+
+    <div class="count-wrap">
+      <div class="count-number" id="countNumber">~50</div>
+      <div class="count-label mono" id="countLabel">corporations controlling most American media</div>
+    </div>
+
+    <div class="tree-wrap">
+      <div class="hub-node" id="hubNode">
+        <h4>An illustrative conglomerate</h4>
+        <span class="mono">Click to see its holdings</span>
+      </div>
+      <div class="branch-grid" id="branchGrid">
+        <div class="branch">A national news network</div>
+        <div class="branch">A major film studio</div>
+        <div class="branch">A magazine publishing group</div>
+        <div class="branch">A chain of radio stations</div>
+        <div class="branch">A streaming service</div>
+      </div>
+    </div>
+    <div class="tree-caption">One owner, five very different-seeming media brands, the pattern Bagdikian argued created an illusion of choice.</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">In one sentence</div>
+  <div class="summary">
+    <div class="big-quote">The number of corporations controlling most American media narrowed dramatically across just two decades, concentrating enormous cultural and political power in very few hands.</div>
+    <div class="side-note">
+      <p>The theory asks a reader to look past the sheer number of channels and brands on offer, and ask instead how many genuinely different owners actually stand behind them.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Where the theory ran into trouble</div>
+  <h2 class="section-title display">More channels, fewer owners, an unresolved tension</h2>
+  <div class="challenge">
+    <span class="mono">The pushback</span>
+    <p>Critics note that the sheer number of channels, websites, and platforms available to audiences has grown enormously even as ownership concentrated, complicating any simple story about shrinking choice, since audiences today can access a vastly wider range of content, including independent and international sources, than during the broadcast era Bagdikian first analyzed. Some media economists also argue that consolidation can fund genuine efficiencies, expensive investigative journalism or major technology investment, that fragmented, purely independent outlets often struggle to sustain on their own.</p>
+    <p>Debate also continues over whether ownership concentration necessarily translates into actual editorial bias or homogenization in practice, since concentrated owners sometimes still permit, or even encourage, genuinely diverse coverage across their properties for competitive or reputational reasons. Even so, Bagdikian's core number remains a widely cited entry point for asking a question that has only grown more relevant since his final edition: who actually owns what you are watching, reading, or scrolling through.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="mono">Media Theory Atlas</div>
+  <div class="foot-links mono">
+    <a href="index.html">All theories</a>
+    <a href="index.html#themes">Themes</a>
+    <a href="index.html#chrono-anchor">Chronology</a>
+  </div>
+</footer>
+
+<script>
+  const modeToggle = document.getElementById('modeToggle');
+  modeToggle.addEventListener('click', function(){ document.documentElement.classList.toggle('dark'); });
+
+  const YEAR_DATA = {
+    "1983": { number: "~50", label: "corporations controlling most American media, per Bagdikian's first edition" },
+    "2004": { number: "~5", label: "major conglomerates controlling most American media, per Bagdikian's final edition" }
+  };
+
+  const yearToggle = document.getElementById('yearToggle');
+  const countNumber = document.getElementById('countNumber');
+  const countLabel = document.getElementById('countLabel');
+
+  yearToggle.addEventListener('click', function(e){
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    yearToggle.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    const data = YEAR_DATA[btn.dataset.year];
+    countNumber.textContent = data.number;
+    countLabel.textContent = data.label;
+  });
+
+  const hubNode = document.getElementById('hubNode');
+  const branchGrid = document.getElementById('branchGrid');
+  hubNode.addEventListener('click', function(){
+    branchGrid.classList.toggle('open');
+  });
+</script>
+</body>
+</html>

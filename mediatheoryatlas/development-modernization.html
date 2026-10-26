@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Development and Modernization Theory, Media Theory Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15130f; --paper:#ede7dc; --paper-dim:#ddd5c4; --line:#15130f33;
+    --red:#c9391f; --blue:#1f4f8f; --olive:#4c5f2a; --mustard:#c98b12; --violet:#5c3a80;
+    --bg: var(--paper); --fg: var(--ink); --bg-dim: var(--paper-dim); --rule: var(--line);
+    --invert-bg: var(--ink); --invert-fg: var(--paper); --theme: var(--olive);
+  }
+  html.dark{ --bg:#121110; --fg:#ede7dc; --bg-dim:#1c1a17; --rule:#ede7dc2e; --invert-bg: var(--paper); --invert-fg: var(--ink); }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--fg); font-family:'Archivo', sans-serif; transition:background .25s ease, color .25s ease; overflow-x:hidden; }
+  .display{ font-family:'Anton', sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.92; }
+  .mono{ font-family:'Space Mono', monospace; text-transform:uppercase; letter-spacing:0.08em; }
+  a{ color:inherit; }
+  :focus-visible{ outline: 3px solid currentColor; outline-offset: 3px; }
+
+  header.nav{ position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:16px 28px; background:var(--bg); border-bottom:1.5px solid var(--rule); }
+  .nav-logo{ font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .nav-logo .dot{ width:9px; height:9px; border-radius:50%; background: conic-gradient(var(--red) 0 20%, var(--blue) 20% 40%, var(--olive) 40% 60%, var(--mustard) 60% 80%, var(--violet) 80% 100%); flex-shrink:0; }
+  .nav-right{ display:flex; gap:10px; align-items:center; }
+  .icon-btn{ background:none; border:1.5px solid var(--fg); color:var(--fg); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .icon-btn svg{ width:16px; height:16px; }
+  .back-link{ display:flex; align-items:center; gap:8px; font-family:'Space Mono', monospace; font-size:11.5px; text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; }
+
+  .theory-hero{ background:var(--theme); color:var(--paper); padding:64px 6vw 70px; border-bottom:1.5px solid var(--rule); }
+  .theory-meta{ display:flex; gap:22px; align-items:center; flex-wrap:wrap; margin-bottom:26px; }
+  .theory-meta .mono{ font-size:12px; opacity:0.9; }
+  .theme-tag{ display:inline-flex; align-items:center; gap:8px; border:1.3px solid var(--paper); border-radius:999px; padding:6px 14px; font-size:11px; }
+  .theme-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--paper); }
+  .theory-hero h1{ font-size:clamp(38px, 7vw, 96px); margin:0; max-width:24ch; }
+  .theory-hero .aka{ font-size:clamp(15px,1.8vw,20px); margin-top:18px; font-style:italic; opacity:0.9; font-weight:500; }
+  .theorist-line{ margin-top:34px; display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; }
+  .theorist-line .name{ font-size:18px; font-weight:700; }
+  .theorist-line .role{ font-size:13px; opacity:0.85; }
+
+  section{ padding:80px 6vw; border-bottom:1.5px solid var(--rule); }
+  .section-eyebrow{ font-size:12px; opacity:0.6; margin-bottom:16px; display:flex; align-items:center; gap:12px; }
+  .section-eyebrow::before{ content:""; width:30px; height:2px; background:var(--theme); }
+  .section-title{ font-size:clamp(26px,3.4vw,44px); margin:0 0 30px; }
+
+  .context-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap:60px; align-items:start; }
+  .context-grid p{ font-size:16px; line-height:1.7; margin:0 0 20px; }
+  .context-card{ background:var(--bg-dim); border:1.5px solid var(--rule); border-radius:8px; padding:26px; }
+  .context-card .mono{ font-size:11px; opacity:0.6; margin-bottom:14px; display:block; }
+  .context-card ul{ margin:0; padding-left:18px; }
+  .context-card li{ font-size:14px; line-height:1.7; margin-bottom:10px; }
+  @media (max-width: 860px){ .context-grid{ grid-template-columns:1fr; gap:34px; } }
+
+  .term-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; }
+  .term-card{ border:1.5px solid var(--rule); border-radius:8px; padding:24px; }
+  .term-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:10px; display:block; }
+  .term-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:19px; margin:0 0 12px; line-height:1.05; }
+  .term-card p{ font-size:13.5px; line-height:1.6; margin:0; opacity:0.9; }
+  @media (max-width: 860px){ .term-grid{ grid-template-columns:1fr; } }
+
+  .example-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:22px; }
+  .example-card{ background:var(--bg-dim); border-radius:8px; padding:26px 28px; border-top:5px solid var(--theme); }
+  .example-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:12px; display:block; }
+  .example-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:20px; margin:0 0 12px; line-height:1.08; }
+  .example-card p{ font-size:14px; line-height:1.65; margin:0; }
+  .example-card p + p{ margin-top:12px; }
+  @media (max-width: 860px){ .example-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- MODERNIZATION LADDER ---------- */
+  .stage{ background:var(--invert-bg); color:var(--invert-fg); border-radius:14px; padding:50px 6vw; position:relative; overflow:hidden; }
+  .stage-head{ margin-bottom:40px; }
+  .stage-head h3{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(22px,3vw,34px); margin:0; }
+  .stage-head p{ max-width:60ch; font-size:14px; line-height:1.6; opacity:0.75; margin:10px 0 0; }
+
+  .ladder{ display:flex; max-width:760px; margin:0 auto; border-radius:8px; overflow:hidden; border:1.5px solid var(--rule); }
+  .ladder-seg{ flex:1; padding:22px 16px; text-align:center; cursor:pointer; border-right:1.5px solid var(--bg); color:var(--paper); transition:opacity .15s ease; }
+  .ladder-seg:last-child{ border-right:none; }
+  .ladder-seg:hover{ opacity:0.88; }
+  .ladder-seg .mono{ font-size:10px; opacity:0.75; display:block; margin-bottom:6px; }
+  .ladder-seg h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:16px; margin:0; }
+
+  .ladder-detail{ max-width:760px; margin:20px auto 0; background:var(--bg-dim); border-radius:8px; padding:24px 28px; display:none; color:var(--fg); }
+  html.dark .ladder-detail{ color:var(--invert-fg); }
+  .ladder-detail.visible{ display:block; }
+  .ladder-detail .mono{ font-size:10.5px; opacity:0.6; margin-bottom:10px; display:block; }
+  .ladder-detail p{ margin:0 0 10px; font-size:14px; line-height:1.65; }
+  .ladder-detail p:last-child{ margin-bottom:0; }
+  .ladder-detail ul{ margin:0; padding-left:18px; }
+  .ladder-detail li{ font-size:13px; line-height:1.6; }
+
+  @media (max-width: 700px){ .ladder{ flex-direction:column; } .ladder-seg{ border-right:none; border-bottom:1.5px solid var(--bg); } }
+
+  .summary{ display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap; }
+  .summary .big-quote{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(24px,3.6vw,42px); line-height:1.05; max-width:20ch; color:var(--theme); }
+  .summary .side-note{ max-width:42ch; font-size:14.5px; line-height:1.7; opacity:0.85; padding-top:8px; }
+
+  .challenge{ background:var(--bg-dim); border-left:4px solid var(--theme); border-radius:0 8px 8px 0; padding:26px 30px; }
+  .challenge .mono{ font-size:11px; opacity:0.6; margin-bottom:12px; display:block; }
+  .challenge p{ margin:0 0 16px; font-size:15px; line-height:1.7; }
+  .challenge p:last-child{ margin-bottom:0; }
+
+  .next-teaser{ display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; background:var(--olive); color:var(--paper); border-radius:10px; padding:34px 36px; }
+  .next-teaser .mono{ font-size:11px; opacity:0.85; margin-bottom:10px; display:block; }
+  .next-teaser h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(20px,2.6vw,30px); margin:0; }
+  .next-teaser a{ text-decoration:none; border:1.3px solid var(--paper); border-radius:999px; padding:11px 22px; font-family:'Space Mono', monospace; font-size:11.5px; letter-spacing:0.05em; white-space:nowrap; }
+
+  footer{ padding:34px 6vw; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; font-size:11.5px; }
+  footer .foot-links{ display:flex; gap:20px; }
+  footer a{ text-decoration:none; }
+  footer a:hover{ opacity:0.6; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="back-link" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg>
+    All theories
+  </a>
+  <a class="nav-logo" href="index.html">
+    <span class="dot"></span>
+    <span class="mono">Media Theory Atlas</span>
+  </a>
+  <div class="nav-right">
+    <button class="icon-btn" id="modeToggle" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2 12h2.4M19.6 12H22M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="theory-hero" style="border-bottom:none;">
+  <div class="theory-meta">
+    <span class="mono">1950s to 1960s</span>
+    <span class="theme-tag"><span class="dot"></span>Political Economy</span>
+  </div>
+  <h1 class="display">Development and Modernization Theory</h1>
+  <div class="theorist-line">
+    <span class="name">Daniel Lerner and Wilbur Schramm</span>
+    <span class="role">Communication researchers working on postwar and postcolonial development programs</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Historical context</div>
+  <h2 class="section-title display">Media as a tool for building modern nations</h2>
+  <div class="context-grid">
+    <div>
+      <p>After the Second World War, dozens of new nations emerged from colonial rule across Asia, Africa, and the Middle East, and both Cold War superpowers were eager to shape how those nations developed. Communication researchers were drawn directly into that project, asking a very practical question: could mass media actually speed up a country's economic and social development.</p>
+      <p>Daniel Lerner spent the early 1950s interviewing villagers across Turkey, Lebanon, Iran, Egypt, and Jordan, and published his findings in 1958 as <em>The Passing of Traditional Society</em>. He argued that exposure to media, radio broadcasts, newspapers, and eventually film and television, cultivated what he called psychic mobility or empathy, the capacity to imagine oneself living a different, more modern kind of life than the one a person was born into. That imaginative leap, Lerner argued, was often the first real step toward the more visible markers of development: literacy, urbanization, and political participation.</p>
+      <p>Wilbur Schramm took the argument further in a 1964 report for UNESCO, <em>Mass Media and National Development</em>. He described media as a kind of magic multiplier, a tool that, once deployed deliberately by newly independent governments and development agencies, could accelerate literacy campaigns, agricultural modernization, and public health outreach far faster than these changes would occur on their own.</p>
+      <p>Much of this research shared funding, personnel, and assumptions with Diffusion of Innovations. Everett Rogers, Lerner, and Schramm all moved in overlapping academic and policy circles, and it is not a coincidence that a theory about how new farming techniques spread through a community and a theory about how whole nations modernize both leaned on the same basic picture: media exposure as the engine, and traditional habits as the friction it needed to overcome.</p>
+    </div>
+    <div class="context-card">
+      <span class="mono">What fed this theory</span>
+      <ul>
+        <li>Daniel Lerner's 1958 fieldwork across the Middle East, published as <em>The Passing of Traditional Society</em></li>
+        <li>Wilbur Schramm's 1964 UNESCO report, <em>Mass Media and National Development</em></li>
+        <li>Postwar decolonization and the emergence of dozens of newly independent nations</li>
+        <li>Cold War competition for influence over how those nations would develop</li>
+        <li>Shared researchers and funding with the diffusion of innovations tradition</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Core concepts</div>
+  <h2 class="section-title display">Three ideas doing the work underneath</h2>
+  <div class="term-grid">
+    <div class="term-card">
+      <span class="mono">Concept 01</span>
+      <h4>Psychic mobility</h4>
+      <p>Lerner's term for the imaginative capacity to picture oneself in a different, more modern social role, which he believed media exposure cultivated even before any material change occurred.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 02</span>
+      <h4>The magic multiplier</h4>
+      <p>Schramm's metaphor for media's presumed power to speed up development outcomes, treating radio and print not as a byproduct of a modern society but as a tool for actively building one.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 03</span>
+      <h4>Linear modernization stages</h4>
+      <p>A society moves along a single path from traditional to transitional to modern, with media exposure treated as one of the main forces pulling a population from one stage to the next.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Examples in practice</div>
+  <h2 class="section-title display">Where this framework was put to work</h2>
+  <div class="example-grid">
+    <div class="example-card">
+      <span class="mono">Middle East, early 1950s</span>
+      <h4>Lerner's village interviews</h4>
+      <p>Lerner and his research team asked villagers to imagine themselves as a newspaper editor or a national leader. Villagers with more exposure to radio and print could imagine these unfamiliar roles far more readily than those with little media contact, a finding Lerner treated as evidence of psychic mobility in action.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">India, 1950s to 1960s</span>
+      <h4>Radio farm forums</h4>
+      <p>Group radio listening sessions, followed by structured discussion among farmers, were used to spread new agricultural techniques across rural India, a model directly combining Schramm's development communication approach with the opinion leadership ideas from diffusion research.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">UNESCO, early 1960s</span>
+      <h4>Minimum media standards</h4>
+      <p>UNESCO reports from this period proposed benchmark levels of newspaper circulation, radio receivers, and cinema seats per capita as indicators nations should aim for, treating media access itself as a measurable rung on the ladder toward development.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">South Asia, 1970s onward</span>
+      <h4>Agricultural and family planning broadcasts</h4>
+      <p>Newly independent nations across South Asia, including Bangladesh, built radio and later television programming explicitly aimed at agricultural extension and family planning, following the same development communication logic Lerner and Schramm had laid out a decade or two earlier.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">The mechanism, demonstrated</div>
+  <h2 class="section-title display">Climb the ladder Lerner used to measure a nation</h2>
+  <div class="stage">
+    <div class="stage-head">
+      <h3>Traditional, transitional, modern</h3>
+      <p>Lerner scored societies along a composite index built from four indicators. Click each stage of his ladder to see where those indicators typically stood, and what was assumed to move a population up a rung.</p>
+    </div>
+
+    <div class="ladder" id="ladderBar">
+      <div class="ladder-seg" data-stage="traditional" style="background:#63190d;">
+        <span class="mono">Stage 01</span><h4>Traditional</h4>
+      </div>
+      <div class="ladder-seg" data-stage="transitional" style="background:#a52d18;">
+        <span class="mono">Stage 02</span><h4>Transitional</h4>
+      </div>
+      <div class="ladder-seg" data-stage="modern" style="background:#c9391f;">
+        <span class="mono">Stage 03</span><h4>Modern</h4>
+      </div>
+    </div>
+
+    <div class="ladder-detail" id="ladderDetail"></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">In one sentence</div>
+  <div class="summary">
+    <div class="big-quote">Media exposure was treated not just as a sign of a developing society, but as one of the forces actively building it.</div>
+    <div class="side-note">
+      <p>The theory gave governments and development agencies a clear justification for investing heavily in radio, print, and later television as tools of national policy, not merely as entertainment or information services.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Where the theory ran into trouble</div>
+  <h2 class="section-title display">One ladder, built with one endpoint in mind</h2>
+  <div class="challenge">
+    <span class="mono">The pushback</span>
+    <p>From the 1970s onward, critics argued the entire framework quietly treated Western industrial societies as the single, universal destination of development, measuring every other culture's progress by how closely it came to resembling that one model. This made "traditional" practices look like obstacles to be overcome rather than valid ways of organizing a society, and it had little to say about the colonial history and global economic structures that had shaped which nations were "developed" and which were not in the first place.</p>
+    <p>Herbert Schiller and other political economy researchers picked up this thread directly, arguing that the flow of media, technology, and cultural content from wealthy nations to poorer ones looked less like neutral development assistance and more like a new form of cultural influence following the old routes of colonial power. That critique became its own theory later in this atlas.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="mono">Media Theory Atlas</div>
+  <div class="foot-links mono">
+    <a href="index.html">All theories</a>
+    <a href="index.html#themes">Themes</a>
+    <a href="index.html#chrono-anchor">Chronology</a>
+  </div>
+</footer>
+
+<script>
+  const modeToggle = document.getElementById('modeToggle');
+  modeToggle.addEventListener('click', () => { document.documentElement.classList.toggle('dark'); });
+
+  const ladderInfo = {
+    'traditional': {
+      title: 'Traditional society',
+      text: 'Low literacy, mostly rural and agricultural, very limited access to newspapers, radio, or film. Lerner treated this as the starting point every society was assumed to share.',
+      list: ['Low literacy rate', 'Little urban population', 'Minimal media circulation', 'Low political participation']
+    },
+    'transitional': {
+      title: 'Transitional society',
+      text: 'Rising literacy and urban migration, growing but uneven access to radio and print. This is the stage Lerner\'s psychic mobility concept was meant to explain, the point where media exposure supposedly does its heaviest lifting.',
+      list: ['Rising literacy rate', 'Growing urban centers', 'Expanding radio and newspaper access', 'Emerging political engagement']
+    },
+    'modern': {
+      title: 'Modern society',
+      text: 'High literacy, majority urban population, widespread media access treated as both a cause and a symptom of full participation in national economic and political life.',
+      list: ['High literacy rate', 'Majority urban population', 'Widespread media access', 'Broad political participation']
+    }
+  };
+
+  const ladderBar = document.getElementById('ladderBar');
+  const ladderDetail = document.getElementById('ladderDetail');
+
+  ladderBar.addEventListener('click', e => {
+    const seg = e.target.closest('.ladder-seg');
+    if(!seg) return;
+    const info = ladderInfo[seg.dataset.stage];
+    ladderDetail.innerHTML = `<span class="mono">${info.title}</span><p>${info.text}</p><ul>${info.list.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    ladderDetail.classList.add('visible');
+  });
+</script>
+</body>
+</html>

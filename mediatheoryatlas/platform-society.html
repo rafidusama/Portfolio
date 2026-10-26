@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Platform Society, Media Theory Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15130f; --paper:#ede7dc; --paper-dim:#ddd5c4; --line:#15130f33;
+    --red:#c9391f; --blue:#1f4f8f; --olive:#4c5f2a; --mustard:#c98b12; --violet:#5c3a80;
+    --bg: var(--paper); --fg: var(--ink); --bg-dim: var(--paper-dim); --rule: var(--line);
+    --invert-bg: var(--ink); --invert-fg: var(--paper); --theme: var(--mustard);
+  }
+  html.dark{ --bg:#121110; --fg:#ede7dc; --bg-dim:#1c1a17; --rule:#ede7dc2e; --invert-bg: var(--paper); --invert-fg: var(--ink); }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--fg); font-family:'Archivo', sans-serif; transition:background .25s ease, color .25s ease; overflow-x:hidden; }
+  .display{ font-family:'Anton', sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.92; }
+  .mono{ font-family:'Space Mono', monospace; text-transform:uppercase; letter-spacing:0.08em; }
+  a{ color:inherit; }
+  :focus-visible{ outline: 3px solid currentColor; outline-offset: 3px; }
+
+  header.nav{ position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:16px 28px; background:var(--bg); border-bottom:1.5px solid var(--rule); }
+  .nav-logo{ font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .nav-logo .dot{ width:9px; height:9px; border-radius:50%; background: conic-gradient(var(--red) 0 20%, var(--blue) 20% 40%, var(--olive) 40% 60%, var(--mustard) 60% 80%, var(--violet) 80% 100%); flex-shrink:0; }
+  .nav-right{ display:flex; gap:10px; align-items:center; }
+  .icon-btn{ background:none; border:1.5px solid var(--fg); color:var(--fg); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .icon-btn svg{ width:16px; height:16px; }
+  .back-link{ display:flex; align-items:center; gap:8px; font-family:'Space Mono', monospace; font-size:11.5px; text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; }
+
+  .theory-hero{ background:var(--theme); color:var(--ink); padding:64px 6vw 70px; border-bottom:1.5px solid var(--rule); }
+  .theory-meta{ display:flex; gap:22px; align-items:center; flex-wrap:wrap; margin-bottom:26px; }
+  .theory-meta .mono{ font-size:12px; opacity:0.75; }
+  .theme-tag{ display:inline-flex; align-items:center; gap:8px; border:1.3px solid var(--ink); border-radius:999px; padding:6px 14px; font-size:11px; }
+  .theme-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--ink); }
+  .theory-hero h1{ font-size:clamp(40px, 8vw, 108px); margin:0; max-width:20ch; }
+  .theory-hero .aka{ font-size:clamp(15px,1.8vw,20px); margin-top:18px; font-style:italic; opacity:0.85; font-weight:500; }
+  .theorist-line{ margin-top:34px; display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; }
+  .theorist-line .name{ font-size:18px; font-weight:700; }
+  .theorist-line .role{ font-size:13px; opacity:0.75; }
+
+  section{ padding:80px 6vw; border-bottom:1.5px solid var(--rule); }
+  .section-eyebrow{ font-size:12px; opacity:0.6; margin-bottom:16px; display:flex; align-items:center; gap:12px; }
+  .section-eyebrow::before{ content:""; width:30px; height:2px; background:var(--theme); }
+  .section-title{ font-size:clamp(26px,3.4vw,44px); margin:0 0 30px; }
+
+  .context-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap:60px; align-items:start; }
+  .context-grid p{ font-size:16px; line-height:1.7; margin:0 0 20px; }
+  .context-card{ background:var(--bg-dim); border:1.5px solid var(--rule); border-radius:8px; padding:26px; }
+  .context-card .mono{ font-size:11px; opacity:0.6; margin-bottom:14px; display:block; }
+  .context-card ul{ margin:0; padding-left:18px; }
+  .context-card li{ font-size:14px; line-height:1.7; margin-bottom:10px; }
+  @media (max-width: 860px){ .context-grid{ grid-template-columns:1fr; gap:34px; } }
+
+  .term-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; }
+  .term-card{ border:1.5px solid var(--rule); border-radius:8px; padding:24px; }
+  .term-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:10px; display:block; }
+  .term-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:19px; margin:0 0 12px; line-height:1.05; }
+  .term-card p{ font-size:13.5px; line-height:1.6; margin:0; opacity:0.9; }
+  @media (max-width: 860px){ .term-grid{ grid-template-columns:1fr; } }
+
+  .example-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:22px; }
+  .example-card{ background:var(--bg-dim); border-radius:8px; padding:26px 28px; border-top:5px solid var(--theme); }
+  .example-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:12px; display:block; }
+  .example-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:20px; margin:0 0 12px; line-height:1.08; }
+  .example-card p{ font-size:14px; line-height:1.65; margin:0; }
+  .example-card p + p{ margin-top:12px; }
+  @media (max-width: 860px){ .example-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- LAYER STACK ---------- */
+  .stage{ background:var(--invert-bg); color:var(--invert-fg); border-radius:14px; padding:50px 6vw; position:relative; overflow:hidden; }
+  .stage-head{ margin-bottom:16px; }
+  .stage-head h3{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(22px,3vw,34px); margin:0; }
+  .stage-head p{ max-width:64ch; font-size:14px; line-height:1.6; opacity:0.75; margin:10px 0 0; }
+
+  .layer-stack{ max-width:560px; margin:34px auto 24px; display:flex; flex-direction:column; gap:10px; }
+  .layer-row{
+    border:1.5px solid var(--rule);
+    border-radius:10px;
+    padding:18px 22px;
+    cursor:pointer;
+    text-align:center;
+  }
+  .layer-row:hover{ border-color:var(--theme); }
+  .layer-row.active{ background:var(--theme); border-color:var(--theme); color:var(--ink); }
+  .layer-row h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:14px; margin:0; }
+
+  .layer-detail{ max-width:640px; margin:0 auto; background:var(--bg-dim); border-radius:8px; padding:24px 28px; color:var(--fg); min-height:100px; }
+  html.dark .layer-detail{ color:var(--invert-fg); }
+  .layer-detail .mono{ font-size:10.5px; opacity:0.6; margin-bottom:10px; display:block; }
+  .layer-detail p{ margin:0; font-size:14px; line-height:1.65; }
+
+  .summary{ display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap; }
+  .summary .big-quote{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(24px,3.6vw,42px); line-height:1.05; max-width:20ch; color:var(--theme); }
+  .summary .side-note{ max-width:42ch; font-size:14.5px; line-height:1.7; opacity:0.85; padding-top:8px; }
+
+  .challenge{ background:var(--bg-dim); border-left:4px solid var(--theme); border-radius:0 8px 8px 0; padding:26px 30px; }
+  .challenge .mono{ font-size:11px; opacity:0.6; margin-bottom:12px; display:block; }
+  .challenge p{ margin:0 0 16px; font-size:15px; line-height:1.7; }
+  .challenge p:last-child{ margin-bottom:0; }
+
+  .next-teaser{ display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; background:var(--olive); color:var(--paper); border-radius:10px; padding:34px 36px; }
+  .next-teaser .mono{ font-size:11px; opacity:0.85; margin-bottom:10px; display:block; }
+  .next-teaser h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(20px,2.6vw,30px); margin:0; }
+  .next-teaser a{ text-decoration:none; border:1.3px solid var(--paper); border-radius:999px; padding:11px 22px; font-family:'Space Mono', monospace; font-size:11.5px; letter-spacing:0.05em; white-space:nowrap; }
+
+  footer{ padding:34px 6vw; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; font-size:11.5px; }
+  footer .foot-links{ display:flex; gap:20px; }
+  footer a{ text-decoration:none; }
+  footer a:hover{ opacity:0.6; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="back-link" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg>
+    All theories
+  </a>
+  <a class="nav-logo" href="index.html">
+    <span class="dot"></span>
+    <span class="mono">Media Theory Atlas</span>
+  </a>
+  <div class="nav-right">
+    <button class="icon-btn" id="modeToggle" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2 12h2.4M19.6 12H22M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="theory-hero" style="border-bottom:none;">
+  <div class="theory-meta">
+    <span class="mono">2010s</span>
+    <span class="theme-tag"><span class="dot"></span>Form and Technology</span>
+  </div>
+  <h1 class="display">Platform Society</h1>
+  <div class="theorist-line">
+    <span class="name">Jos&eacute; van Dijck, Thomas Poell, and Martijn de Waal</span>
+    <span class="role">Media and communication scholars</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Historical context</div>
+  <h2 class="section-title display">When the infrastructure itself becomes the story</h2>
+  <div class="context-grid">
+    <div>
+      <p>By the mid-2010s, digital platforms had stopped being a niche technology topic and had become a genuinely society-wide organizing structure, not just for social media but for ride-sharing, food delivery, banking, dating, and dozens of other everyday activities. Jos&eacute; van Dijck, together with Thomas Poell and Martijn de Waal, argued in their 2018 book <em>The Platform Society: Public Values in a Connective World</em> that this shift required genuinely new analytical tools, since older media theory had mostly been built to study broadcasters and publishers, not app-based intermediaries sitting between millions of users and each other.</p>
+      <p>The authors proposed thinking of platforms as a layered ecosystem. Individual, familiar platforms, a particular social media app, a particular ride-sharing service, sit within a deeper infrastructure layer dominated by a small number of very large technology companies whose underlying technical and economic systems much of the rest of the ecosystem quietly depends on, cloud computing, app store rules, payment processing, advertising networks.</p>
+      <p>Their central argument was that platforms are never neutral technical intermediaries simply connecting users to each other. They actively shape social, economic, and civic life through specific business models, algorithms, and design choices, while frequently presenting themselves publicly as open, neutral infrastructure rather than as powerful economic and social actors making consequential decisions about what content, opportunities, and connections users actually see.</p>
+      <p>That gap between a platform's public self-description and its actual structural power created what van Dijck and colleagues framed as an urgent tension: core public values like privacy, fairness, and democratic accountability do not automatically align with platforms' profit-driven, engagement-optimizing business models, and protecting those values, they argued, requires active public policy attention rather than simply trusting market competition to resolve the conflict on its own.</p>
+    </div>
+    <div class="context-card">
+      <span class="mono">What fed this theory</span>
+      <ul>
+        <li>Van Dijck, Poell, and de Waal's 2018 book, <em>The Platform Society</em></li>
+        <li>The rapid expansion of app-based platforms across nearly every sector of daily life</li>
+        <li>Growing public concern over the concentrated power of major technology companies</li>
+        <li>Emerging regulatory debates over platform accountability and data protection</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Core concepts</div>
+  <h2 class="section-title display">Three ideas doing the work underneath</h2>
+  <div class="term-grid">
+    <div class="term-card">
+      <span class="mono">Concept 01</span>
+      <h4>The platform ecosystem</h4>
+      <p>Individual platforms operate within a layered structure dominated by infrastructure owned by a small number of very large technology companies, whose systems much of the ecosystem quietly depends on.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 02</span>
+      <h4>Platforms as non-neutral intermediaries</h4>
+      <p>Platforms actively shape social and economic life through business models, algorithms, and design choices, despite often presenting themselves publicly as neutral technical infrastructure.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 03</span>
+      <h4>Public values versus platform logic</h4>
+      <p>Core public values like privacy, fairness, and democratic accountability can conflict with platforms' profit-driven, engagement-optimizing business models, requiring active regulatory attention rather than assuming the market resolves the tension.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Examples in practice</div>
+  <h2 class="section-title display">Where this pattern turned up</h2>
+  <div class="example-grid">
+    <div class="example-card">
+      <span class="mono">Social media feeds</span>
+      <h4>Algorithmic content ranking</h4>
+      <p>Van Dijck's central, most direct example of platforms actively shaping what users see through design and algorithmic choices, while often describing themselves publicly as neutral, open spaces for user expression.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">The gig economy</span>
+      <h4>Ride-sharing and delivery platforms</h4>
+      <p>Discussed as a parallel case beyond social media, showing how platform logic extends into labor markets, reshaping employment relationships by classifying workers as independent contractors rather than employees.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">European Union</span>
+      <h4>Data protection regulation</h4>
+      <p>Cited as an example of public policy actively attempting to reassert public values, particularly privacy and user rights, against platform business logic, illustrating the tension the theory identifies in concrete regulatory form.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Contemporary parallel</span>
+      <h4>Content moderation and antitrust debates</h4>
+      <p>Ongoing debates over platform content moderation policy and antitrust action against major technology companies are frequently framed using van Dijck's platform society concept, treating them as struggles over the same public-values-versus-platform-logic tension.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">The mechanism, demonstrated</div>
+  <h2 class="section-title display">Click through the layers</h2>
+  <div class="stage">
+    <div class="stage-head">
+      <h3>From user to advertiser, four layers deep</h3>
+      <p>Click each layer of the platform ecosystem to see what happens there, and how it shapes what a single user ultimately experiences.</p>
+    </div>
+
+    <div class="layer-stack" id="layerStack">
+      <div class="layer-row" data-layer="user"><h4>User</h4></div>
+      <div class="layer-row" data-layer="platform"><h4>Individual platform</h4></div>
+      <div class="layer-row" data-layer="infrastructure"><h4>Infrastructure layer</h4></div>
+      <div class="layer-row" data-layer="advertiser"><h4>Advertisers and data buyers</h4></div>
+    </div>
+
+    <div class="layer-detail" id="layerDetail">
+      <span class="mono">Click a layer above</span>
+      <p>Each layer shapes what the user ultimately experiences, often invisibly.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">In one sentence</div>
+  <div class="summary">
+    <div class="big-quote">Digital platforms are not neutral technical pipes connecting people, they actively shape social and economic life through their own business models and algorithms.</div>
+    <div class="side-note">
+      <p>The theory asks a reader to look past a platform's self-description as an open, neutral space, and ask instead what business model and design choices are actually determining what they see and who they can reach.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Where the theory ran into trouble</div>
+  <h2 class="section-title display">Naming the problem is easier than solving it</h2>
+  <div class="challenge">
+    <span class="mono">The pushback</span>
+    <p>Critics note the platform society framework, while useful for describing the problem clearly, offers relatively contested and still-evolving guidance on the best regulatory response, with different regions taking substantially different approaches reflecting different values and priorities, and no clear consensus yet on what good platform governance actually looks like in practice. Some scholars also caution against treating platforms as a single homogeneous category, since a social media app, a ride-sharing service, and a cloud infrastructure provider raise genuinely different public value tensions despite sharing structural features.</p>
+    <p>The framework's own core terms have also had to be continuously revised as the competitive landscape among major technology companies keeps shifting, a reminder that describing a fast-moving structure accurately is an ongoing project rather than a settled conclusion.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="mono">Media Theory Atlas</div>
+  <div class="foot-links mono">
+    <a href="index.html">All theories</a>
+    <a href="index.html#themes">Themes</a>
+    <a href="index.html#chrono-anchor">Chronology</a>
+  </div>
+</footer>
+
+<script>
+  const modeToggle = document.getElementById('modeToggle');
+  modeToggle.addEventListener('click', function(){ document.documentElement.classList.toggle('dark'); });
+
+  const LAYERS = {
+    user: {
+      title: "The user",
+      text: "A person opens an app expecting a simple, neutral space to connect with friends, find a ride, or watch a video, rarely thinking about the layers of business decisions operating beneath that simple interface."
+    },
+    platform: {
+      title: "The individual platform",
+      text: "The specific app or service makes design and algorithmic choices about what content, options, or matches to show, optimized for engagement or transaction volume, while presenting the experience as simply how the service naturally works."
+    },
+    infrastructure: {
+      title: "The infrastructure layer",
+      text: "Underneath the platform sits infrastructure, cloud computing, app store rules, payment processing, owned by a small number of very large technology companies that much of the rest of the ecosystem depends on to function at all."
+    },
+    advertiser: {
+      title: "Advertisers and data buyers",
+      text: "Data about the user's behavior, generated by simply using the platform, is packaged and sold to advertisers and other buyers, closing the loop that funds the entire system the user first opened expecting a neutral, free service."
+    }
+  };
+
+  const layerStack = document.getElementById('layerStack');
+  const layerDetail = document.getElementById('layerDetail');
+
+  layerStack.addEventListener('click', function(e){
+    const row = e.target.closest('.layer-row');
+    if(!row) return;
+    layerStack.querySelectorAll('.layer-row').forEach(function(r){ r.classList.remove('active'); });
+    row.classList.add('active');
+    const data = LAYERS[row.dataset.layer];
+    layerDetail.innerHTML = '<span class="mono">' + data.title + '</span><p>' + data.text + '</p>';
+  });
+</script>
+</body>
+</html>

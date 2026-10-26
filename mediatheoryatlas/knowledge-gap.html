@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knowledge Gap Hypothesis, Media Theory Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15130f; --paper:#ede7dc; --paper-dim:#ddd5c4; --line:#15130f33;
+    --red:#c9391f; --blue:#1f4f8f; --olive:#4c5f2a; --mustard:#c98b12; --violet:#5c3a80;
+    --bg: var(--paper); --fg: var(--ink); --bg-dim: var(--paper-dim); --rule: var(--line);
+    --invert-bg: var(--ink); --invert-fg: var(--paper); --theme: var(--olive);
+  }
+  html.dark{ --bg:#121110; --fg:#ede7dc; --bg-dim:#1c1a17; --rule:#ede7dc2e; --invert-bg: var(--paper); --invert-fg: var(--ink); }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--fg); font-family:'Archivo', sans-serif; transition:background .25s ease, color .25s ease; overflow-x:hidden; }
+  .display{ font-family:'Anton', sans-serif; text-transform:uppercase; letter-spacing:0.01em; line-height:0.92; }
+  .mono{ font-family:'Space Mono', monospace; text-transform:uppercase; letter-spacing:0.08em; }
+  a{ color:inherit; }
+  :focus-visible{ outline: 3px solid currentColor; outline-offset: 3px; }
+
+  header.nav{ position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:16px 28px; background:var(--bg); border-bottom:1.5px solid var(--rule); }
+  .nav-logo{ font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .nav-logo .dot{ width:9px; height:9px; border-radius:50%; background: conic-gradient(var(--red) 0 20%, var(--blue) 20% 40%, var(--olive) 40% 60%, var(--mustard) 60% 80%, var(--violet) 80% 100%); flex-shrink:0; }
+  .nav-right{ display:flex; gap:10px; align-items:center; }
+  .icon-btn{ background:none; border:1.5px solid var(--fg); color:var(--fg); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .icon-btn svg{ width:16px; height:16px; }
+  .back-link{ display:flex; align-items:center; gap:8px; font-family:'Space Mono', monospace; font-size:11.5px; text-decoration:none; letter-spacing:0.06em; text-transform:uppercase; }
+
+  .theory-hero{ background:var(--theme); color:var(--paper); padding:64px 6vw 70px; border-bottom:1.5px solid var(--rule); }
+  .theory-meta{ display:flex; gap:22px; align-items:center; flex-wrap:wrap; margin-bottom:26px; }
+  .theory-meta .mono{ font-size:12px; opacity:0.9; }
+  .theme-tag{ display:inline-flex; align-items:center; gap:8px; border:1.3px solid var(--paper); border-radius:999px; padding:6px 14px; font-size:11px; }
+  .theme-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--paper); }
+  .theory-hero h1{ font-size:clamp(38px, 7vw, 96px); margin:0; max-width:22ch; }
+  .theory-hero .aka{ font-size:clamp(15px,1.8vw,20px); margin-top:18px; font-style:italic; opacity:0.9; font-weight:500; }
+  .theorist-line{ margin-top:34px; display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; }
+  .theorist-line .name{ font-size:18px; font-weight:700; }
+  .theorist-line .role{ font-size:13px; opacity:0.85; }
+
+  section{ padding:80px 6vw; border-bottom:1.5px solid var(--rule); }
+  .section-eyebrow{ font-size:12px; opacity:0.6; margin-bottom:16px; display:flex; align-items:center; gap:12px; }
+  .section-eyebrow::before{ content:""; width:30px; height:2px; background:var(--theme); }
+  .section-title{ font-size:clamp(26px,3.4vw,44px); margin:0 0 30px; }
+
+  .context-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap:60px; align-items:start; }
+  .context-grid p{ font-size:16px; line-height:1.7; margin:0 0 20px; }
+  .context-card{ background:var(--bg-dim); border:1.5px solid var(--rule); border-radius:8px; padding:26px; }
+  .context-card .mono{ font-size:11px; opacity:0.6; margin-bottom:14px; display:block; }
+  .context-card ul{ margin:0; padding-left:18px; }
+  .context-card li{ font-size:14px; line-height:1.7; margin-bottom:10px; }
+  @media (max-width: 860px){ .context-grid{ grid-template-columns:1fr; gap:34px; } }
+
+  .term-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; }
+  .term-card{ border:1.5px solid var(--rule); border-radius:8px; padding:24px; }
+  .term-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:10px; display:block; }
+  .term-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:19px; margin:0 0 12px; line-height:1.05; }
+  .term-card p{ font-size:13.5px; line-height:1.6; margin:0; opacity:0.9; }
+  @media (max-width: 860px){ .term-grid{ grid-template-columns:1fr; } }
+
+  .example-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:22px; }
+  .example-card{ background:var(--bg-dim); border-radius:8px; padding:26px 28px; border-top:5px solid var(--theme); }
+  .example-card .mono{ font-size:10.5px; opacity:0.55; margin-bottom:12px; display:block; }
+  .example-card h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:20px; margin:0 0 12px; line-height:1.08; }
+  .example-card p{ font-size:14px; line-height:1.65; margin:0; }
+  .example-card p + p{ margin-top:12px; }
+  @media (max-width: 860px){ .example-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- GAP CHART ---------- */
+  .stage{ background:var(--invert-bg); color:var(--invert-fg); border-radius:14px; padding:50px 6vw; position:relative; overflow:hidden; }
+  .stage-head{ margin-bottom:16px; }
+  .stage-head h3{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(22px,3vw,34px); margin:0; }
+  .stage-head p{ max-width:64ch; font-size:14px; line-height:1.6; opacity:0.75; margin:10px 0 0; }
+  .stage-note{ font-size:11.5px; opacity:0.55; margin-bottom:30px; max-width:64ch; }
+
+  .toggle-row{ display:flex; justify-content:center; margin-bottom:30px; }
+  .toggle{ display:flex; border:1.5px solid var(--invert-fg); border-radius:999px; overflow:hidden; }
+  .toggle button{
+    background:none; border:none; color:var(--invert-fg);
+    font-family:'Space Mono', monospace; font-size:11.5px;
+    padding:10px 20px; cursor:pointer; letter-spacing:0.05em; text-transform:uppercase;
+  }
+  .toggle button.active{ background:var(--theme); color:var(--paper); }
+
+  .chart-wrap{ max-width:640px; margin:0 auto; }
+  .chart-wrap svg{ width:100%; height:auto; display:block; }
+  .legend{ display:flex; justify-content:center; gap:24px; margin-top:14px; font-family:'Space Mono', monospace; font-size:11px; }
+  .legend span{ display:flex; align-items:center; gap:8px; }
+  .legend .swatch{ width:16px; height:3px; display:inline-block; }
+
+  .chart-caption{ max-width:640px; margin:22px auto 0; text-align:center; font-size:13.5px; opacity:0.85; }
+
+  .summary{ display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap; }
+  .summary .big-quote{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(24px,3.6vw,42px); line-height:1.05; max-width:20ch; color:var(--theme); }
+  .summary .side-note{ max-width:42ch; font-size:14.5px; line-height:1.7; opacity:0.85; padding-top:8px; }
+
+  .challenge{ background:var(--bg-dim); border-left:4px solid var(--theme); border-radius:0 8px 8px 0; padding:26px 30px; }
+  .challenge .mono{ font-size:11px; opacity:0.6; margin-bottom:12px; display:block; }
+  .challenge p{ margin:0 0 16px; font-size:15px; line-height:1.7; }
+  .challenge p:last-child{ margin-bottom:0; }
+
+  .next-teaser{ display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; background:var(--red); color:var(--paper); border-radius:10px; padding:34px 36px; }
+  .next-teaser .mono{ font-size:11px; opacity:0.85; margin-bottom:10px; display:block; }
+  .next-teaser h4{ font-family:'Anton', sans-serif; text-transform:uppercase; font-size:clamp(20px,2.6vw,30px); margin:0; }
+  .next-teaser a{ text-decoration:none; border:1.3px solid var(--paper); border-radius:999px; padding:11px 22px; font-family:'Space Mono', monospace; font-size:11.5px; letter-spacing:0.05em; white-space:nowrap; }
+
+  footer{ padding:34px 6vw; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; font-size:11.5px; }
+  footer .foot-links{ display:flex; gap:20px; }
+  footer a{ text-decoration:none; }
+  footer a:hover{ opacity:0.6; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="back-link" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg>
+    All theories
+  </a>
+  <a class="nav-logo" href="index.html">
+    <span class="dot"></span>
+    <span class="mono">Media Theory Atlas</span>
+  </a>
+  <div class="nav-right">
+    <button class="icon-btn" id="modeToggle" aria-label="Toggle dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M2 12h2.4M19.6 12H22M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="theory-hero" style="border-bottom:none;">
+  <div class="theory-meta">
+    <span class="mono">1970s</span>
+    <span class="theme-tag"><span class="dot"></span>Political Economy</span>
+  </div>
+  <h1 class="display">Knowledge Gap Hypothesis</h1>
+  <div class="theorist-line">
+    <span class="name">Phillip Tichenor, George Donohue, and Clarice Olien</span>
+    <span class="role">Communication researchers, University of Minnesota</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Historical context</div>
+  <h2 class="section-title display">More information for everyone did not mean equal information for everyone</h2>
+  <div class="context-grid">
+    <div>
+      <p>Through the 1950s and 1960s, a hopeful assumption ran through a great deal of communication and development research, including much of the diffusion and modernization work covered earlier in this atlas: if you simply increased the flow of information into a community, everyone in it would eventually catch up to everyone else. More newspapers, more broadcasts, more public affairs coverage would, in this view, act as a great leveler.</p>
+      <p>In 1970, three researchers at the University of Minnesota, Phillip Tichenor, George Donohue, and Clarice Olien, published a paper that quietly dismantled that assumption. Studying how public affairs and science information spread through communities as media coverage increased, they found something close to the opposite of what the leveling theory predicted. Segments of the population with higher socioeconomic status, more formal education, more money, more relevant social contacts, tended to acquire new information faster than lower socioeconomic segments, even when everyone technically had the same access to the same newspapers and broadcasts.</p>
+      <p>The result, they argued, was that the gap in knowledge between these groups tended to widen, not narrow, as media coverage of an issue increased. More information flowing into a community did not raise everyone equally. It tended to lift those who already had the most resources for processing and using that information fastest, stretching the distance between them and everyone else.</p>
+      <p>The finding mattered well beyond academic communication research. It cut directly against the optimistic assumption behind a great deal of public health and civic information campaigns, and behind much of the development communication tradition, since it suggested that simply broadcasting more information was not, on its own, a neutral or equalizing act.</p>
+    </div>
+    <div class="context-card">
+      <span class="mono">What fed this theory</span>
+      <ul>
+        <li>The 1970 University of Minnesota paper, "Mass Media Flow and Differential Growth in Knowledge"</li>
+        <li>Public affairs and science media coverage of the era, unevenly absorbed across audiences</li>
+        <li>Growing skepticism toward the optimistic assumptions behind development communication research</li>
+        <li>Later fieldwork by the same researchers on local community conflict and information spread</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Core concepts</div>
+  <h2 class="section-title display">Three ideas doing the work underneath</h2>
+  <div class="term-grid">
+    <div class="term-card">
+      <span class="mono">Concept 01</span>
+      <h4>Differential knowledge acquisition</h4>
+      <p>Higher socioeconomic groups tend to pick up mass media information faster, thanks to stronger existing background knowledge, better communication skills, and social networks more likely to reinforce and discuss what they read or hear.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 02</span>
+      <h4>The widening gap</h4>
+      <p>The theory's central and most provocative claim: increasing the flow of media information into a community tends to widen, rather than close, the knowledge gap between higher and lower socioeconomic groups.</p>
+    </div>
+    <div class="term-card">
+      <span class="mono">Concept 03</span>
+      <h4>Ceiling effects and local conditions</h4>
+      <p>Later research by the same team found conditions, particularly high local interest or conflict in a small, close-knit community, could narrow the gap instead, since there is only so much anyone can know about a topic before hitting a natural ceiling.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Examples in practice</div>
+  <h2 class="section-title display">Where this pattern turned up</h2>
+  <div class="example-grid">
+    <div class="example-card">
+      <span class="mono">Minnesota, 1970</span>
+      <h4>The original public affairs study</h4>
+      <p>Tichenor, Donohue, and Olien's founding research tracked how print-heavy science and public affairs coverage disproportionately benefited more educated readers, establishing the core widening-gap pattern the theory is named for.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Public health campaigns</span>
+      <h4>Uneven uptake of health information</h4>
+      <p>Public health information campaigns have repeatedly been found to widen gaps between more and less educated audiences, unless specifically designed with targeted, localized outreach aimed at lower socioeconomic groups rather than a single broad broadcast approach.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Community conflict research</span>
+      <h4>When the gap narrows instead</h4>
+      <p>In later fieldwork, the same research team found that small, homogeneous communities experiencing high local conflict or interest around an issue sometimes saw the knowledge gap narrow rather than widen, an important qualifier to the original, broader hypothesis.</p>
+    </div>
+    <div class="example-card">
+      <span class="mono">Contemporary parallel</span>
+      <h4>The digital divide</h4>
+      <p>Research into internet and smartphone access has documented the same basic pattern in a new medium: those with more resources, skills, and existing knowledge tend to benefit disproportionately from new information technology, widening rather than closing longstanding gaps.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">The mechanism, demonstrated</div>
+  <h2 class="section-title display">Two communities, two outcomes</h2>
+  <div class="stage">
+    <div class="stage-head">
+      <h3>Knowledge growth after a media campaign begins</h3>
+      <p>Toggle between a typical community and one with high local conflict around the issue, and watch what happens to the gap between higher and lower socioeconomic groups over the same four months of coverage.</p>
+    </div>
+    <div class="stage-note mono">Illustrative curves built to reflect the general direction of knowledge gap research, not a specific reported dataset.</div>
+
+    <div class="toggle-row">
+      <div class="toggle" id="gapToggle">
+        <button class="active" data-view="typical">Typical community</button>
+        <button data-view="conflict">High-conflict community</button>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <svg viewBox="0 0 500 220" id="gapSvg"></svg>
+      <div class="legend">
+        <span><span class="swatch" style="background:var(--theme)"></span>Higher socioeconomic group</span>
+        <span><span class="swatch" style="background:var(--rule)"></span>Lower socioeconomic group</span>
+      </div>
+    </div>
+
+    <div class="chart-caption" id="gapCaption"></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">In one sentence</div>
+  <div class="summary">
+    <div class="big-quote">More media coverage of an issue tends to widen the knowledge gap between socioeconomic groups, not close it, unless local conditions push against that pattern.</div>
+    <div class="side-note">
+      <p>The theory complicates a comforting assumption behind a lot of public information efforts, that simply making information available is enough. Who actually absorbs it, and how quickly, depends heavily on resources most campaigns never account for.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-eyebrow mono">Where the theory ran into trouble</div>
+  <h2 class="section-title display">A real pattern, but not an inevitable one</h2>
+  <div class="challenge">
+    <span class="mono">The pushback</span>
+    <p>While the widening gap pattern has been documented repeatedly, it is not universal, and researchers, including the original authors, found it interacts heavily with local conditions such as community size, social conflict, and how directly relevant an issue feels to a particular group. Critics have also argued that socioeconomic status alone is too blunt a variable, and that factors like personal motivation, media literacy skills, and the strength of someone's social network may matter just as much in explaining who actually absorbs new information quickly.</p>
+    <p>The rise of the internet complicated the picture further by both testing and confirming the theory's resilience. Early hopes that universal internet access would finally deliver the equalizing effect earlier media never managed have run into the same basic dynamic Tichenor, Donohue, and Olien described decades earlier, now studied under the label of the digital divide, suggesting the underlying pattern is less about any one medium and more about the resources people bring to whatever medium is in front of them.</p>
+  </div>
+</section>
+
+
+<footer>
+  <div class="mono">Media Theory Atlas</div>
+  <div class="foot-links mono">
+    <a href="index.html">All theories</a>
+    <a href="index.html#themes">Themes</a>
+    <a href="index.html#chrono-anchor">Chronology</a>
+  </div>
+</footer>
+
+<script>
+  const modeToggle = document.getElementById('modeToggle');
+  modeToggle.addEventListener('click', function(){ document.documentElement.classList.toggle('dark'); });
+
+  const GAP_DATA = {
+    typical: {
+      high: [20, 38, 55, 70, 82],
+      low: [15, 24, 32, 38, 42],
+      caption: "In a typical community, the higher socioeconomic group pulls steadily ahead as coverage continues, and the gap between the two lines keeps growing wider month after month."
+    },
+    conflict: {
+      high: [20, 34, 45, 52, 58],
+      low: [15, 30, 44, 50, 55],
+      caption: "In a small community with high local conflict around the issue, both groups engage heavily, and the gap that opens early on narrows considerably as the lower socioeconomic group catches up."
+    }
+  };
+
+  function pointsToPath(values, w, h, max){
+    const stepX = w / (values.length - 1);
+    return values.map(function(v, i){
+      const x = i * stepX;
+      const y = h - (v / max * h);
+      return (i === 0 ? "M" : "L") + x.toFixed(1) + "," + y.toFixed(1);
+    }).join(" ");
+  }
+
+  const gapSvg = document.getElementById('gapSvg');
+  const gapCaption = document.getElementById('gapCaption');
+  const gapToggle = document.getElementById('gapToggle');
+
+  function renderGap(view){
+    const data = GAP_DATA[view];
+    const W = 460, H = 160, PAD = 20, MAX = 100;
+    const highPath = pointsToPath(data.high, W, H, MAX);
+    const lowPath = pointsToPath(data.low, W, H, MAX);
+
+    gapSvg.setAttribute('viewBox', '0 0 ' + (W + PAD * 2) + ' ' + (H + PAD * 2));
+    gapSvg.innerHTML =
+      '<g transform="translate(' + PAD + ',' + PAD + ')">' +
+      '<line x1="0" y1="' + H + '" x2="' + W + '" y2="' + H + '" stroke="var(--rule)" stroke-width="1.5"/>' +
+      '<line x1="0" y1="0" x2="0" y2="' + H + '" stroke="var(--rule)" stroke-width="1.5"/>' +
+      '<path d="' + lowPath + '" fill="none" stroke="var(--rule)" stroke-width="3"/>' +
+      '<path d="' + highPath + '" fill="none" stroke="var(--theme)" stroke-width="3"/>' +
+      '</g>';
+
+    gapCaption.textContent = data.caption;
+  }
+
+  gapToggle.addEventListener('click', function(e){
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    gapToggle.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    renderGap(btn.dataset.view);
+  });
+
+  renderGap('typical');
+</script>
+</body>
+</html>
