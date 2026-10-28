@@ -23,7 +23,7 @@
 <link rel="icon" type="image/png" href="favicon.png"/>
 <link rel="alternate icon" href="favicon.ico"/>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
-<link rel="stylesheet" href="swiss.css?v=1"/>
+<link rel="stylesheet" href="swiss.css?v=2"/>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -44,13 +44,13 @@
   <div class="wrap">
     <span class="label">Dispatch &amp; Features</span>
     <h1 class="h1" style="margin:20px 0 32px">Reportage<br/><span class="red">&amp; Stories</span></h1>
-    <p class="lead measure">Reporting and commentary on the state of journalism, the pressures shaping media, and the communities that news too often overlooks, across Bangladesh and South Asia.</p>
+    <p class="lead measure">Reporting and commentary on the state of journalism, the pressures shaping media, and the communities that news too often overlooks, across Bangladesh.</p>
   </div>
 </section>
 
 <section class="sec" style="padding-top:40px">
   <div class="wrap">
-    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px"><p class="label">Latest Dispatches</p><span class="label grey">Scroll →</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px"><p class="label">Selected Publications</p><span class="label grey">Scroll →</span></div>
     <div id="featured-strip" class="strip"></div>
   </div>
 </section>
@@ -99,17 +99,27 @@
     <div class="c-1-5">
       <p class="h3">Usama Rafid</p>
       <p class="small grey" style="margin-top:6px">© 2026 Usama Rafid. All rights reserved. Dhaka, Bangladesh.</p>
+      <p style="margin-top:20px"><button class="totop" id="totop" type="button">Back to top ↑</button></p>
     </div>
-    <ul class="c-6-7">
-      <li><a href="https://linkedin.com/in/usama-rafid" target="_blank" rel="noopener">LinkedIn</a></li>
-      <li><a href="https://web.facebook.com/usama.rafid.7/" target="_blank" rel="noopener">Facebook</a></li>
-      <li><a href="mailto:rafidusama@gmail.com?cc=usama.rafid@ulab.edu.bd">Email</a></li>
-      <li><a href="awards.html">Awards</a></li>
-      <li><a href="https://orcid.org/0009-0008-5743-5597" target="_blank" rel="noopener">ORCID</a></li>
-      <li><a href="https://www.researchgate.net/profile/Rafid-Usama" target="_blank" rel="noopener">ResearchGate</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><button class="totop" id="totop" type="button">Back to top ↑</button></li>
-    </ul>
+    <div class="c-6-7 fcols">
+      <ul>
+        <li><a href="https://linkedin.com/in/usama-rafid" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="mailto:rafidusama@gmail.com?cc=usama.rafid@ulab.edu.bd">Email</a></li>
+      </ul>
+      <ul>
+        <li><a href="https://scholar.google.com/citations?hl=en&user=lh10jWgAAAAJ" target="_blank" rel="noopener">Google Scholar</a></li>
+        <li><a href="https://orcid.org/0009-0008-5743-5597" target="_blank" rel="noopener">ORCID</a></li>
+        <li><a href="https://www.researchgate.net/profile/Rafid-Usama" target="_blank" rel="noopener">ResearchGate</a></li>
+      </ul>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="reportage.html">Reportage</a></li>
+        <li><a href="academic.html">Academic</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="awards.html">Awards</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
   </div>
 </footer>
 <script src="swiss.js?v=1"></script>
@@ -129,6 +139,9 @@ const IMG = {
         /* ---------- The full body of published work ---------- */
         const WORKS = [
             // --- 2026 ---
+            { title: "কেন মানুষ গুজব ছড়ায়?", outlet: "The Daily Star", venue: "The Daily Star Bangla", type: "Op-Ed", theme: "Media and Journalism", date: "2026-07-18", img: "assets/thumbs/why-people-spread-rumors.webp",
+              url: "https://bangla.thedailystar.net/opinion/views/news-3944316",
+              blurb: "On why people spread and accept rumors that fit their existing beliefs, drawing on motivated reasoning and identity-protective cognition, and why prebunking may last longer than fact-checking alone." },
             { title: "How Local Journalism Survives on Debt, Pressure and Press Cards", outlet: "The Business Standard", venue: "The Business Standard", type: "Report", theme: "Media and Journalism", date: "2026-01-09", img: "assets/thumbs/7494f19d3b.webp",
               url: "https://www.tbsnews.net/thoughts/how-local-journalism-survives-debt-pressure-and-press-cards-1329911",
               blurb: "On the commercial crises, financial vulnerabilities, and intense political economies governing district journalists outside the capital." },
@@ -136,7 +149,7 @@ const IMG = {
               url: "https://www.thedailystar.net/opinion/views/news/why-we-need-more-techies-our-newsrooms-4096116",
               blurb: "On the vital integration of software developers, data scientists, and engineers to build modern public-interest editorial products." },
             // --- 2025 ---
-            { title: "How Social Outlets are Shaping News Consumption Culture", outlet: "Others", venue: "Times of Bangladesh", type: "Report", theme: "Media and Journalism", date: "2025-12-06", img: "assets/thumbs/0056f7c861.webp",
+            { title: "How Social Outlets are Shaping News Consumption Culture", outlet: "Times of Bangladesh", venue: "Times of Bangladesh", type: "Report", theme: "Media and Journalism", date: "2025-12-06", img: "assets/thumbs/0056f7c861.webp",
               url: "https://tob.news/social-medias-impact-on-how-we-consum-news/",
               blurb: "Recently, social media has become one of the most prominent mediums for news consumption worldwide, especially among younger audiences, according to global surveys." },
             { title: "The Invisible Heist: How AI is Stealing from Newsrooms", outlet: "The Business Standard", venue: "The Business Standard", type: "Op-Ed", theme: "Media and Journalism", date: "2025-07-04", img: "assets/thumbs/143bdad983.webp",
@@ -153,7 +166,7 @@ const IMG = {
               url: "https://www.tbsnews.net/features/panorama/streets-field-sports-academy-lets-street-children-dream-big-789806",
               blurb: "A feature on a sports academy working to turn street children toward football, structure, care, and long-term rehabilitation." },
             // --- 2023 ---
-            { title: "From Arcade Machines to PlayStation: Into the Gaming World of the Capital", outlet: "The Business Standard", venue: "The Business Standard", type: "Feature", theme: "Media and Journalism", date: "2023-11-03", img: "assets/thumbs/32e56b4f5e.webp",
+            { title: "From Arcade Machines to PlayStation: Into the Gaming World of the Capital", outlet: "The Business Standard", venue: "The Business Standard", type: "Feature", theme: "Politics and Society", date: "2023-11-03", img: "assets/thumbs/32e56b4f5e.webp",
               url: "https://www.tbsnews.net/features/arcade-machines-playstation-gaming-world-capital-732250",
               blurb: "A reported look at Dhaka's gaming spaces, from arcade nostalgia to consoles, PCs, and the future of local gaming culture." },
             { title: "Will AI Replace Our News Anchors?", outlet: "The Business Standard", venue: "The Business Standard", type: "Feature", theme: "Media and Journalism", date: "2023-08-18", img: "assets/thumbs/49cfe69c7c.webp",
@@ -162,7 +175,7 @@ const IMG = {
             { title: "The Road to Glory: Formula Student Clocks Top Speed in Bangladesh", outlet: "The Business Standard", venue: "The Business Standard", type: "Feature", theme: "Politics and Society", date: "2023-06-23", img: "assets/thumbs/3075acc77a.webp",
               url: "https://www.tbsnews.net/bangladesh/road-glory-formula-student-clocks-top-speed-bangladesh-654922",
               blurb: "A feature on university racing teams building electric Formula Student cars with local and eco-friendly materials." },
-            { title: "ডেটা সাংবাদিকতার ধরন", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Essay", theme: "Media and Journalism", date: "2023-02-23", img: "assets/thumbs/5e8f9b304d.webp",
+            { title: "ডেটা সাংবাদিকতার ধরন", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Explainer", theme: "Media and Journalism", date: "2023-02-23", img: "assets/thumbs/5e8f9b304d.webp",
               url: "https://archive.roar.media/bangla/main/world/types-of-data-journalism",
               blurb: "A Bengali overview of data journalism formats, from drones and spatial reporting to data-led investigations and visual storytelling." },
             { title: "ডেটা সাংবাদিকতা কী?", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Explainer", theme: "Media and Journalism", date: "2023-02-19", img: "assets/thumbs/e654d7bb5b.webp",
@@ -174,54 +187,62 @@ const IMG = {
             // --- Colonial Indian Army Series (2021) ---
             { title: "ঔপনিবেশিক ভারতের সামরিক বাহিনী: কোম্পানি শাসন (পর্ব-১)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-07-23", dateLabel: "Jul 16, 2021", series: "colonial-army", part: 1, img: "assets/thumbs/69503dca6a.webp",
               url: "https://archive.roar.media/bangla/main/history/army-of-colonial-india-episode-1",
-              blurb: "ইস্ট ইন্ডিয়া কোম্পানির বণিক সংঘ কর্তৃক ভারতের মানুষকে ভাড়াটিয়া সেনাবাহিনীতে রূপান্তর এবং ভারতভূমি দখলের ইতিহাস।" },
+              blurb: "How the East India Company's merchant body turned Indian men into a mercenary army, and the history of its seizure of the subcontinent." },
             { title: "ঔপনিবেশিক ভারতের সামরিক বাহিনী: সিপাহী বিদ্রোহের পর (পর্ব-২)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-07-23", dateLabel: "Jul 22, 2021", series: "colonial-army", part: 2, img: "assets/thumbs/f9b3df435c.webp",
               url: "https://archive.roar.media/bangla/main/history/army-of-colonial-india-episode-2",
-              blurb: "১৮৫৭ সালের সিপাহী বিদ্রোহের অবসান এবং British Raj-এর অধীনে ভারতের শাসনভার চলে যাওয়ার পর ফৌজের সামগ্রিক পুনর্গঠন।" },
+              blurb: "The end of the 1857 Sepoy Rebellion, the transfer of rule to the British Raj, and the wholesale rebuilding of the army that followed." },
             { title: "ঔপনিবেশিক ভারতের সামরিক বাহিনী: দ্য রয়্যাল ইম্পেরিয়াল আর্মি (পর্ব-৩)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-07-23", dateLabel: "Jul 22, 2021", series: "colonial-army", part: 3, img: "assets/thumbs/57c1473d5d.webp",
               url: "https://archive.roar.media/bangla/main/history/army-of-colonial-india-episode-3",
-              blurb: "ব্রিটিশ সাম্রাজ্যের স্বার্থে বিশ্বব্যাপী যুদ্ধে অংশগ্রহণ করতে বাধ্য হওয়া এবং রাজকীয় সেনাবাহিনীর কঠোর আইন ও শাসন কাঠামো।" },
+              blurb: "India's forced part in global wars for the British Empire, and the strict laws and command structure of the Royal Imperial Army." },
             { title: "ঔপনিবেশিক ভারতের সামরিক বাহিনী: কিচেনারের পুনর্গঠন (পর্ব-৪)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-07-23", dateLabel: "Jul 22, 2021", series: "colonial-army", part: 4, img: "assets/thumbs/50a52222da.webp",
               url: "https://archive.roar.media/bangla/main/history/army-of-colonial-india-episode-4",
-              blurb: "লর্ড কিচেনার কর্তৃক ভারতীয় ফৌজ পুনর্গঠন, অভ্যন্তরীণ নিরাপত্তা এবং সেনাবাহিনীর আধুনিকায়নের মাধ্যমে শক্তি বৃদ্ধি।" },
+              blurb: "Lord Kitchener's reorganization of the Indian army, focused on internal security and modernization to build strength." },
             { title: "ঔপনিবেশিক ভারতের সামরিক বাহিনী: প্রথম বিশ্বযুদ্ধ (পর্ব-৫)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-07-23", dateLabel: "Jul 22, 2021", series: "colonial-army", part: 5, img: "assets/thumbs/be1f08324d.webp",
               url: "https://archive.roar.media/bangla/main/history/army-of-colonial-india-episode-5",
-              blurb: "প্রথম বিশ্বযুদ্ধের রণাঙ্গনে লাখ লাখ ভারতীয় সেনার বীরত্ব ও আত্মত্যাগ এবং খুদাদাদ খানের মতো সাহসী সৈনিকদের সাহসিকতার গল্প।" },
+              blurb: "The courage and sacrifice of millions of Indian soldiers on the First World War battlefields, including the story of brave soldiers such as Khudadad Khan." },
             { title: "ঔপনিবেশিক ভারতের সামরিক বাহিনী: ভারতীয়করণ (পর্ব-৬)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-07-23", dateLabel: "Jul 22, 2021", series: "colonial-army", part: 6, img: "assets/thumbs/3f554491ef.webp",
               url: "https://archive.roar.media/bangla/main/history/army-of-colonial-india-episode-6",
-              blurb: "১৯২৩ সাল থেকে সেনাবাহিনীতে ভারতীয় অফিসার নিয়োগের সূচনা ও এর মধ্য দিয়ে গড়ে ওঠা বৈষম্যমূলক রীতিনীতি।" },
+              blurb: "The start of Indian officer recruitment from 1923 and the discriminatory customs that grew around it." },
             { title: "ঔপনিবেশিক ভারতের সামরিক বাহিনী: দ্বিতীয় বিশ্বযুদ্ধ (পর্ব-৭)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-07-23", series: "colonial-army", part: 7, img: "assets/thumbs/08062c99a9.webp",
               url: "https://archive.roar.media/bangla/main/history/army-of-colonial-india-episode-7",
-              blurb: "দ্বিতীয় বিশ্বযুদ্ধের রণাঙ্গনে ভারতীয় ফৌজের সর্বাত্মক প্রসারণ, বিভিন্ন মহাদেশে লড়াই ও সামরিক শক্তিতে আমূল পরিবর্তন।" },
+              blurb: "The full expansion of the Indian army across Second World War fronts, fighting on several continents and a radical shift in military strength." },
             { title: "ঔপনিবেশিক ভারতের সামরিক বাহিনী: স্বাধীনতা ও ইংরেজদের বিদায় (পর্ব-৮)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-07-23", series: "colonial-army", part: 8, img: "assets/thumbs/befa24b20e.webp",
               url: "https://archive.roar.media/bangla/main/history/army-of-colonial-india-episode-8",
-              blurb: "১৯৪৭ সালের দেশভাগ, ব্রিটিশ বিদায় এবং ভারতের সামরিক বাহিনীর বিভাজনের মধ্য দিয়ে ঔপনিবেশিক অধ্যায়ের অবসান।" },
+              blurb: "The 1947 Partition, the British exit, and the division of India's armed forces, which closed the colonial chapter." },
+
+            // --- Roar Bangla history features (2020-2021) ---
+            { title: "কলেরা ম্যাপ এবং একজন জন স্নো", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2021-06-01", img: "assets/thumbs/john-snow-cholera.webp",
+              url: "https://archive.roar.media/bangla/main/history/john-snow-and-his-cholera-map",
+              blurb: "How Dr. John Snow mapped cholera deaths in 1854 London, traced the outbreak to a contaminated water pump, and prompted sanitation reforms." },
+            { title: "বঙ্গদেশের হারানো গ্রিকরা", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2020-12-16", img: "assets/thumbs/greeks-bengal.webp",
+              url: "https://archive.roar.media/bangla/main/history/the-forgotten-greeks-of-bengal",
+              blurb: "On the Greek merchant community of colonial Bengal, from its arrival in Calcutta and Dhaka to its decline, and the Greek sites that survive today." },
 
             // --- Alexander the Great Series (2018-2019) ---
             { title: "দিগ্বিজয়ী আলেকজান্ডার: রাজপুত্রের উত্থান (পর্ব-১)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2019-12-30", dateLabel: "Aug 6, 2018", series: "alexander", part: 1, img: "assets/thumbs/28b1bd17be.webp",
               url: "https://archive.roar.media/bangla/main/biography/alexander-the-great-episode-1-the-triumph-of-the-prince",
-              blurb: "ম্যাসিডোনের রাজপুত্র থেকে দিগ্বিজয়ী সম্রাট হয়ে ওঠার প্রথম অধ্যায়: আলেকজান্ডারের উত্থান ও রাজপুত্রের সিংহাসন লাভ।" },
+              blurb: "The first chapter in Alexander's rise from Macedonian prince to world conqueror: his early ascent and his accession to the throne." },
             { title: "দিগ্বিজয়ী আলেকজান্ডার: এশিয়ায় পদার্পণ (পর্ব-২)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2019-12-30", series: "alexander", part: 2, img: "assets/thumbs/b826f76ae6.webp",
               url: "https://archive.roar.media/bangla/main/biography/alexandar-the-great-episode-2-lord-of-asia",
-              blurb: "গ্রানিকাসের যুদ্ধ থেকে এশিয়া মাইনর বিজয়ের সূচনা এবং পারস্য রাজ Dariউসের বিরুদ্ধে প্রথম আকস্মিক প্রতিরোধ।" },
+              blurb: "From the Battle of the Granicus to the start of the conquest of Asia Minor, and the first sudden resistance against the Persian king Darius." },
             { title: "দিগ্বিজয়ী আলেকজান্ডার: মিশরের নতুন দেবতা (পর্ব-৩)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2019-12-30", series: "alexander", part: 3, img: "assets/thumbs/5be014157a.webp",
               url: "https://archive.roar.media/bangla/main/biography/alexander-the-great-episode-3-egypts-new-god",
-              blurb: "মিশরের পিরামিড ও স্ফিংক্সের বিস্ময় দেখে মেসিডন বাহিনীর মিশর জয় এবং সেখানে ফারাও হিসেবে আলেকজান্ডারের মুকুট ধারণ।" },
+              blurb: "The Macedonian army's conquest of Egypt after its awe at the pyramids and the Sphinx, and Alexander's crowning as pharaoh." },
             { title: "দিগ্বিজয়ী আলেকজান্ডার: প্রাচ্যের প্রাচুর্য (পর্ব-৪)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2019-12-30", series: "alexander", part: 4, img: "assets/thumbs/c4f332bead.webp",
               url: "https://archive.roar.media/bangla/main/history/alexander-the-great-episode-4-all-the-treasures-of-east",
-              blurb: "ব্যাবিলন জয় এবং পারস্য সাম্রাজ্যের পতন ঘটিয়ে প্রাচ্যের ঐশ্বর্য ও সম্পদের ওপর মেসিডোনিয়ান বাহিনীর নিয়ন্ত্রণ প্রতিষ্ঠা।" },
+              blurb: "The conquest of Babylon and the fall of the Persian Empire, as Macedonian forces take control of the wealth and riches of the East." },
             { title: "দিগ্বিজয়ী আলেকজান্ডার: পৃথিবীর শেষ প্রান্তে (পর্ব-৫)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2019-12-30", series: "alexander", part: 5, img: "assets/thumbs/6666b9de52.webp",
               url: "https://archive.roar.media/bangla/main/biography/alexander-the-great-episode-5-to-the-ends-of-the-world",
-              blurb: "রোকসানাকে বিয়ে এবং খাইবার পাস হয়ে দুর্গম ও অচেনা ভারতীয় উপমহাদেশ জয়ের অভিমুখে আলেকজান্ডারের নতুন যাত্রা।" },
+              blurb: "His marriage to Roxana and his new journey through the Khyber Pass toward conquering the remote and unfamiliar Indian subcontinent." },
             { title: "দিগ্বিজয়ী আলেকজান্ডার: দুর্গম ভারত (পর্ব-৬)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2019-12-30", series: "alexander", part: 6, img: "assets/thumbs/aaee448607.webp",
               url: "https://archive.roar.media/bangla/main/history/alexander-the-great-episode-6-after-the-river-of-indus",
-              blurb: "ইন্দু নদী পার হয়ে রাজা পুরুর বিরুদ্ধে ঝিলামের তীরে ঐতিহাসিক হাইডাসপিসের রক্তক্ষয়ী যুদ্ধ এবং প্রকৃতির বৈরিতা মোকাবেলা।" },
+              blurb: "Crossing the Indus, the bloody Battle of the Hydaspes against King Porus on the banks of the Jhelum, and the struggle against a hostile climate." },
             { title: "দিগ্বিজয়ী আলেকজান্ডার: বিপদশঙ্কুল যাত্রা (পর্ব-৭)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2019-12-30", series: "alexander", part: 7, img: "assets/thumbs/35001b2bb9.webp",
               url: "https://archive.roar.media/bangla/main/history/alexander-the-great-episode-7-perilous-journeys",
-              blurb: "বিপাশা নদীর তীরে সৈন্যদের ক্লান্তি ও অসন্তোষ এবং ভারত জয় অসমাপ্ত রেখে ব্যাবিলনে প্রত্যাবর্তনের বিপদশঙ্কুল কাহিনী।" },
+              blurb: "His soldiers' exhaustion and unrest at the Beas River, and the perilous journey back to Babylon with the conquest of India left unfinished." },
             { title: "দিগ্বিজয়ী আলেকজান্ডার: মহত্ত্বের মূল্য (শেষ পর্ব)", outlet: "Roar Bangla", venue: "Roar Bangla", type: "Bangla Feature", theme: "History", date: "2019-12-30", series: "alexander", part: 8, img: "assets/thumbs/be4ed10916.webp",
               url: "https://archive.roar.media/bangla/main/history/alexander-the-great-episode-8-the-price-of-greatness",
-              blurb: "ব্যাবিলনে মাত্র ৩২ বছর বয়সে সম্রাট আলেকজান্ডারের রহস্যময় মৃত্যু এবং ইতিহাসের পাতায় তাঁর চিরস্থায়ী উত্তরাধিকার।" }
+              blurb: "Alexander's mysterious death in Babylon at just 32, and his lasting legacy in history." }
         ];
 
         /* ---------- Places where Usama appears as a quoted/interviewed source ---------- */
@@ -238,7 +259,7 @@ const IMG = {
         ];
 
         
-const THEME_SHADE = { "Media and Journalism": "var(--black)", "Environment and Climate": "var(--red)", "Politics and Society": "var(--grey)", "History": "#b5b5b5" };
+const THEME_SHADE = { "Media and Journalism": "var(--red)", "Environment and Climate": "var(--black)", "Politics and Society": "var(--grey)", "History": "#b5b5b5" };
 const state = { search: "", outlet: "all", theme: "all", year: "all", sort: "new" };
 const els = {
   list: document.getElementById("archive-list"), appeared: document.getElementById("appeared-on-list"),
@@ -253,7 +274,7 @@ const unique = a => [...new Set(a)];
 function fillSelect(sel, values, allLabel) {
   sel.innerHTML = '<option value="all">' + allLabel + "</option>" + values.map(v => '<option value="' + esc(v) + '">' + esc(v) + "</option>").join("");
 }
-const OUTLET_ORDER = ["The Daily Star", "The Business Standard", "Roar Bangla", "Coastal Voices", "Others"];
+const OUTLET_ORDER = ["The Daily Star", "The Business Standard", "Roar Bangla", "Coastal Voices", "Times of Bangladesh"];
 fillSelect(els.outlet, OUTLET_ORDER.filter(o => WORKS.some(w => w.outlet === o)), "All outlets");
 fillSelect(els.theme, unique(WORKS.map(w => w.theme)).sort(), "All themes");
 fillSelect(els.year, unique(WORKS.map(w => w.date.slice(0, 4))).sort((a, b) => b - a), "All years");
@@ -320,10 +341,11 @@ render();
 els.appeared.innerHTML = APPEARED_ON.map(row).join("");
 if (!APPEARED_ON.length) document.getElementById("appeared-in-section").style.display = "none";
 const strip = document.getElementById("featured-strip");
-strip.innerHTML = WORKS.slice().sort((a, b) => b.date.localeCompare(a.date)).slice(0, 8).map(w =>
+const FEATURED = ["Why We Need Techies in Our Newsrooms", "How Local Journalism Survives on Debt, Pressure and Press Cards", "How Social Outlets are Shaping News Consumption Culture", "Rise of the Newsfluencers", "The Invisible Heist: How AI is Stealing from Newsrooms", "Living with the River: Manta Communities' Battle Against a Changing Climate", "Will AI Replace Our News Anchors?"];
+strip.innerHTML = FEATURED.map(t => WORKS.find(w => w.title === t)).filter(Boolean).map(w =>
   '<a href="' + esc(w.url || "#") + '" target="_blank" rel="noopener"><div class="thumb"><img src="' + esc(w.img) + '" alt="" width="320" height="200" loading="lazy" decoding="async"/></div>' +
   '<p class="label" style="margin-bottom:8px"><span class="red">' + esc(w.outlet) + '</span> <span class="grey">· ' + esc(fmtDate(w)) + "</span></p>" +
-  '<h3 class="h3" style="font-size:1.05rem">' + esc(w.title) + "</h3></a>").join("");
+  '<h3 class="h3" style="font-size:1.05rem">' + esc(w.title) + '</h3></a>').join("");
 });
 </script>
 

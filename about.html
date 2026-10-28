@@ -23,7 +23,28 @@
 <link rel="icon" type="image/png" href="favicon.png"/>
 <link rel="alternate icon" href="favicon.ico"/>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
-<link rel="stylesheet" href="swiss.css?v=1"/>
+<link rel="stylesheet" href="swiss.css?v=2"/>
+<style id="about-streamline">
+:root{ --tint:rgba(0,0,0,.1); }
+:root[data-theme="dark"]{ --tint:rgba(255,255,255,.14); }
+.logo{ display:block; width:120px; height:48px; background:#fff; border:1px solid var(--black); object-fit:contain; }
+.logo.lg{ width:160px; height:64px; }
+.legend .logos{ flex:1 0 100%; display:flex; flex-wrap:wrap; gap:8px; padding-top:6px; }
+#timeline-tracks{ display:flex; flex-direction:column; gap:10px; }
+#timeline-tracks .tl-track{ position:relative; z-index:2; padding:2px 0 8px; border-bottom:1px solid rgba(0,0,0,.12); }
+:root[data-theme="dark"] #timeline-tracks .tl-track{ border-color:rgba(255,255,255,.14); }
+#timeline-tracks .track-tag{ grid-column:1 / -1; grid-row:1; justify-self:start; }
+#timeline-tracks .track-tag .tag.redfill{ background:var(--red); border-color:var(--red); color:var(--white); }
+:root[data-theme="dark"] #timeline-tracks .track-tag .tag.redfill{ color:#000; }
+#timeline-tracks .timeline-item{ width:100%; text-align:left; border:1px solid var(--black); border-left-width:6px; }
+#timeline-tracks .tl-acad{ background:var(--t-acad); border-color:var(--t-acad); color:var(--on-acad); }
+#timeline-tracks .tl-acad:hover,#timeline-tracks .tl-acad.active{ background:var(--black); border-color:var(--black); color:var(--white); }
+#timeline-tracks .tl-pro{ background:var(--tint); }
+#timeline-tracks .tl-pro:hover{ background:rgba(227,6,19,.25); border-color:var(--red); }
+#timeline-tracks .tl-pro.active{ background:var(--red); border-color:var(--red); }
+#timeline-tracks .timeline-label{ width:100%; padding-top:6px; }
+#timeline-tracks .timeline-label.active{ color:var(--red); }
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -80,7 +101,7 @@
       <div id="timeline-canvas">
         <div id="timeline-grid-lines" aria-hidden="true"></div>
         <div id="timeline-year-ruler" class="timeline-grid"></div>
-        <div id="timeline-lanes"></div>
+        <div id="timeline-tracks"></div>
       </div>
     </div>
     <div id="detail-panel" class="detail" aria-live="polite">
@@ -91,6 +112,7 @@
       <div id="active-detail-state" class="hidden">
         <div class="head">
           <div>
+            <img id="detail-logo" class="logo lg hidden" src="assets/logos/roar.webp" alt="" width="400" height="160" style="margin-bottom:16px"/>
             <span id="detail-badge" class="tag fill">Category</span>
             <h2 id="detail-title" class="h2" style="margin-top:16px">Role Title</h2>
             <h3 id="detail-org" class="label grey" style="margin-top:8px">Organization</h3>
@@ -134,17 +156,27 @@
     <div class="c-1-5">
       <p class="h3">Usama Rafid</p>
       <p class="small grey" style="margin-top:6px">© 2026 Usama Rafid. All rights reserved. Dhaka, Bangladesh.</p>
+      <p style="margin-top:20px"><button class="totop" id="totop" type="button">Back to top ↑</button></p>
     </div>
-    <ul class="c-6-7">
-      <li><a href="https://linkedin.com/in/usama-rafid" target="_blank" rel="noopener">LinkedIn</a></li>
-      <li><a href="https://web.facebook.com/usama.rafid.7/" target="_blank" rel="noopener">Facebook</a></li>
-      <li><a href="mailto:rafidusama@gmail.com?cc=usama.rafid@ulab.edu.bd">Email</a></li>
-      <li><a href="awards.html">Awards</a></li>
-      <li><a href="https://orcid.org/0009-0008-5743-5597" target="_blank" rel="noopener">ORCID</a></li>
-      <li><a href="https://www.researchgate.net/profile/Rafid-Usama" target="_blank" rel="noopener">ResearchGate</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><button class="totop" id="totop" type="button">Back to top ↑</button></li>
-    </ul>
+    <div class="c-6-7 fcols">
+      <ul>
+        <li><a href="https://linkedin.com/in/usama-rafid" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="mailto:rafidusama@gmail.com?cc=usama.rafid@ulab.edu.bd">Email</a></li>
+      </ul>
+      <ul>
+        <li><a href="https://scholar.google.com/citations?hl=en&user=lh10jWgAAAAJ" target="_blank" rel="noopener">Google Scholar</a></li>
+        <li><a href="https://orcid.org/0009-0008-5743-5597" target="_blank" rel="noopener">ORCID</a></li>
+        <li><a href="https://www.researchgate.net/profile/Rafid-Usama" target="_blank" rel="noopener">ResearchGate</a></li>
+      </ul>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="reportage.html">Reportage</a></li>
+        <li><a href="academic.html">Academic</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="awards.html">Awards</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
   </div>
 </footer>
 <script src="swiss.js?v=1"></script>
@@ -303,32 +335,54 @@ const TIMELINE_DATA = {
 
 const BASE = 2016, MIN_END = 2026, YEAR_W = 240;
 const TONES = { "bg-acad-color": "acad", "bg-ulab-color": "ulab", "bg-roar-color": "roar", "bg-tbs-color": "tbs", "bg-coastal-color": "coastal", "bg-bigd-color": "bigd", "bg-pib-color": "pib" };
-/* sy/sm = start year/month, ey/em = end year/month (null = present) */
+const LOGOS = { roar: "Roar Bangla", tbs: "The Business Standard", coastal: "Coastal Voices", bigd: "BRAC Institute of Governance and Development", pib: "Press Institute Bangladesh", ulab: "University of Liberal Arts Bangladesh" };
+const logoOf = k => k.indexOf("roar") === 0 ? "roar" : k.indexOf("tbs") === 0 ? "tbs" : (LOGOS[k] ? k : null);
+/* sy/sm = start, ey/em = end (null = present), lr = label row (2 or 3), ls = label width in months */
 const ITEMS = [
-  { k: "bss",         acad: true,  sy: 2019, sm: 1,  ey: 2023, em: 12, date: "Jan 2019 to Dec 2023", role: "BSS in Mass Communication & Journalism", org: "" },
-  { k: "mss",         acad: true,  sy: 2024, sm: 1,  ey: 2025, em: 6,  date: "Jan 2024 to Jun 2025", role: "MSS in Mass Communication & Journalism", org: "" },
-  { k: "roar-writer", sy: 2017, sm: 3,  ey: 2023, em: 6,  date: "Mar 2017 to Jun 2023", role: "Staff Writer", org: "Roar Bangla" },
-  { k: "roar-smm",    sy: 2017, sm: 4,  ey: 2022, em: 5,  date: "Apr 2017 to May 2022", role: "Social Media Manager", org: "Roar Bangla" },
-  { k: "tbs-trans",   sy: 2021, sm: 10, ey: 2023, em: 4,  date: "Oct 2021 to Apr 2023", role: "Translator & Content Writer", org: "Easel / TBS" },
-  { k: "tbs-sub",     sy: 2022, sm: 11, ey: 2023, em: 4,  date: "Nov 2022 to Apr 2023", role: "Sub-Editor", org: "TBS" },
-  { k: "tbs-writer",  sy: 2023, sm: 5,  ey: 2024, em: 2,  date: "May 2023 to Feb 2024", role: "Feature Writer", org: "TBS" },
-  { k: "coastal",     sy: 2024, sm: 3,  ey: 2024, em: 12, date: "Mar to Dec 2024", role: "Co-Founder", org: "Coastal Voices" },
-  { k: "bigd",        sy: 2024, sm: 9,  ey: 2024, em: 12, date: "Sep to Dec 2024", role: "Research Associate", org: "BIGD" },
-  { k: "pib",         sy: 2025, sm: 2,  ey: 2025, em: 8,  date: "Feb to Aug 2025", role: "Assistant Analyst", org: "PIB" },
-  { k: "ulab",        sy: 2025, sm: 9,  ey: null, em: null, date: "Sep 2025 to Present", role: "Lecturer", org: "ULAB" }
+  { k: "bss",         acad: true,  sy: 2019, sm: 1,  ey: 2023, em: 12, date: "Jan 2019 to Dec 2023", role: "BSS in Mass Communication & Journalism" },
+  { k: "mss",         acad: true,  sy: 2024, sm: 1,  ey: 2025, em: 6,  date: "Jan 2024 to Jun 2025", role: "MSS in Mass Communication & Journalism" },
+  { k: "roar-writer", sy: 2017, sm: 3,  ey: 2023, em: 6,  date: "Mar 2017 to Jun 2023", role: "Staff Writer", org: "Roar Bangla", lr: 2, ls: 18 },
+  { k: "roar-smm",    sy: 2017, sm: 4,  ey: 2022, em: 5,  date: "Apr 2017 to May 2022", role: "Social Media Manager", org: "Roar Bangla", lr: 3, ls: 18 },
+  { k: "tbs-trans",   sy: 2021, sm: 10, ey: 2023, em: 4,  date: "Oct 2021 to Apr 2023", role: "Translator & Content Writer", org: "Easel / TBS", lr: 2, ls: 13 },
+  { k: "tbs-sub",     sy: 2022, sm: 11, ey: 2023, em: 4,  date: "Nov 2022 to Apr 2023", role: "Sub-Editor", org: "TBS", lr: 3, ls: 8 },
+  { k: "tbs-writer",  sy: 2023, sm: 5,  ey: 2024, em: 2,  date: "May 2023 to Feb 2024", role: "Feature Writer", org: "TBS", lr: 2, ls: 10 },
+  { k: "coastal",     sy: 2024, sm: 3,  ey: 2024, em: 12, date: "Mar to Dec 2024", role: "Co-Founder", org: "Coastal Voices", lr: 2, ls: 8 },
+  { k: "bigd",        sy: 2024, sm: 9,  ey: 2024, em: 12, date: "Sep to Dec 2024", role: "Research Associate", org: "BIGD", lr: 3, ls: 8 },
+  { k: "pib",         sy: 2025, sm: 2,  ey: 2025, em: 8,  date: "Feb to Aug 2025", role: "Assistant Analyst", org: "PIB", lr: 2, ls: 7 },
+  { k: "ulab",        sy: 2025, sm: 9,  ey: null, em: null, date: "Sep 2025 to Present", role: "Lecturer", org: "ULAB", lr: 2, ls: 9 }
 ];
 const TITLES = { "roar-writer": "Roar Bangla: Staff Writer", "roar-smm": "Roar Bangla: Social Media Manager", "tbs-trans": "TBS: Translator and Content Writer", "tbs-sub": "TBS: Sub-Editor", "tbs-writer": "TBS: Feature Writer", "coastal": "Coastal Voices: Co-Founder", "bigd": "BIGD: Trainee Research Associate", "pib": "PIB: Assistant Analyst", "ulab": "ULAB: Lecturer" };
+
+function activeDuration(key, fallback) {
+  const it = ITEMS.find(i => i.k === key);
+  if (!it || it.ey !== null) return fallback;
+  const now = new Date();
+  const m = (now.getFullYear() - it.sy) * 12 + (now.getMonth() + 1 - it.sm) + 1;
+  const y = Math.floor(m / 12), r = m % 12;
+  const parts = [];
+  if (y) parts.push(y + (y === 1 ? " Year" : " Years"));
+  if (r) parts.push(r + (r === 1 ? " Month" : " Months"));
+  return "Active Appointment (" + (parts.join(" ") || "1 Month") + ")";
+}
 
 let lastKey = null;
 function selectTimelineItem(key) {
   const d = TIMELINE_DATA[key];
   if (!d) return;
-  if (lastKey) { const p = document.getElementById("item-" + lastKey); if (p) p.classList.remove("active"); }
+  if (lastKey) {
+    const p = document.getElementById("item-" + lastKey); if (p) p.classList.remove("active");
+    const pl = document.getElementById("label-" + lastKey); if (pl) pl.classList.remove("active");
+  }
   const cur = document.getElementById("item-" + key);
   if (cur) cur.classList.add("active");
+  const cl = document.getElementById("label-" + key);
+  if (cl) cl.classList.add("active");
   lastKey = key;
   document.getElementById("empty-detail-state").classList.add("hidden");
   document.getElementById("active-detail-state").classList.remove("hidden");
+  const lg = document.getElementById("detail-logo"), lk = logoOf(key);
+  if (lk) { lg.src = "assets/logos/" + lk + ".webp"; lg.alt = LOGOS[lk]; lg.classList.remove("hidden"); }
+  else { lg.alt = ""; lg.classList.add("hidden"); }
   const badge = document.getElementById("detail-badge");
   badge.textContent = d.category;
   const tn = TONES[d.colorClass] || "ulab";
@@ -337,13 +391,13 @@ function selectTimelineItem(key) {
   document.getElementById("detail-title").textContent = d.title;
   document.getElementById("detail-org").textContent = d.org;
   document.getElementById("detail-date").textContent = d.date;
-  document.getElementById("detail-duration").textContent = d.duration;
+  document.getElementById("detail-duration").textContent = activeDuration(key, d.duration);
   const ul = document.getElementById("detail-duties");
   ul.innerHTML = "";
   d.duties.forEach(t => { const li = document.createElement("li"); li.textContent = t; ul.appendChild(li); });
   const sk = document.getElementById("detail-skills");
   sk.innerHTML = "";
-  d.skills.forEach(t => { const s = document.createElement("span"); s.className = "tag"; s.textContent = t; sk.appendChild(s); });
+  d.skills.forEach(t => { const x = document.createElement("span"); x.className = "tag"; x.textContent = t; sk.appendChild(x); });
   if (window.innerWidth < 900) document.getElementById("detail-panel").scrollIntoView({ behavior: "smooth" });
 }
 
@@ -354,8 +408,7 @@ function buildTimeline() {
   const years = endYear - BASE + 1, cols = years * 12;
   const col = (y, m) => (y - BASE) * 12 + m;
   document.documentElement.style.setProperty("--timeline-columns", cols);
-  const canvas = document.getElementById("timeline-canvas");
-  canvas.style.width = (years * YEAR_W) + "px";
+  document.getElementById("timeline-canvas").style.width = (years * YEAR_W) + "px";
   const endLabel = endYear === MIN_END ? "2026+" : String(endYear);
   document.getElementById("timeline-range-label").textContent = "Drag or scroll horizontally to explore the full timeline tracks (" + BASE + " - " + endLabel + ")";
   let g = "", r = "";
@@ -368,40 +421,60 @@ function buildTimeline() {
   document.getElementById("timeline-grid-lines").innerHTML = g;
   document.getElementById("timeline-year-ruler").innerHTML = r;
 
-  const lanes = document.getElementById("timeline-lanes");
+  const tracks = document.getElementById("timeline-tracks");
   const mk = (tag, cls, css) => { const e = document.createElement(tag); if (cls) e.className = cls; if (css) e.style.cssText = css; return e; };
-  const laneTag = (text, dark) => {
-    const row = mk("div", "timeline-grid", "height:30px;align-items:center;margin-top:8px");
-    const t = mk("div", "track-tag", "grid-column:1 / span 14");
-    t.innerHTML = '<span class="tag' + (dark ? " fill" : "") + '">' + text + '</span>';
-    row.appendChild(t);
-    return row;
+  const track = (text, tagCls, rows) => {
+    const t = mk("div", "timeline-grid tl-track", "grid-template-rows:" + rows + ";align-items:start");
+    const tg = mk("div", "track-tag");
+    tg.innerHTML = '<span class="tag ' + tagCls + '">' + text + '</span>';
+    t.appendChild(tg);
+    return t;
   };
-  const addItem = (it) => {
+  const span = it => {
     const s = col(it.sy, it.sm);
     const e = it.ey === null ? col(endYear, endMonth) : col(it.ey, it.em);
-    const span = Math.max(1, e - s + 1);
-    const d = TIMELINE_DATA[it.k];
-    const color = "var(--t-" + (TONES[d.colorClass] || "ulab") + ")";
-    const lane = mk("div", "timeline-grid", "padding:8px 0;align-items:start;border-bottom:1px solid #d0d0d0");
-    {
-      const wrap = mk("button", "pro", "grid-column:" + s + " / " + (it.acad ? s + span : cols + 1) + ";grid-row:1;grid-template-columns:repeat(" + (it.acad ? span : cols - s + 1) + ",1fr)");
-      wrap.type = "button";
-      wrap.setAttribute("aria-label", (TITLES[it.k] || it.role) + ", " + it.date);
-      wrap.innerHTML = '<span class="pl"><b></b><i></i></span><span class="timeline-item pbar" id="item-' + it.k + '" style="grid-column:1 / span ' + span + '"></span>';
-      wrap.querySelector("b").textContent = it.role + ((it.org && it.org.trim()) ? " at " + it.org.trim() : "");
-      wrap.querySelector("i").textContent = it.date;
-      wrap.addEventListener("click", () => selectTimelineItem(it.k));
-      lane.appendChild(wrap);
-    }
-    return lane;
+    return { s: s, n: Math.max(1, e - s + 1) };
   };
-  lanes.appendChild(laneTag("Academic", false));
-  const acadLane = mk("div", "timeline-grid", "padding:1px 0 2px;align-items:start;border-bottom:1px solid #d0d0d0");
-  ITEMS.filter(i => i.acad).forEach(it => { const l = addItem(it); while (l.firstChild) acadLane.appendChild(l.firstChild); });
-  lanes.appendChild(acadLane);
-  lanes.appendChild(laneTag("Professional", true));
-  ITEMS.filter(i => !i.acad).forEach(it => lanes.appendChild(addItem(it)));
+
+  /* Academic: one row, bars carry their own text */
+  const ac = track("Academic", "redfill", "34px");
+  ITEMS.filter(i => i.acad).forEach(it => {
+    const p = span(it);
+    const b = mk("button", "timeline-item tl-acad", "grid-column:" + p.s + " / span " + p.n + ";grid-row:1");
+    b.type = "button"; b.id = "item-" + it.k;
+    b.innerHTML = '<small></small><span class="t"></span>';
+    b.querySelector("small").textContent = it.date;
+    b.querySelector(".t").textContent = it.role;
+    b.addEventListener("click", () => selectTimelineItem(it.k));
+    ac.appendChild(b);
+  });
+  tracks.appendChild(ac);
+
+  /* Professional: every bar shares one row, labels sit below in two rows */
+  const pr = track("Professional", "fill", "34px 50px 50px");
+  const pros = ITEMS.filter(i => !i.acad);
+  pros.forEach(it => {
+    const p = span(it);
+    const b = mk("button", "timeline-item tl-pro", "grid-column:" + p.s + " / span " + p.n + ";grid-row:1");
+    b.type = "button"; b.id = "item-" + it.k;
+    b.title = TITLES[it.k] || it.role;
+    b.setAttribute("aria-label", (TITLES[it.k] || it.role) + ", " + it.date);
+    b.addEventListener("click", () => selectTimelineItem(it.k));
+    pr.appendChild(b);
+  });
+  pros.forEach(it => {
+    const p = span(it);
+    const w = Math.min(it.ls, cols - p.s + 1);
+    const l = mk("button", "timeline-label", "grid-column:" + p.s + " / span " + (it.ulab || it.ey === null ? p.n : w) + ";grid-row:" + it.lr);
+    l.type = "button"; l.id = "label-" + it.k;
+    l.innerHTML = '<span class="d"></span><span class="r"></span><span class="o"></span>';
+    l.querySelector(".d").textContent = it.date;
+    l.querySelector(".r").textContent = it.role;
+    l.querySelector(".o").textContent = it.org;
+    l.addEventListener("click", () => selectTimelineItem(it.k));
+    pr.appendChild(l);
+  });
+  tracks.appendChild(pr);
 }
 buildTimeline();
 </script>
