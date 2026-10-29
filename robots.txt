@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /assets/_originals/
+Disallow: /raw_stitch/
+
+Sitemap: https://usamarafid.com/sitemap.xml
