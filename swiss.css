@@ -438,3 +438,12 @@ a.card:hover .cover{ opacity:.9; }
 
 /* Homepage hero: portrait and roles at 85% width, right aligned on desktop only */
 @media(min-width:900px){ .hero .c-9-4 .portrait,.hero .c-9-4 .roles{ width:85%; margin-left:auto; } }
+
+/* Homepage name: 95% of the base display size on desktop */
+.hero .display.home-name{ font-size:clamp(3.23rem,11.875vw,10.45rem); }
+/* Mobile: first screen holds the name, buttons and logos; the portrait starts just below the fold */
+@media(max-width:899px){
+  .hero .c-1-8{ min-height:calc(100vh - 56px - 48px); min-height:calc(100svh - 56px - 48px); display:flex; flex-direction:column; }
+  .hero .display.home-name{ font-size:clamp(4rem,24vw,7rem); }
+  .hero .affil-wrap{ margin-top:auto; padding-top:32px; }
+}
