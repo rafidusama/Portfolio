@@ -443,7 +443,8 @@ a.card:hover .cover{ opacity:.9; }
 .hero .display.home-name{ font-size:clamp(3.23rem,11.875vw,10.45rem); }
 /* Mobile: first screen holds the name, buttons and logos; the portrait starts just below the fold */
 @media(max-width:899px){
-  .hero .c-1-8{ min-height:calc(100vh - 56px - 48px); min-height:calc(100svh - 56px - 48px); display:flex; flex-direction:column; }
-  .hero .display.home-name{ font-size:clamp(4rem,24vw,7rem); }
-  .hero .affil-wrap{ margin-top:auto; padding-top:32px; }
+  .hero .c-1-8{ min-height:calc(100vh - 56px - 48px); min-height:calc(100svh - 56px - 48px); display:flex; flex-direction:column; justify-content:space-between; }
+  .hero .display.home-name{ font-size:clamp(4rem,27vw,8rem); margin-bottom:0; }
+  .hero .c-1-8 .hero-sub{ margin-bottom:0; }
+  .hero .affil-wrap{ margin-top:0; padding-bottom:8px; }
 }
