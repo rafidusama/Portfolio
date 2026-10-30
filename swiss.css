@@ -435,3 +435,6 @@ a.card:hover .cover{ opacity:.9; }
 :root[data-theme="dark"] .affil a:hover img,:root[data-theme="dark"] .affil a:focus-visible img{ filter:none; opacity:1; }
 @media(hover:none){ .affil img{ opacity:.8; } }
 @media (prefers-reduced-motion:reduce){ .affil img{ transition:none; } }
+
+/* Homepage hero: portrait and roles at 85% width, right aligned on desktop only */
+@media(min-width:900px){ .hero .c-9-4 .portrait,.hero .c-9-4 .roles{ width:85%; margin-left:auto; } }
