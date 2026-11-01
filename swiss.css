@@ -448,3 +448,13 @@ a.card:hover .cover{ opacity:.9; }
   .hero .c-1-8 .hero-sub{ margin-bottom:0; }
   .hero .affil-wrap{ margin-top:0; padding-bottom:8px; }
 }
+
+/* ---------- Project cover motifs ---------- */
+.cover{ position:relative; overflow:hidden; }
+.cover .motif{ position:absolute; inset:0; width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:1.5; opacity:.22; pointer-events:none; }
+.cover .motif *{ vector-effect:non-scaling-stroke; }
+.cover > .label,.cover > strong{ position:relative; z-index:1; }
+.cover.white .motif{ opacity:.35; }
+.tag .dot{ display:inline-block; width:6px; height:6px; border-radius:50%; background:currentColor; margin-right:6px; vertical-align:middle; animation:dotpulse 2.4s ease-in-out infinite; }
+@keyframes dotpulse{ 0%,100%{ opacity:1; } 50%{ opacity:.3; } }
+@media(prefers-reduced-motion:reduce){ .tag .dot{ animation:none; } }
