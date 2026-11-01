@@ -23,7 +23,7 @@
 <link rel="icon" type="image/png" href="favicon.png"/>
 <link rel="alternate icon" href="favicon.ico"/>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
-<link rel="stylesheet" href="swiss.css?v=2"/>
+<link rel="stylesheet" href="swiss.css?v=17"/>
 <style id="about-streamline">
 :root{ --tint:rgba(0,0,0,.1); }
 :root[data-theme="dark"]{ --tint:rgba(255,255,255,.14); }
@@ -113,7 +113,7 @@
       <div id="active-detail-state" class="hidden">
         <div class="head">
           <div>
-            <img id="detail-logo" class="logo lg hidden" src="assets/logos/roar.webp" alt="" width="400" height="160" style="margin-bottom:16px"/>
+            <img id="detail-logo" class="logo lg hidden" src="assets/logos/affil-roar.webp" alt="" width="167" height="237" style="margin-bottom:16px"/>
             <span id="detail-badge" class="tag fill">Category</span>
             <h2 id="detail-title" class="h2" style="margin-top:16px">Role Title</h2>
             <h3 id="detail-org" class="label grey" style="margin-top:8px">Organization</h3>
@@ -337,8 +337,8 @@ const TIMELINE_DATA = {
 
 const BASE = 2016, MIN_END = 2026, YEAR_W = 240;
 const TONES = { "bg-acad-color": "acad", "bg-ulab-color": "ulab", "bg-roar-color": "roar", "bg-tbs-color": "tbs", "bg-coastal-color": "coastal", "bg-bigd-color": "bigd", "bg-pib-color": "pib" };
-const LOGOS = { roar: "Roar Bangla", tbs: "The Business Standard", coastal: "Coastal Voices", bigd: "BRAC Institute of Governance and Development", pib: "Press Institute Bangladesh", ulab: "University of Liberal Arts Bangladesh" };
-const logoOf = k => k.indexOf("roar") === 0 ? "roar" : k.indexOf("tbs") === 0 ? "tbs" : (LOGOS[k] ? k : null);
+const LOGOS = { du: "University of Dhaka", roar: "Roar Bangla", tbs: "The Business Standard", coastal: "Coastal Voices", bigd: "BRAC Institute of Governance and Development", pib: "Press Institute Bangladesh", ulab: "University of Liberal Arts Bangladesh" };
+const logoOf = k => (k === "bss" || k === "mss") ? "du" : k.indexOf("roar") === 0 ? "roar" : k.indexOf("tbs") === 0 ? "tbs" : (LOGOS[k] ? k : null);
 /* sy/sm = start, ey/em = end (null = present), lr = label row (2 or 3), ls = label width in months */
 const ITEMS = [
   { k: "bss",         acad: true,  sy: 2019, sm: 1,  ey: 2023, em: 12, date: "Jan 2019 to Dec 2023", role: "BSS in Mass Communication & Journalism" },
@@ -383,7 +383,7 @@ function selectTimelineItem(key) {
   document.getElementById("empty-detail-state").classList.add("hidden");
   document.getElementById("active-detail-state").classList.remove("hidden");
   const lg = document.getElementById("detail-logo"), lk = logoOf(key);
-  if (lk) { lg.src = "assets/logos/" + lk + ".webp"; lg.alt = LOGOS[lk]; lg.classList.remove("hidden"); }
+  if (lk) { lg.src = "assets/logos/affil-" + lk + ".webp"; lg.alt = LOGOS[lk]; lg.classList.remove("hidden"); }
   else { lg.alt = ""; lg.classList.add("hidden"); }
   const badge = document.getElementById("detail-badge");
   badge.textContent = d.category;
