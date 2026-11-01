@@ -160,6 +160,9 @@ const IMG = {
             { title: "Rise of the Newsfluencers", outlet: "The Business Standard", venue: "The Business Standard", type: "Op-Ed", theme: "Media and Journalism", date: "2025-07-17", img: "assets/thumbs/9cc29c3830.webp",
               url: "https://www.tbsnews.net/thoughts/rise-newsfluencers-1190691",
               blurb: "On how creator-led political commentary and platform-native news personalities are reshaping public trust and audience attention." },
+            { title: "যেভাবে সহজেই যাচাই করা যেত আইপিডির ভুতুড়ে লেখকদের", outlet: "Dismislab", venue: "Dismislab", type: "Bangla Explainer", theme: "Media and Journalism", date: "2025-04-06", img: "assets/thumbs/verifying-ghost-writers.webp",
+              url: "https://dismislab.com/media-literacy/verifying-ghost-writers/",
+              blurb: "On how simple checks, such as Google search operators, reverse image search, and an AI image detector, could have exposed the fictitious authors of International Policy Digest before their misinformation spread through local media." },
             // --- 2024 ---
             { title: "Living with the River: Manta Communities' Battle Against a Changing Climate", outlet: "Coastal Voices", venue: "Coastal Voices", type: "Feature", theme: "Environment and Climate", date: "2024-05-15", img: IMG.river,
               url: "https://www.coastalvoicesbd.org/story/living-with-the-river-manta-communities-battle-against-a-changing-climate",
@@ -276,7 +279,7 @@ const unique = a => [...new Set(a)];
 function fillSelect(sel, values, allLabel) {
   sel.innerHTML = '<option value="all">' + allLabel + "</option>" + values.map(v => '<option value="' + esc(v) + '">' + esc(v) + "</option>").join("");
 }
-const OUTLET_ORDER = ["The Daily Star", "The Business Standard", "Roar Bangla", "Coastal Voices", "Times of Bangladesh"];
+const OUTLET_ORDER = ["The Daily Star", "The Business Standard", "Roar Bangla", "Coastal Voices", "Times of Bangladesh", "Dismislab"];
 fillSelect(els.outlet, OUTLET_ORDER.filter(o => WORKS.some(w => w.outlet === o)), "All outlets");
 fillSelect(els.theme, unique(WORKS.map(w => w.theme)).sort(), "All themes");
 fillSelect(els.year, unique(WORKS.map(w => w.date.slice(0, 4))).sort((a, b) => b - a), "All years");
