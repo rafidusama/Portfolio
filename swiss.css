@@ -458,7 +458,3 @@ a.card:hover .cover{ opacity:.9; }
 .tag .dot{ display:inline-block; width:6px; height:6px; border-radius:50%; background:currentColor; margin-right:6px; vertical-align:middle; animation:dotpulse 2.4s ease-in-out infinite; }
 @keyframes dotpulse{ 0%,100%{ opacity:1; } 50%{ opacity:.3; } }
 @media(prefers-reduced-motion:reduce){ .tag .dot{ animation:none; } }
-
-/* Timeline detail logo: homepage style, similar visual size */
-.detail .logo{ display:block; height:88px; width:auto; max-width:200px; object-fit:contain; object-position:left center; filter:grayscale(1); opacity:.75; }
-:root[data-theme="dark"] .detail .logo{ filter:grayscale(1) invert(1); opacity:.7; }

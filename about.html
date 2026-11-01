@@ -27,8 +27,12 @@
 <style id="about-streamline">
 :root{ --tint:rgba(0,0,0,.1); }
 :root[data-theme="dark"]{ --tint:rgba(255,255,255,.14); }
-.logo{ display:block; width:120px; height:48px; background:#fff; border:1px solid var(--black); object-fit:contain; }
-.logo.lg{ width:160px; height:64px; }
+.logo{ display:block; width:auto; height:48px; max-width:120px; background:none; border:0; object-fit:contain; object-position:left center; filter:grayscale(1); opacity:.5; transition:filter .25s ease, opacity .25s ease; }
+.logo:hover{ filter:none; opacity:1; }
+:root[data-theme="dark"] .logo{ filter:grayscale(1) invert(1); opacity:.55; }
+:root[data-theme="dark"] .logo:hover{ filter:none; opacity:1; }
+@media(hover:none){ .logo{ opacity:.8; } }
+.logo.lg{ height:64px; max-width:160px; }
 .legend .logos{ flex:1 0 100%; display:flex; flex-wrap:wrap; gap:8px; padding-top:6px; }
 #timeline-tracks{ display:flex; flex-direction:column; gap:10px; }
 #timeline-tracks .tl-track{ position:relative; z-index:2; padding:2px 0 8px; border-bottom:1px solid rgba(0,0,0,.12); }
